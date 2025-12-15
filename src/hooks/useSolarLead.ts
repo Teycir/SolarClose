@@ -77,6 +77,7 @@ export function useSolarLead(leadId: string) {
           };
           if (isMounted) {
             setData(newLead);
+            await db.put(STORE_NAME, newLead);
           }
         }
       } catch (error) {
@@ -106,7 +107,7 @@ export function useSolarLead(leadId: string) {
       await db.put(STORE_NAME, leadData);
       setSaveStatus('saved');
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
-      statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 1000);
+      statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 2000);
     } catch (error) {
       console.error('Failed to save lead:', error);
       setSaveStatus('error');

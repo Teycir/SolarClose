@@ -25,8 +25,8 @@ export default function Home() {
         console.error('Failed to load leads:', error);
       }
     };
-    loadLeads();
-  }, [currentLeadId, saveStatus]);
+    if (showLeads) loadLeads();
+  }, [showLeads, currentLeadId, saveStatus]);
 
   const handleNewLead = () => {
     if (data?.clientName && !confirm('Create new lead? Current lead will be saved.')) return;
