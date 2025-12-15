@@ -55,8 +55,9 @@ export default function Home() {
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
               aria-label="Create new lead"
             >
-              ➕ New Lead
+              ➕ {getTranslation((data.language || 'en') as Language, 'newLead')}
             </button>
+            <ExportButton data={data} />
             <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
               {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
               {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
@@ -65,19 +66,13 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="flex justify-center mb-6">
-          <ExportButton data={data} />
+        <div className="mb-6">
+          <ResultsCard data={data} />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-          <div className="lg:col-span-2 bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4">{getTranslation((data.language || 'en') as Language, 'calculator')}</h2>
-            <CalculatorForm data={data} onUpdate={setData} />
-          </div>
-
-          <div className="space-y-4 sm:space-y-6">
-            <ResultsCard data={data} />
-          </div>
+        <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
+          <h2 className="text-lg sm:text-xl font-semibold mb-4">{getTranslation((data.language || 'en') as Language, 'calculator')}</h2>
+          <CalculatorForm data={data} onUpdate={setData} />
         </div>
       </div>
     </main>
