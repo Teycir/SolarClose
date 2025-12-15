@@ -1,0 +1,12 @@
+node_modules
+.next
+.open-next
+out
+dist
+*.log
+.env*.local
+.DS_Store
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
