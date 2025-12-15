@@ -17,7 +17,7 @@ export default function Home() {
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
-  const { data, setData, saveStatus } = useSolarLead(currentLeadId);
+  const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
   const t = (key: string) => getTranslation((data?.language || 'en') as Language, key as any);
   const isDefaultLead = currentLeadId === 'default-lead';
@@ -123,6 +123,13 @@ export default function Home() {
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
             >
               {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}`}
+            </button>
+            <button
+              onClick={saveLead}
+              disabled={!data?.clientName.trim() || isDefaultLead}
+              className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              💾 Save Lead
             </button>
             <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
               {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}

@@ -155,9 +155,15 @@ export function useSolarLead(leadId: string) {
     };
   }, []);
 
+  const saveLead = useCallback(async () => {
+    if (!data) return;
+    await saveToIndexedDB(data);
+  }, [data, saveToIndexedDB]);
+
   return {
     data,
     setData: updateData,
     saveStatus,
+    saveLead,
   };
 }

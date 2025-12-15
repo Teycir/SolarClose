@@ -57,10 +57,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text(t('proposal'), 20, 45);
-    
-    doc.setFontSize(10);
-    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, headerY + 3);
+    doc.text(`${t('proposal')} - ${formatDate(data.date, lang)}`, 20, 45);
     
     const startY = headerY + 11;
     doc.setFontSize(16);
@@ -179,11 +176,11 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
-    doc.text('INTERNAL SALES SHEET', 20, 20);
+    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, 20);
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    doc.text(`${t('date')}: ${formatDate(data.date, lang)} | Lead ID: ${data.id.slice(0, 8)}`, 20, 30);
+    doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 30);
     
     let y = 45;
     doc.setFontSize(14);
