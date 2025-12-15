@@ -96,15 +96,17 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <textarea
           value={data.productDescription}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"]/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '').substring(0, 500);
             onUpdate({ productDescription: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
           rows={3}
+          maxLength={500}
           required
           aria-required="true"
         />
+        <div className="text-xs text-muted-foreground mt-1">{data.productDescription.length}/500</div>
         <ProductDescriptionManager
           currentDescription={data.productDescription}
           onSelect={(desc) => onUpdate({ productDescription: desc })}

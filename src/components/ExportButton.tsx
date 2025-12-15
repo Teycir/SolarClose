@@ -189,18 +189,18 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(100, 100, 100);
     doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 38);
     
-    let y = 45;
+    let y = 50;
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text(t('clientName'), 20, y);
     
     y += 10;
     doc.setFontSize(10);
-    doc.text(`${t('clientName')}: ${data.clientName}`, 20, y);
-    y += 7;
-    doc.text(`${t('address')}: ${data.address}`, 20, y);
-    if (data.phone) { y += 7; doc.text(`${t('phone')}: ${data.phone}`, 20, y); }
-    if (data.email) { y += 7; doc.text(`${t('email')}: ${data.email}`, 20, y); }
+    doc.text(data.clientName, 20, y);
+    y += 6;
+    doc.text(data.address, 20, y);
+    if (data.phone) { y += 6; doc.text(data.phone, 20, y); }
+    if (data.email) { y += 6; doc.text(data.email, 20, y); }
     
     y += 12;
     doc.setFontSize(14);
@@ -221,44 +221,49 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     y += 5;
     doc.setFontSize(14);
-    doc.text(t('systemSize'), 20, y);
+    doc.text('System Details', 20, y);
     y += 10;
     doc.setFontSize(10);
-    doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y); y += 7;
-    doc.text(`${t('systemCost')}: ${getCurrencySymbol()}${formatNumber(data.systemCost)}`, 20, y); y += 7;
-    doc.text(`${t('currentMonthlyBill')}: ${getCurrencySymbol()}${data.currentMonthlyBill}`, 20, y); y += 7;
-    doc.text(`${t('twentyFiveYearSavings')}: ${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 7;
-    doc.text(`${t('breakEvenYear')}: ${t('year')} ${data.breakEvenYear}`, 20, y); y += 7;
-    if (data.financingOption) { doc.text(`${t('financingOption')}: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 7; }
-    if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 7; }
-    if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 7; }
+    doc.text(`System Size: ${data.systemSizeKw} kW`, 20, y); y += 6;
+    doc.text(`System Cost: ${getCurrencySymbol()}${formatNumber(data.systemCost)}`, 20, y); y += 6;
+    doc.text(`Current Monthly Bill: ${getCurrencySymbol()}${data.currentMonthlyBill}`, 20, y); y += 6;
+    doc.text(`25-Year Savings: ${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 6;
+    doc.text(`Break-Even Year: Year ${data.breakEvenYear}`, 20, y); y += 6;
+    if (data.financingOption) { doc.text(`Financing: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 6; }
+    if (data.utilityProvider) { doc.text(`Utility Provider: ${data.utilityProvider}`, 20, y); y += 6; }
+    if (data.avgKwhPerMonth) { doc.text(`Avg kWh/Month: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
     
-    if (data.productDescription && y < 220) {
+    if (data.productDescription && y < 210) {
       y += 5;
       doc.setFontSize(14);
       doc.text('Product Description', 20, y);
-      y += 10;
-      doc.setFontSize(10);
+      y += 8;
+      doc.setFontSize(9);
       const descLines = doc.splitTextToSize(data.productDescription, 170);
-      const maxDescLines = Math.floor((250 - y) / 5);
+      const maxDescLines = Math.floor((235 - y) / 4.5);
       doc.text(descLines.slice(0, maxDescLines), 20, y);
-      y += (Math.min(descLines.length, maxDescLines) * 5) + 5;
+      y += (Math.min(descLines.length, maxDescLines) * 4.5) + 5;
     }
     
-    if (data.notes && y < 250) {
+    if (data.notes && y < 235) {
       y += 5;
       doc.setFontSize(14);
-      doc.text(t('notes'), 20, y);
-      y += 10;
-      doc.setFontSize(10);
+      doc.text('Notes', 20, y);
+      y += 8;
+      doc.setFontSize(9);
       const lines = doc.splitTextToSize(data.notes, 170);
-      const maxLines = Math.floor((260 - y) / 5);
+      const maxLines = Math.floor((260 - y) / 4.5);
       doc.text(lines.slice(0, maxLines), 20, y);
     }
     
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.5);
+    doc.line(20, 270, 190, 270);
+    
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text('CONFIDENTIAL - Internal Use Only', 105, 280, { align: 'center' });
+    doc.text('CONFIDENTIAL - Internal Use Only', 105, 276, { align: 'center' });
+    doc.text(data.companyName, 105, 281, { align: 'center' });
     
       doc.save(`${sanitizeFilename(data.clientName)}-${formatDateForFilename(data.date, lang)}-SELLER-Internal.pdf`);
     } catch (error) {
