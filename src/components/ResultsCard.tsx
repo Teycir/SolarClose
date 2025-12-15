@@ -38,14 +38,18 @@ export function ResultsCard({ data }: ResultsCardProps) {
 
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Utility (25 years)</span>
-          <span className="text-destructive font-medium">
-            {formatCurrency(data.currentMonthlyBill * 12 * 25 * Math.pow(1.04, 12.5))}
-          </span>
+          <span className="text-muted-foreground">System Size</span>
+          <span className="font-medium">{data.systemSizeKw} kW</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Solar (25 years)</span>
-          <span className="text-primary font-medium">{formatCurrency(data.systemCost)}</span>
+          <span className="text-muted-foreground">Est. Annual Production</span>
+          <span className="font-medium">{Math.round(data.systemSizeKw * 5 * 365).toLocaleString()} kWh</span>
+        </div>
+        <div className="flex justify-between text-sm">
+          <span className="text-muted-foreground">Monthly Bill Offset</span>
+          <span className="font-medium">
+            {Math.round(Math.min((data.systemSizeKw * 5 * 365) / ((data.currentMonthlyBill / 0.15) * 12) * 100, 100))}%
+          </span>
         </div>
       </div>
 
