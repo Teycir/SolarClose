@@ -1,12 +1,19 @@
 'use client';
 
+import { useState } from 'react';
 import { useSolarLead } from '@/hooks/useSolarLead';
 import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
 
 export default function Home() {
-  const { data, setData, saveStatus } = useSolarLead('default-lead');
+  const [currentLeadId, setCurrentLeadId] = useState('default-lead');
+  const { data, setData, saveStatus } = useSolarLead(currentLeadId);
+
+  const handleNewLead = () => {
+    const newId = `lead-${Date.now()}`;
+    setCurrentLeadId(newId);
+  };
 
   if (!data) {
     return (
@@ -19,12 +26,20 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-4xl font-bold text-primary mb-2 sm:mb-0">SolarClose</h1>
-          <div className="text-xs sm:text-sm text-muted-foreground">
-            {saveStatus === 'saving' && '💾 Saving...'}
-            {saveStatus === 'saved' && '✓ Saved'}
-            {saveStatus === 'error' && '⚠ Error'}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-3">
+          <h1 className="text-2xl sm:text-4xl font-bold text-primary">SolarClose</h1>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleNewLead}
+              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity text-sm"
+            >
+              ➕ New Lead
+            </button>
+            <div className="text-xs sm:text-sm text-muted-foreground">
+              {saveStatus === 'saving' && '💾 Saving...'}
+              {saveStatus === 'saved' && '✓ Saved'}
+              {saveStatus === 'error' && '⚠ Error'}
+            </div>
           </div>
         </div>
 
