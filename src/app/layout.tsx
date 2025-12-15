@@ -27,7 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={inter.className}>
+      <body className={`${inter.className} animate-gradient-shift`} style={{
+        background: 'linear-gradient(-45deg, #FFF8E1, #FFE082, #FFC107, #FF8F00, #E65100, #FFC107, #FFE082)',
+        backgroundSize: '400% 400%'
+      }}>
         {children}
       </body>
     </html>
