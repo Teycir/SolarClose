@@ -80,7 +80,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4">Calculator</h2>
+            <h2 className="text-lg sm:text-xl font-semibold mb-4">{getTranslation((data.language || 'en') as Language, 'calculator')}</h2>
             <CalculatorForm data={data} onUpdate={setData} />
           </div>
 

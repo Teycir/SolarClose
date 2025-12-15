@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import type { SolarLead, Currency, Language } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
+import { getTranslation } from '@/lib/translations';
 
 interface CalculatorFormProps {
   data: SolarLead;
@@ -10,6 +11,9 @@ interface CalculatorFormProps {
 }
 
 export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
+  const lang = (data.language || 'en') as Language;
+  const t = (key: string) => getTranslation(lang, key as any);
+
   useEffect(() => {
     const results = calculateSolarSavings({
       currentMonthlyBill: data.currentMonthlyBill,
@@ -32,7 +36,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div>
-        <label className="block text-sm font-medium mb-2">Date</label>
+        <label className="block text-sm font-medium mb-2">{t('date')}</label>
         <input
           type="date"
           value={data.date}
@@ -42,7 +46,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Client Name *</label>
+        <label className="block text-sm font-medium mb-2">{t('clientName')} *</label>
         <input
           type="text"
           value={data.clientName}
@@ -55,7 +59,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Address *</label>
+        <label className="block text-sm font-medium mb-2">{t('address')} *</label>
         <input
           type="text"
           value={data.address}
@@ -68,7 +72,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Company Name</label>
+        <label className="block text-sm font-medium mb-2">{t('companyName')}</label>
         <input
           type="text"
           value={data.companyName}
@@ -88,7 +92,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Currency</label>
+          <label className="block text-sm font-medium mb-2">{t('currency')}</label>
           <select
             value={data.currency || 'USD'}
             onChange={(e) => onUpdate({ currency: e.target.value as Currency })}
@@ -100,7 +104,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Language</label>
+          <label className="block text-sm font-medium mb-2">{t('language')}</label>
           <select
             value={data.language || 'en'}
             onChange={(e) => onUpdate({ language: e.target.value as Language })}
@@ -117,7 +121,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('phone')} ({t('optional')})</label>
           <input
             type="tel"
             value={data.phone || ''}
@@ -130,7 +134,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Email (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('email')} ({t('optional')})</label>
           <input
             type="email"
             value={data.email || ''}
@@ -144,7 +148,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Sales Rep (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('salesRep')} ({t('optional')})</label>
           <input
             type="text"
             value={data.salesRep || ''}
@@ -162,7 +166,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Lead Status (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('leadStatus')} ({t('optional')})</label>
           <select
             value={data.leadStatus || ''}
             onChange={(e) => onUpdate({ leadStatus: e.target.value })}
@@ -181,7 +185,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Property Type (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('propertyType')} ({t('optional')})</label>
           <select
             value={data.propertyType || ''}
             onChange={(e) => onUpdate({ propertyType: e.target.value })}
@@ -193,7 +197,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Financing Option (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('financingOption')} ({t('optional')})</label>
           <select
             value={data.financingOption || ''}
             onChange={(e) => onUpdate({ financingOption: e.target.value })}
@@ -210,7 +214,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Roof Type (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('roofType')} ({t('optional')})</label>
           <select
             value={data.roofType || ''}
             onChange={(e) => onUpdate({ roofType: e.target.value })}
@@ -224,7 +228,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           </select>
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Roof Condition (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('roofCondition')} ({t('optional')})</label>
           <select
             value={data.roofCondition || ''}
             onChange={(e) => onUpdate({ roofCondition: e.target.value })}
@@ -241,7 +245,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">Utility Provider (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('utilityProvider')} ({t('optional')})</label>
           <input
             type="text"
             value={data.utilityProvider || ''}
@@ -251,7 +255,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">Avg kWh/Month (Optional)</label>
+          <label className="block text-sm font-medium mb-2">{t('avgKwhPerMonth')} ({t('optional')})</label>
           <input
             type="number"
             value={data.avgKwhPerMonth || ''}
@@ -267,7 +271,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Notes (Optional)</label>
+        <label className="block text-sm font-medium mb-2">{t('notes')} ({t('optional')})</label>
         <textarea
           value={data.notes || ''}
           onChange={(e) => onUpdate({ notes: e.target.value })}
@@ -279,7 +283,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Current Monthly Bill: ${data.currentMonthlyBill}
+          {t('currentMonthlyBill')}: ${data.currentMonthlyBill}
         </label>
         <input
           type="range"
@@ -294,7 +298,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Yearly Inflation Rate: {data.yearlyInflationRate}%
+          {t('yearlyInflationRate')}: {data.yearlyInflationRate}%
         </label>
         <input
           type="range"
@@ -309,7 +313,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          System Size: {data.systemSizeKw} kW
+          {t('systemSize')}: {data.systemSizeKw} kW
         </label>
         <input
           type="range"
@@ -324,7 +328,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          System Cost: ${data.systemCost.toLocaleString()}
+          {t('systemCost')}: ${data.systemCost.toLocaleString()}
         </label>
         <input
           type="range"
@@ -339,7 +343,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Electricity Rate: ${data.electricityRate}/kWh
+          {t('electricityRate')}: ${data.electricityRate}/kWh
         </label>
         <input
           type="range"
@@ -354,7 +358,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Sun Hours/Day: {data.sunHoursPerDay}
+          {t('sunHoursPerDay')}: {data.sunHoursPerDay}
         </label>
         <input
           type="range"
@@ -369,7 +373,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          Federal Tax Credit: {data.federalTaxCredit}%
+          {t('federalTaxCredit')}: {data.federalTaxCredit}%
         </label>
         <input
           type="range"
@@ -384,7 +388,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          State Incentive: ${data.stateIncentive.toLocaleString()}
+          {t('stateIncentive')}: ${data.stateIncentive.toLocaleString()}
         </label>
         <input
           type="range"
