@@ -52,6 +52,18 @@ export function useSolarLead(leadId: string) {
           } catch (e) {
             console.warn('localStorage unavailable');
           }
+          const { calculateSolarSavings } = await import('@/lib/calculations');
+          const results = calculateSolarSavings({
+            currentMonthlyBill: 250,
+            yearlyInflationRate: 4,
+            systemCost: 25000,
+            systemSizeKw: 8.5,
+            electricityRate: 0.15,
+            sunHoursPerDay: 5,
+            federalTaxCreditPercent: 30,
+            stateIncentiveDollars: 1000,
+          });
+          
           const newLead: SolarLead = {
             id: leadId,
             createdAt: Date.now(),
@@ -71,8 +83,8 @@ export function useSolarLead(leadId: string) {
             sunHoursPerDay: 5,
             federalTaxCredit: 30,
             stateIncentive: 1000,
-            twentyFiveYearSavings: 0,
-            breakEvenYear: 0,
+            twentyFiveYearSavings: results.twentyFiveYearSavings,
+            breakEvenYear: results.breakEvenYear,
             isSynced: false,
           };
           if (isMounted) {
