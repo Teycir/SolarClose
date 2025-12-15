@@ -146,16 +146,15 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(100, 100, 100);
     doc.text(`* Savings calculated with ${data.yearlyInflationRate}% annual utility rate increase`, 20, y);
     doc.setTextColor(0, 0, 0);
-    y += 6;
+    y += 10;
     
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    const terms = [
-      'This proposal is valid for 30 days.',
-      'Final pricing subject to site inspection.',
-      'Installation timeline: 4-8 weeks after approval.'
-    ];
-    doc.text(terms, 20, y);
+    if (data.proposalConditions && y < 250) {
+      doc.setFontSize(10);
+      doc.setTextColor(100, 100, 100);
+      const conditionLines = doc.splitTextToSize(data.proposalConditions, 170);
+      doc.text(conditionLines, 20, y);
+      y += (conditionLines.length * 5);
+    }
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
@@ -176,11 +175,15 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
-    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, 20);
+    doc.text(data.companyName, 20, 20);
+    
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, 30);
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 30);
+    doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 38);
     
     let y = 45;
     doc.setFontSize(14);

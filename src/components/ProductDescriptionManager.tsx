@@ -19,6 +19,7 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
   const [descriptions, setDescriptions] = useState<ProductDescription[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   useEffect(() => {
     loadDescriptions();
@@ -54,6 +55,8 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
       };
       await db.add('product-descriptions', newDesc);
       await loadDescriptions();
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 2000);
     } catch (error) {
       console.error('Failed to save description:', error);
     }
@@ -85,35 +88,36 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
 
   return (
     <div className="space-y-2">
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <button
           type="button"
           onClick={saveCurrentDescription}
           disabled={!currentDescription.trim()}
           className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
         >
-          💾 Save Template
+          💾 Save
         </button>
+        {saveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
         <button
           type="button"
           onClick={() => setShowList(!showList)}
           className="text-xs bg-secondary px-3 py-1 rounded hover:opacity-90"
         >
-          {showList ? '✕ Hide' : `📋 Templates (${descriptions.length})`}
+          {showList ? '✕ Hide' : `📋 Saved (${descriptions.length})`}
         </button>
       </div>
 
       {showList && descriptions.length > 0 && (
         <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-60 overflow-y-auto">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-semibold">Saved Templates</span>
+            <span className="text-xs font-semibold">Saved</span>
             <button
               type="button"
               onClick={() => {
                 setConfirmDialog({
                   isOpen: true,
-                  title: 'Clear All Templates',
-                  message: 'This will permanently delete all product description templates. This action cannot be undone!',
+                  title: 'Clear All',
+                  message: 'Delete all saved product descriptions?',
                   onConfirm: clearAllDescriptions
                 });
               }}

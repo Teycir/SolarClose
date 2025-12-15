@@ -30,6 +30,7 @@ export interface SolarLead {
   salesRep?: string;
   leadStatus?: string;
   notes?: string;
+  proposalConditions?: string;
   
   // Utility Info (Optional)
   utilityProvider?: string;

@@ -19,6 +19,7 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
   const [items, setItems] = useState<PhoneItem[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   useEffect(() => {
     loadItems();
@@ -45,6 +46,8 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
       };
       await db.add('phones', newItem);
       await loadItems();
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 2000);
     } catch (error) {
       console.error('Failed to save phone:', error);
     }
@@ -76,7 +79,7 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
 
   return (
     <div className="space-y-2 mt-2">
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <button
           type="button"
           onClick={saveCurrent}
@@ -85,6 +88,7 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
         >
           💾 Save
         </button>
+        {saveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
         <button
           type="button"
           onClick={() => setShowList(!showList)}
@@ -97,7 +101,7 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
       {showList && items.length > 0 && (
         <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-40 overflow-y-auto mt-2">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-semibold">Saved Phones</span>
+            <span className="text-xs font-semibold">Saved</span>
             <button
               type="button"
               onClick={() => {
