@@ -108,7 +108,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">{t('companyName')}</label>
+        <label className="block text-sm font-medium mb-2">{t('companyName')} *</label>
         <input
           type="text"
           value={data.companyName}
@@ -123,6 +123,8 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder={t('placeholderCompany')}
+          required
+          aria-required="true"
         />
       </div>
 
@@ -134,6 +136,11 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             value={data.companyPhone}
             onChange={(e) => {
               const sanitized = e.target.value.replace(/[^0-9+\-()\s]/g, '');
+              try {
+                localStorage.setItem('solarclose-phone', sanitized);
+              } catch (error) {
+                console.warn('localStorage unavailable');
+              }
               onUpdate({ companyPhone: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"

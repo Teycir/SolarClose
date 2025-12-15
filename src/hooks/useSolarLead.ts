@@ -31,9 +31,11 @@ const getDB = async () => {
 const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
   let savedCompany = '';
   let savedSalesRep = '';
+  let savedPhone = '';
   try {
     savedCompany = localStorage.getItem('solarclose-company') || '';
     savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
+    savedPhone = localStorage.getItem('solarclose-phone') || '';
   } catch (e) {
     console.warn('localStorage unavailable');
   }
@@ -55,7 +57,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     clientName: '',
     address: '',
     companyName: savedCompany,
-    companyPhone: '',
+    companyPhone: savedPhone,
     productDescription: '',
     salesRep: savedSalesRep,
     currency: 'USD',

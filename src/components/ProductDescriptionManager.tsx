@@ -43,18 +43,26 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
   const saveCurrentDescription = async () => {
     if (!currentDescription.trim()) return;
     
-    try {
-      const db = await openDB('solar-leads', 1);
-      const newDesc: ProductDescription = {
-        id: `desc-${Date.now()}`,
-        description: currentDescription,
-        createdAt: Date.now(),
-      };
-      await db.add('product-descriptions', newDesc);
-      await loadDescriptions();
-    } catch (error) {
-      console.error('Failed to save description:', error);
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Save Template',
+      message: 'Save this product description as a reusable template?',
+      onConfirm: async () => {
+        try {
+          const db = await openDB('solar-leads', 1);
+          const newDesc: ProductDescription = {
+            id: `desc-${Date.now()}`,
+            description: currentDescription,
+            createdAt: Date.now(),
+          };
+          await db.add('product-descriptions', newDesc);
+          await loadDescriptions();
+        } catch (error) {
+          console.error('Failed to save description:', error);
+        }
+        setConfirmDialog(null);
+      }
+    });
   };
 
   const deleteDescription = async (id: string) => {
@@ -160,7 +168,7 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
           onCancel={() => setConfirmDialog(null)}
           confirmText="Confirm"
           cancelText="Cancel"
-          isDangerous={true}
+          isDangerous={confirmDialog.title.includes('Delete') || confirmDialog.title.includes('Clear')}
         />
       )}
     </div>

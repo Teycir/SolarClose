@@ -13,7 +13,7 @@ export function ExportButton({ data }: ExportButtonProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
 
-  const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && (data.salesRep?.trim() || data.companyName.trim()) && data.productDescription.trim();
+  const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && data.companyName.trim() && data.productDescription.trim();
 
   const sanitizeFilename = (name: string) => {
     const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-').substring(0, 100);
