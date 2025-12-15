@@ -64,7 +64,7 @@ export default function Home() {
               <option value="fr">{languageFlags.fr}</option>
               <option value="de">{languageFlags.de}</option>
             </select>
-            <h1 className="text-2xl sm:text-4xl font-bold text-primary">{getTranslation((data.language || 'en') as Language, 'title')}</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">{getTranslation((data.language || 'en') as Language, 'title')}</h1>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -121,7 +121,7 @@ export default function Home() {
         <footer className="mt-8 text-center text-sm text-muted-foreground pb-4 space-y-2">
           <div className="flex flex-col items-center gap-2">
             <div className="flex items-center gap-2">
-              <span>Made by <a href="https://teycirbensotan.tn" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline">teycirbensotan.tn</a></span>
+              <span>Made by <a href="https://teycirbensotane.tn" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline">teycirbensotane.tn</a></span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs">Open source & free to use</span>
