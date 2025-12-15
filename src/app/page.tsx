@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
           <div className="flex items-center gap-3">
             <select
               value={data.language || 'en'}
@@ -49,8 +49,7 @@ export default function Home() {
             </select>
             <h1 className="text-2xl sm:text-4xl font-bold text-primary">{getTranslation((data.language || 'en') as Language, 'title')}</h1>
           </div>
-          <div className="flex items-center gap-3 justify-center">
-            <ExportButton data={data} />
+          <div className="flex items-center gap-3">
             <button
               onClick={handleNewLead}
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
@@ -64,6 +63,10 @@ export default function Home() {
               {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
             </div>
           </div>
+        </div>
+        
+        <div className="flex justify-center mb-6">
+          <ExportButton data={data} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
