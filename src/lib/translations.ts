@@ -69,6 +69,9 @@ export const translations = {
     good: 'Good',
     fair: 'Fair',
     needsRepair: 'Needs Repair',
+    placeholderCompany: 'Your Solar Company',
+    placeholderSalesRep: 'Your Name',
+    year: 'Year',
   },
   es: {
     title: 'SolarClose',
@@ -140,6 +143,9 @@ export const translations = {
     good: 'Bueno',
     fair: 'Regular',
     needsRepair: 'Necesita Reparación',
+    placeholderCompany: 'Tu Empresa Solar',
+    placeholderSalesRep: 'Tu Nombre',
+    year: 'Año',
   },
   it: {
     title: 'SolarClose',
@@ -211,6 +217,9 @@ export const translations = {
     good: 'Buono',
     fair: 'Discreto',
     needsRepair: 'Necessita Riparazione',
+    placeholderCompany: 'La Tua Azienda Solare',
+    placeholderSalesRep: 'Il Tuo Nome',
+    year: 'Anno',
   },
   fr: {
     title: 'SolarClose',
@@ -243,7 +252,7 @@ export const translations = {
     stateIncentive: 'Incitatif d\'État',
     twentyFiveYearSavings: 'Économies sur 25 Ans',
     twentyFiveYearLoss: 'Perte sur 25 Ans',
-    breakEvenYear: 'Année d\'Équilibre',
+    breakEvenYear: "Année d'Équilibre",
     never: 'Jamais',
     calculator: 'Calculateur',
     optional: 'Optionnel',
@@ -282,6 +291,9 @@ export const translations = {
     good: 'Bon',
     fair: 'Correct',
     needsRepair: 'Nécessite Réparation',
+    placeholderCompany: 'Votre Entreprise Solaire',
+    placeholderSalesRep: 'Votre Nom',
+    year: 'Année',
   },
   de: {
     title: 'SolarClose',
@@ -353,6 +365,9 @@ export const translations = {
     good: 'Gut',
     fair: 'Angemessen',
     needsRepair: 'Reparaturbedürftig',
+    placeholderCompany: 'Ihr Solarunternehmen',
+    placeholderSalesRep: 'Ihr Name',
+    year: 'Jahr',
   },
 };
 

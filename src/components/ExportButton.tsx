@@ -24,15 +24,21 @@ export function ExportButton({ data }: ExportButtonProps) {
     const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
     
+    let headerY = 30;
+    if (data.companyLogo) {
+      doc.addImage(data.companyLogo, 'PNG', 20, 15, 40, 20);
+      headerY = 40;
+    }
+    
     doc.setFontSize(24);
     doc.setTextColor(255, 193, 7);
-    doc.text(data.companyName || 'SOLAR PROPOSAL', 20, 30);
+    doc.text(data.companyName || 'SOLAR PROPOSAL', data.companyLogo ? 70 : 20, headerY);
     
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
-    let headerY = 40;
-    if (data.companyEmail) { doc.text(data.companyEmail, 20, headerY); headerY += 5; }
-    if (data.companyPhone) { doc.text(data.companyPhone, 20, headerY); headerY += 5; }
+    headerY += 10;
+    if (data.companyEmail) { doc.text(data.companyEmail, data.companyLogo ? 70 : 20, headerY); headerY += 5; }
+    if (data.companyPhone) { doc.text(data.companyPhone, data.companyLogo ? 70 : 20, headerY); headerY += 5; }
     
     doc.setFontSize(10);
     doc.text(`${t('date')}: ${data.date}`, 20, headerY + 5);
@@ -79,8 +85,8 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     doc.text(`${t('electricityRate')}: $${data.electricityRate}/kWh`, 20, y);
     y += 10;
-    doc.text(`${t('breakEvenYear')}: Year ${data.breakEvenYear}`, 20, y);
-    if (data.financingOption) { y += 10; doc.text(`${t('financingOption')}: ${data.financingOption}`, 20, y); }
+    doc.text(`${t('breakEvenYear')}: ${t('year')} ${data.breakEvenYear}`, 20, y);
+    if (data.financingOption) { y += 10; doc.text(`${t('financingOption')}: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); }
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
@@ -120,16 +126,16 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     doc.setFontSize(10);
     if (data.salesRep) { doc.text(`${t('salesRep')}: ${data.salesRep}`, 20, y); y += 7; }
-    if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${data.leadStatus}`, 20, y); y += 7; }
+    if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 7; }
     
     y += 5;
     doc.setFontSize(14);
     doc.text(t('propertyType'), 20, y);
     y += 10;
     doc.setFontSize(10);
-    if (data.propertyType) { doc.text(`${t('propertyType')}: ${data.propertyType}`, 20, y); y += 7; }
-    if (data.roofType) { doc.text(`${t('roofType')}: ${data.roofType}`, 20, y); y += 7; }
-    if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${data.roofCondition}`, 20, y); y += 7; }
+    if (data.propertyType) { doc.text(`${t('propertyType')}: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 7; }
+    if (data.roofType) { doc.text(`${t('roofType')}: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 7; }
+    if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 7; }
     
     y += 5;
     doc.setFontSize(14);
@@ -140,8 +146,8 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.text(`${t('systemCost')}: $${data.systemCost.toLocaleString()}`, 20, y); y += 7;
     doc.text(`${t('currentMonthlyBill')}: $${data.currentMonthlyBill}`, 20, y); y += 7;
     doc.text(`${t('twentyFiveYearSavings')}: $${data.twentyFiveYearSavings.toLocaleString()}`, 20, y); y += 7;
-    doc.text(`${t('breakEvenYear')}: Year ${data.breakEvenYear}`, 20, y); y += 7;
-    if (data.financingOption) { doc.text(`${t('financingOption')}: ${data.financingOption}`, 20, y); y += 7; }
+    doc.text(`${t('breakEvenYear')}: ${t('year')} ${data.breakEvenYear}`, 20, y); y += 7;
+    if (data.financingOption) { doc.text(`${t('financingOption')}: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 7; }
     if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 7; }
     if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 7; }
     

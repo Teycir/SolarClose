@@ -86,8 +86,51 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onUpdate({ companyName: value });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          placeholder="Your Solar Company"
+          placeholder={t('placeholderCompany')}
         />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Company Logo ({t('optional')})</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              const reader = new FileReader();
+              reader.onload = (event) => {
+                const base64 = event.target?.result as string;
+                try {
+                  localStorage.setItem('solarclose-logo', base64);
+                } catch (error) {
+                  console.warn('localStorage unavailable');
+                }
+                onUpdate({ companyLogo: base64 });
+              };
+              reader.readAsDataURL(file);
+            }
+          }}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+        />
+        {data.companyLogo && (
+          <div className="mt-2 flex items-center gap-2">
+            <img src={data.companyLogo} alt="Company logo" className="h-12 object-contain" />
+            <button
+              onClick={() => {
+                try {
+                  localStorage.removeItem('solarclose-logo');
+                } catch (error) {
+                  console.warn('localStorage unavailable');
+                }
+                onUpdate({ companyLogo: undefined });
+              }}
+              className="text-xs text-destructive hover:underline"
+            >
+              Remove
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -156,7 +199,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
               onUpdate({ salesRep: value });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder="Your Name"
+            placeholder={t('placeholderSalesRep')}
           />
         </div>
         <div>

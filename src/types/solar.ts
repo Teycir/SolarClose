@@ -10,6 +10,7 @@ export interface SolarLead {
   companyName: string;
   companyEmail?: string;
   companyPhone?: string;
+  companyLogo?: string;
   
   // Contact Info (Optional)
   phone?: string;

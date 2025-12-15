@@ -31,7 +31,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         <div className="text-center p-3 sm:p-4 bg-secondary rounded-lg">
           <p className="text-xs sm:text-sm text-muted-foreground mb-1">{t('breakEvenYear')}</p>
-          <p className="text-lg sm:text-xl font-bold break-words">{isNegativeSavings ? t('never') : `Year ${data.breakEvenYear}`}</p>
+          <p className="text-lg sm:text-xl font-bold break-words">{isNegativeSavings ? t('never') : `${t('year')} ${data.breakEvenYear}`}</p>
         </div>
         <div className="text-center p-3 sm:p-4 bg-secondary rounded-lg">
           <p className="text-xs sm:text-sm text-muted-foreground mb-1">{t('systemCost')}</p>

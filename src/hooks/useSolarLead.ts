@@ -46,9 +46,11 @@ export function useSolarLead(leadId: string) {
         } else {
           let savedCompany = '';
           let savedSalesRep = '';
+          let savedLogo = undefined;
           try {
             savedCompany = localStorage.getItem('solarclose-company') || '';
             savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
+            savedLogo = localStorage.getItem('solarclose-logo') || undefined;
           } catch (e) {
             console.warn('localStorage unavailable');
           }
@@ -59,6 +61,7 @@ export function useSolarLead(leadId: string) {
             clientName: '',
             address: '',
             companyName: savedCompany,
+            companyLogo: savedLogo,
             salesRep: savedSalesRep,
             currency: 'USD',
             language: 'en',
