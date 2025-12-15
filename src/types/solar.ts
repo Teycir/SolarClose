@@ -1,3 +1,6 @@
+export type Currency = 'USD' | 'EUR' | 'GBP';
+export type Language = 'en' | 'es' | 'it' | 'fr' | 'de';
+
 export interface SolarLead {
   id: string;
   createdAt: number;
@@ -30,8 +33,8 @@ export interface SolarLead {
   avgKwhPerMonth?: number;
   
   // Localization
-  currency?: string; // USD, EUR, GBP
-  language?: string; // en, es, it, fr, de
+  currency?: Currency;
+  language?: Language;
   
   // Inputs
   currentMonthlyBill: number; // e.g. 250

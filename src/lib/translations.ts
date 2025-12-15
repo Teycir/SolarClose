@@ -230,7 +230,7 @@ export type Language = keyof typeof translations;
 export type TranslationKey = keyof typeof translations.en;
 
 export function getTranslation(lang: Language, key: TranslationKey): string {
-  return translations[lang]?.[key] || translations.en[key];
+  return translations[lang]?.[key] ?? translations.en[key] ?? key;
 }
 
 export const languageFlags: Record<Language, string> = {

@@ -6,7 +6,7 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error & { digest?: string };
+  error: (Error & { digest?: string }) | null;
   reset: () => void;
 }) {
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function Error({
       <div className="max-w-md w-full bg-card/80 backdrop-blur-sm border rounded-lg p-6 shadow-lg text-center">
         <h2 className="text-2xl font-bold text-destructive mb-4">Something went wrong!</h2>
         <p className="text-muted-foreground mb-6">
-          An unexpected error occurred. Please try again.
+          {error?.message || 'An unexpected error occurred. Please try again.'}
         </p>
         <button
           onClick={reset}

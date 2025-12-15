@@ -7,10 +7,13 @@ interface ResultsCardProps {
   data: SolarLead;
 }
 
+const PERFORMANCE_RATIO = 0.80;
+const DAYS_PER_YEAR = 365;
+const MONTHS_PER_YEAR = 12;
+
 export function ResultsCard({ data }: ResultsCardProps) {
-  const performanceRatio = 0.80;
-  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * performanceRatio;
-  const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * 12 : 0;
+  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
+  const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * MONTHS_PER_YEAR : 0;
   const offsetPercentage = annualUsage > 0 ? Math.min((annualProduction / annualUsage) * 100, 100) : 0;
   const roiPercentage = data.systemCost > 0 ? Math.round((data.twentyFiveYearSavings / data.systemCost) * 100) : 0;
   const isNegativeSavings = data.twentyFiveYearSavings < 0;

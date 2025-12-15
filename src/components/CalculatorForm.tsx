@@ -9,6 +9,8 @@ interface CalculatorFormProps {
   onUpdate: (updates: Partial<SolarLead>) => void;
 }
 
+const INPUT_CLASS = "w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base";
+
 export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   useEffect(() => {
     const results = calculateSolarSavings({
@@ -18,8 +20,8 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       systemSizeKw: data.systemSizeKw,
       electricityRate: data.electricityRate,
       sunHoursPerDay: data.sunHoursPerDay,
-      federalTaxCredit: data.federalTaxCredit,
-      stateIncentive: data.stateIncentive,
+      federalTaxCreditPercent: data.federalTaxCredit,
+      stateIncentiveDollars: data.stateIncentive,
     });
 
     onUpdate({
@@ -76,7 +78,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             const value = e.target.value;
             try {
               localStorage.setItem('solarclose-company', value);
-            } catch (e) {
+            } catch (error) {
               console.warn('localStorage unavailable');
             }
             onUpdate({ companyName: value });
@@ -152,7 +154,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
               const value = e.target.value;
               try {
                 localStorage.setItem('solarclose-salesrep', value);
-              } catch (e) {
+              } catch (error) {
                 console.warn('localStorage unavailable');
               }
               onUpdate({ salesRep: value });
@@ -255,7 +257,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="number"
             value={data.avgKwhPerMonth || ''}
-            onChange={(e) => onUpdate({ avgKwhPerMonth: Number(e.target.value) || undefined })}
+            onChange={(e) => {
+              const parsedValue = parseFloat(e.target.value);
+              onUpdate({ avgKwhPerMonth: !isNaN(parsedValue) && parsedValue >= 0 ? parsedValue : undefined });
+            }}
             min="0"
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="e.g., 850"

@@ -168,6 +168,12 @@ export function ExportButton({ data }: ExportButtonProps) {
     }
   };
 
+  const getButtonText = () => {
+    if (isGenerating) return 'Generating PDFs...';
+    if (!canExport) return '📄 Export PDFs (Enter client info)';
+    return '📄 Export PDFs (Client + Seller)';
+  };
+
   return (
     <button
       onClick={handleExport}
@@ -176,7 +182,7 @@ export function ExportButton({ data }: ExportButtonProps) {
       aria-label={isGenerating ? 'Generating PDF files' : !canExport ? 'Export PDFs - Enter client information first' : 'Export client and seller PDF files'}
       title={!canExport ? 'Please enter client name and address first' : ''}
     >
-      {isGenerating ? 'Generating PDFs...' : !canExport ? '📄 Export PDFs (Enter client info)' : '📄 Export PDFs (Client + Seller)'}
+      {getButtonText()}
     </button>
   );
 }

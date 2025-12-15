@@ -10,7 +10,7 @@ const DB_VERSION = 1;
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
-const getDB = () => {
+const getDB = async () => {
   if (!dbPromise) {
     dbPromise = openDB(DB_NAME, DB_VERSION, {
       upgrade(db) {
@@ -18,6 +18,10 @@ const getDB = () => {
           db.createObjectStore(STORE_NAME, { keyPath: 'id' });
         }
       },
+    }).catch((error) => {
+      console.error('Failed to open IndexedDB:', error);
+      dbPromise = null;
+      throw error;
     });
   }
   return dbPromise;
@@ -82,12 +86,17 @@ export function useSolarLead(leadId: string) {
       }
     };
 
-    loadData();
+    loadData().catch((error) => {
+      console.error('Unhandled error in loadData:', error);
+    });
     
     return () => {
       isMounted = false;
     };
   }, [leadId]);
+
+  const debounceRef = useRef<NodeJS.Timeout>();
+  const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const saveToIndexedDB = useCallback(async (leadData: SolarLead) => {
     try {
@@ -95,26 +104,32 @@ export function useSolarLead(leadId: string) {
       const db = await getDB();
       await db.put(STORE_NAME, leadData);
       setSaveStatus('saved');
-      clearTimeout(statusTimeoutRef.current);
+      if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
       statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 1000);
     } catch (error) {
       console.error('Failed to save lead:', error);
       setSaveStatus('error');
+      if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
+      statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 3000);
     }
   }, []);
-
-  const debounceRef = useRef<NodeJS.Timeout>();
-  const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const updateData = useCallback((updates: Partial<SolarLead>) => {
     setData(prev => {
       if (!prev) return null;
       const updated = { ...prev, ...updates };
-      clearTimeout(debounceRef.current);
+      if (debounceRef.current) clearTimeout(debounceRef.current);
       debounceRef.current = setTimeout(() => saveToIndexedDB(updated), 500);
       return updated;
     });
   }, [saveToIndexedDB]);
+
+  useEffect(() => {
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
+    };
+  }, []);
 
   return {
     data,
