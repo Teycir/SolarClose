@@ -40,8 +40,14 @@ export function ExportButton({ data }: ExportButtonProps) {
     if (data.companyEmail) { doc.text(data.companyEmail, data.companyLogo ? 70 : 20, headerY); headerY += 5; }
     if (data.companyPhone) { doc.text(data.companyPhone, data.companyLogo ? 70 : 20, headerY); headerY += 5; }
     
+    const formatDate = (dateStr: string, lang: Language) => {
+      const date = new Date(dateStr + 'T00:00:00');
+      if (lang === 'en') return date.toLocaleDateString('en-US');
+      return date.toLocaleDateString('fr-FR');
+    };
+    
     doc.setFontSize(10);
-    doc.text(`${t('date')}: ${data.date}`, 20, headerY + 5);
+    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, headerY + 5);
     
     const startY = headerY + 15;
     doc.setFontSize(16);
@@ -103,9 +109,15 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(255, 193, 7);
     doc.text('INTERNAL SALES SHEET', 20, 20);
     
+    const formatDate = (dateStr: string, lang: Language) => {
+      const date = new Date(dateStr + 'T00:00:00');
+      if (lang === 'en') return date.toLocaleDateString('en-US');
+      return date.toLocaleDateString('fr-FR');
+    };
+    
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    doc.text(`${t('date')}: ${data.date} | Lead ID: ${data.id.slice(0, 8)}`, 20, 30);
+    doc.text(`${t('date')}: ${formatDate(data.date, lang)} | Lead ID: ${data.id.slice(0, 8)}`, 20, 30);
     
     let y = 45;
     doc.setFontSize(14);

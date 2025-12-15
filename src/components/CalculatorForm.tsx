@@ -40,7 +40,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <input
           type="date"
           value={data.date}
-          onChange={(e) => onUpdate({ date: e.target.value })}
+          onChange={(e) => {
+            const dateValue = e.target.value;
+            onUpdate({ date: dateValue });
+          }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
         />
       </div>
@@ -288,7 +291,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             value={data.utilityProvider || ''}
             onChange={(e) => onUpdate({ utilityProvider: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder="e.g., PG&E"
+            placeholder={`${t('eg')} PG&E`}
           />
         </div>
         <div>
@@ -302,7 +305,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             }}
             min="0"
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder="e.g., 850"
+            placeholder={`${t('eg')} 850`}
           />
         </div>
       </div>
@@ -313,7 +316,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           value={data.notes || ''}
           onChange={(e) => onUpdate({ notes: e.target.value })}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          placeholder="Additional notes or comments..."
+          placeholder={t('placeholderNotes')}
           rows={3}
         />
       </div>

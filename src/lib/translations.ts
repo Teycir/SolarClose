@@ -72,6 +72,8 @@ export const translations = {
     placeholderCompany: 'Your Solar Company',
     placeholderSalesRep: 'Your Name',
     year: 'Year',
+    placeholderNotes: 'Additional notes or comments...',
+    eg: 'e.g.',
   },
   es: {
     title: 'SolarClose',
@@ -146,6 +148,8 @@ export const translations = {
     placeholderCompany: 'Tu Empresa Solar',
     placeholderSalesRep: 'Tu Nombre',
     year: 'Año',
+    placeholderNotes: 'Notas o comentarios adicionales...',
+    eg: 'ej.',
   },
   it: {
     title: 'SolarClose',
@@ -220,6 +224,8 @@ export const translations = {
     placeholderCompany: 'La Tua Azienda Solare',
     placeholderSalesRep: 'Il Tuo Nome',
     year: 'Anno',
+    placeholderNotes: 'Note o commenti aggiuntivi...',
+    eg: 'es.',
   },
   fr: {
     title: 'SolarClose',
@@ -294,6 +300,8 @@ export const translations = {
     placeholderCompany: 'Votre Entreprise Solaire',
     placeholderSalesRep: 'Votre Nom',
     year: 'Année',
+    placeholderNotes: 'Notes ou commentaires supplémentaires...',
+    eg: 'ex.',
   },
   de: {
     title: 'SolarClose',
@@ -368,6 +376,8 @@ export const translations = {
     placeholderCompany: 'Ihr Solarunternehmen',
     placeholderSalesRep: 'Ihr Name',
     year: 'Jahr',
+    placeholderNotes: 'Zusätzliche Notizen oder Kommentare...',
+    eg: 'z.B.',
   },
 };
 
