@@ -227,6 +227,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             type="number"
             value={data.avgKwhPerMonth || ''}
             onChange={(e) => onUpdate({ avgKwhPerMonth: Number(e.target.value) || undefined })}
+            min="0"
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="e.g., 850"
           />
