@@ -1,15 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
-import type { SolarLead } from '@/types/solar';
+import type { SolarLead, Currency, Language } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
 
 interface CalculatorFormProps {
   data: SolarLead;
   onUpdate: (updates: Partial<SolarLead>) => void;
 }
-
-const INPUT_CLASS = "w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base";
 
 export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   useEffect(() => {
@@ -93,7 +91,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <label className="block text-sm font-medium mb-2">Currency</label>
           <select
             value={data.currency || 'USD'}
-            onChange={(e) => onUpdate({ currency: e.target.value })}
+            onChange={(e) => onUpdate({ currency: e.target.value as Currency })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
             <option value="USD">USD ($)</option>
@@ -105,7 +103,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <label className="block text-sm font-medium mb-2">Language</label>
           <select
             value={data.language || 'en'}
-            onChange={(e) => onUpdate({ language: e.target.value })}
+            onChange={(e) => onUpdate({ language: e.target.value as Language })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
             <option value="en">English</option>
