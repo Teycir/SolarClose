@@ -202,22 +202,22 @@ export function ExportButton({ data }: ExportButtonProps) {
     if (data.phone) { y += 6; doc.text(data.phone, 20, y); }
     if (data.email) { y += 6; doc.text(data.email, 20, y); }
     
-    y += 12;
+    y += 10;
     doc.setFontSize(14);
-    doc.text(t('salesRep'), 20, y);
+    doc.text('Sales Information', 20, y);
     y += 10;
     doc.setFontSize(10);
-    if (data.salesRep) { doc.text(`${t('salesRep')}: ${data.salesRep}`, 20, y); y += 7; }
-    if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 7; }
+    if (data.salesRep) { doc.text(`Sales Rep: ${data.salesRep}`, 20, y); y += 6; }
+    if (data.leadStatus) { doc.text(`Lead Status: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 6; }
     
     y += 5;
     doc.setFontSize(14);
-    doc.text(t('propertyType'), 20, y);
+    doc.text('Property Details', 20, y);
     y += 10;
     doc.setFontSize(10);
-    if (data.propertyType) { doc.text(`${t('propertyType')}: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 7; }
-    if (data.roofType) { doc.text(`${t('roofType')}: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 7; }
-    if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 7; }
+    if (data.propertyType) { doc.text(`Property Type: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 6; }
+    if (data.roofType) { doc.text(`Roof Type: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 6; }
+    if (data.roofCondition) { doc.text(`Roof Condition: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 6; }
     
     y += 5;
     doc.setFontSize(14);
