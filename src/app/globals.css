@@ -67,7 +67,7 @@
   }
   body {
     @apply text-foreground min-h-screen;
-    background: linear-gradient(-45deg, #FFF8E1, #FFE082, #FFC107, #FF8F00, #E65100, #FFC107, #FFE082);
+    background: linear-gradient(-45deg, #FFFBEA, #FFF4C4, #FFE57F, #FFD54F, #FFCA28, #FFD54F, #FFF4C4);
     background-size: 400% 400%;
     animation: gradient-shift 8s ease-in-out infinite;
   }
