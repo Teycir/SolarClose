@@ -307,7 +307,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <input
           type="range"
           min="3"
-          max="7"
+          max="10"
           step="0.5"
           value={data.sunHoursPerDay}
           onChange={(e) => onUpdate({ sunHoursPerDay: Number(e.target.value) })}

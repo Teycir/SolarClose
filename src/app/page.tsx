@@ -11,6 +11,7 @@ export default function Home() {
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
 
   const handleNewLead = () => {
+    if (data?.clientName && !confirm('Create new lead? Current lead will be saved.')) return;
     const newId = `lead-${Date.now()}`;
     setCurrentLeadId(newId);
   };
@@ -31,7 +32,7 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <button
               onClick={handleNewLead}
-              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity text-sm"
+              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
             >
               ➕ New Lead
             </button>
