@@ -5,6 +5,9 @@ import type { SolarLead, Currency, Language } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
 import { getTranslation } from '@/lib/translations';
 import { ProductDescriptionManager } from './ProductDescriptionManager';
+import { CompanyManager } from './CompanyManager';
+import { SalesRepManager } from './SalesRepManager';
+import { PhoneManager } from './PhoneManager';
 
 interface CalculatorFormProps {
   data: SolarLead;
@@ -126,6 +129,17 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           required
           aria-required="true"
         />
+        <CompanyManager
+          currentName={data.companyName}
+          onSelect={(name) => {
+            try {
+              localStorage.setItem('solarclose-company', name);
+            } catch (error) {
+              console.warn('localStorage unavailable');
+            }
+            onUpdate({ companyName: name });
+          }}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -147,6 +161,17 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             placeholder="(555) 000-0000"
             required
             aria-required="true"
+          />
+          <PhoneManager
+            currentPhone={data.companyPhone}
+            onSelect={(phone) => {
+              try {
+                localStorage.setItem('solarclose-phone', phone);
+              } catch (error) {
+                console.warn('localStorage unavailable');
+              }
+              onUpdate({ companyPhone: phone });
+            }}
           />
         </div>
         <div>
@@ -210,6 +235,17 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder={t('placeholderSalesRep')}
+          />
+          <SalesRepManager
+            currentName={data.salesRep || ''}
+            onSelect={(name) => {
+              try {
+                localStorage.setItem('solarclose-salesrep', name);
+              } catch (error) {
+                console.warn('localStorage unavailable');
+              }
+              onUpdate({ salesRep: name });
+            }}
           />
         </div>
         <div>

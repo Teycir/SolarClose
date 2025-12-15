@@ -20,6 +20,15 @@ const getDB = async () => {
         if (!db.objectStoreNames.contains('product-descriptions')) {
           db.createObjectStore('product-descriptions', { keyPath: 'id' });
         }
+        if (!db.objectStoreNames.contains('companies')) {
+          db.createObjectStore('companies', { keyPath: 'id' });
+        }
+        if (!db.objectStoreNames.contains('sales-reps')) {
+          db.createObjectStore('sales-reps', { keyPath: 'id' });
+        }
+        if (!db.objectStoreNames.contains('phones')) {
+          db.createObjectStore('phones', { keyPath: 'id' });
+        }
       },
     }).catch((error) => {
       const sanitizedError = error instanceof Error ? error.message : String(error);
