@@ -26,10 +26,12 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       stateIncentiveDollars: data.stateIncentive,
     });
 
-    onUpdate({
-      twentyFiveYearSavings: results.twentyFiveYearSavings,
-      breakEvenYear: results.breakEvenYear,
-    });
+    if (results.twentyFiveYearSavings !== data.twentyFiveYearSavings || results.breakEvenYear !== data.breakEvenYear) {
+      onUpdate({
+        twentyFiveYearSavings: results.twentyFiveYearSavings,
+        breakEvenYear: results.breakEvenYear,
+      });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive]);
 

@@ -1,15 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSolarLead } from '@/hooks/useSolarLead';
 import { getTranslation, languageFlags, type Language } from '@/lib/translations';
 import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
+import { openDB } from 'idb';
+import type { SolarLead } from '@/types/solar';
 
 export default function Home() {
   const [currentLeadId, setCurrentLeadId] = useState('default-lead');
+  const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
+  const [showLeads, setShowLeads] = useState(false);
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
+
+  useEffect(() => {
+    const loadLeads = async () => {
+      try {
+        const db = await openDB('solar-leads', 1);
+        const leads = await db.getAll('leads');
+        setAllLeads(leads.sort((a, b) => b.createdAt - a.createdAt));
+      } catch (error) {
+        console.error('Failed to load leads:', error);
+      }
+    };
+    loadLeads();
+  }, [currentLeadId, saveStatus]);
 
   const handleNewLead = () => {
     if (data?.clientName && !confirm('Create new lead? Current lead will be saved.')) return;
@@ -57,6 +74,12 @@ export default function Home() {
             >
               ➕ {getTranslation((data.language || 'en') as Language, 'newLead')}
             </button>
+            <button
+              onClick={() => setShowLeads(!showLeads)}
+              className="bg-secondary text-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
+            >
+              {showLeads ? getTranslation((data.language || 'en') as Language, 'hideLeads') : getTranslation((data.language || 'en') as Language, 'viewLeads')}
+            </button>
             <ExportButton data={data} />
             <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
               {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
@@ -65,6 +88,26 @@ export default function Home() {
             </div>
           </div>
         </div>
+        
+        {showLeads && allLeads.length > 0 && (
+          <div className="mb-4 bg-card/80 backdrop-blur-sm border rounded-lg p-4 shadow-lg">
+            <h3 className="font-semibold mb-2">All Leads ({allLeads.length})</h3>
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {allLeads.map(lead => (
+                <button
+                  key={lead.id}
+                  onClick={() => { setCurrentLeadId(lead.id); setShowLeads(false); }}
+                  className={`w-full text-left p-2 rounded hover:bg-secondary transition-colors ${
+                    lead.id === currentLeadId ? 'bg-secondary' : ''
+                  }`}
+                >
+                  <div className="font-medium">{lead.clientName || 'Unnamed Lead'}</div>
+                  <div className="text-xs text-muted-foreground">{lead.address || 'No address'} • {new Date(lead.createdAt).toLocaleDateString()}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         
         <div className="mb-6">
           <ResultsCard data={data} />
