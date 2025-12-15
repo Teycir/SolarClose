@@ -24,32 +24,29 @@ export function ExportButton({ data }: ExportButtonProps) {
     const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
     
-    let headerY = 30;
-    if (data.companyLogo) {
-      doc.addImage(data.companyLogo, 'PNG', 20, 15, 40, 20);
-      headerY = 40;
-    }
-    
-    doc.setFontSize(24);
-    doc.setTextColor(255, 193, 7);
-    doc.text(data.companyName || 'SOLAR PROPOSAL', data.companyLogo ? 70 : 20, headerY);
-    
-    doc.setFontSize(9);
-    doc.setTextColor(100, 100, 100);
-    headerY += 10;
-    if (data.companyEmail) { doc.text(data.companyEmail, data.companyLogo ? 70 : 20, headerY); headerY += 5; }
-    if (data.companyPhone) { doc.text(data.companyPhone, data.companyLogo ? 70 : 20, headerY); headerY += 5; }
-    
     const formatDate = (dateStr: string, lang: Language) => {
       const date = new Date(dateStr + 'T00:00:00');
       if (lang === 'en') return date.toLocaleDateString('en-US');
       return date.toLocaleDateString('fr-FR');
     };
     
-    doc.setFontSize(10);
-    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, headerY + 5);
+    doc.setFontSize(20);
+    doc.setTextColor(255, 193, 7);
+    doc.text(data.companyName, 20, 20);
     
-    const startY = headerY + 15;
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text(data.companyPhone, 20, 28);
+    if (data.companyEmail) { doc.text(data.companyEmail, 20, 34); }
+    
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text(t('proposal'), 20, 45);
+    
+    doc.setFontSize(10);
+    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, 52);
+    
+    const startY = 60;
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
     doc.text(t('clientName'), 20, startY);
@@ -96,7 +93,8 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text(`Generated on ${new Date().toLocaleDateString()} | SolarClose`, 105, 280, { align: 'center' });
+    doc.text(data.companyName, 105, 275, { align: 'center' });
+    doc.text(`Generated on ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 280, { align: 'center' });
     
     doc.save(`${sanitizeFilename(data.clientName)}-CLIENT-Proposal.pdf`);
   };

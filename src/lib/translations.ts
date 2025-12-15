@@ -74,6 +74,7 @@ export const translations = {
     year: 'Year',
     placeholderNotes: 'Additional notes or comments...',
     eg: 'e.g.',
+    proposal: 'Proposal',
   },
   es: {
     title: 'SolarClose',
@@ -150,6 +151,7 @@ export const translations = {
     year: 'Año',
     placeholderNotes: 'Notas o comentarios adicionales...',
     eg: 'ej.',
+    proposal: 'Presupuesto',
   },
   it: {
     title: 'SolarClose',
@@ -226,6 +228,7 @@ export const translations = {
     year: 'Anno',
     placeholderNotes: 'Note o commenti aggiuntivi...',
     eg: 'es.',
+    proposal: 'Preventivo',
   },
   fr: {
     title: 'SolarClose',
@@ -302,6 +305,7 @@ export const translations = {
     year: 'Année',
     placeholderNotes: 'Notes ou commentaires supplémentaires...',
     eg: 'ex.',
+    proposal: 'Devis',
   },
   de: {
     title: 'SolarClose',
@@ -378,6 +382,7 @@ export const translations = {
     year: 'Jahr',
     placeholderNotes: 'Zusätzliche Notizen oder Kommentare...',
     eg: 'z.B.',
+    proposal: 'Angebot',
   },
 };
 
