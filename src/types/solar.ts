@@ -6,6 +6,29 @@ export interface SolarLead {
   address: string;
   companyName: string;
   
+  // Contact Info (Optional)
+  phone?: string;
+  email?: string;
+  
+  // Property Details (Optional)
+  roofType?: string;
+  roofCondition?: string;
+  propertyType?: string;
+  
+  // Financial (Optional)
+  financingOption?: string;
+  downPayment?: number;
+  loanTerm?: number;
+  
+  // Sales Process (Optional)
+  salesRep?: string;
+  leadStatus?: string;
+  notes?: string;
+  
+  // Utility Info (Optional)
+  utilityProvider?: string;
+  avgKwhPerMonth?: number;
+  
   // Inputs
   currentMonthlyBill: number; // e.g. 250
   yearlyInflationRate: number; // e.g. 4 (percent)

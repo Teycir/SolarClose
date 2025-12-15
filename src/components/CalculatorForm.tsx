@@ -69,6 +69,152 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         />
       </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
+          <input
+            type="tel"
+            value={data.phone || ''}
+            onChange={(e) => onUpdate({ phone: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="(555) 123-4567"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Email (Optional)</label>
+          <input
+            type="email"
+            value={data.email || ''}
+            onChange={(e) => onUpdate({ email: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="client@email.com"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Sales Rep (Optional)</label>
+          <input
+            type="text"
+            value={data.salesRep || ''}
+            onChange={(e) => onUpdate({ salesRep: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="Your Name"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Lead Status (Optional)</label>
+          <select
+            value={data.leadStatus || ''}
+            onChange={(e) => onUpdate({ leadStatus: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="">Select Status</option>
+            <option value="New">New</option>
+            <option value="Contacted">Contacted</option>
+            <option value="Site Visit Scheduled">Site Visit Scheduled</option>
+            <option value="Proposal Sent">Proposal Sent</option>
+            <option value="Closed Won">Closed Won</option>
+            <option value="Closed Lost">Closed Lost</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Property Type (Optional)</label>
+          <select
+            value={data.propertyType || ''}
+            onChange={(e) => onUpdate({ propertyType: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="">Select Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Financing Option (Optional)</label>
+          <select
+            value={data.financingOption || ''}
+            onChange={(e) => onUpdate({ financingOption: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="">Select Option</option>
+            <option value="Cash">Cash</option>
+            <option value="Loan">Loan</option>
+            <option value="Lease">Lease</option>
+            <option value="PPA">PPA</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Roof Type (Optional)</label>
+          <select
+            value={data.roofType || ''}
+            onChange={(e) => onUpdate({ roofType: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="">Select Type</option>
+            <option value="Asphalt Shingle">Asphalt Shingle</option>
+            <option value="Metal">Metal</option>
+            <option value="Tile">Tile</option>
+            <option value="Flat">Flat</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Roof Condition (Optional)</label>
+          <select
+            value={data.roofCondition || ''}
+            onChange={(e) => onUpdate({ roofCondition: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="">Select Condition</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Needs Repair">Needs Repair</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">Utility Provider (Optional)</label>
+          <input
+            type="text"
+            value={data.utilityProvider || ''}
+            onChange={(e) => onUpdate({ utilityProvider: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="e.g., PG&E"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Avg kWh/Month (Optional)</label>
+          <input
+            type="number"
+            value={data.avgKwhPerMonth || ''}
+            onChange={(e) => onUpdate({ avgKwhPerMonth: Number(e.target.value) || undefined })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="e.g., 850"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Notes (Optional)</label>
+        <textarea
+          value={data.notes || ''}
+          onChange={(e) => onUpdate({ notes: e.target.value })}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          placeholder="Additional notes or comments..."
+          rows={3}
+        />
+      </div>
+
       <div>
         <label className="block text-sm font-medium mb-2">
           Current Monthly Bill: ${data.currentMonthlyBill}
