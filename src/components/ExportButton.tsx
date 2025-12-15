@@ -37,6 +37,8 @@ export function ExportButton({ data }: ExportButtonProps) {
 
   const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
 
+  const getCurrencySymbol = () => data.currency === 'USD' ? '$' : '€';
+
   const generateClientPDF = async () => {
     try {
       const { jsPDF } = await import('jspdf');
@@ -78,7 +80,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.rect(20, y, 170, 30, 'F');
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
-    doc.text(`$${formatNumber(data.twentyFiveYearSavings)}`, 105, y + 15, { align: 'center' });
+    doc.text(`${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 105, y + 15, { align: 'center' });
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     doc.text(t('twentyFiveYearSavings'), 105, y + 22, { align: 'center' });
@@ -110,7 +112,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     
     doc.setFontSize(11);
-    doc.text(`Total System Cost: $${formatNumber(data.systemCost)}`, 20, y);
+    doc.text(`Total System Cost: ${getCurrencySymbol()}${formatNumber(data.systemCost)}`, 20, y);
     y += 7;
     
     const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
@@ -118,15 +120,15 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    doc.text(`  - Federal Tax Credit (${data.federalTaxCredit}%): -$${formatNumber(federalCredit)}`, 20, y);
+    doc.text(`  - Federal Tax Credit (${data.federalTaxCredit}%): -${getCurrencySymbol()}${formatNumber(federalCredit)}`, 20, y);
     y += 6;
     if (data.stateIncentive > 0) {
-      doc.text(`  - State Incentive: -$${formatNumber(data.stateIncentive)}`, 20, y);
+      doc.text(`  - State Incentive: -${getCurrencySymbol()}${formatNumber(data.stateIncentive)}`, 20, y);
       y += 6;
     }
     doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
-    doc.text(`Net Investment: $${formatNumber(netCost)}`, 20, y);
+    doc.text(`Net Investment: ${getCurrencySymbol()}${formatNumber(netCost)}`, 20, y);
     y += 10;
     
     const avgAnnualSavings = Math.round(data.twentyFiveYearSavings / 25);
@@ -134,12 +136,12 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.text(`Break-Even Period: ${t('year')} ${data.breakEvenYear}`, 20, y);
     y += 8;
-    doc.text(`Average Monthly Savings: $${formatNumber(avgMonthlySavings)}`, 20, y);
+    doc.text(`Average Monthly Savings: ${getCurrencySymbol()}${formatNumber(avgMonthlySavings)}`, 20, y);
     y += 8;
-    doc.text(`Average Annual Savings: $${formatNumber(avgAnnualSavings)}`, 20, y);
+    doc.text(`Average Annual Savings: ${getCurrencySymbol()}${formatNumber(avgAnnualSavings)}`, 20, y);
     y += 8;
     doc.setTextColor(255, 193, 7);
-    doc.text(`Total 25-Year Savings: $${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
+    doc.text(`Total 25-Year Savings: ${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
     doc.setTextColor(0, 0, 0);
     y += 10;
     
@@ -219,9 +221,9 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     doc.setFontSize(10);
     doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y); y += 7;
-    doc.text(`${t('systemCost')}: $${formatNumber(data.systemCost)}`, 20, y); y += 7;
-    doc.text(`${t('currentMonthlyBill')}: $${data.currentMonthlyBill}`, 20, y); y += 7;
-    doc.text(`${t('twentyFiveYearSavings')}: $${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 7;
+    doc.text(`${t('systemCost')}: ${getCurrencySymbol()}${formatNumber(data.systemCost)}`, 20, y); y += 7;
+    doc.text(`${t('currentMonthlyBill')}: ${getCurrencySymbol()}${data.currentMonthlyBill}`, 20, y); y += 7;
+    doc.text(`${t('twentyFiveYearSavings')}: ${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 7;
     doc.text(`${t('breakEvenYear')}: ${t('year')} ${data.breakEvenYear}`, 20, y); y += 7;
     if (data.financingOption) { doc.text(`${t('financingOption')}: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 7; }
     if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 7; }
