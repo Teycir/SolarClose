@@ -34,6 +34,10 @@ export interface SolarLead {
   yearlyInflationRate: number; // e.g. 4 (percent)
   systemSizeKw: number; // e.g. 8.5
   systemCost: number; // e.g. 25000
+  electricityRate: number; // e.g. 0.15 ($/kWh)
+  sunHoursPerDay: number; // e.g. 5
+  federalTaxCredit: number; // e.g. 30 (percent)
+  stateIncentive: number; // e.g. 1000 (dollars)
   
   // Calculated Results (Cached)
   twentyFiveYearSavings: number;

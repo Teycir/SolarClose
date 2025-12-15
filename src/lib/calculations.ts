@@ -3,6 +3,10 @@ export interface SolarCalculationInputs {
   yearlyInflationRate: number;
   systemCost: number;
   systemSizeKw: number;
+  electricityRate: number;
+  sunHoursPerDay: number;
+  federalTaxCredit: number;
+  stateIncentive: number;
 }
 
 export interface SolarCalculationResults {
@@ -17,21 +21,23 @@ export interface SolarCalculationResults {
 }
 
 export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalculationResults {
-  const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw } = inputs;
+  const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw, electricityRate, sunHoursPerDay, federalTaxCredit, stateIncentive } = inputs;
   const inflationMultiplier = 1 + (yearlyInflationRate / 100);
   
-  // Realistic assumptions
-  const avgSunHoursPerDay = 5; // Average sun hours
-  const annualProduction = systemSizeKw * avgSunHoursPerDay * 365; // kWh per year
-  const avgElectricityRate = 0.15; // $0.15 per kWh (average US rate)
+  // Calculate net system cost after incentives
+  const federalCredit = systemCost * (federalTaxCredit / 100);
+  const netSystemCost = systemCost - federalCredit - stateIncentive;
+  
+  // Production calculations
+  const annualProduction = systemSizeKw * sunHoursPerDay * 365; // kWh per year
   const solarDegradation = 0.005; // 0.5% per year
   const annualMaintenanceCost = systemCost * 0.01; // 1% of system cost per year
   
   // Calculate offset percentage
-  const currentAnnualUsage = (currentMonthlyBill / avgElectricityRate) * 12;
+  const currentAnnualUsage = (currentMonthlyBill / electricityRate) * 12;
   const offsetPercentage = Math.min(annualProduction / currentAnnualUsage, 1.0);
   
-  let cumulativeSavings = -systemCost; // Start with upfront cost
+  let cumulativeSavings = -netSystemCost; // Start with net upfront cost after incentives
   let breakEvenYear = 0;
   const yearlyBreakdown = [];
   

@@ -16,13 +16,17 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       yearlyInflationRate: data.yearlyInflationRate,
       systemCost: data.systemCost,
       systemSizeKw: data.systemSizeKw,
+      electricityRate: data.electricityRate,
+      sunHoursPerDay: data.sunHoursPerDay,
+      federalTaxCredit: data.federalTaxCredit,
+      stateIncentive: data.stateIncentive,
     });
 
     onUpdate({
       twentyFiveYearSavings: results.twentyFiveYearSavings,
       breakEvenYear: results.breakEvenYear,
     });
-  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, onUpdate]);
+  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive, onUpdate]);
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -277,6 +281,66 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           step="1000"
           value={data.systemCost}
           onChange={(e) => onUpdate({ systemCost: Number(e.target.value) })}
+          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          Electricity Rate: ${data.electricityRate}/kWh
+        </label>
+        <input
+          type="range"
+          min="0.08"
+          max="0.40"
+          step="0.01"
+          value={data.electricityRate}
+          onChange={(e) => onUpdate({ electricityRate: Number(e.target.value) })}
+          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          Sun Hours/Day: {data.sunHoursPerDay}
+        </label>
+        <input
+          type="range"
+          min="3"
+          max="7"
+          step="0.5"
+          value={data.sunHoursPerDay}
+          onChange={(e) => onUpdate({ sunHoursPerDay: Number(e.target.value) })}
+          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          Federal Tax Credit: {data.federalTaxCredit}%
+        </label>
+        <input
+          type="range"
+          min="0"
+          max="30"
+          step="5"
+          value={data.federalTaxCredit}
+          onChange={(e) => onUpdate({ federalTaxCredit: Number(e.target.value) })}
+          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          State Incentive: ${data.stateIncentive.toLocaleString()}
+        </label>
+        <input
+          type="range"
+          min="0"
+          max="5000"
+          step="100"
+          value={data.stateIncentive}
+          onChange={(e) => onUpdate({ stateIncentive: Number(e.target.value) })}
           className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
         />
       </div>
