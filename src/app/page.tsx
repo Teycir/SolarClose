@@ -91,19 +91,60 @@ export default function Home() {
         
         {showLeads && allLeads.length > 0 && (
           <div className="mb-4 bg-card/80 backdrop-blur-sm border rounded-lg p-4 shadow-lg">
-            <h3 className="font-semibold mb-2">All Leads ({allLeads.length})</h3>
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="font-semibold">All Leads ({allLeads.length})</h3>
+              <button
+                onClick={async () => {
+                  if (!confirm('Clear all leads from database? This cannot be undone!')) return;
+                  try {
+                    const db = await openDB('solar-leads', 1);
+                    await db.clear('leads');
+                    setAllLeads([]);
+                    setShowLeads(false);
+                    const newId = `lead-${Date.now()}`;
+                    setCurrentLeadId(newId);
+                  } catch (error) {
+                    console.error('Failed to clear database:', error);
+                  }
+                }}
+                className="text-xs text-destructive hover:underline"
+              >
+                Clear All
+              </button>
+            </div>
             <div className="space-y-2 max-h-60 overflow-y-auto">
               {allLeads.map(lead => (
-                <button
-                  key={lead.id}
-                  onClick={() => { setCurrentLeadId(lead.id); setShowLeads(false); }}
-                  className={`w-full text-left p-2 rounded hover:bg-secondary transition-colors ${
-                    lead.id === currentLeadId ? 'bg-secondary' : ''
-                  }`}
-                >
-                  <div className="font-medium">{lead.clientName || 'Unnamed Lead'}</div>
-                  <div className="text-xs text-muted-foreground">{lead.address || 'No address'} • {new Date(lead.createdAt).toLocaleDateString()}</div>
-                </button>
+                <div key={lead.id} className="flex items-center gap-2">
+                  <button
+                    onClick={() => { setCurrentLeadId(lead.id); setShowLeads(false); }}
+                    className={`flex-1 text-left p-2 rounded hover:bg-secondary transition-colors ${
+                      lead.id === currentLeadId ? 'bg-secondary' : ''
+                    }`}
+                  >
+                    <div className="font-medium">{lead.clientName || 'Unnamed Lead'}</div>
+                    <div className="text-xs text-muted-foreground">{lead.address || 'No address'} • {new Date(lead.createdAt).toLocaleDateString()}</div>
+                  </button>
+                  <button
+                    onClick={async () => {
+                      if (!confirm(`Delete lead "${lead.clientName || 'Unnamed'}"?`)) return;
+                      try {
+                        const db = await openDB('solar-leads', 1);
+                        await db.delete('leads', lead.id);
+                        setAllLeads(prev => prev.filter(l => l.id !== lead.id));
+                        if (lead.id === currentLeadId) {
+                          const newId = `lead-${Date.now()}`;
+                          setCurrentLeadId(newId);
+                        }
+                      } catch (error) {
+                        console.error('Failed to delete lead:', error);
+                      }
+                    }}
+                    className="text-destructive hover:bg-destructive/10 p-2 rounded transition-colors"
+                    aria-label="Delete lead"
+                  >
+                    🗑️
+                  </button>
+                </div>
               ))}
             </div>
           </div>
