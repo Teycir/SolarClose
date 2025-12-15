@@ -8,6 +8,7 @@ import { ProductDescriptionManager } from './ProductDescriptionManager';
 import { CompanyManager } from './CompanyManager';
 import { SalesRepManager } from './SalesRepManager';
 import { PhoneManager } from './PhoneManager';
+import { ProposalConditionsManager } from './ProposalConditionsManager';
 
 interface CalculatorFormProps {
   data: SolarLead;
@@ -107,6 +108,26 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <ProductDescriptionManager
           currentDescription={data.productDescription}
           onSelect={(desc) => onUpdate({ productDescription: desc })}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Proposal Conditions *</label>
+        <textarea
+          value={data.proposalConditions || ''}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            onUpdate({ proposalConditions: sanitized });
+          }}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          placeholder="This proposal is valid for 30 days.&#10;Final pricing subject to site inspection.&#10;Installation timeline: 4-8 weeks after approval."
+          rows={3}
+          required
+          aria-required="true"
+        />
+        <ProposalConditionsManager
+          currentConditions={data.proposalConditions || ''}
+          onSelect={(conditions) => onUpdate({ proposalConditions: conditions })}
         />
       </div>
 
@@ -368,22 +389,6 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder={t('placeholderNotes')}
           rows={3}
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Proposal Conditions *</label>
-        <textarea
-          value={data.proposalConditions || ''}
-          onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"']/g, '');
-            onUpdate({ proposalConditions: sanitized });
-          }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          placeholder="This proposal is valid for 30 days.&#10;Final pricing subject to site inspection.&#10;Installation timeline: 4-8 weeks after approval."
-          rows={3}
-          required
-          aria-required="true"
         />
       </div>
 

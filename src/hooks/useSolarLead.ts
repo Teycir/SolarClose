@@ -29,6 +29,9 @@ const getDB = async () => {
         if (!db.objectStoreNames.contains('phones')) {
           db.createObjectStore('phones', { keyPath: 'id' });
         }
+        if (!db.objectStoreNames.contains('proposal-conditions')) {
+          db.createObjectStore('proposal-conditions', { keyPath: 'id' });
+        }
       },
     }).catch((error) => {
       const sanitizedError = error instanceof Error ? error.message : String(error);
