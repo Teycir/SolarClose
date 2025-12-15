@@ -101,13 +101,45 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     
     doc.setFontSize(11);
-    doc.text(`Total Investment: $${formatNumber(data.systemCost)}`, 20, y);
-    y += 8;
+    doc.text(`Total System Cost: $${formatNumber(data.systemCost)}`, 20, y);
+    y += 7;
+    
+    const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
+    const netCost = data.systemCost - federalCredit - data.stateIncentive;
+    
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`  - Federal Tax Credit (${data.federalTaxCredit}%): -$${formatNumber(federalCredit)}`, 20, y);
+    y += 6;
+    if (data.stateIncentive > 0) {
+      doc.text(`  - State Incentive: -$${formatNumber(data.stateIncentive)}`, 20, y);
+      y += 6;
+    }
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Net Investment: $${formatNumber(netCost)}`, 20, y);
+    y += 10;
+    
+    const avgAnnualSavings = Math.round(data.twentyFiveYearSavings / 25);
+    const avgMonthlySavings = Math.round(avgAnnualSavings / 12);
+    
     doc.text(`Break-Even Period: ${t('year')} ${data.breakEvenYear}`, 20, y);
     y += 8;
-    doc.text(`25-Year Savings: $${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
+    doc.text(`Average Monthly Savings: $${formatNumber(avgMonthlySavings)}`, 20, y);
+    y += 8;
+    doc.text(`Average Annual Savings: $${formatNumber(avgAnnualSavings)}`, 20, y);
+    y += 8;
+    doc.setTextColor(255, 193, 7);
+    doc.text(`Total 25-Year Savings: $${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
+    doc.setTextColor(0, 0, 0);
+    y += 10;
     
-    y += 15;
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`* Savings calculated with ${data.yearlyInflationRate}% annual utility rate increase`, 20, y);
+    doc.setTextColor(0, 0, 0);
+    y += 6;
+    
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     const terms = [
