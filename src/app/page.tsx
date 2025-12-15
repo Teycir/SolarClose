@@ -124,12 +124,12 @@ export default function Home() {
             >
               {showLeads ? t('hideLeads') : t('viewLeads')}
             </button>
-            <ExportButton data={data} />
             <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
               {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
               {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
               {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
             </div>
+            <ExportButton data={data} />
           </div>
         </div>
         
@@ -187,25 +187,9 @@ export default function Home() {
           <div className="mb-6 bg-gradient-to-r from-yellow-400/20 via-orange-500/20 to-yellow-600/20 border-2 border-yellow-500/50 rounded-lg p-6 text-center">
             <div className="text-4xl mb-3">👋</div>
             <h3 className="text-xl font-bold mb-2">Welcome to SolarClose!</h3>
-            <p className="text-muted-foreground mb-4">
-              To get started, please create a new lead or select an existing one from your saved leads.
+            <p className="text-muted-foreground">
+              To get started, please click <strong>&quot;➕ New Lead&quot;</strong> above to create a new lead{allLeads.length > 0 ? ' or click &quot;View Leads&quot; to select an existing one' : ''}.
             </p>
-            <div className="flex gap-3 justify-center">
-              <button
-                onClick={handleNewLead}
-                className="bg-primary text-primary-foreground font-semibold py-2 px-6 rounded-lg hover:opacity-90 active:scale-95 transition-all"
-              >
-                ➕ Create New Lead
-              </button>
-              {allLeads.length > 0 && (
-                <button
-                  onClick={() => setShowLeads(true)}
-                  className="bg-secondary text-foreground font-semibold py-2 px-6 rounded-lg hover:opacity-90 active:scale-95 transition-all"
-                >
-                  📋 View Saved Leads
-                </button>
-              )}
-            </div>
           </div>
         )}
         
