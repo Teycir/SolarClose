@@ -6,6 +6,7 @@ import { getTranslation, languageFlags, type Language } from '@/lib/translations
 import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { openDB } from 'idb';
 import type { SolarLead } from '@/types/solar';
 
@@ -13,6 +14,7 @@ export default function Home() {
   const [currentLeadId, setCurrentLeadId] = useState('default-lead');
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
 
   useEffect(() => {
@@ -29,9 +31,21 @@ export default function Home() {
   }, [showLeads, currentLeadId, saveStatus]);
 
   const handleNewLead = () => {
-    if (data?.clientName && !confirm('Create new lead? Current lead will be saved.')) return;
-    const newId = `lead-${Date.now()}`;
-    setCurrentLeadId(newId);
+    if (data?.clientName) {
+      setConfirmDialog({
+        isOpen: true,
+        title: 'Create New Lead',
+        message: 'Current lead will be saved. Continue?',
+        onConfirm: () => {
+          const newId = `lead-${Date.now()}`;
+          setCurrentLeadId(newId);
+          setConfirmDialog(null);
+        }
+      });
+    } else {
+      const newId = `lead-${Date.now()}`;
+      setCurrentLeadId(newId);
+    }
   };
 
   if (!data) {
@@ -94,18 +108,25 @@ export default function Home() {
             <div className="flex justify-between items-center mb-2">
               <h3 className="font-semibold">All Leads ({allLeads.length})</h3>
               <button
-                onClick={async () => {
-                  if (!confirm('Clear all leads from database? This cannot be undone!')) return;
-                  try {
-                    const db = await openDB('solar-leads', 1);
-                    await db.clear('leads');
-                    setAllLeads([]);
-                    setShowLeads(false);
-                    const newId = `lead-${Date.now()}`;
-                    setCurrentLeadId(newId);
-                  } catch (error) {
-                    console.error('Failed to clear database:', error);
-                  }
+                onClick={() => {
+                  setConfirmDialog({
+                    isOpen: true,
+                    title: 'Clear All Leads',
+                    message: 'This will permanently delete all leads from the database. This action cannot be undone!',
+                    onConfirm: async () => {
+                      try {
+                        const db = await openDB('solar-leads', 1);
+                        await db.clear('leads');
+                        setAllLeads([]);
+                        setShowLeads(false);
+                        const newId = `lead-${Date.now()}`;
+                        setCurrentLeadId(newId);
+                      } catch (error) {
+                        console.error('Failed to clear database:', error);
+                      }
+                      setConfirmDialog(null);
+                    }
+                  });
                 }}
                 className="text-xs text-destructive hover:underline"
               >
@@ -125,19 +146,26 @@ export default function Home() {
                     <div className="text-xs text-muted-foreground">{lead.address || 'No address'} • {new Date(lead.createdAt).toLocaleDateString()}</div>
                   </button>
                   <button
-                    onClick={async () => {
-                      if (!confirm(`Delete lead "${lead.clientName || 'Unnamed'}"?`)) return;
-                      try {
-                        const db = await openDB('solar-leads', 1);
-                        await db.delete('leads', lead.id);
-                        setAllLeads(prev => prev.filter(l => l.id !== lead.id));
-                        if (lead.id === currentLeadId) {
-                          const newId = `lead-${Date.now()}`;
-                          setCurrentLeadId(newId);
+                    onClick={() => {
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: 'Delete Lead',
+                        message: `Are you sure you want to delete "${lead.clientName || 'Unnamed Lead'}"?`,
+                        onConfirm: async () => {
+                          try {
+                            const db = await openDB('solar-leads', 1);
+                            await db.delete('leads', lead.id);
+                            setAllLeads(prev => prev.filter(l => l.id !== lead.id));
+                            if (lead.id === currentLeadId) {
+                              const newId = `lead-${Date.now()}`;
+                              setCurrentLeadId(newId);
+                            }
+                          } catch (error) {
+                            console.error('Failed to delete lead:', error);
+                          }
+                          setConfirmDialog(null);
                         }
-                      } catch (error) {
-                        console.error('Failed to delete lead:', error);
-                      }
+                      });
                     }}
                     className="text-destructive hover:bg-destructive/10 p-2 rounded transition-colors"
                     aria-label="Delete lead"
@@ -183,6 +211,19 @@ export default function Home() {
           </div>
         </footer>
       </div>
+      
+      {confirmDialog && (
+        <ConfirmDialog
+          isOpen={confirmDialog.isOpen}
+          title={confirmDialog.title}
+          message={confirmDialog.message}
+          onConfirm={confirmDialog.onConfirm}
+          onCancel={() => setConfirmDialog(null)}
+          confirmText="Confirm"
+          cancelText="Cancel"
+          isDangerous={confirmDialog.title.includes('Delete') || confirmDialog.title.includes('Clear')}
+        />
+      )}
     </main>
   );
 }
