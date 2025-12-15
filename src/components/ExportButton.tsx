@@ -38,20 +38,19 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    if (data.salesRep) { doc.text(data.salesRep, 20, 28); }
-    doc.text(data.companyPhone, 20, data.salesRep ? 33 : 28);
-    if (data.companyEmail) { doc.text(data.companyEmail, 20, data.salesRep ? 38 : 33); }
+    let headerY = 28;
+    if (data.salesRep) { doc.text(data.salesRep, 20, headerY); headerY += 5; }
+    doc.text(data.companyPhone, 20, headerY); headerY += 5;
+    if (data.companyEmail) { doc.text(data.companyEmail, 20, headerY); headerY += 5; }
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
     doc.text(t('proposal'), 20, 45);
     
-    const headerEndY = data.companyEmail ? (data.salesRep ? 43 : 38) : (data.salesRep ? 38 : 33);
-    
     doc.setFontSize(10);
-    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, headerEndY + 5);
+    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, headerY + 3);
     
-    const startY = headerEndY + 13;
+    const startY = headerY + 11;
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
     doc.text(t('clientName'), 20, startY);
@@ -75,17 +74,49 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.text(t('twentyFiveYearSavings'), 105, y + 22, { align: 'center' });
     
     y += 45;
-    doc.setFontSize(16);
+    
+    if (data.productDescription) {
+      doc.setFontSize(14);
+      doc.setTextColor(0, 0, 0);
+      doc.text('Product Description', 20, y);
+      y += 10;
+      doc.setFontSize(10);
+      const descLines = doc.splitTextToSize(data.productDescription, 170);
+      doc.text(descLines, 20, y);
+      y += (descLines.length * 5) + 10;
+    }
+    
+    doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text(t('systemSize'), 20, y);
+    doc.text('System Details', 20, y);
+    y += 10;
+    
+    doc.setFontSize(11);
+    doc.text(`System Size: ${data.systemSizeKw} kW`, 20, y);
+    y += 8;
+    doc.text(`Estimated Annual Production: ${Math.round(data.systemSizeKw * data.sunHoursPerDay * 365 * 0.8).toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
+    y += 15;
+    
+    doc.setFontSize(14);
+    doc.text('Investment & Returns', 20, y);
+    y += 10;
+    
+    doc.setFontSize(11);
+    doc.text(`Total Investment: $${formatNumber(data.systemCost)}`, 20, y);
+    y += 8;
+    doc.text(`Break-Even Period: ${t('year')} ${data.breakEvenYear}`, 20, y);
+    y += 8;
+    doc.text(`25-Year Savings: $${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
     
     y += 15;
-    doc.setFontSize(12);
-    doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y);
-    y += 10;
-    doc.text(`${t('systemCost')}: $${formatNumber(data.systemCost)}`, 20, y);
-    y += 10;
-    doc.text(`${t('breakEvenYear')}: ${t('year')} ${data.breakEvenYear}`, 20, y);
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    const terms = [
+      'This proposal is valid for 30 days.',
+      'Final pricing subject to site inspection.',
+      'Installation timeline: 4-8 weeks after approval.'
+    ];
+    doc.text(terms, 20, y);
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);

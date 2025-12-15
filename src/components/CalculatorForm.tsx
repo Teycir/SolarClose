@@ -286,6 +286,17 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
+        <label className="block text-sm font-medium mb-2">Product Description ({t('optional')})</label>
+        <textarea
+          value={data.productDescription || ''}
+          onChange={(e) => onUpdate({ productDescription: e.target.value })}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
+          rows={3}
+        />
+      </div>
+
+      <div>
         <label className="block text-sm font-medium mb-2">{t('notes')} ({t('optional')})</label>
         <textarea
           value={data.notes || ''}
