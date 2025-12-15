@@ -34,11 +34,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html lang="en" className="dark">
-      <body className={inter.className}>
-        {children}
-      </body>
-    </html>
-  )
+  try {
+    return (
+      <html lang="en" className="dark">
+        <body className={inter.className}>
+          {children}
+        </body>
+      </html>
+    )
+  } catch (error) {
+    console.error('Layout rendering error:', error);
+    return (
+      <html lang="en" className="dark">
+        <body className={inter.className}>
+          <div style={{ padding: '20px', textAlign: 'center' }}>
+            <h1>Something went wrong</h1>
+            <p>Please refresh the page</p>
+          </div>
+        </body>
+      </html>
+    )
+  }
 }

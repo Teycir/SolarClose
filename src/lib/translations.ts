@@ -410,7 +410,18 @@ export type Language = keyof typeof translations;
 export type TranslationKey = keyof typeof translations.en;
 
 export function getTranslation(lang: Language, key: TranslationKey): string {
-  return translations[lang]?.[key] ?? translations.en[key] ?? key;
+  try {
+    const translation = translations[lang]?.[key];
+    if (translation) return translation;
+    
+    const fallback = translations.en[key];
+    if (fallback) return fallback;
+    
+    return key;
+  } catch (error) {
+    console.error('Translation error:', error);
+    return key;
+  }
 }
 
 export const languageFlags: Record<Language, string> = {

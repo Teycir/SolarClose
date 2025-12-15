@@ -23,18 +23,19 @@ export interface SolarCalculationResults {
 const PROJECTION_YEARS = 25;
 
 export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalculationResults {
-  const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw, electricityRate, sunHoursPerDay, federalTaxCreditPercent, stateIncentiveDollars } = inputs;
-  
-  // Validate inputs
-  if (systemSizeKw <= 0 || electricityRate < 0 || sunHoursPerDay <= 0 || currentMonthlyBill < 0 || systemCost < 0) {
-    return { twentyFiveYearSavings: 0, breakEvenYear: 0, yearlyBreakdown: [] };
-  }
+  try {
+    const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw, electricityRate, sunHoursPerDay, federalTaxCreditPercent, stateIncentiveDollars } = inputs;
+    
+    // Validate inputs
+    if (systemSizeKw <= 0 || electricityRate < 0 || sunHoursPerDay <= 0 || currentMonthlyBill < 0 || systemCost < 0) {
+      return { twentyFiveYearSavings: 0, breakEvenYear: 0, yearlyBreakdown: [] };
+    }
   
   const inflationMultiplier = 1 + (yearlyInflationRate / 100);
   
   // Calculate net system cost after incentives
   const federalCredit = systemCost * (federalTaxCreditPercent / 100);
-  const netSystemCost = systemCost - federalCredit - stateIncentiveDollars;
+  const netSystemCost = Math.max(0, systemCost - federalCredit - stateIncentiveDollars);
   
   // Production calculations with performance ratio
   const performanceRatio = 0.80; // 80% real-world efficiency
@@ -90,9 +91,13 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     degradationFactor *= (1 - degradationRate);
   }
   
-  return {
-    twentyFiveYearSavings: Math.round(cumulativeSavings),
-    breakEvenYear: breakEvenYear || PROJECTION_YEARS,
-    yearlyBreakdown
-  };
+    return {
+      twentyFiveYearSavings: Math.round(cumulativeSavings),
+      breakEvenYear: breakEvenYear || PROJECTION_YEARS,
+      yearlyBreakdown
+    };
+  } catch (error) {
+    console.error('Failed to calculate solar savings:', error);
+    return { twentyFiveYearSavings: 0, breakEvenYear: 0, yearlyBreakdown: [] };
+  }
 }

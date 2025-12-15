@@ -2,6 +2,22 @@
 
 import { useEffect } from 'react';
 
+const logError = (error: unknown) => {
+  try {
+    console.error('Application error:', error);
+  } catch (e) {
+    console.error('Failed to log error:', e);
+  }
+};
+
+const handleReset = (reset: () => void) => {
+  try {
+    reset();
+  } catch (e) {
+    console.error('Failed to reset:', e);
+  }
+};
+
 export default function Error({
   error,
   reset,
@@ -10,7 +26,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error('Application error:', error);
+    logError(error);
   }, [error]);
 
   return (
@@ -21,7 +37,7 @@ export default function Error({
           {error?.message || 'An unexpected error occurred. Please try again.'}
         </p>
         <button
-          onClick={reset}
+          onClick={() => handleReset(reset)}
           className="bg-primary text-primary-foreground font-semibold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity"
         >
           Try again

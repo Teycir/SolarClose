@@ -16,7 +16,9 @@ export function formatCurrency(amount: number, currency: string = 'USD'): string
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
-  } catch {
+  } catch (error) {
+    const sanitizedError = error instanceof Error ? error.message : String(error);
+    console.error('Failed to format currency:', sanitizedError);
     return `${amount}`;
   }
 }

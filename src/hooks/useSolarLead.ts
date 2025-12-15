@@ -19,12 +19,59 @@ const getDB = async () => {
         }
       },
     }).catch((error) => {
-      console.error('Failed to open IndexedDB:', error);
+      const sanitizedError = error instanceof Error ? error.message : String(error);
+      console.error('Failed to open IndexedDB:', sanitizedError);
       dbPromise = null;
       throw error;
     });
   }
   return dbPromise;
+};
+
+const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
+  let savedCompany = '';
+  let savedSalesRep = '';
+  try {
+    savedCompany = localStorage.getItem('solarclose-company') || '';
+    savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
+  } catch (e) {
+    console.warn('localStorage unavailable');
+  }
+  const { calculateSolarSavings } = await import('@/lib/calculations');
+  const results = calculateSolarSavings({
+    currentMonthlyBill: 250,
+    yearlyInflationRate: 4,
+    systemCost: 25000,
+    systemSizeKw: 8.5,
+    electricityRate: 0.15,
+    sunHoursPerDay: 5,
+    federalTaxCreditPercent: 30,
+    stateIncentiveDollars: 1000,
+  });
+  return {
+    id: leadId,
+    createdAt: Date.now(),
+    date: new Date().toISOString().split('T')[0],
+    clientName: '',
+    address: '',
+    companyName: savedCompany,
+    companyPhone: '',
+    productDescription: '',
+    salesRep: savedSalesRep,
+    currency: 'USD',
+    language: 'en',
+    currentMonthlyBill: 250,
+    yearlyInflationRate: 4,
+    systemSizeKw: 8.5,
+    systemCost: 25000,
+    electricityRate: 0.15,
+    sunHoursPerDay: 5,
+    federalTaxCredit: 30,
+    stateIncentive: 1000,
+    twentyFiveYearSavings: results.twentyFiveYearSavings,
+    breakEvenYear: results.breakEvenYear,
+    isSynced: false,
+  };
 };
 
 export function useSolarLead(leadId: string) {
@@ -44,57 +91,15 @@ export function useSolarLead(leadId: string) {
         if (stored) {
           setData(stored);
         } else {
-          let savedCompany = '';
-          let savedSalesRep = '';
-          try {
-            savedCompany = localStorage.getItem('solarclose-company') || '';
-            savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
-          } catch (e) {
-            console.warn('localStorage unavailable');
-          }
-          const { calculateSolarSavings } = await import('@/lib/calculations');
-          const results = calculateSolarSavings({
-            currentMonthlyBill: 250,
-            yearlyInflationRate: 4,
-            systemCost: 25000,
-            systemSizeKw: 8.5,
-            electricityRate: 0.15,
-            sunHoursPerDay: 5,
-            federalTaxCreditPercent: 30,
-            stateIncentiveDollars: 1000,
-          });
-          
-          const newLead: SolarLead = {
-            id: leadId,
-            createdAt: Date.now(),
-            date: new Date().toISOString().split('T')[0],
-            clientName: '',
-            address: '',
-            companyName: savedCompany,
-            companyPhone: '',
-            productDescription: '',
-            salesRep: savedSalesRep,
-            currency: 'USD',
-            language: 'en',
-            currentMonthlyBill: 250,
-            yearlyInflationRate: 4,
-            systemSizeKw: 8.5,
-            systemCost: 25000,
-            electricityRate: 0.15,
-            sunHoursPerDay: 5,
-            federalTaxCredit: 30,
-            stateIncentive: 1000,
-            twentyFiveYearSavings: results.twentyFiveYearSavings,
-            breakEvenYear: results.breakEvenYear,
-            isSynced: false,
-          };
+          const newLead = await createDefaultLead(leadId);
           if (isMounted) {
             setData(newLead);
             await db.put(STORE_NAME, newLead);
           }
         }
       } catch (error) {
-        console.error('Failed to load lead:', error);
+        const sanitizedError = error instanceof Error ? error.message : String(error);
+        console.error('Failed to load lead:', sanitizedError);
         if (isMounted) {
           setSaveStatus('error');
         }
@@ -102,7 +107,8 @@ export function useSolarLead(leadId: string) {
     };
 
     loadData().catch((error) => {
-      console.error('Unhandled error in loadData:', error);
+      const sanitizedError = error instanceof Error ? error.message : String(error);
+      console.error('Unhandled error in loadData:', sanitizedError);
     });
     
     return () => {
@@ -122,7 +128,8 @@ export function useSolarLead(leadId: string) {
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
       statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 2000);
     } catch (error) {
-      console.error('Failed to save lead:', error);
+      const sanitizedError = error instanceof Error ? error.message : String(error);
+      console.error('Failed to save lead:', sanitizedError);
       setSaveStatus('error');
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
       statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 3000);

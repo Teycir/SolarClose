@@ -16,21 +16,22 @@ export function ExportButton({ data }: ExportButtonProps) {
   const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && (data.salesRep?.trim() || data.companyName.trim()) && data.productDescription.trim();
 
   const sanitizeFilename = (name: string) => {
-    const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-');
+    const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-').substring(0, 100);
     return sanitized || 'proposal';
   };
 
+  const formatDate = (dateStr: string, lang: Language) => {
+    const date = new Date(dateStr + 'T00:00:00');
+    if (lang === 'en') return date.toLocaleDateString('en-US');
+    return date.toLocaleDateString('fr-FR');
+  };
+
+  const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
+
   const generateClientPDF = async () => {
-    const { jsPDF } = await import('jspdf');
-    const doc = new jsPDF();
-    
-    const formatDate = (dateStr: string, lang: Language) => {
-      const date = new Date(dateStr + 'T00:00:00');
-      if (lang === 'en') return date.toLocaleDateString('en-US');
-      return date.toLocaleDateString('fr-FR');
-    };
-    
-    const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
+    try {
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
     
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
@@ -121,24 +122,21 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.text(data.companyName, 105, 275, { align: 'center' });
     doc.text(`Generated on ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 280, { align: 'center' });
     
-    doc.save(`${sanitizeFilename(data.clientName)}-CLIENT-Proposal.pdf`);
+      doc.save(`${sanitizeFilename(data.clientName)}-CLIENT-Proposal.pdf`);
+    } catch (error) {
+      console.error('Failed to generate client PDF:', error);
+      throw error;
+    }
   };
 
   const generateSellerPDF = async () => {
-    const { jsPDF } = await import('jspdf');
-    const doc = new jsPDF();
-    
-    const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
+    try {
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF();
     
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
     doc.text('INTERNAL SALES SHEET', 20, 20);
-    
-    const formatDate = (dateStr: string, lang: Language) => {
-      const date = new Date(dateStr + 'T00:00:00');
-      if (lang === 'en') return date.toLocaleDateString('en-US');
-      return date.toLocaleDateString('fr-FR');
-    };
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
@@ -215,7 +213,11 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(150, 150, 150);
     doc.text('CONFIDENTIAL - Internal Use Only', 105, 280, { align: 'center' });
     
-    doc.save(`${sanitizeFilename(data.clientName)}-SELLER-Internal.pdf`);
+      doc.save(`${sanitizeFilename(data.clientName)}-SELLER-Internal.pdf`);
+    } catch (error) {
+      console.error('Failed to generate seller PDF:', error);
+      throw error;
+    }
   };
 
   const handleExport = async () => {

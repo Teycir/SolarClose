@@ -10,10 +10,18 @@ declare global {
 
 declare const self: WorkerGlobalScope;
 
-installSerwist({
-  precacheEntries: self.__SW_MANIFEST,
-  skipWaiting: true,
-  clientsClaim: true,
-  navigationPreload: true,
-  runtimeCaching: defaultCache,
-});
+try {
+  installSerwist({
+    precacheEntries: self.__SW_MANIFEST,
+    skipWaiting: true,
+    clientsClaim: true,
+    navigationPreload: true,
+    runtimeCaching: defaultCache,
+  });
+} catch (error) {
+  if (error instanceof Error) {
+    console.error('Service worker installation failed:', error.message);
+  } else {
+    console.error('Service worker installation failed:', error);
+  }
+}

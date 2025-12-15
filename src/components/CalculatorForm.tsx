@@ -15,22 +15,26 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   const t = (key: string) => getTranslation(lang, key as any);
 
   useEffect(() => {
-    const results = calculateSolarSavings({
-      currentMonthlyBill: data.currentMonthlyBill,
-      yearlyInflationRate: data.yearlyInflationRate,
-      systemCost: data.systemCost,
-      systemSizeKw: data.systemSizeKw,
-      electricityRate: data.electricityRate,
-      sunHoursPerDay: data.sunHoursPerDay,
-      federalTaxCreditPercent: data.federalTaxCredit,
-      stateIncentiveDollars: data.stateIncentive,
-    });
-
-    if (results.twentyFiveYearSavings !== data.twentyFiveYearSavings || results.breakEvenYear !== data.breakEvenYear) {
-      onUpdate({
-        twentyFiveYearSavings: results.twentyFiveYearSavings,
-        breakEvenYear: results.breakEvenYear,
+    try {
+      const results = calculateSolarSavings({
+        currentMonthlyBill: data.currentMonthlyBill,
+        yearlyInflationRate: data.yearlyInflationRate,
+        systemCost: data.systemCost,
+        systemSizeKw: data.systemSizeKw,
+        electricityRate: data.electricityRate,
+        sunHoursPerDay: data.sunHoursPerDay,
+        federalTaxCreditPercent: data.federalTaxCredit,
+        stateIncentiveDollars: data.stateIncentive,
       });
+
+      if (results.twentyFiveYearSavings !== data.twentyFiveYearSavings || results.breakEvenYear !== data.breakEvenYear) {
+        onUpdate({
+          twentyFiveYearSavings: results.twentyFiveYearSavings,
+          breakEvenYear: results.breakEvenYear,
+        });
+      }
+    } catch (error) {
+      console.error('Failed to calculate solar savings:', error);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive]);
@@ -71,7 +75,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <input
           type="text"
           value={data.address}
-          onChange={(e) => onUpdate({ address: e.target.value })}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            onUpdate({ address: sanitized });
+          }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="123 Main St"
           required
@@ -289,7 +296,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <label className="block text-sm font-medium mb-2">Product Description *</label>
         <textarea
           value={data.productDescription}
-          onChange={(e) => onUpdate({ productDescription: e.target.value })}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            onUpdate({ productDescription: sanitized });
+          }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
           rows={3}
@@ -302,7 +312,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <label className="block text-sm font-medium mb-2">{t('notes')} ({t('optional')})</label>
         <textarea
           value={data.notes || ''}
-          onChange={(e) => onUpdate({ notes: e.target.value })}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            onUpdate({ notes: sanitized });
+          }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder={t('placeholderNotes')}
           rows={3}
