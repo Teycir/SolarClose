@@ -188,7 +188,7 @@ export default function Home() {
             <div className="text-4xl mb-3">👋</div>
             <h3 className="text-xl font-bold mb-2">Welcome to SolarClose!</h3>
             <p className="text-muted-foreground">
-              To get started, please click <strong>&quot;➕ New Lead&quot;</strong> above to create a new lead{allLeads.length > 0 ? ' or click &quot;View Leads&quot; to select an existing one' : ''}.
+              To get started, please click <strong>&quot;➕ New Lead&quot;</strong> above to create a new lead.{allLeads.length > 0 ? ' Or select an existing lead.' : ''}
             </p>
           </div>
         )}
