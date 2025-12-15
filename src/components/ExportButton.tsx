@@ -26,7 +26,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text('Client Information', 20, 60);
+    doc.text('Proposal For', 20, 60);
     
     doc.setFontSize(12);
     let y = 75;
