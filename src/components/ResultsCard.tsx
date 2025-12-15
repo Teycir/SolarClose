@@ -9,8 +9,9 @@ interface ResultsCardProps {
 export function ResultsCard({ data }: ResultsCardProps) {
   const performanceRatio = 0.80;
   const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * performanceRatio;
-  const annualUsage = (data.currentMonthlyBill / data.electricityRate) * 12;
-  const offsetPercentage = Math.min((annualProduction / annualUsage) * 100, 100);
+  const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * 12 : 0;
+  const offsetPercentage = annualUsage > 0 ? Math.min((annualProduction / annualUsage) * 100, 100) : 0;
+  const roiPercentage = data.systemCost > 0 ? Math.round((data.twentyFiveYearSavings / data.systemCost) * 100) : 0;
 
   return (
     <article className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 space-y-4 sm:space-y-6 shadow-lg" aria-label="Solar system results">
@@ -51,18 +52,18 @@ export function ResultsCard({ data }: ResultsCardProps) {
         className="relative h-8 bg-secondary rounded-full overflow-hidden"
         role="progressbar"
         aria-label="Return on investment progress"
-        aria-valuenow={Math.min(100, Math.round((data.twentyFiveYearSavings / data.systemCost) * 100))}
+        aria-valuenow={Math.min(100, roiPercentage)}
         aria-valuemin={0}
         aria-valuemax={100}
       >
         <div 
           className="absolute left-0 top-0 h-full bg-primary transition-all duration-300"
           style={{ 
-            width: `${Math.min(100, (data.twentyFiveYearSavings / data.systemCost) * 100)}%` 
+            width: `${Math.min(100, roiPercentage)}%` 
           }}
         />
         <div className="absolute inset-0 flex items-center justify-center text-xs font-medium">
-          ROI: {Math.round((data.twentyFiveYearSavings / data.systemCost) * 100)}%
+          ROI: {roiPercentage}%
         </div>
       </div>
     </article>

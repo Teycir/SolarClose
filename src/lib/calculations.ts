@@ -39,8 +39,8 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   const inverterReplacement = systemSizeKw * 300; // ~$300/kW around year 12-15
   
   // Calculate current annual usage
-  const currentAnnualUsage = (currentMonthlyBill / electricityRate) * 12;
-  const offsetPercentage = Math.min(year1Production / currentAnnualUsage, 1.0);
+  const currentAnnualUsage = electricityRate > 0 ? (currentMonthlyBill / electricityRate) * 12 : 0;
+  const offsetPercentage = currentAnnualUsage > 0 ? Math.min(year1Production / currentAnnualUsage, 1.0) : 0;
   
   let cumulativeSavings = -netSystemCost;
   let breakEvenYear = 0;

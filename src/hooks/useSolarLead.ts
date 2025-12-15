@@ -28,10 +28,14 @@ export function useSolarLead(leadId: string) {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
   useEffect(() => {
+    let isMounted = true;
+    
     const loadData = async () => {
       try {
         const db = await getDB();
         const stored = await db.get(STORE_NAME, leadId);
+        
+        if (!isMounted) return;
         
         if (stored) {
           setData(stored);
@@ -64,15 +68,23 @@ export function useSolarLead(leadId: string) {
             breakEvenYear: 0,
             isSynced: false,
           };
-          setData(newLead);
+          if (isMounted) {
+            setData(newLead);
+          }
         }
       } catch (error) {
         console.error('Failed to load lead:', error);
-        setSaveStatus('error');
+        if (isMounted) {
+          setSaveStatus('error');
+        }
       }
     };
 
     loadData();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [leadId]);
 
   const saveToIndexedDB = useCallback(async (leadData: SolarLead) => {
