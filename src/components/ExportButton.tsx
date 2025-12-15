@@ -268,7 +268,8 @@ export function ExportButton({ data }: ExportButtonProps) {
       await generateClientPDF();
       await generateSellerPDF();
     } catch (error) {
-      console.error('Failed to generate PDF:', error);
+      const sanitizedError = error instanceof Error ? error.message : String(error);
+      console.error('Failed to generate PDF:', sanitizedError);
     } finally {
       setIsGenerating(false);
     }
