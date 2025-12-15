@@ -26,6 +26,15 @@ export function ExportButton({ data }: ExportButtonProps) {
     return date.toLocaleDateString('fr-FR');
   };
 
+  const formatDateForFilename = (dateStr: string, lang: Language) => {
+    const date = new Date(dateStr + 'T00:00:00');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    if (lang === 'en') return `${month}-${day}-${year}`;
+    return `${day}-${month}-${year}`;
+  };
+
   const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
 
   const generateClientPDF = async () => {
@@ -154,7 +163,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.text(data.companyName, 105, 275, { align: 'center' });
     doc.text(`Generated on ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 280, { align: 'center' });
     
-      doc.save(`${sanitizeFilename(data.clientName)}-CLIENT-Proposal.pdf`);
+      doc.save(`${sanitizeFilename(data.clientName)}-${formatDateForFilename(data.date, lang)}-CLIENT-Proposal.pdf`);
     } catch (error) {
       console.error('Failed to generate client PDF:', error);
       throw error;
@@ -245,7 +254,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(150, 150, 150);
     doc.text('CONFIDENTIAL - Internal Use Only', 105, 280, { align: 'center' });
     
-      doc.save(`${sanitizeFilename(data.clientName)}-SELLER-Internal.pdf`);
+      doc.save(`${sanitizeFilename(data.clientName)}-${formatDateForFilename(data.date, lang)}-SELLER-Internal.pdf`);
     } catch (error) {
       console.error('Failed to generate seller PDF:', error);
       throw error;
