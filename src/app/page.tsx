@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useSolarLead } from '@/hooks/useSolarLead';
+import { getTranslation, languageFlags, type Language } from '@/lib/translations';
 import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
@@ -30,7 +31,22 @@ export default function Home() {
     <main className="min-h-screen p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-3">
-          <h1 className="text-2xl sm:text-4xl font-bold text-primary">SolarClose</h1>
+          <div className="flex items-center gap-3">
+            <select
+              value={data.language || 'en'}
+              onChange={(e) => setData({ language: e.target.value as Language })}
+              className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
+              aria-label="Select language"
+              title="Select language"
+            >
+              <option value="en">{languageFlags.en}</option>
+              <option value="es">{languageFlags.es}</option>
+              <option value="it">{languageFlags.it}</option>
+              <option value="fr">{languageFlags.fr}</option>
+              <option value="de">{languageFlags.de}</option>
+            </select>
+            <h1 className="text-2xl sm:text-4xl font-bold text-primary">{getTranslation((data.language || 'en') as Language, 'title')}</h1>
+          </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowLeads(!showLeads)}
