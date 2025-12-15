@@ -17,19 +17,36 @@ export interface SolarCalculationResults {
 }
 
 export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalculationResults {
-  const { currentMonthlyBill, yearlyInflationRate, systemCost } = inputs;
+  const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw } = inputs;
   const inflationMultiplier = 1 + (yearlyInflationRate / 100);
   
-  let cumulativeSavings = 0;
+  // Realistic assumptions
+  const avgSunHoursPerDay = 5; // Average sun hours
+  const annualProduction = systemSizeKw * avgSunHoursPerDay * 365; // kWh per year
+  const avgElectricityRate = 0.15; // $0.15 per kWh (average US rate)
+  const solarDegradation = 0.005; // 0.5% per year
+  const annualMaintenanceCost = systemCost * 0.01; // 1% of system cost per year
+  
+  // Calculate offset percentage
+  const currentAnnualUsage = (currentMonthlyBill / avgElectricityRate) * 12;
+  const offsetPercentage = Math.min(annualProduction / currentAnnualUsage, 1.0);
+  
+  let cumulativeSavings = -systemCost; // Start with upfront cost
   let breakEvenYear = 0;
   const yearlyBreakdown = [];
   
   for (let year = 1; year <= 25; year++) {
-    const utilityCost = currentMonthlyBill * 12 * Math.pow(inflationMultiplier, year - 1);
-    const solarCost = year === 1 ? systemCost : 0; // System paid upfront
-    const yearlySavings = utilityCost - solarCost;
+    // Utility cost without solar (with inflation)
+    const utilityWithoutSolar = currentMonthlyBill * 12 * Math.pow(inflationMultiplier, year - 1);
     
-    cumulativeSavings += yearlySavings;
+    // Solar production degrades over time
+    const productionMultiplier = Math.pow(1 - solarDegradation, year - 1);
+    const yearlySolarSavings = utilityWithoutSolar * offsetPercentage * productionMultiplier;
+    
+    // Net savings after maintenance
+    const netYearlySavings = yearlySolarSavings - annualMaintenanceCost;
+    
+    cumulativeSavings += netYearlySavings;
     
     if (breakEvenYear === 0 && cumulativeSavings > 0) {
       breakEvenYear = year;
@@ -37,15 +54,15 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     
     yearlyBreakdown.push({
       year,
-      utilityCost,
-      solarCost,
+      utilityCost: utilityWithoutSolar,
+      solarCost: year === 1 ? systemCost : annualMaintenanceCost,
       cumulativeSavings
     });
   }
   
   return {
-    twentyFiveYearSavings: cumulativeSavings,
-    breakEvenYear,
+    twentyFiveYearSavings: Math.round(cumulativeSavings),
+    breakEvenYear: breakEvenYear || 25,
     yearlyBreakdown
   };
 }
