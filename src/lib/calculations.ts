@@ -28,30 +28,39 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   const federalCredit = systemCost * (federalTaxCredit / 100);
   const netSystemCost = systemCost - federalCredit - stateIncentive;
   
-  // Production calculations
-  const annualProduction = systemSizeKw * sunHoursPerDay * 365; // kWh per year
-  const solarDegradation = 0.005; // 0.5% per year
-  const annualMaintenanceCost = systemCost * 0.01; // 1% of system cost per year
+  // Production calculations with performance ratio
+  const performanceRatio = 0.80; // 80% real-world efficiency
+  const theoreticalProduction = systemSizeKw * sunHoursPerDay * 365;
+  const year1Production = theoreticalProduction * performanceRatio;
+  const degradationRate = 0.005; // 0.5% per year
   
-  // Calculate offset percentage
+  // Realistic maintenance costs
+  const baseMaintenance = 150; // $150/year base
+  const inverterReplacement = systemSizeKw * 300; // ~$300/kW around year 12-15
+  
+  // Calculate current annual usage
   const currentAnnualUsage = (currentMonthlyBill / electricityRate) * 12;
-  const offsetPercentage = Math.min(annualProduction / currentAnnualUsage, 1.0);
+  const offsetPercentage = Math.min(year1Production / currentAnnualUsage, 1.0);
   
-  let cumulativeSavings = -netSystemCost; // Start with net upfront cost after incentives
+  let cumulativeSavings = -netSystemCost;
   let breakEvenYear = 0;
   const yearlyBreakdown = [];
   
   for (let year = 1; year <= 25; year++) {
-    // Utility cost without solar (with inflation)
+    // Utility cost with inflation
     const utilityWithoutSolar = currentMonthlyBill * 12 * Math.pow(inflationMultiplier, year - 1);
     
-    // Solar production degrades over time
-    const productionMultiplier = Math.pow(1 - solarDegradation, year - 1);
-    const yearlySolarSavings = utilityWithoutSolar * offsetPercentage * productionMultiplier;
+    // Solar production degrades from year 1 baseline
+    const productionMultiplier = Math.pow(1 - degradationRate, year - 1);
+    const yearProduction = year1Production * productionMultiplier;
+    const yearlySolarSavings = (yearProduction / currentAnnualUsage) * utilityWithoutSolar * Math.min(offsetPercentage / (year1Production / currentAnnualUsage), 1);
     
-    // Net savings after maintenance
-    const netYearlySavings = yearlySolarSavings - annualMaintenanceCost;
+    // Maintenance with inflation + inverter replacement
+    const maintenanceCost = baseMaintenance * Math.pow(inflationMultiplier, year - 1);
+    const inverterCost = (year === 13) ? inverterReplacement : 0;
+    const totalYearlyCost = maintenanceCost + inverterCost;
     
+    const netYearlySavings = yearlySolarSavings - totalYearlyCost;
     cumulativeSavings += netYearlySavings;
     
     if (breakEvenYear === 0 && cumulativeSavings > 0) {
@@ -61,7 +70,7 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     yearlyBreakdown.push({
       year,
       utilityCost: utilityWithoutSolar,
-      solarCost: year === 1 ? systemCost : annualMaintenanceCost,
+      solarCost: year === 1 ? systemCost : totalYearlyCost,
       cumulativeSavings
     });
   }

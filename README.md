@@ -55,6 +55,19 @@ Open [http://localhost:3000](http://localhost:3000)
 - 25-year savings highlight
 - Automatic filename generation
 
+## 🧮 Calculation Methodology
+
+Accurate 25-year ROI projections using industry-standard assumptions:
+
+- **Performance Ratio**: 80% real-world efficiency (accounts for shading, temperature, soiling, inverter losses)
+- **Panel Degradation**: 0.5% annually from year 1 baseline
+- **Maintenance Costs**: $150/year base (inflates with utility rates)
+- **Inverter Replacement**: ~$300/kW at year 13
+- **Federal Tax Credit**: Configurable % (default 30%)
+- **State Incentives**: Configurable $ amount
+- **Utility Rate Inflation**: Configurable % (default 4%)
+- **Net System Cost**: Accounts for all incentives before calculating payback
+
 ## 🔒 License
 
 **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)**

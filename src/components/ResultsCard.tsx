@@ -21,7 +21,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
       <div className="text-center">
         <h2 className="text-xs sm:text-sm text-muted-foreground mb-2">25-Year Savings</h2>
         <p className="text-3xl sm:text-5xl font-bold text-primary">
-          {formatCurrency(data.twentyFiveYearSavings)}
+          ${data.twentyFiveYearSavings.toLocaleString()}
         </p>
       </div>
 
@@ -32,7 +32,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
         <div className="text-center p-3 sm:p-4 bg-secondary rounded-lg">
           <p className="text-xs sm:text-sm text-muted-foreground mb-1">System Cost</p>
-          <p className="text-xl sm:text-2xl font-bold">{formatCurrency(data.systemCost)}</p>
+          <p className="text-xl sm:text-2xl font-bold">${data.systemCost.toLocaleString()}</p>
         </div>
       </div>
 
@@ -43,12 +43,12 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Est. Annual Production</span>
-          <span className="font-medium">{Math.round(data.systemSizeKw * 5 * 365).toLocaleString()} kWh</span>
+          <span className="font-medium">{Math.round(data.systemSizeKw * data.sunHoursPerDay * 365).toLocaleString()} kWh</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Monthly Bill Offset</span>
           <span className="font-medium">
-            {Math.round(Math.min((data.systemSizeKw * 5 * 365) / ((data.currentMonthlyBill / 0.15) * 12) * 100, 100))}%
+            {Math.round(Math.min((data.systemSizeKw * data.sunHoursPerDay * 365) / ((data.currentMonthlyBill / data.electricityRate) * 12) * 100, 100))}%
           </span>
         </div>
       </div>
