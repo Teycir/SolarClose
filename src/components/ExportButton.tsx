@@ -12,6 +12,11 @@ export function ExportButton({ data }: ExportButtonProps) {
 
   const canExport = data.clientName.trim() && data.address.trim();
 
+  const sanitizeFilename = (name: string) => {
+    const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-');
+    return sanitized || 'proposal';
+  };
+
   const generateClientPDF = async () => {
     const { jsPDF } = await import('jspdf');
     const doc = new jsPDF();
@@ -57,7 +62,13 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     doc.text(`System Cost: $${data.systemCost.toLocaleString()}`, 20, y);
     y += 10;
+    doc.text(`Federal Tax Credit: ${data.federalTaxCredit}%`, 20, y);
+    y += 10;
+    doc.text(`State Incentive: $${data.stateIncentive.toLocaleString()}`, 20, y);
+    y += 10;
     doc.text(`Current Monthly Bill: $${data.currentMonthlyBill}`, 20, y);
+    y += 10;
+    doc.text(`Electricity Rate: $${data.electricityRate}/kWh`, 20, y);
     y += 10;
     doc.text(`Break-Even Year: Year ${data.breakEvenYear}`, 20, y);
     if (data.financingOption) { y += 10; doc.text(`Financing: ${data.financingOption}`, 20, y); }
@@ -66,7 +77,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(150, 150, 150);
     doc.text(`Generated on ${new Date().toLocaleDateString()} | SolarClose`, 105, 280, { align: 'center' });
     
-    doc.save(`${data.clientName}-CLIENT-Proposal.pdf`);
+    doc.save(`${sanitizeFilename(data.clientName)}-CLIENT-Proposal.pdf`);
   };
 
   const generateSellerPDF = async () => {
@@ -125,21 +136,22 @@ export function ExportButton({ data }: ExportButtonProps) {
     if (data.utilityProvider) { doc.text(`Utility: ${data.utilityProvider}`, 20, y); y += 7; }
     if (data.avgKwhPerMonth) { doc.text(`Avg kWh/Month: ${data.avgKwhPerMonth}`, 20, y); y += 7; }
     
-    if (data.notes) {
+    if (data.notes && y < 250) {
       y += 5;
       doc.setFontSize(14);
       doc.text('Notes', 20, y);
       y += 10;
       doc.setFontSize(10);
       const lines = doc.splitTextToSize(data.notes, 170);
-      doc.text(lines, 20, y);
+      const maxLines = Math.floor((260 - y) / 5);
+      doc.text(lines.slice(0, maxLines), 20, y);
     }
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
     doc.text('CONFIDENTIAL - Internal Use Only', 105, 280, { align: 'center' });
     
-    doc.save(`${data.clientName}-SELLER-Internal.pdf`);
+    doc.save(`${sanitizeFilename(data.clientName)}-SELLER-Internal.pdf`);
   };
 
   const handleExport = async () => {
@@ -161,6 +173,7 @@ export function ExportButton({ data }: ExportButtonProps) {
       onClick={handleExport}
       disabled={isGenerating || !canExport}
       className="w-full bg-primary text-primary-foreground font-semibold py-4 sm:py-3 px-4 sm:px-6 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 text-base sm:text-sm"
+      aria-label={isGenerating ? 'Generating PDF files' : !canExport ? 'Export PDFs - Enter client information first' : 'Export client and seller PDF files'}
       title={!canExport ? 'Please enter client name and address first' : ''}
     >
       {isGenerating ? 'Generating PDFs...' : !canExport ? '📄 Export PDFs (Enter client info)' : '📄 Export PDFs (Client + Seller)'}

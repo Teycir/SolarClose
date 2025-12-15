@@ -36,13 +36,22 @@ export function useSolarLead(leadId: string) {
         if (stored) {
           setData(stored);
         } else {
+          let savedCompany = '';
+          let savedSalesRep = '';
+          try {
+            savedCompany = localStorage.getItem('solarclose-company') || '';
+            savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
+          } catch (e) {
+            console.warn('localStorage unavailable');
+          }
           const newLead: SolarLead = {
             id: leadId,
             createdAt: Date.now(),
             date: new Date().toISOString().split('T')[0],
             clientName: '',
             address: '',
-            companyName: '',
+            companyName: savedCompany,
+            salesRep: savedSalesRep,
             currentMonthlyBill: 250,
             yearlyInflationRate: 4,
             systemSizeKw: 8.5,
@@ -80,21 +89,16 @@ export function useSolarLead(leadId: string) {
   }, []);
 
   const debounceRef = useRef<NodeJS.Timeout>();
-  const debounce = useCallback((func: () => void, wait: number) => {
-    return () => {
-      clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(func, wait);
-    };
-  }, []);
 
   const updateData = useCallback((updates: Partial<SolarLead>) => {
     setData(prev => {
       if (!prev) return null;
       const updated = { ...prev, ...updates };
-      debounce(() => saveToIndexedDB(updated), 500)();
+      clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => saveToIndexedDB(updated), 500);
       return updated;
     });
-  }, [saveToIndexedDB, debounce]);
+  }, [saveToIndexedDB]);
 
   return {
     data,

@@ -21,7 +21,7 @@ export default function Home() {
   if (!data) {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Loading...</p>
+        <p className="text-muted-foreground" role="status" aria-live="polite">Loading...</p>
       </main>
     );
   }
@@ -35,19 +35,21 @@ export default function Home() {
             <button
               onClick={() => setShowLeads(!showLeads)}
               className="bg-secondary text-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
+              aria-label={showLeads ? 'Hide leads panel' : 'View leads panel'}
             >
               📋 {showLeads ? 'Hide' : 'View'} Leads
             </button>
             <button
               onClick={handleNewLead}
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
+              aria-label="Create new lead"
             >
               ➕ New Lead
             </button>
-            <div className="text-xs sm:text-sm text-muted-foreground">
-              {saveStatus === 'saving' && '💾 Saving...'}
-              {saveStatus === 'saved' && '✓ Saved'}
-              {saveStatus === 'error' && '⚠ Error'}
+            <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
+              {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
+              {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
+              {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
             </div>
           </div>
         </div>

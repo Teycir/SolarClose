@@ -37,7 +37,7 @@ export interface SolarLead {
   electricityRate: number; // e.g. 0.15 ($/kWh)
   sunHoursPerDay: number; // e.g. 5
   federalTaxCredit: number; // e.g. 30 (percent)
-  stateIncentive: number; // e.g. 1000 (dollars)
+  stateIncentive: number; // e.g. 1000 ($)
   
   // Calculated Results (Cached)
   twentyFiveYearSavings: number;

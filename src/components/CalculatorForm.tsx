@@ -26,7 +26,8 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       twentyFiveYearSavings: results.twentyFiveYearSavings,
       breakEvenYear: results.breakEvenYear,
     });
-  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive, onUpdate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive]);
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -67,7 +68,15 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <input
           type="text"
           value={data.companyName}
-          onChange={(e) => onUpdate({ companyName: e.target.value })}
+          onChange={(e) => {
+            const value = e.target.value;
+            try {
+              localStorage.setItem('solarclose-company', value);
+            } catch (e) {
+              console.warn('localStorage unavailable');
+            }
+            onUpdate({ companyName: value });
+          }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="Your Solar Company"
         />
@@ -92,10 +101,8 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="email"
             value={data.email || ''}
-            onChange={(e) => {
-              const sanitized = e.target.value.toLowerCase().trim();
-              onUpdate({ email: sanitized });
-            }}
+            onChange={(e) => onUpdate({ email: e.target.value })}
+            onBlur={(e) => onUpdate({ email: e.target.value.toLowerCase().trim() })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="client@email.com"
           />
@@ -108,7 +115,15 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="text"
             value={data.salesRep || ''}
-            onChange={(e) => onUpdate({ salesRep: e.target.value })}
+            onChange={(e) => {
+              const value = e.target.value;
+              try {
+                localStorage.setItem('solarclose-salesrep', value);
+              } catch (e) {
+                console.warn('localStorage unavailable');
+              }
+              onUpdate({ salesRep: value });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="Your Name"
           />

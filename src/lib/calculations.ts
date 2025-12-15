@@ -53,7 +53,8 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     // Solar production degrades from year 1 baseline
     const productionMultiplier = Math.pow(1 - degradationRate, year - 1);
     const yearProduction = year1Production * productionMultiplier;
-    const yearlySolarSavings = (yearProduction / currentAnnualUsage) * utilityWithoutSolar * Math.min(offsetPercentage / (year1Production / currentAnnualUsage), 1);
+    const actualOffset = Math.min(yearProduction / currentAnnualUsage, offsetPercentage);
+    const yearlySolarSavings = utilityWithoutSolar * actualOffset;
     
     // Maintenance with inflation + inverter replacement
     const maintenanceCost = baseMaintenance * Math.pow(inflationMultiplier, year - 1);
