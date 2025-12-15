@@ -25,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     const loadLeads = async () => {
       try {
-        const db = await openDB('solar-leads', 1);
+        const db = await openDB('solar-leads', 2);
         const leads = await db.getAll('leads');
         setAllLeads(leads.sort((a, b) => b.createdAt - a.createdAt));
       } catch (error) {
@@ -37,7 +37,7 @@ export default function Home() {
 
   const handleClearAllLeads = async () => {
     try {
-      const db = await openDB('solar-leads', 1);
+      const db = await openDB('solar-leads', 2);
       await db.clear('leads');
       setAllLeads([]);
       setShowLeads(false);
@@ -50,7 +50,7 @@ export default function Home() {
 
   const handleDeleteLead = async (leadId: string) => {
     try {
-      const db = await openDB('solar-leads', 1);
+      const db = await openDB('solar-leads', 2);
       await db.delete('leads', leadId);
       setAllLeads(prev => prev.filter(l => l.id !== leadId));
       if (leadId === currentLeadId) {

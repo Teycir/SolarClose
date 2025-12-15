@@ -6,16 +6,19 @@ import type { SolarLead } from '@/types/solar';
 
 const DB_NAME = 'solar-leads';
 const STORE_NAME = 'leads';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
 const getDB = async () => {
   if (!dbPromise) {
     dbPromise = openDB(DB_NAME, DB_VERSION, {
-      upgrade(db) {
+      upgrade(db, oldVersion) {
         if (!db.objectStoreNames.contains(STORE_NAME)) {
           db.createObjectStore(STORE_NAME, { keyPath: 'id' });
+        }
+        if (!db.objectStoreNames.contains('product-descriptions')) {
+          db.createObjectStore('product-descriptions', { keyPath: 'id' });
         }
       },
     }).catch((error) => {

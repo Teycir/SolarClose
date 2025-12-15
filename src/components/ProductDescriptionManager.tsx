@@ -26,8 +26,11 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
 
   const loadDescriptions = async () => {
     try {
-      const db = await openDB('solar-leads', 1, {
-        upgrade(db) {
+      const db = await openDB('solar-leads', 2, {
+        upgrade(db, oldVersion) {
+          if (!db.objectStoreNames.contains('leads')) {
+            db.createObjectStore('leads', { keyPath: 'id' });
+          }
           if (!db.objectStoreNames.contains('product-descriptions')) {
             db.createObjectStore('product-descriptions', { keyPath: 'id' });
           }
@@ -49,7 +52,7 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
       message: 'Save this product description as a reusable template?',
       onConfirm: async () => {
         try {
-          const db = await openDB('solar-leads', 1);
+          const db = await openDB('solar-leads', 2);
           const newDesc: ProductDescription = {
             id: `desc-${Date.now()}`,
             description: currentDescription,
@@ -67,7 +70,7 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
 
   const deleteDescription = async (id: string) => {
     try {
-      const db = await openDB('solar-leads', 1);
+      const db = await openDB('solar-leads', 2);
       await db.delete('product-descriptions', id);
       await loadDescriptions();
     } catch (error) {
@@ -78,7 +81,7 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
 
   const clearAllDescriptions = async () => {
     try {
-      const db = await openDB('solar-leads', 1);
+      const db = await openDB('solar-leads', 2);
       const tx = db.transaction('product-descriptions', 'readwrite');
       await tx.objectStore('product-descriptions').clear();
       await tx.done;
