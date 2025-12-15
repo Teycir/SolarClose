@@ -54,28 +54,15 @@
     @apply border-border;
   }
   body {
-    @apply text-foreground;
+    @apply text-foreground min-h-screen;
     background: linear-gradient(-45deg, #FFF8E1, #FFE082, #FFC107, #FF8F00, #E65100, #FFC107, #FFE082);
     background-size: 400% 400%;
-    animation: gradientShift 8s ease-in-out infinite;
-    min-height: 100vh;
+    animation: gradient-shift 8s ease-in-out infinite;
   }
   
   .dark body {
     background: linear-gradient(-45deg, #1A1A1A, #2D1B00, #3E2723, #4E342E, #1A1A1A, #3E2723, #2D1B00);
     background-size: 400% 400%;
-    animation: gradientShift 8s ease-in-out infinite;
-  }
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+    animation: gradient-shift 8s ease-in-out infinite;
   }
 }
