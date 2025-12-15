@@ -75,7 +75,7 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 mt-2">
       <div className="flex gap-2">
         <button
           type="button"
@@ -95,7 +95,7 @@ export function PhoneManager({ currentPhone, onSelect }: PhoneManagerProps) {
       </div>
 
       {showList && items.length > 0 && (
-        <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-40 overflow-y-auto">
+        <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-40 overflow-y-auto mt-2">
           <div className="flex justify-between items-center mb-2">
             <span className="text-xs font-semibold">Saved Phones</span>
             <button

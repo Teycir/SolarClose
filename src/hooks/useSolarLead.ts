@@ -133,7 +133,7 @@ export function useSolarLead(leadId: string) {
   const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const saveToIndexedDB = useCallback(async (leadData: SolarLead) => {
-    if (!leadData.clientName.trim()) return;
+    if (!leadData.clientName.trim() || !leadData.salesRep?.trim()) return;
     try {
       setSaveStatus('saving');
       const db = await getDB();

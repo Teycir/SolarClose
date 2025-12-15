@@ -175,18 +175,50 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">{t('companyEmail')} ({t('optional')})</label>
+          <label className="block text-sm font-medium mb-2">{t('salesRep')} *</label>
           <input
-            type="email"
-            value={data.companyEmail || ''}
+            type="text"
+            value={data.salesRep || ''}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '').toLowerCase();
-              onUpdate({ companyEmail: sanitized });
+              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
+              try {
+                localStorage.setItem('solarclose-salesrep', sanitized);
+              } catch (error) {
+                console.warn('localStorage unavailable');
+              }
+              onUpdate({ salesRep: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder="info@company.com"
+            placeholder={t('placeholderSalesRep')}
+            required
+            aria-required="true"
+          />
+          <SalesRepManager
+            currentName={data.salesRep || ''}
+            onSelect={(name) => {
+              try {
+                localStorage.setItem('solarclose-salesrep', name);
+              } catch (error) {
+                console.warn('localStorage unavailable');
+              }
+              onUpdate({ salesRep: name });
+            }}
           />
         </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">{t('companyEmail')} ({t('optional')})</label>
+        <input
+          type="email"
+          value={data.companyEmail || ''}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '').toLowerCase();
+            onUpdate({ companyEmail: sanitized });
+          }}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          placeholder="info@company.com"
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -218,52 +250,21 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-2">{t('salesRep')} ({t('optional')})</label>
-          <input
-            type="text"
-            value={data.salesRep || ''}
-            onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
-              try {
-                localStorage.setItem('solarclose-salesrep', sanitized);
-              } catch (error) {
-                console.warn('localStorage unavailable');
-              }
-              onUpdate({ salesRep: sanitized });
-            }}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder={t('placeholderSalesRep')}
-          />
-          <SalesRepManager
-            currentName={data.salesRep || ''}
-            onSelect={(name) => {
-              try {
-                localStorage.setItem('solarclose-salesrep', name);
-              } catch (error) {
-                console.warn('localStorage unavailable');
-              }
-              onUpdate({ salesRep: name });
-            }}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">{t('leadStatus')} ({t('optional')})</label>
-          <select
-            value={data.leadStatus || ''}
-            onChange={(e) => onUpdate({ leadStatus: e.target.value })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          >
-            <option value="">{t('selectStatus')}</option>
-            <option value="New">{t('new')}</option>
-            <option value="Contacted">{t('contacted')}</option>
-            <option value="Site Visit Scheduled">{t('siteVisitScheduled')}</option>
-            <option value="Proposal Sent">{t('proposalSent')}</option>
-            <option value="Closed Won">{t('closedWon')}</option>
-            <option value="Closed Lost">{t('closedLost')}</option>
-          </select>
-        </div>
+      <div>
+        <label className="block text-sm font-medium mb-2">{t('leadStatus')} ({t('optional')})</label>
+        <select
+          value={data.leadStatus || ''}
+          onChange={(e) => onUpdate({ leadStatus: e.target.value })}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+        >
+          <option value="">{t('selectStatus')}</option>
+          <option value="New">{t('new')}</option>
+          <option value="Contacted">{t('contacted')}</option>
+          <option value="Site Visit Scheduled">{t('siteVisitScheduled')}</option>
+          <option value="Proposal Sent">{t('proposalSent')}</option>
+          <option value="Closed Won">{t('closedWon')}</option>
+          <option value="Closed Lost">{t('closedLost')}</option>
+        </select>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
