@@ -13,7 +13,7 @@ export function ExportButton({ data }: ExportButtonProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
 
-  const canExport = data.clientName.trim() && data.address.trim();
+  const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && (data.salesRep?.trim() || data.companyName.trim());
 
   const sanitizeFilename = (name: string) => {
     const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-');
@@ -38,17 +38,20 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    doc.text(data.companyPhone, 20, 28);
-    if (data.companyEmail) { doc.text(data.companyEmail, 20, 34); }
+    if (data.salesRep) { doc.text(data.salesRep, 20, 28); }
+    doc.text(data.companyPhone, 20, data.salesRep ? 33 : 28);
+    if (data.companyEmail) { doc.text(data.companyEmail, 20, data.salesRep ? 38 : 33); }
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
     doc.text(t('proposal'), 20, 45);
     
-    doc.setFontSize(10);
-    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, 52);
+    const headerEndY = data.companyEmail ? (data.salesRep ? 43 : 38) : (data.salesRep ? 38 : 33);
     
-    const startY = 60;
+    doc.setFontSize(10);
+    doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, headerEndY + 5);
+    
+    const startY = headerEndY + 13;
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
     doc.text(t('clientName'), 20, startY);
@@ -82,16 +85,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     y += 10;
     doc.text(`${t('systemCost')}: $${formatNumber(data.systemCost)}`, 20, y);
     y += 10;
-    doc.text(`${t('taxCredit')}: ${data.federalTaxCredit}%`, 20, y);
-    y += 10;
-    doc.text(`${t('stateIncentive')}: $${formatNumber(data.stateIncentive)}`, 20, y);
-    y += 10;
-    doc.text(`${t('currentMonthlyBill')}: $${data.currentMonthlyBill}`, 20, y);
-    y += 10;
-    doc.text(`${t('electricityRate')}: $${data.electricityRate}/kWh`, 20, y);
-    y += 10;
     doc.text(`${t('breakEvenYear')}: ${t('year')} ${data.breakEvenYear}`, 20, y);
-    if (data.financingOption) { y += 10; doc.text(`${t('financingOption')}: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); }
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
