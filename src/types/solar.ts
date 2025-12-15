@@ -1,6 +1,7 @@
 export interface SolarLead {
   id: string;
   createdAt: number;
+  date: string;
   clientName: string;
   address: string;
   companyName: string;

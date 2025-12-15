@@ -39,6 +39,7 @@ export function useSolarLead(leadId: string) {
           const newLead: SolarLead = {
             id: leadId,
             createdAt: Date.now(),
+            date: new Date().toISOString().split('T')[0],
             clientName: '',
             address: '',
             companyName: '',

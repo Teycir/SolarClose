@@ -27,6 +27,16 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div>
+        <label className="block text-sm font-medium mb-2">Date</label>
+        <input
+          type="date"
+          value={data.date}
+          onChange={(e) => onUpdate({ date: e.target.value })}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+        />
+      </div>
+
+      <div>
         <label className="block text-sm font-medium mb-2">Client Name</label>
         <input
           type="text"
