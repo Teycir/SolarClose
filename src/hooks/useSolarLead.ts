@@ -96,7 +96,6 @@ export function useSolarLead(leadId: string) {
           const newLead = await createDefaultLead(leadId);
           if (isMounted) {
             setData(newLead);
-            await db.put(STORE_NAME, newLead);
           }
         }
       } catch (error) {
@@ -122,6 +121,7 @@ export function useSolarLead(leadId: string) {
   const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const saveToIndexedDB = useCallback(async (leadData: SolarLead) => {
+    if (!leadData.clientName.trim()) return;
     try {
       setSaveStatus('saving');
       const db = await getDB();
