@@ -81,7 +81,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           type="text"
           value={data.address}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ address: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -96,7 +96,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <textarea
           value={data.productDescription}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ productDescription: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -116,7 +116,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <textarea
           value={data.proposalConditions || ''}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ proposalConditions: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -383,7 +383,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <textarea
           value={data.notes || ''}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ notes: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"

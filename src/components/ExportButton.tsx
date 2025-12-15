@@ -59,30 +59,30 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(0, 0, 0);
     doc.text(`${t('proposal')} - ${formatDate(data.date, lang)}`, 20, 45);
     
-    const startY = headerY + 11;
-    doc.setFontSize(16);
+    const startY = 55;
+    doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text(t('clientName'), 20, startY);
     
-    doc.setFontSize(12);
-    let y = startY + 15;
-    doc.text(`${t('clientName')}: ${data.clientName}`, 20, y);
-    y += 10;
-    doc.text(`${t('address')}: ${data.address}`, 20, y);
-    if (data.phone) { y += 10; doc.text(`${t('phone')}: ${data.phone}`, 20, y); }
-    if (data.email) { y += 10; doc.text(`${t('email')}: ${data.email}`, 20, y); }
+    doc.setFontSize(11);
+    let y = startY + 10;
+    doc.text(data.clientName, 20, y);
+    y += 7;
+    doc.text(data.address, 20, y);
+    if (data.phone) { y += 7; doc.text(data.phone, 20, y); }
+    if (data.email) { y += 7; doc.text(data.email, 20, y); }
     
-    y += 20;
+    y += 15;
     doc.setFillColor(255, 248, 220);
-    doc.rect(20, y, 170, 30, 'F');
-    doc.setFontSize(20);
+    doc.rect(20, y, 170, 20, 'F');
+    doc.setFontSize(16);
     doc.setTextColor(255, 193, 7);
-    doc.text(`${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 105, y + 15, { align: 'center' });
-    doc.setFontSize(10);
+    doc.text(`${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 105, y + 10, { align: 'center' });
+    doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
-    doc.text(t('twentyFiveYearSavings'), 105, y + 22, { align: 'center' });
+    doc.text(t('twentyFiveYearSavings'), 105, y + 16, { align: 'center' });
     
-    y += 45;
+    y += 30;
     
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
@@ -142,24 +142,28 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(0, 0, 0);
     y += 10;
     
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
     doc.text(`* Savings calculated with ${data.yearlyInflationRate}% annual utility rate increase`, 20, y);
     doc.setTextColor(0, 0, 0);
-    y += 10;
+    y += 8;
     
-    if (data.proposalConditions && y < 250) {
-      doc.setFontSize(10);
+    if (data.proposalConditions && y < 245) {
+      doc.setFontSize(9);
       doc.setTextColor(100, 100, 100);
       const conditionLines = doc.splitTextToSize(data.proposalConditions, 170);
-      doc.text(conditionLines, 20, y);
-      y += (conditionLines.length * 5);
+      const maxLines = Math.floor((245 - y) / 4.5);
+      doc.text(conditionLines.slice(0, maxLines), 20, y);
     }
+    
+    doc.setDrawColor(200, 200, 200);
+    doc.setLineWidth(0.5);
+    doc.line(20, 270, 190, 270);
     
     doc.setFontSize(8);
     doc.setTextColor(150, 150, 150);
-    doc.text(data.companyName, 105, 275, { align: 'center' });
-    doc.text(`Generated on ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 280, { align: 'center' });
+    doc.text(data.companyName, 105, 276, { align: 'center' });
+    doc.text(`Generated on ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 281, { align: 'center' });
     
       doc.save(`${sanitizeFilename(data.clientName)}-${formatDateForFilename(data.date, lang)}-CLIENT-Proposal.pdf`);
     } catch (error) {
