@@ -75,6 +75,10 @@ export const translations = {
     placeholderNotes: 'Additional notes or comments...',
     eg: 'e.g.',
     proposal: 'Proposal',
+    madeBy: 'Made by',
+    openSourceFree: 'Open source & free to use',
+    dataStaysLocal: 'All data stays local',
+    howToUse: 'How to use',
   },
   es: {
     title: 'SolarClose',
@@ -152,6 +156,10 @@ export const translations = {
     placeholderNotes: 'Notas o comentarios adicionales...',
     eg: 'ej.',
     proposal: 'Presupuesto',
+    madeBy: 'Hecho por',
+    openSourceFree: 'Código abierto y gratuito',
+    dataStaysLocal: 'Todos los datos permanecen locales',
+    howToUse: 'Cómo usar',
   },
   it: {
     title: 'SolarClose',
@@ -229,6 +237,10 @@ export const translations = {
     placeholderNotes: 'Note o commenti aggiuntivi...',
     eg: 'es.',
     proposal: 'Preventivo',
+    madeBy: 'Fatto da',
+    openSourceFree: 'Open source e gratuito',
+    dataStaysLocal: 'Tutti i dati rimangono locali',
+    howToUse: 'Come usare',
   },
   fr: {
     title: 'SolarClose',
@@ -306,6 +318,10 @@ export const translations = {
     placeholderNotes: 'Notes ou commentaires supplémentaires...',
     eg: 'ex.',
     proposal: 'Devis',
+    madeBy: 'Fait par',
+    openSourceFree: 'Open source et gratuit',
+    dataStaysLocal: 'Toutes les données restent locales',
+    howToUse: 'Comment utiliser',
   },
   de: {
     title: 'SolarClose',
@@ -383,6 +399,10 @@ export const translations = {
     placeholderNotes: 'Zusätzliche Notizen oder Kommentare...',
     eg: 'z.B.',
     proposal: 'Angebot',
+    madeBy: 'Erstellt von',
+    openSourceFree: 'Open Source und kostenlos',
+    dataStaysLocal: 'Alle Daten bleiben lokal',
+    howToUse: 'Anleitung',
   },
 };
 
