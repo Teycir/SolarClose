@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import type { SolarLead, Currency, Language } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
 import { getTranslation } from '@/lib/translations';
+import { ProductDescriptionManager } from './ProductDescriptionManager';
 
 interface CalculatorFormProps {
   data: SolarLead;
@@ -83,6 +84,26 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           placeholder="123 Main St"
           required
           aria-required="true"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Product Description *</label>
+        <textarea
+          value={data.productDescription}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[<>"']/g, '');
+            onUpdate({ productDescription: sanitized });
+          }}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
+          rows={3}
+          required
+          aria-required="true"
+        />
+        <ProductDescriptionManager
+          currentDescription={data.productDescription}
+          onSelect={(desc) => onUpdate({ productDescription: desc })}
         />
       </div>
 
@@ -290,22 +311,6 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             placeholder={`${t('eg')} 850`}
           />
         </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Product Description *</label>
-        <textarea
-          value={data.productDescription}
-          onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"']/g, '');
-            onUpdate({ productDescription: sanitized });
-          }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
-          rows={3}
-          required
-          aria-required="true"
-        />
       </div>
 
       <div>
