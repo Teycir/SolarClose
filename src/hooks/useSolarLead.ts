@@ -93,7 +93,8 @@ export function useSolarLead(leadId: string) {
       const db = await getDB();
       await db.put(STORE_NAME, leadData);
       setSaveStatus('saved');
-      setTimeout(() => setSaveStatus('idle'), 1000);
+      clearTimeout(statusTimeoutRef.current);
+      statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 1000);
     } catch (error) {
       console.error('Failed to save lead:', error);
       setSaveStatus('error');
@@ -101,6 +102,7 @@ export function useSolarLead(leadId: string) {
   }, []);
 
   const debounceRef = useRef<NodeJS.Timeout>();
+  const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const updateData = useCallback((updates: Partial<SolarLead>) => {
     setData(prev => {

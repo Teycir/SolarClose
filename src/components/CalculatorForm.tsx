@@ -42,24 +42,28 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Client Name</label>
+        <label className="block text-sm font-medium mb-2">Client Name *</label>
         <input
           type="text"
           value={data.clientName}
           onChange={(e) => onUpdate({ clientName: e.target.value })}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="John Doe"
+          required
+          aria-required="true"
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Address</label>
+        <label className="block text-sm font-medium mb-2">Address *</label>
         <input
           type="text"
           value={data.address}
           onChange={(e) => onUpdate({ address: e.target.value })}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="123 Main St"
+          required
+          aria-required="true"
         />
       </div>
 

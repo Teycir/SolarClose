@@ -11,12 +11,21 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.svg',
   },
+  openGraph: {
+    title: 'SolarClose - Solar ROI Calculator',
+    description: 'Professional PWA for solar sales representatives to calculate ROI and generate branded proposals',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'SolarClose - Solar ROI Calculator',
+    description: 'Professional PWA for solar sales representatives',
+  },
 }
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
   themeColor: '#FFC107',
 }
 
