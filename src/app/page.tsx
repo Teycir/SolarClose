@@ -20,6 +20,7 @@ export default function Home() {
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
   
   const t = (key: string) => getTranslation((data?.language || 'en') as Language, key as any);
+  const isDefaultLead = currentLeadId === 'default-lead' && !data?.clientName;
 
   useEffect(() => {
     const loadLeads = async () => {
@@ -31,7 +32,7 @@ export default function Home() {
         console.error('Failed to load leads:', error);
       }
     };
-    if (showLeads) loadLeads();
+    loadLeads();
   }, [showLeads, currentLeadId, saveStatus]);
 
   const handleClearAllLeads = async () => {
@@ -182,11 +183,37 @@ export default function Home() {
           </div>
         )}
         
+        {isDefaultLead && (
+          <div className="mb-6 bg-gradient-to-r from-yellow-400/20 via-orange-500/20 to-yellow-600/20 border-2 border-yellow-500/50 rounded-lg p-6 text-center">
+            <div className="text-4xl mb-3">👋</div>
+            <h3 className="text-xl font-bold mb-2">Welcome to SolarClose!</h3>
+            <p className="text-muted-foreground mb-4">
+              To get started, please create a new lead or select an existing one from your saved leads.
+            </p>
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={handleNewLead}
+                className="bg-primary text-primary-foreground font-semibold py-2 px-6 rounded-lg hover:opacity-90 active:scale-95 transition-all"
+              >
+                ➕ Create New Lead
+              </button>
+              {allLeads.length > 0 && (
+                <button
+                  onClick={() => setShowLeads(true)}
+                  className="bg-secondary text-foreground font-semibold py-2 px-6 rounded-lg hover:opacity-90 active:scale-95 transition-all"
+                >
+                  📋 View Saved Leads
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+        
         <div className="mb-6">
           <ResultsCard data={data} />
         </div>
 
-        <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
+        <div className={`bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
           <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('calculator')}</h2>
           <CalculatorForm data={data} onUpdate={setData} />
         </div>
