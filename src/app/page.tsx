@@ -20,7 +20,7 @@ export default function Home() {
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
   
   const t = (key: string) => getTranslation((data?.language || 'en') as Language, key as any);
-  const isDefaultLead = currentLeadId === 'default-lead' && !data?.clientName;
+  const isDefaultLead = currentLeadId === 'default-lead';
 
   useEffect(() => {
     const loadLeads = async () => {
