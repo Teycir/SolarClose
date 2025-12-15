@@ -120,9 +120,9 @@ export default function Home() {
             </button>
             <button
               onClick={() => setShowLeads(!showLeads)}
-              className="bg-secondary text-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
+              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
             >
-              {showLeads ? t('hideLeads') : t('viewLeads')}
+              {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}`}
             </button>
             <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
               {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
