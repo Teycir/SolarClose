@@ -55,7 +55,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <input
           type="text"
           value={data.clientName}
-          onChange={(e) => onUpdate({ clientName: e.target.value })}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
+            onUpdate({ clientName: sanitized });
+          }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="John Doe"
           required
@@ -82,13 +85,13 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           type="text"
           value={data.companyName}
           onChange={(e) => {
-            const value = e.target.value;
+            const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.,-]/g, '');
             try {
-              localStorage.setItem('solarclose-company', value);
+              localStorage.setItem('solarclose-company', sanitized);
             } catch (error) {
               console.warn('localStorage unavailable');
             }
-            onUpdate({ companyName: value });
+            onUpdate({ companyName: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder={t('placeholderCompany')}
@@ -101,7 +104,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="tel"
             value={data.companyPhone}
-            onChange={(e) => onUpdate({ companyPhone: e.target.value })}
+            onChange={(e) => {
+              const sanitized = e.target.value.replace(/[^0-9+\-()\s]/g, '');
+              onUpdate({ companyPhone: sanitized });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="(555) 000-0000"
             required
@@ -113,7 +119,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="email"
             value={data.companyEmail || ''}
-            onChange={(e) => onUpdate({ companyEmail: e.target.value })}
+            onChange={(e) => {
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '').toLowerCase();
+              onUpdate({ companyEmail: sanitized });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="info@company.com"
           />
@@ -139,8 +148,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="email"
             value={data.email || ''}
-            onChange={(e) => onUpdate({ email: e.target.value })}
-            onBlur={(e) => onUpdate({ email: e.target.value.toLowerCase().trim() })}
+            onChange={(e) => {
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '').toLowerCase();
+              onUpdate({ email: sanitized });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="client@email.com"
           />
@@ -154,13 +165,13 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             type="text"
             value={data.salesRep || ''}
             onChange={(e) => {
-              const value = e.target.value;
+              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
               try {
-                localStorage.setItem('solarclose-salesrep', value);
+                localStorage.setItem('solarclose-salesrep', sanitized);
               } catch (error) {
                 console.warn('localStorage unavailable');
               }
-              onUpdate({ salesRep: value });
+              onUpdate({ salesRep: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder={t('placeholderSalesRep')}
@@ -250,7 +261,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="text"
             value={data.utilityProvider || ''}
-            onChange={(e) => onUpdate({ utilityProvider: e.target.value })}
+            onChange={(e) => {
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.-]/g, '');
+              onUpdate({ utilityProvider: sanitized });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder={`${t('eg')} PG&E`}
           />
