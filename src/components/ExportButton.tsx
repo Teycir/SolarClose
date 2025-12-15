@@ -179,18 +179,22 @@ export function ExportButton({ data }: ExportButtonProps) {
 
   const getButtonText = () => {
     if (isGenerating) return t('generating');
-    if (!canExport) return `📄 ${t('exportPDFs')} (${t('enterClientInfo')})`;
-    return `📄 ${t('exportPDFs')}`;
+    return t('exportPDFs');
   };
 
   return (
     <button
       onClick={handleExport}
       disabled={isGenerating || !canExport}
-      className="w-full bg-gradient-to-r from-primary via-yellow-500 to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] text-primary-foreground font-semibold py-4 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-500 disabled:opacity-50 text-base sm:text-sm shadow-lg"
-      aria-label={isGenerating ? t('generating') : !canExport ? `${t('exportPDFs')} - ${t('enterClientInfo')}` : t('exportPDFs')}
+      className="bg-gradient-to-r from-primary via-yellow-500 to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] text-primary-foreground font-semibold py-2 px-6 rounded-lg transition-all duration-500 disabled:opacity-50 text-sm shadow-lg whitespace-nowrap flex items-center gap-2"
+      aria-label={t('exportPDFs')}
       title={!canExport ? t('enterClientInfo') : ''}
     >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
       {getButtonText()}
     </button>
   );

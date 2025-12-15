@@ -34,7 +34,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive]);
 
   return (
-    <div className="space-y-4 sm:space-y-6">
+    <div className="space-y-4 sm:space-y-6 overflow-hidden">
       <div>
         <label className="block text-sm font-medium mb-2">{t('date')}</label>
         <input
@@ -110,35 +110,6 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="(555) 000-0000"
           />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-2">{t('currency')}</label>
-          <select
-            value={data.currency || 'USD'}
-            onChange={(e) => onUpdate({ currency: e.target.value as Currency })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          >
-            <option value="USD">USD ($)</option>
-            <option value="EUR">EUR (€)</option>
-            <option value="GBP">GBP (£)</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">{t('language')}</label>
-          <select
-            value={data.language || 'en'}
-            onChange={(e) => onUpdate({ language: e.target.value as Language })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          >
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="it">Italiano</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-          </select>
         </div>
       </div>
 

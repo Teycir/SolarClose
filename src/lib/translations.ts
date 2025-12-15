@@ -364,7 +364,7 @@ export function getTranslation(lang: Language, key: TranslationKey): string {
 }
 
 export const languageFlags: Record<Language, string> = {
-  en: '🇬🇧',
+  en: '🇺🇸',
   es: '🇪🇸',
   it: '🇮🇹',
   fr: '🇫🇷',

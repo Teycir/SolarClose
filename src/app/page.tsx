@@ -32,7 +32,11 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <select
               value={data.language || 'en'}
-              onChange={(e) => setData({ language: e.target.value as Language })}
+              onChange={(e) => {
+                const lang = e.target.value as Language;
+                const currency = lang === 'en' ? 'USD' : 'EUR';
+                setData({ language: lang, currency });
+              }}
               className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
               aria-label="Select language"
               title="Select language"
@@ -45,10 +49,8 @@ export default function Home() {
             </select>
             <h1 className="text-2xl sm:text-4xl font-bold text-primary">{getTranslation((data.language || 'en') as Language, 'title')}</h1>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="w-64">
-              <ExportButton data={data} />
-            </div>
+          <div className="flex items-center gap-3 justify-center">
+            <ExportButton data={data} />
             <button
               onClick={handleNewLead}
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
