@@ -33,7 +33,6 @@ export function ExportButton({ data }: ExportButtonProps) {
     let headerY = 40;
     if (data.companyEmail) { doc.text(data.companyEmail, 20, headerY); headerY += 5; }
     if (data.companyPhone) { doc.text(data.companyPhone, 20, headerY); headerY += 5; }
-    if (data.companyWebsite) { doc.text(data.companyWebsite, 20, headerY); headerY += 5; }
     
     doc.setFontSize(10);
     doc.text(`${t('date')}: ${data.date}`, 20, headerY + 5);
@@ -188,7 +187,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     <button
       onClick={handleExport}
       disabled={isGenerating || !canExport}
-      className="w-full bg-primary text-primary-foreground font-semibold py-4 sm:py-3 px-4 sm:px-6 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 text-base sm:text-sm"
+      className="w-full bg-gradient-to-r from-primary via-yellow-500 to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] text-primary-foreground font-semibold py-4 sm:py-3 px-4 sm:px-6 rounded-lg transition-all duration-500 disabled:opacity-50 text-base sm:text-sm shadow-lg"
       aria-label={isGenerating ? t('generating') : !canExport ? `${t('exportPDFs')} - ${t('enterClientInfo')}` : t('exportPDFs')}
       title={!canExport ? t('enterClientInfo') : ''}
     >

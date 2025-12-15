@@ -1,22 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSolarLead } from '@/hooks/useSolarLead';
 import { getTranslation, languageFlags, type Language } from '@/lib/translations';
-import { CalculatorForm } from '@/components/CalculatorForm';
-import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
 
 export default function Home() {
+  const router = useRouter();
   const [currentLeadId, setCurrentLeadId] = useState('default-lead');
-  const [showLeads, setShowLeads] = useState(false);
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
 
   const handleNewLead = () => {
     if (data?.clientName && !confirm('Create new lead? Current lead will be saved.')) return;
     const newId = `lead-${Date.now()}`;
-    setCurrentLeadId(newId);
-    setShowLeads(false);
+    router.push(`/calculator/${newId}`);
+  };
+
+  const handleOpenCalculator = () => {
+    router.push(`/calculator/${currentLeadId}`);
   };
 
   if (!data) {
@@ -48,16 +50,12 @@ export default function Home() {
             <h1 className="text-2xl sm:text-4xl font-bold text-primary">{getTranslation((data.language || 'en') as Language, 'title')}</h1>
           </div>
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowLeads(!showLeads)}
-              className="bg-secondary text-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
-              aria-label={showLeads ? 'Hide leads panel' : 'View leads panel'}
-            >
-              📋 {showLeads ? 'Hide' : 'View'} Leads
-            </button>
+            <div className="w-64">
+              <ExportButton data={data} />
+            </div>
             <button
               onClick={handleNewLead}
-              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
+              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
               aria-label="Create new lead"
             >
               ➕ New Lead
@@ -70,23 +68,25 @@ export default function Home() {
           </div>
         </div>
 
-        {showLeads && (
-          <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 mb-6 shadow-lg">
-            <h3 className="text-lg font-semibold mb-3">Current Lead</h3>
-            <p className="text-base mb-2">📋 {data.clientName || 'New Lead (No Name Yet)'}</p>
-            <p className="text-sm text-muted-foreground">All your leads are automatically saved on this device. Click &quot;New Lead&quot; to start a new proposal.</p>
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-          <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
-            <h2 className="text-lg sm:text-xl font-semibold mb-4">{getTranslation((data.language || 'en') as Language, 'calculator')}</h2>
-            <CalculatorForm data={data} onUpdate={setData} />
+        <div className="max-w-2xl mx-auto text-center space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-3xl sm:text-5xl font-bold">
+              Solar ROI Calculator
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Calculate 25-year savings and generate professional proposals
+            </p>
           </div>
 
-          <div className="space-y-4 sm:space-y-6">
-            <ResultsCard data={data} />
-            <ExportButton data={data} />
+          <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-6 shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">Current Lead</h3>
+            <p className="text-lg mb-4">📋 {data.clientName || 'New Lead (No Name Yet)'}</p>
+            <button
+              onClick={handleOpenCalculator}
+              className="w-full bg-gradient-to-r from-primary via-yellow-500 to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] text-primary-foreground font-bold py-4 px-8 rounded-lg transition-all duration-500 text-lg shadow-lg"
+            >
+              🧮 Open Calculator
+            </button>
           </div>
         </div>
       </div>

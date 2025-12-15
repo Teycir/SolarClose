@@ -90,7 +90,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-2">{t('companyEmail')} ({t('optional')})</label>
           <input
@@ -109,16 +109,6 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onChange={(e) => onUpdate({ companyPhone: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="(555) 000-0000"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">{t('companyWebsite')} ({t('optional')})</label>
-          <input
-            type="url"
-            value={data.companyWebsite || ''}
-            onChange={(e) => onUpdate({ companyWebsite: e.target.value })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder="www.company.com"
           />
         </div>
       </div>
@@ -205,13 +195,13 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onChange={(e) => onUpdate({ leadStatus: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
-            <option value="">Select Status</option>
-            <option value="New">New</option>
-            <option value="Contacted">Contacted</option>
-            <option value="Site Visit Scheduled">Site Visit Scheduled</option>
-            <option value="Proposal Sent">Proposal Sent</option>
-            <option value="Closed Won">Closed Won</option>
-            <option value="Closed Lost">Closed Lost</option>
+            <option value="">{t('selectStatus')}</option>
+            <option value="New">{t('new')}</option>
+            <option value="Contacted">{t('contacted')}</option>
+            <option value="Site Visit Scheduled">{t('siteVisitScheduled')}</option>
+            <option value="Proposal Sent">{t('proposalSent')}</option>
+            <option value="Closed Won">{t('closedWon')}</option>
+            <option value="Closed Lost">{t('closedLost')}</option>
           </select>
         </div>
       </div>
@@ -224,9 +214,9 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onChange={(e) => onUpdate({ propertyType: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
-            <option value="">Select Type</option>
-            <option value="Residential">Residential</option>
-            <option value="Commercial">Commercial</option>
+            <option value="">{t('selectType')}</option>
+            <option value="Residential">{t('residential')}</option>
+            <option value="Commercial">{t('commercial')}</option>
           </select>
         </div>
         <div>
@@ -236,11 +226,11 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onChange={(e) => onUpdate({ financingOption: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
-            <option value="">Select Option</option>
-            <option value="Cash">Cash</option>
-            <option value="Loan">Loan</option>
-            <option value="Lease">Lease</option>
-            <option value="PPA">PPA</option>
+            <option value="">{t('selectOption')}</option>
+            <option value="Cash">{t('cash')}</option>
+            <option value="Loan">{t('loan')}</option>
+            <option value="Lease">{t('lease')}</option>
+            <option value="PPA">{t('ppa')}</option>
           </select>
         </div>
       </div>
@@ -253,11 +243,11 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onChange={(e) => onUpdate({ roofType: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
-            <option value="">Select Type</option>
-            <option value="Asphalt Shingle">Asphalt Shingle</option>
-            <option value="Metal">Metal</option>
-            <option value="Tile">Tile</option>
-            <option value="Flat">Flat</option>
+            <option value="">{t('selectType')}</option>
+            <option value="Asphalt Shingle">{t('asphaltShingle')}</option>
+            <option value="Metal">{t('metal')}</option>
+            <option value="Tile">{t('tile')}</option>
+            <option value="Flat">{t('flat')}</option>
           </select>
         </div>
         <div>
@@ -267,11 +257,11 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onChange={(e) => onUpdate({ roofCondition: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
-            <option value="">Select Condition</option>
-            <option value="Excellent">Excellent</option>
-            <option value="Good">Good</option>
-            <option value="Fair">Fair</option>
-            <option value="Needs Repair">Needs Repair</option>
+            <option value="">{t('selectCondition')}</option>
+            <option value="Excellent">{t('excellent')}</option>
+            <option value="Good">{t('good')}</option>
+            <option value="Fair">{t('fair')}</option>
+            <option value="Needs Repair">{t('needsRepair')}</option>
           </select>
         </div>
       </div>
