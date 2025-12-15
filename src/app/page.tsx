@@ -54,9 +54,9 @@ export default function Home() {
 
         {showLeads && (
           <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 mb-6 shadow-lg">
-            <h3 className="text-lg font-semibold mb-3">Saved Leads</h3>
-            <p className="text-sm text-muted-foreground mb-3">Current: {data.clientName || 'Unnamed'} (ID: {currentLeadId.slice(0, 12)}...)</p>
-            <p className="text-xs text-muted-foreground">Note: All leads are saved locally in your browser. Use browser dev tools (F12 → Application → IndexedDB → solar-leads) to view all saved leads.</p>
+            <h3 className="text-lg font-semibold mb-3">Current Lead</h3>
+            <p className="text-base mb-2">📋 {data.clientName || 'New Lead (No Name Yet)'}</p>
+            <p className="text-sm text-muted-foreground">All your leads are automatically saved on this device. Click &quot;New Lead&quot; to start a new proposal.</p>
           </div>
         )}
 
