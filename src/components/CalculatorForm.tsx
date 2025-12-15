@@ -372,7 +372,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Proposal Conditions ({t('optional')})</label>
+        <label className="block text-sm font-medium mb-2">Proposal Conditions *</label>
         <textarea
           value={data.proposalConditions || ''}
           onChange={(e) => {
@@ -382,6 +382,8 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           placeholder="This proposal is valid for 30 days.&#10;Final pricing subject to site inspection.&#10;Installation timeline: 4-8 weeks after approval."
           rows={3}
+          required
+          aria-required="true"
         />
       </div>
 

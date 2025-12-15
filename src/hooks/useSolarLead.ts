@@ -72,6 +72,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     companyPhone: savedPhone,
     productDescription: '',
     salesRep: savedSalesRep,
+    proposalConditions: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
     currency: 'USD',
     language: 'en',
     currentMonthlyBill: 250,
@@ -133,7 +134,7 @@ export function useSolarLead(leadId: string) {
   const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const saveToIndexedDB = useCallback(async (leadData: SolarLead) => {
-    if (!leadData.clientName.trim() || !leadData.salesRep?.trim()) return;
+    if (!leadData.clientName.trim() || !leadData.salesRep?.trim() || !leadData.proposalConditions?.trim()) return;
     try {
       setSaveStatus('saving');
       const db = await getDB();
