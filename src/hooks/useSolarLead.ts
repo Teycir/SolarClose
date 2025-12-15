@@ -56,6 +56,8 @@ export function useSolarLead(leadId: string) {
             address: '',
             companyName: savedCompany,
             salesRep: savedSalesRep,
+            currency: 'USD',
+            language: 'en',
             currentMonthlyBill: 250,
             yearlyInflationRate: 4,
             systemSizeKw: 8.5,

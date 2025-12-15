@@ -88,6 +88,35 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
+          <label className="block text-sm font-medium mb-2">Currency</label>
+          <select
+            value={data.currency || 'USD'}
+            onChange={(e) => onUpdate({ currency: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">Language</label>
+          <select
+            value={data.language || 'en'}
+            onChange={(e) => onUpdate({ language: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
           <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
           <input
             type="tel"

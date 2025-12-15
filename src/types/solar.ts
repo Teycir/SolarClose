@@ -29,6 +29,10 @@ export interface SolarLead {
   utilityProvider?: string;
   avgKwhPerMonth?: number;
   
+  // Localization
+  currency?: string; // USD, EUR, GBP
+  language?: string; // en, es, it, fr, de
+  
   // Inputs
   currentMonthlyBill: number; // e.g. 250
   yearlyInflationRate: number; // e.g. 4 (percent)

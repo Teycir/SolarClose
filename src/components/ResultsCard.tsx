@@ -1,6 +1,7 @@
 'use client';
 
 import type { SolarLead } from '@/types/solar';
+import { formatCurrency } from '@/lib/currency';
 
 interface ResultsCardProps {
   data: SolarLead;
@@ -19,7 +20,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
       <div className="text-center">
         <h2 className="text-xs sm:text-sm text-muted-foreground mb-2">25-Year {isNegativeSavings ? 'Loss' : 'Savings'}</h2>
         <p className={`text-3xl sm:text-5xl font-bold ${isNegativeSavings ? 'text-destructive' : 'text-primary'}`}>
-          ${Math.abs(data.twentyFiveYearSavings).toLocaleString()}{isNegativeSavings ? ' loss' : ''}
+          {formatCurrency(Math.abs(data.twentyFiveYearSavings), data.currency)}{isNegativeSavings ? ' loss' : ''}
         </p>
       </div>
 
@@ -30,7 +31,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
         <div className="text-center p-3 sm:p-4 bg-secondary rounded-lg">
           <p className="text-xs sm:text-sm text-muted-foreground mb-1">System Cost</p>
-          <p className="text-xl sm:text-2xl font-bold">${data.systemCost.toLocaleString()}</p>
+          <p className="text-xl sm:text-2xl font-bold">{formatCurrency(data.systemCost, data.currency)}</p>
         </div>
       </div>
 
