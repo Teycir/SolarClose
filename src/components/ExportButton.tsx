@@ -13,7 +13,7 @@ export function ExportButton({ data }: ExportButtonProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
 
-  const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && (data.salesRep?.trim() || data.companyName.trim());
+  const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && (data.salesRep?.trim() || data.companyName.trim()) && data.productDescription.trim();
 
   const sanitizeFilename = (name: string) => {
     const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-');
@@ -75,16 +75,14 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     y += 45;
     
-    if (data.productDescription) {
-      doc.setFontSize(14);
-      doc.setTextColor(0, 0, 0);
-      doc.text('Product Description', 20, y);
-      y += 10;
-      doc.setFontSize(10);
-      const descLines = doc.splitTextToSize(data.productDescription, 170);
-      doc.text(descLines, 20, y);
-      y += (descLines.length * 5) + 10;
-    }
+    doc.setFontSize(14);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Product Description', 20, y);
+    y += 10;
+    doc.setFontSize(10);
+    const descLines = doc.splitTextToSize(data.productDescription, 170);
+    doc.text(descLines, 20, y);
+    y += (descLines.length * 5) + 10;
     
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
@@ -189,6 +187,18 @@ export function ExportButton({ data }: ExportButtonProps) {
     if (data.financingOption) { doc.text(`${t('financingOption')}: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 7; }
     if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 7; }
     if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 7; }
+    
+    if (data.productDescription && y < 220) {
+      y += 5;
+      doc.setFontSize(14);
+      doc.text('Product Description', 20, y);
+      y += 10;
+      doc.setFontSize(10);
+      const descLines = doc.splitTextToSize(data.productDescription, 170);
+      const maxDescLines = Math.floor((250 - y) / 5);
+      doc.text(descLines.slice(0, maxDescLines), 20, y);
+      y += (Math.min(descLines.length, maxDescLines) * 5) + 5;
+    }
     
     if (data.notes && y < 250) {
       y += 5;
