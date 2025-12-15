@@ -75,7 +75,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="tel"
             value={data.phone || ''}
-            onChange={(e) => onUpdate({ phone: e.target.value })}
+            onChange={(e) => {
+              const sanitized = e.target.value.replace(/[^0-9+\-()\s]/g, '');
+              onUpdate({ phone: sanitized });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="(555) 123-4567"
           />
@@ -85,7 +88,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <input
             type="email"
             value={data.email || ''}
-            onChange={(e) => onUpdate({ email: e.target.value })}
+            onChange={(e) => {
+              const sanitized = e.target.value.toLowerCase().trim();
+              onUpdate({ email: sanitized });
+            }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
             placeholder="client@email.com"
           />
