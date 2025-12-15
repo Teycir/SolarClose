@@ -90,6 +90,39 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         />
       </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-sm font-medium mb-2">{t('companyEmail')} ({t('optional')})</label>
+          <input
+            type="email"
+            value={data.companyEmail || ''}
+            onChange={(e) => onUpdate({ companyEmail: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="info@company.com"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">{t('companyPhone')} ({t('optional')})</label>
+          <input
+            type="tel"
+            value={data.companyPhone || ''}
+            onChange={(e) => onUpdate({ companyPhone: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="(555) 000-0000"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-2">{t('companyWebsite')} ({t('optional')})</label>
+          <input
+            type="url"
+            value={data.companyWebsite || ''}
+            onChange={(e) => onUpdate({ companyWebsite: e.target.value })}
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            placeholder="www.company.com"
+          />
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-2">{t('currency')}</label>
@@ -373,7 +406,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t('federalTaxCredit')}: {data.federalTaxCredit}%
+          {t('taxCredit')}: {data.federalTaxCredit}%
         </label>
         <input
           type="range"

@@ -8,6 +8,9 @@ export interface SolarLead {
   clientName: string;
   address: string;
   companyName: string;
+  companyEmail?: string;
+  companyPhone?: string;
+  companyWebsite?: string;
   
   // Contact Info (Optional)
   phone?: string;
