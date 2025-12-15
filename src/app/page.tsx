@@ -8,12 +8,14 @@ import { ExportButton } from '@/components/ExportButton';
 
 export default function Home() {
   const [currentLeadId, setCurrentLeadId] = useState('default-lead');
+  const [showLeads, setShowLeads] = useState(false);
   const { data, setData, saveStatus } = useSolarLead(currentLeadId);
 
   const handleNewLead = () => {
     if (data?.clientName && !confirm('Create new lead? Current lead will be saved.')) return;
     const newId = `lead-${Date.now()}`;
     setCurrentLeadId(newId);
+    setShowLeads(false);
   };
 
   if (!data) {
@@ -31,6 +33,12 @@ export default function Home() {
           <h1 className="text-2xl sm:text-4xl font-bold text-primary">SolarClose</h1>
           <div className="flex items-center gap-3">
             <button
+              onClick={() => setShowLeads(!showLeads)}
+              className="bg-secondary text-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
+            >
+              📋 {showLeads ? 'Hide' : 'View'} Leads
+            </button>
+            <button
               onClick={handleNewLead}
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm"
             >
@@ -43,6 +51,14 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {showLeads && (
+          <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 mb-6 shadow-lg">
+            <h3 className="text-lg font-semibold mb-3">Saved Leads</h3>
+            <p className="text-sm text-muted-foreground mb-3">Current: {data.clientName || 'Unnamed'} (ID: {currentLeadId.slice(0, 12)}...)</p>
+            <p className="text-xs text-muted-foreground">Note: All leads are saved locally in your browser. Use browser dev tools (F12 → Application → IndexedDB → solar-leads) to view all saved leads.</p>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
