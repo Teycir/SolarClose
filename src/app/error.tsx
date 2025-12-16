@@ -14,10 +14,8 @@ const logError = (error: Error | null) => {
 const handleReset = (reset: () => void) => {
   try {
     reset();
-  } catch (err) {
-    const error = err as Error | unknown;
-    const errorMsg = error instanceof Error ? error.message : String(error);
-    console.error('Failed to reset:', errorMsg.replace(/[\r\n]/g, ' '));
+  } catch {
+    console.error('Failed to reset');
   }
 };
 
