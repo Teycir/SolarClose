@@ -265,7 +265,7 @@ export default function Home() {
                         sunHoursPerDay: data.sunHoursPerDay,
                         federalTaxCreditPercent: data.federalTaxCredit,
                         stateIncentiveDollars: data.stateIncentive,
-                        financingOption: data.financingOption,
+                        financingOption: data.financingOption as 'Cash' | 'Loan' | undefined,
                         loanTerm: data.loanTerm,
                         downPayment: data.downPayment,
                         loanInterestRate: data.loanInterestRate,
