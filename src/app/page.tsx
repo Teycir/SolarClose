@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSolarLead } from '@/hooks/useSolarLead';
-import { getTranslation, languageFlags, type Language } from '@/lib/translations';
+import { getTranslation, languageFlags, type Language, type TranslationKey } from '@/lib/translations';
 import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
@@ -25,7 +25,7 @@ export default function Home() {
   const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
   const lang = (data?.language || 'en') as Language;
-  const t = (key: string) => getTranslation(lang, key as keyof typeof import('@/lib/translations').translations.en);
+  const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const isDefaultLead = currentLeadId === 'default-lead';
 
   useEffect(() => {
