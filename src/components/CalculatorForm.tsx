@@ -154,6 +154,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         />
         <CompanyManager
           currentName={data.companyName}
+          currentLogo={data.companyLogo}
           onSelect={(name) => {
             try {
               localStorage.setItem('solarclose-company', name);
@@ -162,6 +163,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             }
             onUpdate({ companyName: name });
           }}
+          onLogoChange={(logo) => onUpdate({ companyLogo: logo })}
         />
       </div>
 

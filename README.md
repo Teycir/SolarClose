@@ -1,5 +1,11 @@
 # SolarClose - Close More Solar Deals
 
+![Solar](https://img.shields.io/badge/Solar-Energy-yellow?style=flat-square)
+![Sales](https://img.shields.io/badge/Sales-Tool-orange?style=flat-square)
+![Offline](https://img.shields.io/badge/Works-Offline-green?style=flat-square)
+![Free](https://img.shields.io/badge/Free-For%20Reps-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-BSL--1.1-red?style=flat-square)
+
 🌟 **Start Using Now**: https://solarclose.pages.dev
 
 Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.

@@ -44,16 +44,27 @@ export function ExportButton({ data }: ExportButtonProps) {
       const { jsPDF } = await import('jspdf');
       const doc = new jsPDF();
     
+    // Add logo if available
+    let logoY = 20;
+    if (data.companyLogo) {
+      try {
+        doc.addImage(data.companyLogo, 'PNG', 105, 10, 0, 15, undefined, 'NONE', 0);
+        logoY = 30;
+      } catch (error) {
+        console.warn('Failed to add logo to PDF');
+      }
+    }
+    
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
-    doc.text(data.companyName, 20, 20);
+    doc.text(data.companyName, data.companyLogo ? 105 : 20, logoY, { align: data.companyLogo ? 'center' : 'left' });
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
-    let headerY = 28;
-    if (data.salesRep) { doc.text(data.salesRep, 20, headerY); headerY += 5; }
-    doc.text(data.companyPhone, 20, headerY); headerY += 5;
-    if (data.companyEmail) { doc.text(data.companyEmail, 20, headerY); headerY += 5; }
+    let headerY = logoY + 8;
+    if (data.salesRep) { doc.text(data.salesRep, data.companyLogo ? 105 : 20, headerY, { align: data.companyLogo ? 'center' : 'left' }); headerY += 5; }
+    doc.text(data.companyPhone, data.companyLogo ? 105 : 20, headerY, { align: data.companyLogo ? 'center' : 'left' }); headerY += 5;
+    if (data.companyEmail) { doc.text(data.companyEmail, data.companyLogo ? 105 : 20, headerY, { align: data.companyLogo ? 'center' : 'left' }); headerY += 5; }
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
@@ -177,13 +188,24 @@ export function ExportButton({ data }: ExportButtonProps) {
       const { jsPDF } = await import('jspdf');
       const doc = new jsPDF();
     
+    // Add logo if available
+    let logoY = 20;
+    if (data.companyLogo) {
+      try {
+        doc.addImage(data.companyLogo, 'PNG', 105, 10, 0, 15, undefined, 'NONE', 0);
+        logoY = 30;
+      } catch (error) {
+        console.warn('Failed to add logo to PDF');
+      }
+    }
+    
     doc.setFontSize(20);
     doc.setTextColor(255, 193, 7);
-    doc.text(data.companyName, 20, 20);
+    doc.text(data.companyName, data.companyLogo ? 105 : 20, logoY, { align: data.companyLogo ? 'center' : 'left' });
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, 30);
+    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, logoY + 10);
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);

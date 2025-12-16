@@ -1,26 +1,39 @@
-# Proprietary License
+# Business Source License 1.1
+
+**License**: Business Source License 1.1 (BSL-1.1)  
+**Licensor**: Teycir Ben Soltane  
+**Licensed Work**: SolarClose  
+**Change Date**: 2029-01-01  
+**Change License**: GNU Affero General Public License v3.0 (AGPL-3.0)  
 
 Copyright © 2025 SolarClose. All Rights Reserved.
 
-## Restrictions
+## Terms
 
-This software and associated documentation files (the "Software") are proprietary and confidential.
+The Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-production use of the Licensed Work. The Licensor may make an Additional Use Grant, above, permitting limited production use.
 
-**YOU MAY NOT:**
-- Copy, modify, or distribute the Software
-- Reverse engineer, decompile, or disassemble the Software
-- Remove or alter any proprietary notices or labels
-- Use the Software for commercial purposes without a license
-- Create derivative works based on the Software
-- Sublicense, sell, rent, or lease the Software
+**Additional Use Grant**: Individual solar sales representatives may use the Licensed Work for personal, non-commercial sales activities via the hosted version at <https://solarclose.pages.dev>.
 
-## Permitted Use
+**Prohibited Uses**: You may not use the Licensed Work for any of the following:
+- Commercial use by companies, organizations, or sales teams without a separate commercial license
+- Providing the Licensed Work as a hosted or managed service to third parties
+- Self-hosting or deploying the Licensed Work for production use
+- Creating competing products or services based on the Licensed Work
+- Removing or altering copyright, trademark, or attribution notices
 
-Individual solar sales representatives may use the hosted version at <https://solarclose.pages.dev> for personal sales activities only.
+## Notice
 
-## Commercial Use
+On the Change Date (2029-01-01), the Licensed Work will automatically convert to the AGPL-3.0 license, allowing full open-source use.
 
-Commercial use, including but not limited to use by solar companies, sales teams, or organizations, requires a separate commercial license agreement. Contact us for licensing inquiries.
+## Commercial Licensing
+
+Commercial use by solar companies, sales teams, or organizations requires a separate commercial license. This includes but is not limited to:
+- Use by companies with more than one sales representative
+- Integration into commercial products or services
+- White-labeling or rebranding for commercial purposes
+- Providing SolarClose as a service to customers
+
+Contact <teycir@pxdmail.net> for commercial licensing inquiries.
 
 ## No Warranty
 

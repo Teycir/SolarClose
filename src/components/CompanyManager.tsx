@@ -12,14 +12,17 @@ interface CompanyItem {
 
 interface CompanyManagerProps {
   currentName: string;
+  currentLogo?: string;
   onSelect: (name: string) => void;
+  onLogoChange: (logo: string | undefined) => void;
 }
 
-export function CompanyManager({ currentName, onSelect }: CompanyManagerProps) {
+export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChange }: CompanyManagerProps) {
   const [items, setItems] = useState<CompanyItem[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [logoError, setLogoError] = useState<string>('');
 
   useEffect(() => {
     loadItems();
@@ -32,6 +35,49 @@ export function CompanyManager({ currentName, onSelect }: CompanyManagerProps) {
       setItems(stored.sort((a, b) => b.createdAt - a.createdAt));
     } catch (error) {
       console.error('Failed to load companies:', error);
+    }
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setLogoError('');
+
+    // Validate file type
+    const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    if (!validTypes.includes(file.type)) {
+      setLogoError('Only PNG and JPG files are allowed');
+      return;
+    }
+
+    // Validate file size (max 500KB)
+    if (file.size > 500 * 1024) {
+      setLogoError('Logo must be under 500KB');
+      return;
+    }
+
+    try {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          // Validate dimensions (recommended: 200x60 to 400x120)
+          if (img.width < 150 || img.width > 500) {
+            setLogoError('Logo width should be between 150-500px');
+            return;
+          }
+          if (img.height < 40 || img.height > 150) {
+            setLogoError('Logo height should be between 40-150px');
+            return;
+          }
+          onLogoChange(event.target?.result as string);
+        };
+        img.src = event.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      setLogoError('Failed to upload logo');
     }
   };
 
@@ -79,6 +125,34 @@ export function CompanyManager({ currentName, onSelect }: CompanyManagerProps) {
 
   return (
     <div className="space-y-2 mt-2">
+      <div className="space-y-2">
+        <label className="block text-xs font-medium">
+          Company Logo (PNG/JPG, 150-500x40-150px, max 500KB)
+        </label>
+        <div className="flex gap-2 items-center">
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            onChange={handleLogoUpload}
+            className="text-xs file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:bg-primary file:text-primary-foreground hover:file:opacity-90"
+          />
+          {currentLogo && (
+            <button
+              type="button"
+              onClick={() => onLogoChange(undefined)}
+              className="text-xs text-destructive hover:underline"
+            >
+              Remove
+            </button>
+          )}
+        </div>
+        {logoError && <p className="text-xs text-destructive">{logoError}</p>}
+        {currentLogo && (
+          <div className="bg-white p-2 rounded border inline-block">
+            <img src={currentLogo} alt="Company logo" className="max-h-16 max-w-[200px] object-contain" />
+          </div>
+        )}
+      </div>
       <div className="flex gap-2 items-center">
         <button
           type="button"
