@@ -118,14 +118,25 @@ Want to customize SolarClose for your sales team with:
 
 ---
 
-## ❓ Questions?
+## ❓ FAQ
 
-**Need help?** The app is designed to be simple:
-- All fields are clearly labeled
-- Your data saves automatically
-- No signup or configuration needed
+**Do I need to create an account?**
+No! Just visit the site and start using it immediately.
 
-**For solar companies**: Contact us about team licensing and custom branding.
+**Does it work offline?**
+Yes! Once loaded, SolarClose works without internet connection.
+
+**Where is my data stored?**
+All data is stored locally on your device. Nothing is sent to our servers.
+
+**Can I use my company logo?**
+Yes! Upload your logo and it will appear on all client proposals.
+
+**Is it really free?**
+Yes, completely free for individual sales reps. Solar companies can contact us for team licensing.
+
+**What devices does it work on?**
+Any device with a modern web browser - phones, tablets, laptops, and desktops.
 
 ---
 
