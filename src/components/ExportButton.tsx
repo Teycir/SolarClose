@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { SolarLead, Language } from '@/types/solar';
-import { getTranslation } from '@/lib/translations';
+import { getTranslation, type TranslationKey } from '@/lib/translations';
 import { generateClientPDF, generateSellerPDF, getFilename } from '@/lib/pdf-generator';
 
 interface ExportButtonProps {
@@ -13,7 +13,7 @@ export function ExportButton({ data }: ExportButtonProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const [canShare, setCanShare] = useState(false);
   const lang = (data.language || 'en') as Language;
-  const t = (key: string) => getTranslation(lang, key as keyof typeof import('@/lib/translations').translations.en);
+  const t = (key: string) => getTranslation(lang, key as TranslationKey);
 
   useState(() => {
     setCanShare(typeof navigator !== 'undefined' && !!navigator.share);

@@ -1,5 +1,5 @@
 import type { SolarLead, Language } from '@/types/solar';
-import { getTranslation } from '@/lib/translations';
+import { getTranslation, type TranslationKey } from '@/lib/translations';
 
 const formatDate = (dateStr: string, lang: Language) => {
   const date = new Date(dateStr + 'T00:00:00');

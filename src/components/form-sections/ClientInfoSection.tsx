@@ -1,7 +1,7 @@
 'use client';
 
 import type { SolarLead, Language } from '@/types/solar';
-import { getTranslation } from '@/lib/translations';
+import { getTranslation, type TranslationKey } from '@/lib/translations';
 
 interface ClientInfoSectionProps {
   data: SolarLead;

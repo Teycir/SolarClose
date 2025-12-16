@@ -15,7 +15,7 @@ import {
 import type { SolarLead } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
 import { formatCurrency } from '@/lib/currency';
-import { getTranslation } from '@/lib/translations';
+import { getTranslation, type TranslationKey } from '@/lib/translations';
 
 ChartJS.register(
   CategoryScale,
