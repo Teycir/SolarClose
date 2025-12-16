@@ -28,7 +28,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
   useEffect(() => {
     if (data.twentyFiveYearSavings > 50000) {
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 100);
+      setTimeout(() => setShowConfetti(false), 4000);
     }
   }, [data.twentyFiveYearSavings]);
   const annualProduction =
@@ -51,25 +51,25 @@ export function ResultsCard({ data }: ResultsCardProps) {
 
   return (
     <article
-      className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 space-y-4 sm:space-y-6 shadow-lg"
+      className="bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 rounded-lg p-4 sm:p-6 space-y-4 sm:space-y-6 shadow-2xl"
       aria-label="Solar system results"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-        <div className="text-center p-3 sm:p-4 bg-secondary rounded-lg">
-          <p className="text-xs sm:text-sm text-muted-foreground mb-1">
+        <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg hover:bg-secondary/80 transition-all cursor-default">
+          <p className="text-sm sm:text-base text-muted-foreground mb-2">
             {t("breakEvenYear")}
           </p>
-          <p className="text-lg sm:text-xl font-bold break-words">
+          <p className="text-2xl sm:text-3xl font-bold break-words">
             {data.breakEvenYear === null || isNegativeSavings
-              ? t("never")
+              ? `⚠️ ${t("wontPayOff")}`
               : `${t("year")} ${data.breakEvenYear}`}
           </p>
         </div>
-        <div className="text-center p-3 sm:p-4 bg-secondary rounded-lg">
-          <p className="text-xs sm:text-sm text-muted-foreground mb-1">
+        <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg hover:bg-secondary/80 transition-all cursor-default">
+          <p className="text-sm sm:text-base text-muted-foreground mb-2">
             {t("systemCost")}
           </p>
-          <p className="text-lg sm:text-xl font-bold break-words">
+          <p className="text-2xl sm:text-3xl font-bold break-words">
             {formatCurrency(data.systemCost, data.currency)}
           </p>
         </div>
@@ -93,7 +93,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </p>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">{t("systemSize")}</span>
           <span className="font-medium">{data.systemSizeKw} kW</span>
@@ -106,27 +106,21 @@ export function ResultsCard({ data }: ResultsCardProps) {
             {formattedAnnualProduction} kWh
           </span>
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">
-            {t("monthlyBillOffset")}
-          </span>
-          <span className="font-medium">{Math.round(offsetPercentage)}%</span>
-        </div>
-      </div>
-
-      {offsetPercentage >= 99 && (
-        <div className="bg-amber-500/20 border border-amber-500/50 rounded-lg p-3 text-sm">
-          <div className="flex items-start gap-2">
-            <span className="text-lg">⚠️</span>
-            <div>
-              <p className="font-semibold text-amber-600 dark:text-amber-400">System at Maximum Capacity</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Your solar system is offsetting 100% of its production. Increasing your monthly bill won&apos;t increase savings unless you upgrade to a larger system.
-              </p>
-            </div>
+        <div className="space-y-1">
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">
+              {t("monthlyBillOffset")}
+            </span>
+            <span className="font-medium">{Math.round(offsetPercentage)}%</span>
+          </div>
+          <div className="relative h-2 bg-secondary rounded-full overflow-hidden">
+            <div
+              className="absolute left-0 top-0 h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-300"
+              style={{ width: `${Math.min(offsetPercentage, 100)}%` }}
+            />
           </div>
         </div>
-      )}
+      </div>
 
       <div
         className="relative h-8 bg-secondary rounded-full overflow-hidden"
@@ -141,7 +135,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
           style={{ width: `${clampedRoi}%` }}
           aria-hidden="true"
         />
-        <div className={`absolute inset-0 flex items-center justify-center text-base font-bold ${isNegativeSavings ? 'text-destructive' : 'text-green-700'}`}>
+        <div className="absolute inset-0 flex items-center justify-center text-base font-bold text-white drop-shadow-md">
           {t("roi")}: {roiPercentage}%
         </div>
       </div>

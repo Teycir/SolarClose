@@ -31,6 +31,7 @@ type TranslationKeys = {
   twentyFiveYearLoss: string;
   breakEvenYear: string;
   never: string;
+  wontPayOff: string;
   calculator: string;
   optional: string;
   required: string;
@@ -126,6 +127,7 @@ export const translations: Record<string, TranslationKeys> = {
     twentyFiveYearLoss: '25-Year Loss',
     breakEvenYear: 'Break-Even Year',
     never: 'Never',
+    wontPayOff: "Won't Pay Off",
     calculator: 'Calculator',
     optional: 'Optional',
     required: 'Required',
@@ -219,6 +221,7 @@ export const translations: Record<string, TranslationKeys> = {
     twentyFiveYearLoss: 'Pérdida a 25 Años',
     breakEvenYear: 'Año de Equilibrio',
     never: 'Nunca',
+    wontPayOff: 'No se Amortizará',
     calculator: 'Calculadora',
     optional: 'Opcional',
     required: 'Requerido',
@@ -312,6 +315,7 @@ export const translations: Record<string, TranslationKeys> = {
     twentyFiveYearLoss: 'Perdita a 25 Anni',
     breakEvenYear: 'Anno di Pareggio',
     never: 'Mai',
+    wontPayOff: 'Non si Ripagherà',
     calculator: 'Calcolatore',
     optional: 'Opzionale',
     required: 'Richiesto',
@@ -405,6 +409,7 @@ export const translations: Record<string, TranslationKeys> = {
     twentyFiveYearLoss: 'Perte sur 25 Ans',
     breakEvenYear: "Année d'Équilibre",
     never: 'Jamais',
+    wontPayOff: 'Ne se Rentabilisera Pas',
     calculator: 'Calculateur',
     optional: 'Optionnel',
     required: 'Requis',
@@ -498,6 +503,7 @@ export const translations: Record<string, TranslationKeys> = {
     twentyFiveYearLoss: '25-Jahres-Verlust',
     breakEvenYear: 'Break-Even-Jahr',
     never: 'Nie',
+    wontPayOff: 'Wird sich Nicht Amortisieren',
     calculator: 'Rechner',
     optional: 'Optional',
     required: 'Erforderlich',
