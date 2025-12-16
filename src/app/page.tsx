@@ -102,8 +102,8 @@ export default function Home() {
               value={data.language || 'en'}
               onChange={(e) => {
                 const lang = e.target.value as Language;
-                const currency = (lang === 'en' ? 'USD' : 'EUR') as 'USD' | 'EUR' | 'GBP';
-                setData({ language: lang, currency });
+                const currency = (lang === 'en' ? 'USD' : 'EUR') as Currency;
+                setData({ language: lang as Language | undefined, currency: currency as Currency | undefined });
               }}
               className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
               aria-label="Select language"
