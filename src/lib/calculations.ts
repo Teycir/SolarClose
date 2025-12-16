@@ -10,6 +10,10 @@ export interface SolarCalculationInputs {
   sunHoursPerDay: number;
   federalTaxCreditPercent: number;
   stateIncentiveDollars: number;
+  financingOption?: 'Cash' | 'Loan' | 'Lease' | 'PPA';
+  loanTerm?: number; // years
+  loanInterestRate?: number; // percent
+  downPayment?: number; // dollars
 }
 
 /**
@@ -35,7 +39,7 @@ const PROJECTION_YEARS = 25;
  */
 export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalculationResults {
   try {
-    const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw, electricityRate, sunHoursPerDay, federalTaxCreditPercent, stateIncentiveDollars } = inputs;
+    const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw, electricityRate, sunHoursPerDay, federalTaxCreditPercent, stateIncentiveDollars, financingOption = 'Cash', loanTerm = 20, loanInterestRate = 6.99, downPayment = 0 } = inputs;
     
     // Validate inputs
     if (systemSizeKw <= 0 || electricityRate < 0 || sunHoursPerDay <= 0 || currentMonthlyBill < 0 || systemCost < 0) {
@@ -47,6 +51,15 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   // Calculate net system cost after incentives
   const federalCredit = systemCost * (federalTaxCreditPercent / 100);
   const netSystemCost = Math.max(0, systemCost - federalCredit - stateIncentiveDollars);
+  
+  // Calculate loan payment if financing
+  const loanAmount = Math.max(0, netSystemCost - downPayment);
+  const monthlyRate = (loanInterestRate / 100) / 12;
+  const numPayments = loanTerm * 12;
+  const monthlyLoanPayment = loanAmount > 0 && financingOption === 'Loan' && monthlyRate > 0
+    ? (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1)
+    : 0;
+  const totalLoanCost = monthlyLoanPayment * numPayments;
   
   // Production calculations with performance ratio
   const performanceRatio = 0.80; // 80% real-world efficiency
@@ -62,7 +75,7 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   const currentAnnualUsage = electricityRate > 0 ? (currentMonthlyBill / electricityRate) * 12 : 0;
   const offsetPercentage = currentAnnualUsage > 0 ? Math.min(year1Production / currentAnnualUsage, 1.0) : 0;
   
-  let cumulativeSavings = -netSystemCost;
+  let cumulativeSavings = financingOption === 'Loan' ? -downPayment : -netSystemCost;
   let breakEvenYear = 0;
   const yearlyBreakdown = [];
   
@@ -82,7 +95,10 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     // Maintenance with inflation + inverter replacement
     const maintenanceCost = baseMaintenance * inflationFactor;
     const inverterCost = year === 13 ? inverterReplacement : 0;
-    const totalYearlyCost = maintenanceCost + inverterCost;
+    
+    // Add loan payments if within loan term
+    const yearlyLoanPayment = financingOption === 'Loan' && year <= loanTerm ? monthlyLoanPayment * 12 : 0;
+    const totalYearlyCost = maintenanceCost + inverterCost + yearlyLoanPayment;
     
     const netYearlySavings = yearlySolarSavings - totalYearlyCost;
     cumulativeSavings += netYearlySavings;

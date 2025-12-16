@@ -38,6 +38,9 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         sunHoursPerDay: data.sunHoursPerDay,
         federalTaxCreditPercent: data.federalTaxCredit,
         stateIncentiveDollars: data.stateIncentive,
+        financingOption: data.financingOption as any,
+        loanTerm: data.loanTerm,
+        downPayment: data.downPayment,
       });
 
       if (results.twentyFiveYearSavings !== data.twentyFiveYearSavings || results.breakEvenYear !== data.breakEvenYear) {
@@ -51,7 +54,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
       console.error('Failed to calculate solar savings:', sanitizedError);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive]);
+  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive, data.financingOption, data.loanTerm, data.downPayment]);
 
   return (
     <div className="space-y-4 sm:space-y-6 overflow-hidden">
@@ -296,11 +299,10 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         <div>
           <label className="block text-sm font-medium mb-2">{t('financingOption')} ({t('optional')})</label>
           <select
-            value={data.financingOption || ''}
+            value={data.financingOption || 'Cash'}
             onChange={(e) => onUpdate({ financingOption: e.target.value })}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
           >
-            <option value="">{t('selectOption')}</option>
             <option value="Cash">{t('cash')}</option>
             <option value="Loan">{t('loan')}</option>
             <option value="Lease">{t('lease')}</option>
@@ -308,6 +310,35 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           </select>
         </div>
       </div>
+
+      {data.financingOption === 'Loan' && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 bg-secondary/50 rounded-lg border border-input">
+          <div>
+            <label className="block text-sm font-medium mb-2">Down Payment: ${(data.downPayment || 0).toLocaleString()}</label>
+            <input
+              type="range"
+              min="0"
+              max={data.systemCost}
+              step="500"
+              value={data.downPayment || 0}
+              onChange={(e) => onUpdate({ downPayment: Number(e.target.value) })}
+              className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Loan Term: {data.loanTerm || 20} years</label>
+            <input
+              type="range"
+              min="5"
+              max="25"
+              step="5"
+              value={data.loanTerm || 20}
+              onChange={(e) => onUpdate({ loanTerm: Number(e.target.value) })}
+              className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+            />
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
@@ -508,6 +539,14 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
         />
       </div>
+
+      {data.financingOption === 'Loan' && (
+        <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+          <p className="text-sm text-amber-200">
+            💡 Loan calculations use 6.99% APR (industry average). Actual rates vary by credit score and lender.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

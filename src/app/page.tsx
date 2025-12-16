@@ -7,6 +7,10 @@ import { CalculatorForm } from '@/components/CalculatorForm';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { EnvironmentalImpact } from '@/components/EnvironmentalImpact';
+import { SavingsChart } from '@/components/SavingsChart';
+import { BillSwapComparison } from '@/components/BillSwapComparison';
+import { SocialShare } from '@/components/SocialShare';
 import { openDB } from 'idb';
 import type { SolarLead, Currency } from '@/types/solar';
 
@@ -207,8 +211,11 @@ export default function Home() {
           </div>
         )}
         
-        <div className="mb-6">
+        <div className="mb-6 space-y-6">
           <ResultsCard data={data} />
+          <BillSwapComparison data={data} />
+          <SavingsChart data={data} />
+          <EnvironmentalImpact data={data} />
         </div>
 
         <div className={`bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
@@ -216,7 +223,10 @@ export default function Home() {
           <CalculatorForm data={data} onUpdate={setData} />
         </div>
         
-        <footer className="mt-8 text-center text-sm text-muted-foreground pb-4 space-y-2">
+        <footer className="mt-8 text-center text-sm text-muted-foreground pb-4 space-y-3">
+          <div className="flex justify-center">
+            <SocialShare data={data} />
+          </div>
           <div className="flex flex-col items-center gap-2">
             <div className="flex items-center gap-2">
               <span>{t('madeBy')} <a href="https://teycirbensoltane.tn" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors underline">teycirbensoltane.tn</a></span>
