@@ -135,7 +135,7 @@ export default function Home() {
         </div>
         
         <div className="mb-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={handleNewLead}
               className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
