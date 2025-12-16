@@ -82,17 +82,17 @@ export function ExportButton({ data }: ExportButtonProps) {
 
   return (
     <>
-      <div className="flex-1 min-w-[120px] relative group">
+      <div className="relative group">
         <button
           onClick={handleExport}
           disabled={isGenerating || !canExport}
-          className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
+          className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
           aria-label={t('exportPDFs')}
         >
           📄 {getButtonText()}
         </button>
         {!isGenerating && canExport && (
-          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-xs font-semibold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 border border-orange-300">
             Generates 2 PDFs: Client Proposal + Internal Sheet
           </div>
         )}
@@ -104,7 +104,6 @@ export function ExportButton({ data }: ExportButtonProps) {
           disabled={isGenerating || !canExport}
           className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
           aria-label="Share proposal"
-          title={!canExport ? t('enterClientInfo') : 'Share proposal via WhatsApp, Email, etc.'}
         >
           📤 {t('share')}
         </button>
