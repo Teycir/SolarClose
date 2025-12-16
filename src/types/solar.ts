@@ -5,8 +5,12 @@ export interface SolarLead {
   id: string;
   createdAt: number;
   date: string;
+  
+  // Client Info
   clientName: string;
   address: string;
+  
+  // Solar Company Info
   companyName: string;
   companyEmail?: string;
   companyPhone: string;

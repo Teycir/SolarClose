@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { ServiceWorkerManager } from '@/components/ServiceWorkerManager'
 
 const inter = Inter({ subsets: ['latin'], fallback: ['system-ui', 'arial'] })
 
@@ -38,12 +39,14 @@ export default function RootLayout({
     return (
       <html lang="en" className="dark">
         <body className={inter.className}>
+          <ServiceWorkerManager />
           {children}
         </body>
       </html>
     )
   } catch (error) {
-    console.error('Layout rendering error:', error);
+    const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
+    console.error('Layout rendering error:', sanitizedError);
     return (
       <html lang="en" className="dark">
         <body className={inter.className}>

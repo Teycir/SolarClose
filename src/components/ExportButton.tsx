@@ -16,7 +16,12 @@ export function ExportButton({ data }: ExportButtonProps) {
   const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && data.companyName.trim() && data.productDescription.trim() && data.salesRep?.trim() && data.proposalConditions?.trim();
 
   const sanitizeFilename = (name: string) => {
-    const sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '').trim().replace(/\s+/g, '-').substring(0, 100);
+    const sanitized = name
+      .replace(/[^a-zA-Z0-9-_\s]/g, '')
+      .replace(/\.\./g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .substring(0, 100);
     return sanitized || 'proposal';
   };
 
@@ -50,8 +55,8 @@ export function ExportButton({ data }: ExportButtonProps) {
       try {
         doc.addImage(data.companyLogo, 'PNG', 105, 10, 0, 15, undefined, 'NONE', 0);
         logoY = 30;
-      } catch (error) {
-        console.warn('Failed to add logo to PDF');
+      } catch {
+        // Logo failed to load, continue without it
       }
     }
     
@@ -178,7 +183,8 @@ export function ExportButton({ data }: ExportButtonProps) {
     
       doc.save(`${sanitizeFilename(data.clientName)}-${formatDateForFilename(data.date, lang)}-CLIENT-Proposal.pdf`);
     } catch (error) {
-      console.error('Failed to generate client PDF:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Failed to generate client PDF:', errorMessage.replace(/[\r\n]/g, ' '));
       throw error;
     }
   };
@@ -194,8 +200,8 @@ export function ExportButton({ data }: ExportButtonProps) {
       try {
         doc.addImage(data.companyLogo, 'PNG', 105, 10, 0, 15, undefined, 'NONE', 0);
         logoY = 30;
-      } catch (error) {
-        console.warn('Failed to add logo to PDF');
+      } catch {
+        // Logo failed to load, continue without it
       }
     }
     
@@ -289,7 +295,8 @@ export function ExportButton({ data }: ExportButtonProps) {
     
       doc.save(`${sanitizeFilename(data.clientName)}-${formatDateForFilename(data.date, lang)}-SELLER-Internal.pdf`);
     } catch (error) {
-      console.error('Failed to generate seller PDF:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Failed to generate seller PDF:', errorMessage.replace(/[\r\n]/g, ' '));
       throw error;
     }
   };
@@ -302,8 +309,8 @@ export function ExportButton({ data }: ExportButtonProps) {
       await generateClientPDF();
       await generateSellerPDF();
     } catch (error) {
-      const sanitizedError = error instanceof Error ? error.message : String(error);
-      console.error('Failed to generate PDF:', sanitizedError);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Failed to generate PDF:', errorMessage.replace(/[\r\n]/g, ' '));
     } finally {
       setIsGenerating(false);
     }

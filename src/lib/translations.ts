@@ -1,4 +1,86 @@
-export const translations = {
+type TranslationKeys = {
+  title: string;
+  date: string;
+  clientName: string;
+  address: string;
+  companyName: string;
+  companyEmail: string;
+  companyPhone: string;
+  currency: string;
+  language: string;
+  phone: string;
+  email: string;
+  salesRep: string;
+  leadStatus: string;
+  propertyType: string;
+  financingOption: string;
+  roofType: string;
+  roofCondition: string;
+  utilityProvider: string;
+  avgKwhPerMonth: string;
+  notes: string;
+  currentMonthlyBill: string;
+  yearlyInflationRate: string;
+  systemSize: string;
+  systemCost: string;
+  electricityRate: string;
+  sunHoursPerDay: string;
+  taxCredit: string;
+  stateIncentive: string;
+  twentyFiveYearSavings: string;
+  twentyFiveYearLoss: string;
+  breakEvenYear: string;
+  never: string;
+  calculator: string;
+  optional: string;
+  required: string;
+  newLead: string;
+  viewLeads: string;
+  hideLeads: string;
+  exportPDFs: string;
+  generating: string;
+  enterClientInfo: string;
+  roi: string;
+  estAnnualProduction: string;
+  monthlyBillOffset: string;
+  loss: string;
+  selectStatus: string;
+  new: string;
+  contacted: string;
+  siteVisitScheduled: string;
+  proposalSent: string;
+  closedWon: string;
+  closedLost: string;
+  selectType: string;
+  residential: string;
+  commercial: string;
+  selectOption: string;
+  cash: string;
+  loan: string;
+  lease: string;
+  ppa: string;
+  asphaltShingle: string;
+  metal: string;
+  tile: string;
+  flat: string;
+  selectCondition: string;
+  excellent: string;
+  good: string;
+  fair: string;
+  needsRepair: string;
+  placeholderCompany: string;
+  placeholderSalesRep: string;
+  year: string;
+  placeholderNotes: string;
+  eg: string;
+  proposal: string;
+  madeBy: string;
+  openSourceFree: string;
+  dataStaysLocal: string;
+  howToUse: string;
+};
+
+export const translations: Record<string, TranslationKeys> = {
   en: {
     title: 'SolarClose',
     date: 'Date',
@@ -419,7 +501,8 @@ export function getTranslation(lang: Language, key: TranslationKey): string {
     
     return key;
   } catch (error) {
-    console.error('Translation error:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('Translation error:', errorMessage.replace(/[\r\n]/g, ' '));
     return key;
   }
 }

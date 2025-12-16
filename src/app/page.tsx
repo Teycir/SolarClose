@@ -19,21 +19,25 @@ export default function Home() {
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
   const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
-  const t = (key: string) => getTranslation((data?.language || 'en') as Language, key as any);
+  const lang = (data?.language || 'en') as Language;
+  const t = (key: string) => getTranslation(lang, key as any);
   const isDefaultLead = currentLeadId === 'default-lead';
 
   useEffect(() => {
+    if (!showLeads) return;
     const loadLeads = async () => {
       try {
         const db = await openDB('solar-leads', 2);
         const leads = await db.getAll('leads');
-        setAllLeads(leads.sort((a, b) => b.createdAt - a.createdAt));
+        setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
       } catch (error) {
-        console.error('Failed to load leads:', error);
+        const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
+        console.error('Failed to load leads:', sanitizedError);
+        setAllLeads([]);
       }
     };
     loadLeads();
-  }, [showLeads, currentLeadId, saveStatus]);
+  }, [showLeads]);
 
   const handleClearAllLeads = async () => {
     try {
@@ -43,7 +47,8 @@ export default function Home() {
       setShowLeads(false);
       setCurrentLeadId(generateLeadId());
     } catch (error) {
-      console.error('Failed to clear database:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Failed to clear database:', errorMessage.replace(/[\r\n]/g, ' '));
     }
     setConfirmDialog(null);
   };
@@ -57,25 +62,27 @@ export default function Home() {
         setCurrentLeadId(generateLeadId());
       }
     } catch (error) {
-      console.error('Failed to delete lead:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Failed to delete lead:', errorMessage.replace(/[\r\n]/g, ' '));
     }
     setConfirmDialog(null);
   };
 
   const handleNewLead = () => {
-    if (data?.clientName) {
-      setConfirmDialog({
-        isOpen: true,
-        title: 'Create New Lead',
-        message: 'Current lead will be saved. Continue?',
-        onConfirm: () => {
-          setCurrentLeadId(generateLeadId());
-          setConfirmDialog(null);
-        }
-      });
-    } else {
+    if (!data?.clientName) {
       setCurrentLeadId(generateLeadId());
+      return;
     }
+    
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Create New Lead',
+      message: 'Current lead will be saved. Continue?',
+      onConfirm: () => {
+        setCurrentLeadId(generateLeadId());
+        setConfirmDialog(null);
+      }
+    });
   };
 
   if (!data) {

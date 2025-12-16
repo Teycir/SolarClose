@@ -32,9 +32,11 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
     try {
       const db = await openDB('solar-leads', 2);
       const stored = await db.getAll('companies');
-      setItems(stored.sort((a, b) => b.createdAt - a.createdAt));
+      setItems(Array.isArray(stored) ? stored.sort((a, b) => b.createdAt - a.createdAt) : []);
     } catch (error) {
-      console.error('Failed to load companies:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to load companies:', errorMessage);
+      setItems([]);
     }
   };
 
@@ -95,7 +97,9 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 2000);
     } catch (error) {
-      console.error('Failed to save company:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to save company:', errorMessage);
+      setLogoError('Failed to save company');
     }
   };
 
@@ -125,30 +129,32 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
 
   return (
     <div className="space-y-2 mt-2">
-      <div className="space-y-2">
-        <label className="block text-xs font-medium">
-          Company Logo (PNG/JPG, 150-500x40-150px, max 500KB)
+      <div className="space-y-1">
+        <label className="block text-sm font-medium">
+          Company Logo
         </label>
         <div className="flex gap-2 items-center">
           <input
             type="file"
             accept=".png,.jpg,.jpeg"
             onChange={handleLogoUpload}
-            className="text-xs file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:bg-primary file:text-primary-foreground hover:file:opacity-90"
+            className="text-sm file:mr-2 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-primary file:text-primary-foreground hover:file:opacity-90"
           />
           {currentLogo && (
             <button
               type="button"
               onClick={() => onLogoChange(undefined)}
-              className="text-xs text-destructive hover:underline"
+              className="text-sm text-destructive hover:underline"
             >
               Remove
             </button>
           )}
         </div>
+        <p className="text-xs text-muted-foreground">PNG or JPG, 150-500px wide, 40-150px tall, max 500KB</p>
         {logoError && <p className="text-xs text-destructive">{logoError}</p>}
         {currentLogo && (
           <div className="bg-white p-2 rounded border inline-block">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={currentLogo} alt="Company logo" className="max-h-16 max-w-[200px] object-contain" />
           </div>
         )}

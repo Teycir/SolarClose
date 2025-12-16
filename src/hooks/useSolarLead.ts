@@ -34,7 +34,7 @@ const getDB = async () => {
         }
       },
     }).catch((error) => {
-      const sanitizedError = error instanceof Error ? error.message : String(error);
+      const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
       console.error('Failed to open IndexedDB:', sanitizedError);
       dbPromise = null;
       throw error;
@@ -115,7 +115,7 @@ export function useSolarLead(leadId: string) {
           }
         }
       } catch (error) {
-        const sanitizedError = error instanceof Error ? error.message : String(error);
+        const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
         console.error('Failed to load lead:', sanitizedError);
         if (isMounted) {
           setSaveStatus('error');
@@ -124,7 +124,7 @@ export function useSolarLead(leadId: string) {
     };
 
     loadData().catch((error) => {
-      const sanitizedError = error instanceof Error ? error.message : String(error);
+      const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
       console.error('Unhandled error in loadData:', sanitizedError);
     });
     
@@ -137,7 +137,7 @@ export function useSolarLead(leadId: string) {
   const statusTimeoutRef = useRef<NodeJS.Timeout>();
 
   const saveToIndexedDB = useCallback(async (leadData: SolarLead) => {
-    if (!leadData.clientName.trim() || !leadData.salesRep?.trim() || !leadData.proposalConditions?.trim()) return;
+    if (!leadData.clientName.trim()) return;
     try {
       setSaveStatus('saving');
       const db = await getDB();
@@ -146,7 +146,7 @@ export function useSolarLead(leadId: string) {
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
       statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 2000);
     } catch (error) {
-      const sanitizedError = error instanceof Error ? error.message : String(error);
+      const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
       console.error('Failed to save lead:', sanitizedError);
       setSaveStatus('error');
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
@@ -173,7 +173,12 @@ export function useSolarLead(leadId: string) {
 
   const saveLead = useCallback(async () => {
     if (!data) return;
-    await saveToIndexedDB(data);
+    try {
+      await saveToIndexedDB(data);
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      console.error('Unexpected error in saveLead:', errorMessage.replace(/[\r\n]/g, ' '));
+    }
   }, [data, saveToIndexedDB]);
 
   return {

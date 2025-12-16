@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 
 const logError = (error: unknown) => {
   try {
-    console.error('Application error:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('Application error:', errorMessage.replace(/[\r\n]/g, ' '));
   } catch (e) {
-    console.error('Failed to log error:', e);
+    console.error('Failed to log error');
   }
 };
 
@@ -14,7 +15,8 @@ const handleReset = (reset: () => void) => {
   try {
     reset();
   } catch (e) {
-    console.error('Failed to reset:', e);
+    const errorMessage = e instanceof Error ? e.message : String(e);
+    console.error('Failed to reset:', errorMessage.replace(/[\r\n]/g, ' '));
   }
 };
 
@@ -29,15 +31,18 @@ export default function Error({
     logError(error);
   }, [error]);
 
+  const displayMessage = error?.message?.replace(/[<>"'&]/g, '') || 'An unexpected error occurred. Please try again.';
+  const onReset = () => handleReset(reset);
+
   return (
     <main className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-card/80 backdrop-blur-sm border rounded-lg p-6 shadow-lg text-center">
         <h2 className="text-2xl font-bold text-destructive mb-4">Something went wrong!</h2>
         <p className="text-muted-foreground mb-6">
-          {error?.message || 'An unexpected error occurred. Please try again.'}
+          {displayMessage}
         </p>
         <button
-          onClick={() => handleReset(reset)}
+          onClick={onReset}
           className="bg-primary text-primary-foreground font-semibold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity"
         >
           Try again

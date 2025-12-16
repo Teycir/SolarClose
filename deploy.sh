@@ -10,7 +10,6 @@ npm run build
 echo "📦 Deploying to Cloudflare Pages..."
 npx wrangler pages deploy out \
   --project-name=solarclose \
-  --branch=production \
   --commit-dirty=true
 
 echo "✅ Deployment complete!"

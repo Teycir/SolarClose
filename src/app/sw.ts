@@ -12,16 +12,13 @@ declare const self: WorkerGlobalScope;
 
 try {
   installSerwist({
-    precacheEntries: self.__SW_MANIFEST,
+    precacheEntries: self.__SW_MANIFEST || [],
     skipWaiting: true,
     clientsClaim: true,
     navigationPreload: true,
     runtimeCaching: defaultCache,
   });
 } catch (error) {
-  if (error instanceof Error) {
-    console.error('Service worker installation failed:', error.message);
-  } else {
-    console.error('Service worker installation failed:', error);
-  }
+  const errorMessage = error instanceof Error ? error.message : String(error);
+  console.error('Service worker installation failed:', errorMessage.replace(/[\r\n]/g, ' '));
 }

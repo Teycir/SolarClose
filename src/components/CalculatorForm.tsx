@@ -15,6 +15,14 @@ interface CalculatorFormProps {
   onUpdate: (updates: Partial<SolarLead>) => void;
 }
 
+const saveToLocalStorage = (key: string, value: string) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // localStorage unavailable
+  }
+};
+
 export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
@@ -39,7 +47,8 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         });
       }
     } catch (error) {
-      console.error('Failed to calculate solar savings:', error);
+      const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
+      console.error('Failed to calculate solar savings:', sanitizedError);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive]);
@@ -122,7 +131,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             onUpdate({ proposalConditions: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-          placeholder="This proposal is valid for 30 days.&#10;Final pricing subject to site inspection.&#10;Installation timeline: 4-8 weeks after approval."
+          placeholder="This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval."
           rows={3}
           required
           aria-required="true"
@@ -140,11 +149,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           value={data.companyName}
           onChange={(e) => {
             const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.,-]/g, '');
-            try {
-              localStorage.setItem('solarclose-company', sanitized);
-            } catch (error) {
-              console.warn('localStorage unavailable');
-            }
+            saveToLocalStorage('solarclose-company', sanitized);
             onUpdate({ companyName: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -156,11 +161,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           currentName={data.companyName}
           currentLogo={data.companyLogo}
           onSelect={(name) => {
-            try {
-              localStorage.setItem('solarclose-company', name);
-            } catch (error) {
-              console.warn('localStorage unavailable');
-            }
+            saveToLocalStorage('solarclose-company', name);
             onUpdate({ companyName: name });
           }}
           onLogoChange={(logo) => onUpdate({ companyLogo: logo })}
@@ -175,11 +176,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             value={data.companyPhone}
             onChange={(e) => {
               const sanitized = e.target.value.replace(/[^0-9+\-()\s]/g, '');
-              try {
-                localStorage.setItem('solarclose-phone', sanitized);
-              } catch (error) {
-                console.warn('localStorage unavailable');
-              }
+              saveToLocalStorage('solarclose-phone', sanitized);
               onUpdate({ companyPhone: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -190,11 +187,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <PhoneManager
             currentPhone={data.companyPhone}
             onSelect={(phone) => {
-              try {
-                localStorage.setItem('solarclose-phone', phone);
-              } catch (error) {
-                console.warn('localStorage unavailable');
-              }
+              saveToLocalStorage('solarclose-phone', phone);
               onUpdate({ companyPhone: phone });
             }}
           />
@@ -206,11 +199,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             value={data.salesRep || ''}
             onChange={(e) => {
               const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
-              try {
-                localStorage.setItem('solarclose-salesrep', sanitized);
-              } catch (error) {
-                console.warn('localStorage unavailable');
-              }
+              saveToLocalStorage('solarclose-salesrep', sanitized);
               onUpdate({ salesRep: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -221,11 +210,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           <SalesRepManager
             currentName={data.salesRep || ''}
             onSelect={(name) => {
-              try {
-                localStorage.setItem('solarclose-salesrep', name);
-              } catch (error) {
-                console.warn('localStorage unavailable');
-              }
+              saveToLocalStorage('solarclose-salesrep', name);
               onUpdate({ salesRep: name });
             }}
           />
@@ -238,7 +223,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
           type="email"
           value={data.companyEmail || ''}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '').toLowerCase();
+            const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase();
             onUpdate({ companyEmail: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -266,7 +251,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             type="email"
             value={data.email || ''}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '').toLowerCase();
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase();
               onUpdate({ email: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
@@ -363,7 +348,7 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
               onUpdate({ utilityProvider: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
-            placeholder={`${t('eg')} PG&E`}
+            placeholder={`${t('eg')} PG and E`}
           />
         </div>
         <div>
