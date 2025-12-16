@@ -42,8 +42,10 @@ Watch the calculator instantly show:
 - 25-year total savings
 - Return on investment
 
-### **Step 4: Generate Proposal**
-Tap "Generate PDF" and email or text a professional proposal to your customer on the spot.
+### **Step 4: Generate Proposals**
+Click "Export PDF" to generate:
+- **Client Proposal PDF** - Professional proposal to share with customers
+- **Internal Sales Sheet PDF** - Detailed lead information for your records
 
 ---
 
@@ -73,8 +75,9 @@ This gives your customers honest, realistic expectations they can trust.
 
 ---
 
-## 📄 Professional Proposals Include
+## 📄 Two Types of PDFs
 
+### Client Proposal PDF
 ✓ Your company logo and branding  
 ✓ Customer information  
 ✓ System specifications  
@@ -82,7 +85,14 @@ This gives your customers honest, realistic expectations they can trust.
 ✓ 25-year savings projection  
 ✓ Clean, professional layout  
 
-Proposals automatically save with the customer's name for easy filing.
+### Internal Sales Sheet PDF
+✓ Complete lead details and notes  
+✓ Property and roof information  
+✓ Lead status tracking  
+✓ Internal pricing breakdown  
+✓ Sales rep information  
+
+Both PDFs automatically save with the customer's name for easy filing.
 
 ---
 
