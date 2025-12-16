@@ -15,6 +15,7 @@ import {
 import type { SolarLead } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
 import { formatCurrency } from '@/lib/currency';
+import { getTranslation } from '@/lib/translations';
 
 ChartJS.register(
   CategoryScale,
@@ -32,6 +33,9 @@ interface SavingsChartProps {
 }
 
 export function SavingsChart({ data }: SavingsChartProps) {
+  const lang = (data.language || 'en') as any;
+  const t = (key: string) => getTranslation(lang, key as any);
+
   const results = calculateSolarSavings({
     currentMonthlyBill: data.currentMonthlyBill,
     yearlyInflationRate: data.yearlyInflationRate,
@@ -122,7 +126,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
         grid: { color: 'rgba(156, 163, 175, 0.1)' },
         title: {
           display: true,
-          text: 'Cumulative Savings',
+          text: t('chartCumulativeSavings'),
           color: 'rgb(156, 163, 175)',
           font: { size: 12 }
         }
@@ -135,7 +139,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
         grid: { color: 'rgba(156, 163, 175, 0.1)' },
         title: {
           display: true,
-          text: 'Year',
+          text: t('chartYear'),
           color: 'rgb(156, 163, 175)',
           font: { size: 12 }
         }
@@ -146,20 +150,20 @@ export function SavingsChart({ data }: SavingsChartProps) {
   return (
     <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">25-Year Cost Comparison</h3>
+        <h3 className="text-lg font-semibold">{t('chartTitle')}</h3>
         <div className="text-xs bg-primary/20 px-3 py-1 rounded-full">
-          🎯 Break-even: Year {data.breakEvenYear}
+          🎯 {t('chartBreakEven')}: {t('chartYear')} {data.breakEvenYear}
         </div>
       </div>
       <div className="h-72">
         <Line data={chartData} options={options} />
       </div>
       <div className="text-center pt-3 border-t text-sm space-y-1">
-        <p className="text-muted-foreground">The line crosses zero at Year {data.breakEvenYear} - that&apos;s when you&apos;ve recovered your investment!</p>
-        <p className="text-xs text-amber-400">💡 Includes maintenance (~$150/year) and inverter replacement (Year 13)</p>
+        <p className="text-muted-foreground">{t('chartCrossesZero')} {data.breakEvenYear} - {t('chartRecovered')}</p>
+        <p className="text-xs text-amber-400">💡 {t('chartIncludes')}</p>
       </div>
       <div className="text-center pt-2 border-t">
-        <span className="text-sm text-muted-foreground">Total 25-Year Savings: </span>
+        <span className="text-sm text-muted-foreground">{t('chartTotalSavings')}: </span>
         <span className="text-xl font-bold text-primary">{formatCurrency(data.twentyFiveYearSavings, data.currency)}</span>
       </div>
     </div>

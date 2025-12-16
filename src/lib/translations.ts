@@ -78,6 +78,14 @@ type TranslationKeys = {
   openSourceFree: string;
   dataStaysLocal: string;
   howToUse: string;
+  chartTitle: string;
+  chartBreakEven: string;
+  chartYear: string;
+  chartCumulativeSavings: string;
+  chartCrossesZero: string;
+  chartRecovered: string;
+  chartIncludes: string;
+  chartTotalSavings: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -161,6 +169,14 @@ export const translations: Record<string, TranslationKeys> = {
     openSourceFree: 'Open source & free to use',
     dataStaysLocal: 'All data stays local',
     howToUse: 'How to use',
+    chartTitle: '25-Year Cost Comparison',
+    chartBreakEven: 'Break-even',
+    chartYear: 'Year',
+    chartCumulativeSavings: 'Cumulative Savings',
+    chartCrossesZero: 'The line crosses zero at Year',
+    chartRecovered: "that's when you've recovered your investment!",
+    chartIncludes: 'Includes maintenance (~$150/year) and inverter replacement (Year 13)',
+    chartTotalSavings: 'Total 25-Year Savings',
   },
   es: {
     title: 'SolarClose',
@@ -242,6 +258,14 @@ export const translations: Record<string, TranslationKeys> = {
     openSourceFree: 'Código abierto y gratuito',
     dataStaysLocal: 'Todos los datos permanecen locales',
     howToUse: 'Cómo usar',
+    chartTitle: 'Comparación de Costos a 25 Años',
+    chartBreakEven: 'Punto de equilibrio',
+    chartYear: 'Año',
+    chartCumulativeSavings: 'Ahorros Acumulados',
+    chartCrossesZero: 'La línea cruza cero en el Año',
+    chartRecovered: '¡es cuando has recuperado tu inversión!',
+    chartIncludes: 'Incluye mantenimiento (~150€/año) y reemplazo de inversor (Año 13)',
+    chartTotalSavings: 'Ahorros Totales a 25 Años',
   },
   it: {
     title: 'SolarClose',
@@ -323,6 +347,14 @@ export const translations: Record<string, TranslationKeys> = {
     openSourceFree: 'Open source e gratuito',
     dataStaysLocal: 'Tutti i dati rimangono locali',
     howToUse: 'Come usare',
+    chartTitle: 'Confronto Costi a 25 Anni',
+    chartBreakEven: 'Pareggio',
+    chartYear: 'Anno',
+    chartCumulativeSavings: 'Risparmi Cumulativi',
+    chartCrossesZero: "La linea attraversa lo zero all'Anno",
+    chartRecovered: 'è quando hai recuperato il tuo investimento!',
+    chartIncludes: 'Include manutenzione (~150€/anno) e sostituzione inverter (Anno 13)',
+    chartTotalSavings: 'Risparmi Totali a 25 Anni',
   },
   fr: {
     title: 'SolarClose',
@@ -404,6 +436,14 @@ export const translations: Record<string, TranslationKeys> = {
     openSourceFree: 'Open source et gratuit',
     dataStaysLocal: 'Toutes les données restent locales',
     howToUse: 'Comment utiliser',
+    chartTitle: 'Comparaison des Coûts sur 25 Ans',
+    chartBreakEven: 'Seuil de rentabilité',
+    chartYear: 'Année',
+    chartCumulativeSavings: 'Économies Cumulées',
+    chartCrossesZero: "La ligne croise zéro à l'Année",
+    chartRecovered: "c'est quand vous avez récupéré votre investissement!",
+    chartIncludes: 'Inclut maintenance (~150€/an) et remplacement onduleur (Année 13)',
+    chartTotalSavings: 'Économies Totales sur 25 Ans',
   },
   de: {
     title: 'SolarClose',
@@ -485,6 +525,14 @@ export const translations: Record<string, TranslationKeys> = {
     openSourceFree: 'Open Source und kostenlos',
     dataStaysLocal: 'Alle Daten bleiben lokal',
     howToUse: 'Anleitung',
+    chartTitle: '25-Jahres-Kostenvergleich',
+    chartBreakEven: 'Break-even',
+    chartYear: 'Jahr',
+    chartCumulativeSavings: 'Kumulierte Einsparungen',
+    chartCrossesZero: 'Die Linie kreuzt Null im Jahr',
+    chartRecovered: 'dann haben Sie Ihre Investition zurückgewonnen!',
+    chartIncludes: 'Inkl. Wartung (~150€/Jahr) und Wechselrichter-Austausch (Jahr 13)',
+    chartTotalSavings: 'Gesamteinsparungen über 25 Jahre',
   },
 };
 
