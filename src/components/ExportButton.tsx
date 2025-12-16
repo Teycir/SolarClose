@@ -197,30 +197,38 @@ export function ExportButton({ data }: ExportButtonProps) {
       const { jsPDF } = await import('jspdf');
       const doc = new jsPDF();
     
-    // Add logo if available
-    let logoY = 20;
+    // Company header at top left
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Company: ${data.companyName}`, 20, 15);
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(60, 60, 60);
+    let headerY = 21;
+    if (data.salesRep) { doc.text(`Sales Representative: ${data.salesRep}`, 20, headerY); headerY += 5; }
+    doc.text(`Phone: ${data.companyPhone}`, 20, headerY); headerY += 5;
+    if (data.companyEmail) { doc.text(`Email: ${data.companyEmail}`, 20, headerY); headerY += 5; }
+    
+    // Add logo if available (top right)
     if (data.companyLogo) {
       try {
-        doc.addImage(data.companyLogo, 'PNG', 105, 10, 0, 15, undefined, 'NONE', 0);
-        logoY = 30;
+        doc.addImage(data.companyLogo, 'PNG', 150, 10, 0, 15, undefined, 'NONE', 0);
       } catch {
         // Logo failed to load, continue without it
       }
     }
     
-    doc.setFontSize(20);
-    doc.setTextColor(255, 193, 7);
-    doc.text(data.companyName, data.companyLogo ? 105 : 20, logoY, { align: data.companyLogo ? 'center' : 'left' });
-    
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, logoY + 10);
+    doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, 45);
     
-    doc.setFontSize(10);
+    doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
-    doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 38);
+    doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 51);
     
-    let y = 50;
+    let y = 60;
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
     doc.text(t('clientName'), 20, y);
