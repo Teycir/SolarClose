@@ -13,7 +13,6 @@ import {
   Filler
 } from 'chart.js';
 import type { SolarLead } from '@/types/solar';
-import { calculateSolarSavings } from '@/lib/calculations';
 import { formatCurrency } from '@/lib/currency';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 
@@ -36,22 +35,8 @@ export function SavingsChart({ data }: SavingsChartProps) {
   const lang = data.language || 'en';
   const t = (key: string) => getTranslation(lang, key as any);
 
-  const results = calculateSolarSavings({
-    currentMonthlyBill: data.currentMonthlyBill,
-    yearlyInflationRate: data.yearlyInflationRate,
-    systemCost: data.systemCost,
-    systemSizeKw: data.systemSizeKw,
-    electricityRate: data.electricityRate,
-    sunHoursPerDay: data.sunHoursPerDay,
-    federalTaxCreditPercent: data.federalTaxCredit,
-    stateIncentiveDollars: data.stateIncentive,
-    financingOption: data.financingOption as 'Cash' | 'Loan' | undefined,
-    loanTerm: data.loanTerm,
-    downPayment: data.downPayment,
-    loanInterestRate: data.loanInterestRate,
-  });
-
-  if (!results.yearlyBreakdown.length) return null;
+  if (!data.yearlyBreakdown?.length) return null;
+  const results = { yearlyBreakdown: data.yearlyBreakdown };
 
   const chartData = {
     labels: results.yearlyBreakdown.map(y => y.year === 1 || y.year % 5 === 0 || y.year === 25 ? `${y.year}` : ''),

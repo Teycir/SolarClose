@@ -60,6 +60,12 @@ export interface SolarLead {
   // Calculated Results (Cached)
   twentyFiveYearSavings: number;
   breakEvenYear: number | null;
+  yearlyBreakdown?: Array<{
+    year: number;
+    utilityCost: number;
+    solarCost: number;
+    cumulativeSavings: number;
+  }>;
   
   // Meta
   isSynced: boolean; // True if pushed to Cloudflare

@@ -33,18 +33,16 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         has25YearInverterWarranty: data.has25YearInverterWarranty,
       });
 
-      if (results.twentyFiveYearSavings !== data.twentyFiveYearSavings || results.breakEvenYear !== data.breakEvenYear) {
-        onUpdate({
-          twentyFiveYearSavings: results.twentyFiveYearSavings,
-          breakEvenYear: results.breakEvenYear,
-        });
-      }
+      onUpdate({
+        twentyFiveYearSavings: results.twentyFiveYearSavings,
+        breakEvenYear: results.breakEvenYear,
+        yearlyBreakdown: results.yearlyBreakdown,
+      });
     } catch (error) {
       const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
       console.error('Failed to calculate solar savings:', sanitizedError);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive, data.financingOption, data.loanTerm, data.downPayment, data.loanInterestRate, data.has25YearInverterWarranty]);
+  }, [data.currentMonthlyBill, data.yearlyInflationRate, data.systemCost, data.systemSizeKw, data.electricityRate, data.sunHoursPerDay, data.federalTaxCredit, data.stateIncentive, data.financingOption, data.loanTerm, data.downPayment, data.loanInterestRate, data.has25YearInverterWarranty, onUpdate]);
 
   return (
     <div className="space-y-4 sm:space-y-6 overflow-hidden">

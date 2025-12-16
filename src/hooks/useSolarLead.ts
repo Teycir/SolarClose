@@ -93,6 +93,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     has25YearInverterWarranty: false,
     twentyFiveYearSavings: results.twentyFiveYearSavings,
     breakEvenYear: results.breakEvenYear ?? 0,
+    yearlyBreakdown: results.yearlyBreakdown,
     isSynced: false,
   };
 };
