@@ -135,34 +135,34 @@ export default function Home() {
         </div>
         
         <div className="mb-4">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap justify-center items-center gap-3">
             <button
               onClick={handleNewLead}
-              className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
               aria-label="Create new lead"
             >
               ➕ {t('newLead')}
             </button>
             <button
               onClick={() => setShowLeads(!showLeads)}
-              className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
             >
               {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}`}
             </button>
             <button
               onClick={saveLead}
               disabled={!data?.clientName.trim() || isDefaultLead}
-              className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               💾 {t('saveLead')}
             </button>
-            <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
-              {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
-              {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
-              {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
-            </div>
             <DataBackup data={data} />
             <ExportButton data={data} />
+          </div>
+          <div className="text-xs sm:text-sm text-muted-foreground text-center mt-2" role="status" aria-live="polite">
+            {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
+            {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
+            {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
           </div>
         </div>
         
