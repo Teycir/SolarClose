@@ -23,25 +23,28 @@ export function SavingsChart({ data }: SavingsChartProps) {
     downPayment: data.downPayment,
   });
 
-  const maxSavings = Math.max(...results.yearlyBreakdown.map(y => Math.abs(y.cumulativeSavings)));
+  if (!results.yearlyBreakdown.length) return null;
+
+  const maxSavings = Math.max(...results.yearlyBreakdown.map(y => y.cumulativeSavings));
   const minSavings = Math.min(...results.yearlyBreakdown.map(y => y.cumulativeSavings));
-  const range = maxSavings - minSavings;
+  const range = Math.abs(maxSavings - minSavings) || 1;
 
   return (
     <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 space-y-4">
       <h3 className="text-lg font-semibold">25-Year Cumulative Savings</h3>
       
-      <div className="flex items-end justify-between gap-1 h-48">
+      <div className="flex items-end justify-between gap-1 h-48 border-b border-muted">
         {results.yearlyBreakdown.filter((_, i) => i % 5 === 0 || i === 24).map((year) => {
           const isPositive = year.cumulativeSavings >= 0;
-          const height = range > 0 ? (Math.abs(year.cumulativeSavings - minSavings) / range) * 100 : 0;
+          const normalizedValue = year.cumulativeSavings - minSavings;
+          const height = Math.max(5, (normalizedValue / range) * 100);
           
           return (
             <div key={year.year} className="flex-1 flex flex-col items-center gap-1 group">
               <div className="relative w-full h-full flex items-end">
                 <div 
                   className={`w-full transition-all duration-300 ${isPositive ? 'bg-primary' : 'bg-destructive'} rounded-t group-hover:opacity-80`}
-                  style={{ height: `${height}%` }}
+                  style={{ height: `${height}%`, minHeight: '8px' }}
                   title={`Year ${year.year}: ${formatCurrency(year.cumulativeSavings, data.currency)}`}
                 />
               </div>
