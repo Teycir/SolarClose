@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 
-const logError = (error: unknown) => {
+const logError = (error: Error | null) => {
   try {
-    const errorMessage = error instanceof Error ? error.message : String(error);
+    const errorMessage = error?.message || 'Unknown error';
     console.error('Application error:', errorMessage.replace(/[\r\n]/g, ' '));
   } catch (e) {
     console.error('Failed to log error');
