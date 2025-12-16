@@ -6,21 +6,44 @@ import { ServiceWorkerManager } from '@/components/ServiceWorkerManager'
 const inter = Inter({ subsets: ['latin'], fallback: ['system-ui', 'arial'] })
 
 export const metadata: Metadata = {
-  title: 'SolarClose - Solar ROI Calculator',
-  description: 'Offline-first solar ROI calculator for sales representatives',
+  title: 'SolarClose - Free Solar Proposal Tool for Sales Reps | Works Offline',
+  description: 'Free solar proposal calculator for sales reps. Generate professional PDF proposals instantly. Works offline, no signup required. Calculate 25-year savings, ROI, and payback period on any device.',
+  keywords: ['solar calculator', 'solar proposal tool', 'solar sales software', 'solar ROI calculator', 'solar savings calculator', 'offline solar tool', 'solar panel calculator', 'solar proposal generator', 'free solar calculator', 'solar sales tool'],
+  authors: [{ name: 'Teycir Ben Soltane', url: 'https://teycirbensoltane.tn' }],
+  creator: 'Teycir Ben Soltane',
+  publisher: 'SolarClose',
   manifest: '/manifest.json',
   icons: {
     icon: '/favicon.svg',
+    apple: '/icon-192.png',
   },
   openGraph: {
-    title: 'SolarClose - Solar ROI Calculator',
-    description: 'Professional PWA for solar sales representatives to calculate ROI and generate branded proposals',
+    title: 'SolarClose - Free Solar Proposal Tool for Sales Reps',
+    description: 'Generate professional solar proposals instantly. Works offline, calculates 25-year savings, ROI, and payback period. Free for individual sales reps.',
     type: 'website',
+    url: 'https://solarclose.pages.dev',
+    siteName: 'SolarClose',
+    locale: 'en_US',
   },
   twitter: {
-    card: 'summary',
-    title: 'SolarClose - Solar ROI Calculator',
-    description: 'Professional PWA for solar sales representatives',
+    card: 'summary_large_image',
+    title: 'SolarClose - Free Solar Proposal Tool',
+    description: 'Generate professional solar proposals instantly. Works offline. Free for sales reps.',
+    creator: '@teycir',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://solarclose.pages.dev',
   },
 }
 
