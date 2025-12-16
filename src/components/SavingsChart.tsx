@@ -48,41 +48,33 @@ export function SavingsChart({ data }: SavingsChartProps) {
 
   if (!results.yearlyBreakdown.length) return null;
 
-  // Calculate cumulative costs - what you actually spend
-  let cumulativeUtilitySpend = 0;
-  let cumulativeSolarSpend = 0;
-  const cumulativeData = results.yearlyBreakdown.map(y => {
-    cumulativeUtilitySpend += y.utilityCost;
-    cumulativeSolarSpend += y.solarCost;
-    return {
-      year: y.year,
-      utilitySpend: cumulativeUtilitySpend,
-      solarSpend: cumulativeSolarSpend,
-    };
-  });
-
   const chartData = {
-    labels: cumulativeData.map(y => y.year === 1 || y.year % 5 === 0 || y.year === 25 ? `${y.year}` : ''),
+    labels: results.yearlyBreakdown.map(y => y.year === 1 || y.year % 5 === 0 || y.year === 25 ? `${y.year}` : ''),
     datasets: [
       {
-        label: 'Without Solar (Utility Bills)',
-        data: cumulativeData.map(y => y.utilitySpend),
-        borderColor: 'rgb(239, 68, 68)',
-        backgroundColor: 'rgba(239, 68, 68, 0.05)',
-        tension: 0.3,
-        borderWidth: 3,
-        pointRadius: 0,
-        pointHoverRadius: 6,
-      },
-      {
-        label: 'With Solar (Total Investment)',
-        data: cumulativeData.map(y => y.solarSpend),
+        label: 'Cumulative Savings',
+        data: results.yearlyBreakdown.map(y => y.cumulativeSavings),
         borderColor: 'rgb(255, 193, 7)',
-        backgroundColor: 'rgba(255, 193, 7, 0.05)',
+        backgroundColor: (context: any) => {
+          const value = context.parsed?.y;
+          return value >= 0 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)';
+        },
+        segment: {
+          borderColor: (context: any) => {
+            const curr = context.p1.parsed.y;
+            return curr >= 0 ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)';
+          },
+        },
         tension: 0.3,
         borderWidth: 3,
-        pointRadius: 0,
+        pointRadius: (context: any) => {
+          return context.dataIndex + 1 === data.breakEvenYear ? 8 : 0;
+        },
         pointHoverRadius: 6,
+        pointBackgroundColor: 'rgb(255, 193, 7)',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        fill: true,
       },
     ],
   };
@@ -130,7 +122,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
         grid: { color: 'rgba(156, 163, 175, 0.1)' },
         title: {
           display: true,
-          text: 'Cumulative Cost',
+          text: 'Cumulative Savings',
           color: 'rgb(156, 163, 175)',
           font: { size: 12 }
         }
@@ -162,18 +154,12 @@ export function SavingsChart({ data }: SavingsChartProps) {
       <div className="h-72">
         <Line data={chartData} options={options} />
       </div>
-      <div className="grid grid-cols-2 gap-4 pt-3 border-t text-sm">
-        <div>
-          <span className="text-muted-foreground">Without Solar (25yr): </span>
-          <span className="font-semibold text-destructive">{formatCurrency(cumulativeData[24].utilitySpend, data.currency)}</span>
-        </div>
-        <div>
-          <span className="text-muted-foreground">With Solar (25yr): </span>
-          <span className="font-semibold text-primary">{formatCurrency(cumulativeData[24].solarSpend, data.currency)}</span>
-        </div>
+      <div className="text-center pt-3 border-t text-sm space-y-1">
+        <p className="text-muted-foreground">The line crosses zero at Year {data.breakEvenYear} - that's when you've recovered your investment!</p>
+        <p className="text-xs text-amber-400">💡 Includes maintenance (~$150/year) and inverter replacement (Year 13)</p>
       </div>
       <div className="text-center pt-2 border-t">
-        <span className="text-sm text-muted-foreground">Total Savings: </span>
+        <span className="text-sm text-muted-foreground">Total 25-Year Savings: </span>
         <span className="text-xl font-bold text-primary">{formatCurrency(data.twentyFiveYearSavings, data.currency)}</span>
       </div>
     </div>
