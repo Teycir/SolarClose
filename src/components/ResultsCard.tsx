@@ -15,7 +15,7 @@ const MONTHS_PER_YEAR = 12;
 
 function getTranslate(language: string | undefined) {
   const lang = (language || "en") as Language;
-  return (key: string) => getTranslation(lang, key);
+  return (key: string) => getTranslation(lang, key as TranslationKey);
 }
 
 export function ResultsCard({ data }: ResultsCardProps) {
