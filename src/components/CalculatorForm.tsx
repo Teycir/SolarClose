@@ -288,6 +288,9 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             <option value="">{t('selectType')}</option>
             <option value="Residential">{t('residential')}</option>
             <option value="Commercial">{t('commercial')}</option>
+            <option value="Industrial">Industrial</option>
+            <option value="Agricultural">Agricultural</option>
+            <option value="Multi-Family">Multi-Family</option>
           </select>
         </div>
         <div>
@@ -319,6 +322,11 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
             <option value="Metal">{t('metal')}</option>
             <option value="Tile">{t('tile')}</option>
             <option value="Flat">{t('flat')}</option>
+            <option value="Concrete">Concrete</option>
+            <option value="Wood Shake">Wood Shake</option>
+            <option value="Slate">Slate</option>
+            <option value="TPO">TPO</option>
+            <option value="EPDM">EPDM</option>
           </select>
         </div>
         <div>
