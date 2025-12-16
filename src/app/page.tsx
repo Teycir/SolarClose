@@ -254,10 +254,7 @@ export default function Home() {
               <div className="space-y-6 sm:space-y-8 overflow-visible">
                 <div className="flex justify-center">
                   <button
-                    onClick={async (e) => {
-                      const btn = e.currentTarget;
-                      btn.style.filter = 'brightness(0.75)';
-                      setTimeout(() => { btn.style.filter = ''; }, 1000);
+                    onClick={async () => {
                       const { calculateSolarSavings } = await import('@/lib/calculations');
                       const results = calculateSolarSavings({
                         currentMonthlyBill: data.currentMonthlyBill,

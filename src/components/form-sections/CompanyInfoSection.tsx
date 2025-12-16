@@ -85,6 +85,16 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
           required
           aria-required="true"
         />
+        <CompanyManager
+          currentName={data.companyName}
+          currentLogo={data.companyLogo}
+          onSelect={(name) => {
+            saveToLocalStorage('solarclose-company', name);
+            onUpdate({ companyName: name });
+          }}
+          onLogoChange={(logo) => onUpdate({ companyLogo: logo })}
+          showOnlyNameButtons={true}
+        />
       </div>
       
       <CompanyManager
@@ -95,6 +105,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
           onUpdate({ companyName: name });
         }}
         onLogoChange={(logo) => onUpdate({ companyLogo: logo })}
+        showOnlyLogo={true}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

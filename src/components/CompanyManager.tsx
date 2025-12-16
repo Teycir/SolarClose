@@ -15,9 +15,11 @@ interface CompanyManagerProps {
   currentLogo?: string;
   onSelect: (name: string) => void;
   onLogoChange: (logo: string | undefined) => void;
+  showOnlyNameButtons?: boolean;
+  showOnlyLogo?: boolean;
 }
 
-export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChange }: CompanyManagerProps) {
+export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChange, showOnlyNameButtons, showOnlyLogo }: CompanyManagerProps) {
   const [items, setItems] = useState<CompanyItem[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
@@ -150,6 +152,138 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
     }
     setConfirmDialog(null);
   };
+
+  if (showOnlyNameButtons) {
+    return (
+      <div className="space-y-1 mt-2">
+        <div className="flex gap-2 items-center">
+          <button
+            type="button"
+            onClick={saveCurrent}
+            disabled={!currentName.trim()}
+            className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
+          >
+            💾 Save
+          </button>
+          {saveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
+          <button
+            type="button"
+            onClick={() => setShowList(!showList)}
+            className="text-xs bg-secondary px-3 py-1 rounded hover:opacity-90"
+          >
+            {showList ? '✕ Hide' : `📋 Saved (${items.length})`}
+          </button>
+        </div>
+        {showList && items.length > 0 && (
+          <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-40 overflow-y-auto mt-2">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs font-semibold">Saved</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setConfirmDialog({
+                    isOpen: true,
+                    title: 'Clear All',
+                    message: 'Delete all saved companies?',
+                    onConfirm: clearAll
+                  });
+                }}
+                className="text-xs text-destructive hover:underline"
+              >
+                Clear All
+              </button>
+            </div>
+            {items.map(item => (
+              <div key={item.id} className="flex items-center gap-2 p-2 bg-secondary/50 rounded">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onSelect(item.name);
+                    setShowList(false);
+                  }}
+                  className="flex-1 text-left text-xs hover:bg-secondary/80 p-1 rounded transition-colors"
+                >
+                  {item.name}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: 'Delete',
+                      message: `Delete "${item.name}"?`,
+                      onConfirm: () => deleteItem(item.id)
+                    });
+                  }}
+                  className="text-destructive hover:bg-destructive/10 p-1 rounded transition-colors text-xs"
+                >
+                  🗑️
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        {confirmDialog && (
+          <ConfirmDialog
+            isOpen={confirmDialog.isOpen}
+            title={confirmDialog.title}
+            message={confirmDialog.message}
+            onConfirm={confirmDialog.onConfirm}
+            onCancel={() => setConfirmDialog(null)}
+            confirmText="Confirm"
+            cancelText="Cancel"
+            isDangerous={true}
+          />
+        )}
+      </div>
+    );
+  }
+
+  if (showOnlyLogo) {
+    return (
+      <div className="space-y-1">
+        <label className="block text-sm font-medium">
+          Company Logo
+        </label>
+        <div className="flex gap-2 items-center">
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            onChange={handleLogoUpload}
+            className="text-sm file:mr-2 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-sm file:bg-primary file:text-primary-foreground hover:file:opacity-90"
+          />
+          {currentLogo && (
+            <button
+              type="button"
+              onClick={() => onLogoChange(undefined)}
+              className="text-sm text-destructive hover:underline"
+            >
+              Remove
+            </button>
+          )}
+        </div>
+        <p className="text-xs text-muted-foreground">PNG or JPG, 100-1000px wide, 50-500px tall, max 500KB</p>
+        {logoError && <p className="text-xs text-destructive">{logoError}</p>}
+        {currentLogo && (
+          <div className="bg-white p-2 rounded border flex justify-center items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={currentLogo} alt="Company logo" className="max-h-16 max-w-[200px] object-contain" />
+          </div>
+        )}
+        <div className="flex gap-2 items-center">
+          <button
+            type="button"
+            onClick={saveLogo}
+            disabled={!currentLogo}
+            className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
+          >
+            💾 Save Logo
+          </button>
+          {logoSaveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4 mt-2">
