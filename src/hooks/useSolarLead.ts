@@ -76,7 +76,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     companyName: savedCompany,
     companyPhone: savedPhone,
     companyLogo: savedLogo || undefined,
-    productDescription: ''
+    productDescription: '',
     salesRep: savedSalesRep,
     proposalConditions: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
     currency: 'USD',
