@@ -108,9 +108,17 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   
   if (data.financingOption === 'Loan' && data.loanTerm) {
     const loanAmount = Math.max(0, netCost - (data.downPayment || 0));
-    const monthlyRate = 0.0699 / 12;
+    const interestRate = (data.loanInterestRate || 6.99) / 100;
+    const monthlyRate = interestRate / 12;
     const numPayments = data.loanTerm * 12;
-    const monthlyPayment = loanAmount > 0 ? (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1) : 0;
+    let monthlyPayment = 0;
+    if (loanAmount > 0) {
+      if (monthlyRate === 0) {
+        monthlyPayment = loanAmount / numPayments;
+      } else {
+        monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+      }
+    }
     
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
@@ -120,7 +128,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
     }
     doc.text(`  Financed Amount: ${getCurrencySymbol(data.currency)}${formatNumber(loanAmount)}`, 20, y);
     y += 6;
-    doc.text(`  Loan Term: ${data.loanTerm} years @ 6.99% APR`, 20, y);
+    doc.text(`  Loan Term: ${data.loanTerm} years @ ${data.loanInterestRate || 6.99}% APR`, 20, y);
     y += 6;
     doc.text(`  Monthly Payment: ${getCurrencySymbol(data.currency)}${formatNumber(monthlyPayment)}`, 20, y);
     y += 8;
