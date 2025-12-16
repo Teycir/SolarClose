@@ -76,11 +76,19 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
           }
           onLogoChange(event.target?.result as string);
         };
+        img.onerror = () => {
+          setLogoError('Failed to load image');
+        };
         img.src = event.target?.result as string;
       };
+      reader.onerror = () => {
+        setLogoError('Failed to read file');
+      };
       reader.readAsDataURL(file);
-    } catch (error) {
-      setLogoError('Failed to upload logo');
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setLogoError(`Failed to upload logo: ${errorMsg}`);
+      console.error('Failed to upload logo:', errorMsg);
     }
   };
 
@@ -97,10 +105,10 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       await loadItems();
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 2000);
-    } catch (error) {
+    } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Failed to save company:', errorMessage);
-      setLogoError('Failed to save company');
+      setLogoError(`Failed to save company: ${errorMessage}`);
     }
   };
 
@@ -110,8 +118,10 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       localStorage.setItem('solarclose-logo', currentLogo);
       setLogoSaveSuccess(true);
       setTimeout(() => setLogoSaveSuccess(false), 2000);
-    } catch (error) {
-      setLogoError('Failed to save logo');
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setLogoError(`Failed to save logo: ${errorMsg}`);
+      console.error('Failed to save logo:', errorMsg);
     }
   };
 
@@ -120,8 +130,9 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       const db = await openDB('solar-leads', 2);
       await db.delete('companies', id);
       await loadItems();
-    } catch (error) {
-      console.error('Failed to delete company:', error);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to delete company:', errorMsg);
     }
     setConfirmDialog(null);
   };
@@ -133,8 +144,9 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       await tx.objectStore('companies').clear();
       await tx.done;
       setItems([]);
-    } catch (error) {
-      console.error('Failed to clear companies:', error);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to clear companies:', errorMsg);
     }
     setConfirmDialog(null);
   };

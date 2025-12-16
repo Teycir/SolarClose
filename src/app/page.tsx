@@ -11,8 +11,9 @@ import { EnvironmentalImpact } from '@/components/EnvironmentalImpact';
 import { SavingsChart } from '@/components/SavingsChart';
 import { BillSwapComparison } from '@/components/BillSwapComparison';
 import { SocialShare } from '@/components/SocialShare';
+import { DataBackup } from '@/components/DataBackup';
 import { openDB } from 'idb';
-import type { SolarLead, Currency } from '@/types/solar';
+import type { SolarLead } from '@/types/solar';
 
 const generateLeadId = () => `lead-${Date.now()}`;
 
@@ -24,7 +25,7 @@ export default function Home() {
   const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
   const lang = (data?.language || 'en') as Language;
-  const t = (key: string) => getTranslation(lang, key as any);
+  const t = (key: string) => getTranslation(lang, key);
   const isDefaultLead = currentLeadId === 'default-lead';
 
   useEffect(() => {
@@ -33,10 +34,15 @@ export default function Home() {
       try {
         const db = await openDB('solar-leads', 2);
         const leads = await db.getAll('leads');
-        setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
-      } catch (error) {
-        const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
+        const sortedLeads = Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : [];
+        setAllLeads(sortedLeads);
+      } catch (error: unknown) {
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        const sanitizedError = errorMsg.replace(/[\r\n]/g, ' ');
         console.error('Failed to load leads:', sanitizedError);
+        if (error instanceof Error && error.stack) {
+          console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+        }
         setAllLeads([]);
       }
     };
@@ -72,6 +78,11 @@ export default function Home() {
     setConfirmDialog(null);
   };
 
+  const confirmNewLead = () => {
+    setCurrentLeadId(generateLeadId());
+    setConfirmDialog(null);
+  };
+
   const handleNewLead = () => {
     if (!data?.clientName) {
       setCurrentLeadId(generateLeadId());
@@ -82,11 +93,13 @@ export default function Home() {
       isOpen: true,
       title: 'Create New Lead',
       message: 'Current lead will be saved. Continue?',
-      onConfirm: () => {
-        setCurrentLeadId(generateLeadId());
-        setConfirmDialog(null);
-      }
+      onConfirm: confirmNewLead
     });
+  };
+
+  const handleSelectLead = (leadId: string) => {
+    setCurrentLeadId(leadId);
+    setShowLeads(false);
   };
 
   if (!data) {
@@ -121,7 +134,7 @@ export default function Home() {
             </select>
             <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">{t('title')}</h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={handleNewLead}
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
@@ -147,6 +160,7 @@ export default function Home() {
               {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
               {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
             </div>
+            <DataBackup />
             <ExportButton data={data} />
           </div>
         </div>
@@ -173,7 +187,7 @@ export default function Home() {
               {allLeads.map(lead => (
                 <div key={lead.id} className="flex items-center gap-2">
                   <button
-                    onClick={() => { setCurrentLeadId(lead.id); setShowLeads(false); }}
+                    onClick={() => handleSelectLead(lead.id)}
                     className={`flex-1 text-left p-2 rounded hover:bg-secondary transition-colors ${
                       lead.id === currentLeadId ? 'bg-secondary' : ''
                     }`}

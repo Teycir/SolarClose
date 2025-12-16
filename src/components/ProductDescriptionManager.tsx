@@ -28,7 +28,7 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
   const loadDescriptions = async () => {
     try {
       const db = await openDB('solar-leads', 2, {
-        upgrade(db, oldVersion) {
+        upgrade(db) {
           if (!db.objectStoreNames.contains('leads')) {
             db.createObjectStore('leads', { keyPath: 'id' });
           }
@@ -39,8 +39,9 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
       });
       const items = await db.getAll('product-descriptions');
       setDescriptions(items.sort((a, b) => b.createdAt - a.createdAt));
-    } catch (error) {
-      console.error('Failed to load descriptions:', error);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to load descriptions:', errorMsg.replace(/[\r\n]/g, ' '));
     }
   };
 
@@ -57,8 +58,9 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
       await loadDescriptions();
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 2000);
-    } catch (error) {
-      console.error('Failed to save description:', error);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to save description:', errorMsg.replace(/[\r\n]/g, ' '));
     }
   };
 
@@ -67,8 +69,9 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
       const db = await openDB('solar-leads', 2);
       await db.delete('product-descriptions', id);
       await loadDescriptions();
-    } catch (error) {
-      console.error('Failed to delete description:', error);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to delete description:', errorMsg.replace(/[\r\n]/g, ' '));
     }
     setConfirmDialog(null);
   };
@@ -80,8 +83,9 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
       await tx.objectStore('product-descriptions').clear();
       await tx.done;
       setDescriptions([]);
-    } catch (error) {
-      console.error('Failed to clear descriptions:', error);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Failed to clear descriptions:', errorMsg.replace(/[\r\n]/g, ' '));
     }
     setConfirmDialog(null);
   };

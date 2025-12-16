@@ -1,0 +1,109 @@
+'use client';
+
+import { useState } from 'react';
+import { openDB } from 'idb';
+import type { SolarLead } from '@/types/solar';
+
+export function DataBackup() {
+  const [status, setStatus] = useState<'idle' | 'exporting' | 'importing' | 'success' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+
+  const exportData = async () => {
+    try {
+      setStatus('exporting');
+      const db = await openDB('solar-leads', 2);
+      const leads = await db.getAll('leads');
+      
+      const dataStr = JSON.stringify(leads, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `solarclose-backup-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      setStatus('success');
+      setMessage(`Exported ${leads.length} leads`);
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (error) {
+      setStatus('error');
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setMessage(`Export failed: ${errorMsg}`);
+      console.error('Export failed:', errorMsg);
+      setTimeout(() => setStatus('idle'), 3000);
+    }
+  };
+
+  const importData = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setStatus('importing');
+      const text = await file.text();
+      const leads = JSON.parse(text) as SolarLead[];
+      
+      if (!Array.isArray(leads)) {
+        throw new Error('Invalid backup file');
+      }
+
+      const db = await openDB('solar-leads', 2);
+      let imported = 0;
+      
+      for (const lead of leads) {
+        if (lead.id && lead.clientName) {
+          await db.put('leads', lead);
+          imported++;
+        }
+      }
+      
+      setStatus('success');
+      setMessage(`Imported ${imported} leads`);
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch (error) {
+      setStatus('error');
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      setMessage(`Import failed: ${errorMsg}`);
+      console.error('Import failed:', errorMsg);
+      setTimeout(() => setStatus('idle'), 3000);
+    }
+    
+    event.target.value = '';
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={exportData}
+        disabled={status === 'exporting'}
+        className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50"
+        title="Export all leads as JSON backup"
+      >
+        💾 Backup
+      </button>
+      
+      <label className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap cursor-pointer">
+        📥 Restore
+        <input
+          type="file"
+          accept=".json"
+          onChange={importData}
+          className="hidden"
+          disabled={status === 'importing'}
+        />
+      </label>
+      
+      {status !== 'idle' && (
+        <span className="text-xs text-muted-foreground">
+          {status === 'exporting' && '💾 Exporting...'}
+          {status === 'importing' && '📥 Importing...'}
+          {status === 'success' && `✓ ${message}`}
+          {status === 'error' && `⚠ ${message}`}
+        </span>
+      )}
+    </div>
+  );
+}

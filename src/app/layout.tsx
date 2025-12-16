@@ -58,27 +58,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  try {
-    return (
-      <html lang="en" className="dark">
-        <body className={inter.className}>
-          <ServiceWorkerManager />
-          {children}
-        </body>
-      </html>
-    )
-  } catch (error) {
-    const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
-    console.error('Layout rendering error:', sanitizedError);
-    return (
-      <html lang="en" className="dark">
-        <body className={inter.className}>
-          <div style={{ padding: '20px', textAlign: 'center' }}>
-            <h1>Something went wrong</h1>
-            <p>Please refresh the page</p>
-          </div>
-        </body>
-      </html>
-    )
-  }
+  return (
+    <html lang="en" className="dark">
+      <body className={inter.className}>
+        <ServiceWorkerManager />
+        {children}
+      </body>
+    </html>
+  )
 }

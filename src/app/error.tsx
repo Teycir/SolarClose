@@ -6,7 +6,7 @@ const logError = (error: Error | null) => {
   try {
     const errorMessage = error?.message || 'Unknown error';
     console.error('Application error:', errorMessage.replace(/[\r\n]/g, ' '));
-  } catch (e: any) {
+  } catch {
     console.error('Failed to log error');
   }
 };
@@ -14,8 +14,9 @@ const logError = (error: Error | null) => {
 const handleReset = (reset: () => void) => {
   try {
     reset();
-  } catch {
-    console.error('Failed to reset');
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error('Failed to reset:', errorMsg.replace(/[\r\n]/g, ' '));
   }
 };
 
@@ -30,7 +31,9 @@ export default function Error({
     logError(error);
   }, [error]);
 
-  const displayMessage = error?.message?.replace(/[<>"'&]/g, '') || 'An unexpected error occurred. Please try again.';
+  const defaultMessage = 'An unexpected error occurred. Please try again.';
+  const sanitizedMessage = error?.message?.replace(/[<>"'&]/g, '');
+  const displayMessage = sanitizedMessage || defaultMessage;
   const onReset = () => handleReset(reset);
 
   return (

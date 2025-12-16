@@ -55,6 +55,7 @@ export interface SolarLead {
   sunHoursPerDay: number; // e.g. 5
   federalTaxCredit: number; // e.g. 30 (percent)
   stateIncentive: number; // e.g. 1000 ($)
+  has25YearInverterWarranty?: boolean; // If true, no inverter replacement costs
   
   // Calculated Results (Cached)
   twentyFiveYearSavings: number;

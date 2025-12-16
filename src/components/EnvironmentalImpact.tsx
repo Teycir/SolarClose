@@ -8,13 +8,10 @@ interface EnvironmentalImpactProps {
 }
 
 export function EnvironmentalImpact({ data }: EnvironmentalImpactProps) {
-  const lang = (data.language || 'en') as Language;
-  const t = (key: string) => getTranslation(lang, key as any);
-
-  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * 0.8;
-  const co2SavedLbs = Math.round(annualProduction * 0.85 * 25);
-  const treesEquivalent = Math.round(co2SavedLbs / 48);
-  const carMilesEquivalent = Math.round(co2SavedLbs * 0.5);
+  const annualProduction = (data.systemSizeKw || 0) * (data.sunHoursPerDay || 0) * 365 * 0.8;
+  const co2SavedLbs = Math.max(0, Math.round(annualProduction * 0.85 * 25));
+  const treesEquivalent = Math.max(0, Math.round(co2SavedLbs / 48));
+  const carMilesEquivalent = Math.max(0, Math.round(co2SavedLbs * 0.5));
 
   return (
     <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 border border-green-700/50 rounded-lg p-4 sm:p-6 space-y-4">

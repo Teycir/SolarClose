@@ -15,7 +15,7 @@ const MONTHS_PER_YEAR = 12;
 
 function getTranslate(language: string | undefined) {
   const lang = (language || "en") as Language;
-  return (key: string) => getTranslation(lang, key as TranslationKey);
+  return (key: string) => getTranslation(lang, key);
 }
 
 export function ResultsCard({ data }: ResultsCardProps) {
@@ -35,6 +35,8 @@ export function ResultsCard({ data }: ResultsCardProps) {
   const clampedRoi = Math.max(0, Math.min(100, roiPercentage));
   const isNegativeSavings = data.twentyFiveYearSavings < 0;
   const progressBarColor = isNegativeSavings ? "bg-destructive" : "bg-primary";
+  const savingsTextColor = isNegativeSavings ? "text-destructive" : "text-primary";
+  const formattedAnnualProduction = Math.round(annualProduction).toLocaleString();
 
   return (
     <article
@@ -69,7 +71,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
             : t("twentyFiveYearSavings")}
         </h2>
         <p
-          className={`text-3xl sm:text-5xl font-bold break-words ${isNegativeSavings ? "text-destructive" : "text-primary"}`}
+          className={`text-3xl sm:text-5xl font-bold break-words ${savingsTextColor}`}
         >
           {formatCurrency(Math.abs(data.twentyFiveYearSavings), data.currency)}
           {isNegativeSavings ? ` ${t("loss")}` : ""}
@@ -86,7 +88,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
             {t("estAnnualProduction")}
           </span>
           <span className="font-medium">
-            {Math.round(annualProduction).toLocaleString()} kWh
+            {formattedAnnualProduction} kWh
           </span>
         </div>
         <div className="flex justify-between text-sm">
@@ -108,6 +110,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
         <div
           className={`absolute left-0 top-0 h-full transition-all duration-300 ${progressBarColor}`}
           style={{ width: `${clampedRoi}%` }}
+          aria-hidden="true"
         />
         <div className="absolute inset-0 flex items-center justify-center text-xs font-medium">
           {t("roi")}: {roiPercentage}%

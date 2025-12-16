@@ -7,20 +7,25 @@ interface BillSwapComparisonProps {
   data: SolarLead;
 }
 
+const DEFAULT_LOAN_INTEREST_RATE = 0.0699;
+const MONTHS_PER_YEAR = 12;
+const DAYS_PER_YEAR = 365;
+const PERFORMANCE_RATIO = 0.8;
+
 export function BillSwapComparison({ data }: BillSwapComparisonProps) {
   if (data.financingOption !== 'Loan' || !data.loanTerm) return null;
 
   const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
   const netCost = Math.max(0, data.systemCost - federalCredit - data.stateIncentive);
   const loanAmount = Math.max(0, netCost - (data.downPayment || 0));
-  const monthlyRate = 0.0699 / 12;
-  const numPayments = data.loanTerm * 12;
+  const monthlyRate = DEFAULT_LOAN_INTEREST_RATE / MONTHS_PER_YEAR;
+  const numPayments = data.loanTerm * MONTHS_PER_YEAR;
   const monthlyLoanPayment = loanAmount > 0 
     ? (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1)
     : 0;
 
-  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * 0.8;
-  const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * 12 : 0;
+  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
+  const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * MONTHS_PER_YEAR : 0;
   const offsetPercentage = annualUsage > 0 ? Math.min(annualProduction / annualUsage, 1) : 0;
   const estimatedNewBill = data.currentMonthlyBill * (1 - offsetPercentage);
   const totalMonthlyPayment = monthlyLoanPayment + estimatedNewBill;

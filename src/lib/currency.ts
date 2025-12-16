@@ -16,9 +16,10 @@ export function formatCurrency(amount: number, currency: string = 'USD'): string
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
-  } catch (error) {
+  } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Failed to format currency:', errorMessage.replace(/[\r\n]/g, ' '));
-    return `${amount}`;
+    const symbol = validCurrency === 'EUR' ? '€' : validCurrency === 'GBP' ? '£' : '$';
+    return `${symbol}${Math.round(amount).toLocaleString()}`;
   }
 }

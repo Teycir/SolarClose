@@ -541,14 +541,8 @@ export type TranslationKey = keyof typeof translations.en;
 
 export function getTranslation(lang: Language, key: TranslationKey): string {
   try {
-    const translation = translations[lang]?.[key];
-    if (translation) return translation;
-    
-    const fallback = translations.en[key];
-    if (fallback) return fallback;
-    
-    return key;
-  } catch (error) {
+    return translations[lang]?.[key] || translations.en[key] || key;
+  } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Translation error:', errorMessage.replace(/[\r\n]/g, ' '));
     return key;

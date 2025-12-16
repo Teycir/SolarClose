@@ -8,7 +8,8 @@ interface SocialShareProps {
 }
 
 export function SocialShare({ data }: SocialShareProps) {
-  const url = typeof window !== 'undefined' ? window.location.href : 'https://solarclose.pages.dev';
+  const defaultUrl = 'https://solarclose.pages.dev';
+  const url = typeof window !== 'undefined' ? window.location.href : defaultUrl;
   const savings = formatCurrency(data.twentyFiveYearSavings, data.currency);
   const text = `Check out SolarClose - Free solar proposal tool for sales reps! Calculate ${savings} in 25-year savings instantly. Works offline!`;
   

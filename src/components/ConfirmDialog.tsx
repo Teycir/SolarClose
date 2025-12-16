@@ -11,9 +11,16 @@ interface ConfirmDialogProps {
   isDangerous?: boolean;
 }
 
-export function ConfirmDialog(props: ConfirmDialogProps) {
-  const { isOpen, title, message, onConfirm, onCancel } = props;
-  const { confirmText = 'Confirm', cancelText = 'Cancel', isDangerous = false } = props;
+export function ConfirmDialog({
+  isOpen,
+  title,
+  message,
+  onConfirm,
+  onCancel,
+  confirmText = 'Confirm',
+  cancelText = 'Cancel',
+  isDangerous = false
+}: ConfirmDialogProps) {
   
   if (!isOpen) return null;
 
@@ -33,7 +40,7 @@ export function ConfirmDialog(props: ConfirmDialogProps) {
             onClick={() => {
               try {
                 onCancel();
-              } catch (error) {
+              } catch (error: unknown) {
                 const errorMessage = error instanceof Error ? error.message : String(error);
                 console.error('Error in cancel handler:', errorMessage.replace(/[\r\n]/g, ' '));
               }
@@ -46,7 +53,7 @@ export function ConfirmDialog(props: ConfirmDialogProps) {
             onClick={() => {
               try {
                 onConfirm();
-              } catch (error) {
+              } catch (error: unknown) {
                 const errorMessage = error instanceof Error ? error.message : String(error);
                 console.error('Error in confirm handler:', errorMessage.replace(/[\r\n]/g, ' '));
               }

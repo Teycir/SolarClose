@@ -2,18 +2,32 @@
  * Input parameters for solar savings calculation
  */
 export interface SolarCalculationInputs {
+  /** Current monthly electricity bill in dollars */
   currentMonthlyBill: number;
+  /** Annual utility rate increase percentage (e.g., 4 for 4%) */
   yearlyInflationRate: number;
+  /** Total system cost before incentives in dollars */
   systemCost: number;
+  /** Solar system size in kilowatts (kW) */
   systemSizeKw: number;
+  /** Current electricity rate in dollars per kWh */
   electricityRate: number;
+  /** Average daily sun hours for the location */
   sunHoursPerDay: number;
+  /** Federal tax credit percentage (e.g., 30 for 30%) */
   federalTaxCreditPercent: number;
+  /** State incentive amount in dollars */
   stateIncentiveDollars: number;
+  /** Payment method: 'Cash' or 'Loan' */
   financingOption?: 'Cash' | 'Loan';
-  loanTerm?: number; // years
-  loanInterestRate?: number; // percent
-  downPayment?: number; // dollars
+  /** Loan term in years (default: 20) */
+  loanTerm?: number;
+  /** Annual loan interest rate percentage (default: 6.99) */
+  loanInterestRate?: number;
+  /** Down payment amount in dollars (default: 0) */
+  downPayment?: number;
+  /** If true, no inverter replacement costs are included */
+  has25YearInverterWarranty?: boolean;
 }
 
 /**
@@ -32,6 +46,12 @@ export interface SolarCalculationResults {
 }
 
 const PROJECTION_YEARS = 25;
+const EMPTY_RESULT: SolarCalculationResults = {
+  twentyFiveYearSavings: 0,
+  breakEvenYear: null,
+  breaksEvenWithin25Years: false,
+  yearlyBreakdown: []
+};
 
 /**
  * Calculates 25-year solar savings with realistic assumptions
@@ -40,19 +60,39 @@ const PROJECTION_YEARS = 25;
  */
 export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalculationResults {
   try {
-    const { currentMonthlyBill, yearlyInflationRate, systemCost, systemSizeKw, electricityRate, sunHoursPerDay, federalTaxCreditPercent, stateIncentiveDollars, financingOption = 'Cash', loanTerm = 20, loanInterestRate = 6.99, downPayment = 0 } = inputs;
+    const {
+      currentMonthlyBill = 0,
+      yearlyInflationRate = 0,
+      systemCost = 0,
+      systemSizeKw = 0,
+      electricityRate = 0,
+      sunHoursPerDay = 0,
+      federalTaxCreditPercent = 0,
+      stateIncentiveDollars = 0,
+      financingOption = 'Cash',
+      loanTerm = 20,
+      loanInterestRate = 6.99,
+      downPayment = 0,
+      has25YearInverterWarranty = false
+    } = inputs ?? {};
     
     // Validate inputs
-    if (systemSizeKw <= 0 || electricityRate < 0 || sunHoursPerDay <= 0 || currentMonthlyBill < 0 || systemCost < 0) {
-      return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
+    const hasInvalidInputs =
+      systemSizeKw <= 0 ||
+      electricityRate < 0 ||
+      sunHoursPerDay <= 0 ||
+      currentMonthlyBill < 0 ||
+      systemCost < 0;
+    if (hasInvalidInputs) {
+      return EMPTY_RESULT;
     }
-    
+
     if (yearlyInflationRate < -50 || yearlyInflationRate > 50) {
-      return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
+      return EMPTY_RESULT;
     }
-    
+
     if (financingOption === 'Loan' && loanTerm <= 0) {
-      return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
+      return EMPTY_RESULT;
     }
     
     const inflationMultiplier = 1 + (yearlyInflationRate / 100);
@@ -72,8 +112,11 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
       // Zero interest rate: simple division
       monthlyLoanPayment = loanAmount / numPayments;
     } else {
-      // Standard amortization formula
-      monthlyLoanPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+      // Standard amortization formula: P * r * (1 + r)^n / ((1 + r)^n - 1)
+      const rateCompounded = Math.pow(1 + monthlyRate, numPayments);
+      const numerator = loanAmount * monthlyRate * rateCompounded;
+      const denominator = rateCompounded - 1;
+      monthlyLoanPayment = numerator / denominator;
     }
   }
   
@@ -85,7 +128,7 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   
   // Realistic maintenance costs
   const baseMaintenance = 150; // $150/year base
-  const inverterReplacement = systemSizeKw * 300; // ~$300/kW every 12 years
+  const inverterReplacement = has25YearInverterWarranty ? 0 : systemSizeKw * 300; // ~$300/kW every 12 years
   
   // Calculate current annual usage
   const currentAnnualUsage = electricityRate > 0 ? (currentMonthlyBill / electricityRate) * 12 : 0;
@@ -141,9 +184,12 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
       breaksEvenWithin25Years: breakEvenYear !== null,
       yearlyBreakdown
     };
-  } catch (error) {
+  } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Failed to calculate solar savings:', errorMessage.replace(/[\r\n]/g, ' '));
-    return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
+    if (error instanceof Error && error.stack) {
+      console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+    }
+    return EMPTY_RESULT;
   }
 }

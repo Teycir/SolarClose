@@ -33,7 +33,7 @@ interface SavingsChartProps {
 }
 
 export function SavingsChart({ data }: SavingsChartProps) {
-  const lang = (data.language || 'en') as any;
+  const lang = data.language || 'en';
   const t = (key: string) => getTranslation(lang, key as any);
 
   const results = calculateSolarSavings({
@@ -45,7 +45,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
     sunHoursPerDay: data.sunHoursPerDay,
     federalTaxCreditPercent: data.federalTaxCredit,
     stateIncentiveDollars: data.stateIncentive,
-    financingOption: data.financingOption as any,
+    financingOption: data.financingOption as 'Cash' | 'Loan' | undefined,
     loanTerm: data.loanTerm,
     downPayment: data.downPayment,
     loanInterestRate: data.loanInterestRate,

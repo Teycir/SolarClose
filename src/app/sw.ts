@@ -3,8 +3,14 @@ import type { PrecacheEntry } from "@serwist/precaching";
 import { installSerwist } from "@serwist/sw";
 
 declare global {
+  interface FetchEvent extends Event {
+    request: Request;
+    respondWith(response: Promise<Response> | Response): void;
+  }
+
   interface WorkerGlobalScope {
     __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+    addEventListener(type: 'fetch', listener: (event: FetchEvent) => void): void;
   }
 }
 
@@ -20,5 +26,12 @@ try {
   });
 } catch (error) {
   const errorMessage = error instanceof Error ? error.message : String(error);
+  const errorStack = error instanceof Error ? error.stack : undefined;
   console.error('Service worker installation failed:', errorMessage.replace(/[\r\n]/g, ' '));
+  if (errorStack) {
+    console.error('Stack trace:', errorStack.replace(/[\r\n]/g, ' | '));
+  }
+  self.addEventListener('fetch', (event: FetchEvent) => {
+    event.respondWith(fetch(event.request));
+  });
 }
