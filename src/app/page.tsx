@@ -101,9 +101,9 @@ export default function Home() {
             <select
               value={data.language || 'en'}
               onChange={(e) => {
-                const lang: Language = e.target.value as Language;
+                const lang = e.target.value as Language;
                 const currency = lang === 'en' ? 'USD' : 'EUR';
-                setData({ language: lang, currency });
+                setData({ language: lang, currency } as Partial<SolarLead>);
               }}
               className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
               aria-label="Select language"
