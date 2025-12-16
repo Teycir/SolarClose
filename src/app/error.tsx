@@ -6,7 +6,7 @@ const logError = (error: Error | null) => {
   try {
     const errorMessage = error?.message || 'Unknown error';
     console.error('Application error:', errorMessage.replace(/[\r\n]/g, ' '));
-  } catch (e) {
+  } catch (e: any) {
     console.error('Failed to log error');
   }
 };
@@ -14,11 +14,8 @@ const logError = (error: Error | null) => {
 const handleReset = (reset: () => void) => {
   try {
     reset();
-  } catch (e) {
-    let errorMessage = 'Unknown error';
-    if (e instanceof Error) {
-      errorMessage = e.message;
-    }
+  } catch (e: any) {
+    const errorMessage = e instanceof Error ? e.message : 'Unknown error';
     console.error('Failed to reset:', errorMessage.replace(/[\r\n]/g, ' '));
   }
 };
