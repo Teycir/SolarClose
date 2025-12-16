@@ -7,6 +7,7 @@ import { ConfirmDialog } from './ConfirmDialog';
 interface CompanyItem {
   id: string;
   name: string;
+  logo?: string;
   createdAt: number;
 }
 
@@ -90,6 +91,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       const newItem: CompanyItem = {
         id: `company-${Date.now()}`,
         name: currentName,
+        logo: currentLogo,
         createdAt: Date.now(),
       };
       await db.add('companies', newItem);
@@ -203,6 +205,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
                 type="button"
                 onClick={() => {
                   onSelect(item.name);
+                  if (item.logo) onLogoChange(item.logo);
                   setShowList(false);
                 }}
                 className="flex-1 text-left text-xs hover:bg-secondary/80 p-1 rounded transition-colors"
