@@ -139,21 +139,21 @@ export default function Home() {
           <div className="flex flex-wrap justify-center items-center gap-3">
             <button
               onClick={handleNewLead}
-              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button"
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button"
               aria-label="Create new lead"
             >
               ➕ {t('newLead')}
             </button>
             <button
               onClick={() => setShowLeads(!showLeads)}
-              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button"
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button"
             >
               {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}`}
             </button>
             <button
               onClick={saveLead}
               disabled={!data?.clientName.trim() || isDefaultLead}
-              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
             >
               💾 {t('saveLead')}
             </button>

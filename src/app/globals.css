@@ -55,7 +55,13 @@
 
 .shimmer-button {
   background-size: 300% 100%;
-  animation: shimmer 8s ease-in-out infinite;
+  animation: shimmer 12s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shimmer-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
 }
 
 .float-sun {
