@@ -77,7 +77,7 @@ type TranslationKeys = {
   madeBy: string;
   openSourceFree: string;
   dataStaysLocal: string;
-  howToUse: string;
+  howItWorks: string;
   chartTitle: string;
   chartBreakEven: string;
   chartYear: string;
@@ -172,7 +172,7 @@ export const translations: Record<string, TranslationKeys> = {
     madeBy: 'Made by',
     openSourceFree: 'Open source & free to use',
     dataStaysLocal: 'All data stays local',
-    howToUse: 'How to use',
+    howItWorks: 'How it works',
     chartTitle: '25-Year Cost Comparison',
     chartBreakEven: 'Break-even',
     chartYear: 'Year',
@@ -265,7 +265,7 @@ export const translations: Record<string, TranslationKeys> = {
     madeBy: 'Hecho por',
     openSourceFree: 'Código abierto y gratuito',
     dataStaysLocal: 'Todos los datos permanecen locales',
-    howToUse: 'Cómo usar',
+    howItWorks: 'Cómo funciona',
     chartTitle: 'Comparación de Costos a 25 Años',
     chartBreakEven: 'Punto de equilibrio',
     chartYear: 'Año',
@@ -358,7 +358,7 @@ export const translations: Record<string, TranslationKeys> = {
     madeBy: 'Fatto da',
     openSourceFree: 'Open source e gratuito',
     dataStaysLocal: 'Tutti i dati rimangono locali',
-    howToUse: 'Come usare',
+    howItWorks: 'Come funziona',
     chartTitle: 'Confronto Costi a 25 Anni',
     chartBreakEven: 'Pareggio',
     chartYear: 'Anno',
@@ -451,7 +451,7 @@ export const translations: Record<string, TranslationKeys> = {
     madeBy: 'Fait par',
     openSourceFree: 'Open source et gratuit',
     dataStaysLocal: 'Toutes les données restent locales',
-    howToUse: 'Comment utiliser',
+    howItWorks: 'Comment ça marche',
     chartTitle: 'Comparaison des Coûts sur 25 Ans',
     chartBreakEven: 'Seuil de rentabilité',
     chartYear: 'Année',
@@ -544,7 +544,7 @@ export const translations: Record<string, TranslationKeys> = {
     madeBy: 'Erstellt von',
     openSourceFree: 'Open Source und kostenlos',
     dataStaysLocal: 'Alle Daten bleiben lokal',
-    howToUse: 'Anleitung',
+    howItWorks: 'Wie es funktioniert',
     chartTitle: '25-Jahres-Kostenvergleich',
     chartBreakEven: 'Break-even',
     chartYear: 'Jahr',

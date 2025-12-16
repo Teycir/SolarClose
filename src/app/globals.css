@@ -43,7 +43,7 @@
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-10px) rotate(5deg);
+    transform: translateY(-5px) rotate(2deg);
   }
 }
 
@@ -54,12 +54,12 @@
 }
 
 .shimmer-button {
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
+  background-size: 300% 100%;
+  animation: shimmer 8s ease-in-out infinite;
 }
 
 .float-sun {
-  animation: float 3s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
 }
 
 @layer base {

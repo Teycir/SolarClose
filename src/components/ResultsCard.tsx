@@ -127,7 +127,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
           style={{ width: `${clampedRoi}%` }}
           aria-hidden="true"
         />
-        <div className={`absolute inset-0 flex items-center justify-center text-xs font-medium ${isNegativeSavings ? 'text-destructive' : 'text-green-600'}`}>
+        <div className={`absolute inset-0 flex items-center justify-center text-sm font-bold ${isNegativeSavings ? 'text-destructive' : 'text-green-700'}`}>
           {t("roi")}: {roiPercentage}%
         </div>
       </div>
