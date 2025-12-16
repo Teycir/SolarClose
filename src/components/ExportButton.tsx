@@ -49,27 +49,28 @@ export function ExportButton({ data }: ExportButtonProps) {
       const { jsPDF } = await import('jspdf');
       const doc = new jsPDF();
     
-    // Add logo if available
-    let logoY = 20;
+    // Company header at top left
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Company: ${data.companyName}`, 20, 15);
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(60, 60, 60);
+    let headerY = 21;
+    if (data.salesRep) { doc.text(`Sales Representative: ${data.salesRep}`, 20, headerY); headerY += 5; }
+    doc.text(`Phone: ${data.companyPhone}`, 20, headerY); headerY += 5;
+    if (data.companyEmail) { doc.text(`Email: ${data.companyEmail}`, 20, headerY); headerY += 5; }
+    
+    // Add logo if available (top right)
     if (data.companyLogo) {
       try {
-        doc.addImage(data.companyLogo, 'PNG', 105, 10, 0, 15, undefined, 'NONE', 0);
-        logoY = 30;
+        doc.addImage(data.companyLogo, 'PNG', 150, 10, 0, 15, undefined, 'NONE', 0);
       } catch {
         // Logo failed to load, continue without it
       }
     }
-    
-    doc.setFontSize(20);
-    doc.setTextColor(255, 193, 7);
-    doc.text(data.companyName, data.companyLogo ? 105 : 20, logoY, { align: data.companyLogo ? 'center' : 'left' });
-    
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    let headerY = logoY + 8;
-    if (data.salesRep) { doc.text(data.salesRep, data.companyLogo ? 105 : 20, headerY, { align: data.companyLogo ? 'center' : 'left' }); headerY += 5; }
-    doc.text(data.companyPhone, data.companyLogo ? 105 : 20, headerY, { align: data.companyLogo ? 'center' : 'left' }); headerY += 5;
-    if (data.companyEmail) { doc.text(data.companyEmail, data.companyLogo ? 105 : 20, headerY, { align: data.companyLogo ? 'center' : 'left' }); headerY += 5; }
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
@@ -78,15 +79,17 @@ export function ExportButton({ data }: ExportButtonProps) {
     const startY = 55;
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text(t('clientName'), 20, startY);
+    doc.setFont(undefined, 'bold');
+    doc.text('CLIENT INFORMATION', 20, startY);
     
-    doc.setFontSize(11);
-    let y = startY + 10;
-    doc.text(data.clientName, 20, y);
-    y += 7;
-    doc.text(data.address, 20, y);
-    if (data.phone) { y += 7; doc.text(data.phone, 20, y); }
-    if (data.email) { y += 7; doc.text(data.email, 20, y); }
+    doc.setFontSize(10);
+    doc.setFont(undefined, 'normal');
+    let y = startY + 8;
+    doc.text(`Client Name: ${data.clientName}`, 20, y);
+    y += 6;
+    doc.text(`Address: ${data.address}`, 20, y);
+    if (data.phone) { y += 6; doc.text(`Phone: ${data.phone}`, 20, y); }
+    if (data.email) { y += 6; doc.text(`Email: ${data.email}`, 20, y); }
     
     y += 15;
     doc.setFillColor(255, 248, 220);
