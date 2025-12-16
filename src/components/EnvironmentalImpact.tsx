@@ -14,7 +14,7 @@ export function EnvironmentalImpact({ data }: EnvironmentalImpactProps) {
   const carMilesEquivalent = Math.max(0, Math.round(co2SavedLbs * 0.5));
 
   return (
-    <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 border border-green-700/50 rounded-lg p-4 sm:p-6 space-y-4">
+    <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-sm border border-green-700/50 rounded-lg p-4 sm:p-6 space-y-4">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-2xl">🌳</span>
         <h3 className="text-lg font-semibold text-green-400">Environmental Impact (25 Years)</h3>

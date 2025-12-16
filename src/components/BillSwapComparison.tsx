@@ -37,7 +37,7 @@ export function BillSwapComparison({ data }: BillSwapComparisonProps) {
   const monthlySavings = data.currentMonthlyBill - totalMonthlyPayment;
 
   return (
-    <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 border border-amber-700/50 rounded-lg p-4 sm:p-6 space-y-4">
+    <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 backdrop-blur-sm border border-amber-700/50 rounded-lg p-4 sm:p-6 space-y-4">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-2xl">💰</span>
         <h3 className="text-lg font-semibold text-amber-400">Monthly Payment Comparison</h3>
