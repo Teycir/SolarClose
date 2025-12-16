@@ -57,11 +57,10 @@
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(8px);
-  background-color: rgba(251, 191, 36, 0.9) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.shimmer-button::before {
+.shimmer-button::after {
   content: '';
   position: absolute;
   top: -50%;
@@ -71,13 +70,14 @@
   background: linear-gradient(
     135deg,
     transparent 0%,
-    transparent 40%,
-    rgba(255, 255, 255, 0.15) 50%,
-    transparent 60%,
+    transparent 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 55%,
     transparent 100%
   );
   animation: shimmer 60s ease-in-out infinite;
   pointer-events: none;
+  z-index: 1;
 }
 
 .shimmer-button:hover:not(:disabled) {
