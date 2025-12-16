@@ -30,6 +30,7 @@ export interface SolarLead {
   financingOption?: string;
   downPayment?: number;
   loanTerm?: number;
+  loanInterestRate?: number;
   
   // Sales Process (Optional)
   salesRep?: string;

@@ -48,6 +48,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
     financingOption: data.financingOption as any,
     loanTerm: data.loanTerm,
     downPayment: data.downPayment,
+    loanInterestRate: data.loanInterestRate,
   });
 
   if (!results.yearlyBreakdown.length) return null;
