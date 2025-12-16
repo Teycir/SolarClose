@@ -227,10 +227,18 @@ export default function Home() {
         )}
         
         <div className="mb-6 space-y-6">
-          <ResultsCard data={data} />
-          <BillSwapComparison data={data} />
-          <SavingsChart data={data} />
-          <EnvironmentalImpact data={data} />
+          <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+            <ResultsCard data={data} />
+          </div>
+          <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+            <BillSwapComparison data={data} />
+          </div>
+          <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+            <SavingsChart data={data} />
+          </div>
+          <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
+            <EnvironmentalImpact data={data} />
+          </div>
         </div>
 
         <div className={`bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>

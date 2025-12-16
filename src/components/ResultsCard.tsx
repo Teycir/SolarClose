@@ -1,8 +1,11 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import type { SolarLead, Language } from "@/types/solar";
 import { formatCurrency } from "@/lib/currency";
 import { getTranslation, type TranslationKey } from "@/lib/translations";
+import { AnimatedNumber } from './AnimatedNumber';
+import { Confetti } from './Confetti';
 
 interface ResultsCardProps {
   data: SolarLead;
@@ -20,6 +23,14 @@ function getTranslate(language: string | undefined) {
 
 export function ResultsCard({ data }: ResultsCardProps) {
   const t = getTranslate(data.language);
+  const [showConfetti, setShowConfetti] = useState(false);
+  
+  useEffect(() => {
+    if (data.twentyFiveYearSavings > 50000) {
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 100);
+    }
+  }, [data.twentyFiveYearSavings]);
   const annualProduction =
     data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
   const annualUsage =
@@ -64,7 +75,8 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
       </div>
 
-      <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg">
+      <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg relative">
+        <Confetti trigger={showConfetti} />
         <h2 className="text-xs sm:text-sm text-muted-foreground mb-2">
           {isNegativeSavings
             ? t("twentyFiveYearLoss")
@@ -73,8 +85,11 @@ export function ResultsCard({ data }: ResultsCardProps) {
         <p
           className={`text-3xl sm:text-5xl font-bold break-words ${savingsTextColor}`}
         >
-          {formatCurrency(Math.abs(data.twentyFiveYearSavings), data.currency)}
-          {isNegativeSavings ? ` ${t("loss")}` : ""}
+          <AnimatedNumber 
+            value={Math.abs(data.twentyFiveYearSavings)} 
+            prefix={data.currency === 'EUR' ? '€' : '$'}
+            suffix={isNegativeSavings ? ` ${t("loss")}` : ''}
+          />
         </p>
       </div>
 
