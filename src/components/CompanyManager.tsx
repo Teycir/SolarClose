@@ -162,7 +162,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
             </button>
           )}
         </div>
-        <p className="text-xs text-muted-foreground">Recommended: Square or horizontal logo, 200-600px wide, max 500KB</p>
+        <p className="text-xs text-muted-foreground">PNG or JPG, 100-1000px wide, 50-500px tall, max 500KB</p>
         {logoError && <p className="text-xs text-destructive">{logoError}</p>}
         {currentLogo && (
           <div className="bg-white p-2 rounded border flex justify-center items-center">
