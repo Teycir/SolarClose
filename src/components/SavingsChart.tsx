@@ -155,7 +155,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
         <Line data={chartData} options={options} />
       </div>
       <div className="text-center pt-3 border-t text-sm space-y-1">
-        <p className="text-muted-foreground">The line crosses zero at Year {data.breakEvenYear} - that's when you've recovered your investment!</p>
+        <p className="text-muted-foreground">The line crosses zero at Year {data.breakEvenYear} - that&apos;s when you&apos;ve recovered your investment!</p>
         <p className="text-xs text-amber-400">💡 Includes maintenance (~$150/year) and inverter replacement (Year 13)</p>
       </div>
       <div className="text-center pt-2 border-t">
