@@ -25,55 +25,62 @@ export function SavingsChart({ data }: SavingsChartProps) {
 
   if (!results.yearlyBreakdown.length) return null;
 
-  const maxSavings = Math.max(...results.yearlyBreakdown.map(y => y.cumulativeSavings));
-  const minSavings = Math.min(...results.yearlyBreakdown.map(y => y.cumulativeSavings));
-  const range = Math.abs(maxSavings - minSavings) || 1;
-  const zeroLine = minSavings < 0 ? ((0 - minSavings) / range) * 100 : 0;
+  const maxUtility = Math.max(...results.yearlyBreakdown.map(y => y.utilityCost));
+  const maxSolar = Math.max(...results.yearlyBreakdown.map(y => y.solarCost));
+  const maxValue = Math.max(maxUtility, maxSolar);
 
   return (
     <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 space-y-3">
-      <h3 className="text-lg font-semibold">25-Year Cumulative Savings</h3>
-      
-      <div className="flex gap-2">
-        <div className="flex flex-col justify-between text-xs text-muted-foreground py-2">
-          <span>{formatCurrency(maxSavings, data.currency)}</span>
-          <span>{formatCurrency(maxSavings / 2, data.currency)}</span>
-          <span>{formatCurrency(minSavings, data.currency)}</span>
-        </div>
-        
-        <div className="flex-1 relative">
-          {minSavings < 0 && (
-            <div className="absolute w-full border-t border-dashed border-muted-foreground/50" style={{ bottom: `${zeroLine}%` }} />
-          )}
-          <div className="flex items-end justify-between gap-1 h-64">
-            {results.yearlyBreakdown.filter((_, i) => i % 5 === 0 || i === 24).map((year) => {
-              const isPositive = year.cumulativeSavings >= 0;
-              const normalizedValue = year.cumulativeSavings - minSavings;
-              const height = Math.max(3, (normalizedValue / range) * 100);
-              
-              return (
-                <div key={year.year} className="flex-1 flex flex-col items-center gap-1 group relative">
-                  <div className="relative w-full h-full flex items-end">
-                    <div 
-                      className={`w-full transition-all duration-300 ${isPositive ? 'bg-primary' : 'bg-destructive'} rounded-t group-hover:opacity-80 cursor-pointer`}
-                      style={{ height: `${height}%` }}
-                    >
-                      <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-black/90 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                        Year {year.year}<br/>{formatCurrency(year.cumulativeSavings, data.currency)}
-                      </div>
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground">{year.year}</span>
-                </div>
-              );
-            })}
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold">Cost Comparison Over 25 Years</h3>
+        <div className="flex gap-3 text-xs">
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 bg-destructive rounded"></div>
+            <span>Utility Cost</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 bg-primary rounded"></div>
+            <span>Solar Cost</span>
           </div>
         </div>
       </div>
       
-      <div className="flex justify-between text-xs text-muted-foreground pt-2 border-t">
-        <span>Break-even: Year {data.breakEvenYear}</span>
-        <span className="text-primary font-semibold">{formatCurrency(data.twentyFiveYearSavings, data.currency)} total</span>
+      <div className="relative h-64 border-l border-b border-muted">
+        <svg className="w-full h-full" viewBox="0 0 500 250" preserveAspectRatio="none">
+          <polyline
+            points={results.yearlyBreakdown.map((y, i) => 
+              `${(i / 24) * 500},${250 - (y.utilityCost / maxValue) * 240}`
+            ).join(' ')}
+            fill="none"
+            stroke="rgb(239, 68, 68)"
+            strokeWidth="2"
+          />
+          <polyline
+            points={results.yearlyBreakdown.map((y, i) => 
+              `${(i / 24) * 500},${250 - (y.solarCost / maxValue) * 240}`
+            ).join(' ')}
+            fill="none"
+            stroke="rgb(255, 193, 7)"
+            strokeWidth="2"
+          />
+        </svg>
+        <div className="absolute left-0 top-0 -ml-12 text-xs text-muted-foreground">
+          {formatCurrency(maxValue, data.currency)}
+        </div>
+        <div className="absolute left-0 bottom-0 -ml-12 text-xs text-muted-foreground">
+          $0
+        </div>
+      </div>
+      
+      <div className="flex justify-between text-xs text-muted-foreground">
+        <span>Year 1</span>
+        <span className="text-primary font-semibold">Break-even: Year {data.breakEvenYear}</span>
+        <span>Year 25</span>
+      </div>
+      
+      <div className="text-center pt-2 border-t">
+        <span className="text-sm text-muted-foreground">Total 25-Year Savings: </span>
+        <span className="text-lg font-bold text-primary">{formatCurrency(data.twentyFiveYearSavings, data.currency)}</span>
       </div>
     </div>
   );
