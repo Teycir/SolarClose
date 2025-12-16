@@ -101,8 +101,8 @@ export default function Home() {
             <select
               value={data.language || 'en'}
               onChange={(e) => {
-                const lang = e.target.value as Language;
-                const currency = lang === 'en' ? ('USD' as const) : ('EUR' as const);
+                const lang: Language = e.target.value as Language;
+                const currency = lang === 'en' ? 'USD' : 'EUR';
                 setData({ language: lang, currency });
               }}
               className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
