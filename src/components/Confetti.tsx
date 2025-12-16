@@ -13,15 +13,15 @@ export function Confetti({ trigger }: ConfettiProps) {
     if (!trigger) return;
 
     const colors = ['#FCD34D', '#FB923C', '#FBBF24', '#F59E0B', '#EAB308'];
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+    const newParticles = Array.from({ length: 100 }, (_, i) => ({
       id: Date.now() + i,
       x: Math.random() * 100,
-      delay: Math.random() * 0.3,
+      delay: Math.random() * 0.5,
       color: colors[Math.floor(Math.random() * colors.length)]
     }));
 
     setParticles(newParticles);
-    setTimeout(() => setParticles([]), 3000);
+    setTimeout(() => setParticles([]), 5000);
   }, [trigger]);
 
   if (particles.length === 0) return null;

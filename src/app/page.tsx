@@ -254,7 +254,10 @@ export default function Home() {
               <div className="space-y-4 sm:space-y-6 overflow-hidden">
                 <div className="flex justify-center pb-2">
                   <button
-                    onClick={async () => {
+                    onClick={async (e) => {
+                      const btn = e.currentTarget;
+                      btn.classList.add('brightness-75');
+                      setTimeout(() => btn.classList.remove('brightness-75'), 1000);
                       const { calculateSolarSavings } = await import('@/lib/calculations');
                       const results = calculateSolarSavings({
                         currentMonthlyBill: data.currentMonthlyBill,
@@ -272,14 +275,22 @@ export default function Home() {
                         has25YearInverterWarranty: data.has25YearInverterWarranty,
                       });
                       setData({
+                        currentMonthlyBill: data.currentMonthlyBill,
+                        yearlyInflationRate: data.yearlyInflationRate,
+                        systemCost: data.systemCost,
+                        systemSizeKw: data.systemSizeKw,
+                        electricityRate: data.electricityRate,
+                        sunHoursPerDay: data.sunHoursPerDay,
+                        federalTaxCredit: data.federalTaxCredit,
+                        stateIncentive: data.stateIncentive,
                         twentyFiveYearSavings: results.twentyFiveYearSavings,
                         breakEvenYear: results.breakEvenYear,
                         yearlyBreakdown: results.yearlyBreakdown,
                       });
                     }}
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button"
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button transition-all duration-1000"
                   >
-                    🧮 Calculate Savings
+                    💻 Calculate Savings
                   </button>
                 </div>
                 <SystemDetailsSection data={data} onUpdate={setData} />
