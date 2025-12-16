@@ -6,11 +6,12 @@ import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 
 interface DataBackupProps {
-  language?: Language;
+  data?: { language?: Language };
 }
 
-export function DataBackup({ language = 'en' }: DataBackupProps) {
-  const t = (key: string) => getTranslation(language, key as TranslationKey);
+export function DataBackup({ data }: DataBackupProps) {
+  const lang: Language = (data?.language || 'en') as Language;
+  const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const [status, setStatus] = useState<'idle' | 'exporting' | 'importing' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 

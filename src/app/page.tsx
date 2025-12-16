@@ -24,7 +24,7 @@ export default function Home() {
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
   const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
-  const lang = (data?.language || 'en') as Language;
+  const lang: Language = (data?.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const isDefaultLead = currentLeadId === 'default-lead';
 
@@ -135,7 +135,7 @@ export default function Home() {
         </div>
         
         <div className="mb-4">
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <button
               onClick={handleNewLead}
               className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
@@ -161,7 +161,7 @@ export default function Home() {
               {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
               {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
             </div>
-            <DataBackup language={lang} />
+            <DataBackup data={data} />
             <ExportButton data={data} />
           </div>
         </div>
