@@ -248,7 +248,7 @@ export default function Home() {
             <EnvironmentalImpact data={data} />
           </div>
           
-          <div className={`hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
+          <div className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('calculator')}</h2>
               <div className="space-y-4 sm:space-y-6 overflow-hidden">
@@ -275,20 +275,12 @@ export default function Home() {
                         has25YearInverterWarranty: data.has25YearInverterWarranty,
                       });
                       setData({
-                        currentMonthlyBill: data.currentMonthlyBill,
-                        yearlyInflationRate: data.yearlyInflationRate,
-                        systemCost: data.systemCost,
-                        systemSizeKw: data.systemSizeKw,
-                        electricityRate: data.electricityRate,
-                        sunHoursPerDay: data.sunHoursPerDay,
-                        federalTaxCredit: data.federalTaxCredit,
-                        stateIncentive: data.stateIncentive,
                         twentyFiveYearSavings: results.twentyFiveYearSavings,
                         breakEvenYear: results.breakEvenYear,
                         yearlyBreakdown: results.yearlyBreakdown,
                       });
                     }}
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button transition-all duration-1000"
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button transition-[filter] duration-1000"
                   >
                     💻 Calculate Savings
                   </button>
@@ -298,7 +290,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className={`hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
+          <div className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">Administrative</h2>
               <div className="space-y-4 sm:space-y-6 overflow-hidden">
