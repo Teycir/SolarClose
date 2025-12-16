@@ -10,17 +10,20 @@
 
 Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.
 
+📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md) | [Fixes Implemented](FIXES_IMPLEMENTED.md)
+
 ---
 
 ## 💰 Why Sales Reps Love SolarClose
 
 ✅ **Works Anywhere** - No WiFi needed. Perfect for door-to-door or remote areas  
 ✅ **Instant Results** - Show 25-year savings while you're still talking  
-✅ **Never Lose Data** - Everything saves automatically as you type  
+✅ **Never Lose Data** - Backup/restore feature prevents data loss  
 ✅ **Professional Proposals** - Generate branded PDFs your customers can share with family  
 ✅ **Use Any Device** - Works on your phone, tablet, or laptop  
 ✅ **Looks Amazing** - Beautiful solar-themed design impresses customers  
 ✅ **Your Company Brand** - Add your logo and company name to every proposal  
+✅ **Multi-Language** - Available in English, Spanish, Italian, French, and German  
 
 ---
 
@@ -66,12 +69,26 @@ We use real-world numbers, not perfect lab conditions:
 - **Real Efficiency**: 80% (accounts for weather, shade, and dirt on panels)
 - **Panel Aging**: Panels produce slightly less each year (0.5% decline)
 - **Maintenance**: $150/year for cleaning and upkeep
-- **Inverter Replacement**: Every 12 years (years 12 and 24)
+- **Inverter Replacement**: Every 12 years (years 12 and 24) - or skip if 25-year warranty
 - **Tax Credits**: 30% federal credit included (adjustable)
 - **Rising Electric Rates**: 4% annual increase (adjustable)
 - **State Rebates**: Add any local incentives
+- **Financing Options**: Cash or loan calculations with custom terms
 
 This gives your customers honest, realistic expectations they can trust.
+
+📖 **[See detailed calculation methodology →](CALCULATIONS.md)**
+
+---
+
+## 🔒 Data Backup & Security
+
+**Never Lose Your Leads Again!**
+
+- **💾 Backup Button**: Export all leads to JSON file
+- **📥 Restore Button**: Import leads from backup file
+- **☁️ Store Anywhere**: Save backups to Google Drive, Dropbox, or email
+- **🔐 100% Local**: All data stays on your device, nothing sent to servers
 
 ---
 
@@ -137,6 +154,12 @@ Yes, completely free for individual sales reps. Solar companies can contact us f
 
 **What devices does it work on?**
 Any device with a modern web browser - phones, tablets, laptops, and desktops.
+
+**How do I backup my data?**
+Click the "💾 Backup" button in the header to download all your leads as a JSON file. Store it safely and use "📥 Restore" to import it back anytime.
+
+**What languages are supported?**
+English, Spanish, Italian, French, and German. Switch languages using the flag selector in the header.
 
 ---
 
