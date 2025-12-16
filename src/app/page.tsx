@@ -240,14 +240,17 @@ export default function Home() {
           <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
             <SavingsChart data={data} />
           </div>
+          
+          <div className={`hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
+            <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('calculator')}</h2>
+              <CalculatorForm data={data} onUpdate={setData} />
+            </div>
+          </div>
+          
           <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
             <EnvironmentalImpact data={data} />
           </div>
-        </div>
-
-        <div className={`bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
-          <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('calculator')}</h2>
-          <CalculatorForm data={data} onUpdate={setData} />
         </div>
         
         <footer className="mt-8 text-center text-sm text-muted-foreground pb-4 space-y-3">
