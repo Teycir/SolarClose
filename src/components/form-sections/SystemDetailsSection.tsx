@@ -12,21 +12,34 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
 
+  // Calculate max useful monthly bill (where system reaches 100% offset)
+  const PERFORMANCE_RATIO = 0.8;
+  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * PERFORMANCE_RATIO;
+  const maxUsefulBill = data.electricityRate > 0 ? Math.ceil((annualProduction / 12) * data.electricityRate / 10) * 10 : 1000;
+  const cappedMaxBill = Math.min(Math.max(maxUsefulBill, 100), 1000);
+  const isAtMaxCapacity = data.currentMonthlyBill >= cappedMaxBill - 10;
+
   return (
     <>
       <div>
         <label className="block text-sm font-medium mb-2">
           {t('currentMonthlyBill')}: ${data.currentMonthlyBill}
+          {isAtMaxCapacity && <span className="ml-2 text-xs text-amber-500">⚠️ Max</span>}
         </label>
         <input
           type="range"
           min="50"
-          max="1000"
+          max={cappedMaxBill}
           step="10"
-          value={data.currentMonthlyBill}
+          value={Math.min(data.currentMonthlyBill, cappedMaxBill)}
           onChange={(e) => onUpdate({ currentMonthlyBill: Number(e.target.value) })}
           className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
         />
+        {isAtMaxCapacity && (
+          <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+            System at max capacity. Increase system size for higher bills.
+          </p>
+        )}
       </div>
 
       <div>
