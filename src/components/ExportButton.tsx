@@ -79,11 +79,11 @@ export function ExportButton({ data }: ExportButtonProps) {
     const startY = 55;
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'bold');
+    doc.setFont('helvetica', 'bold');
     doc.text('CLIENT INFORMATION', 20, startY);
     
     doc.setFontSize(10);
-    doc.setFont(undefined, 'normal');
+    doc.setFont('helvetica', 'normal');
     let y = startY + 8;
     doc.text(`Client Name: ${data.clientName}`, 20, y);
     y += 6;
