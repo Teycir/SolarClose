@@ -136,6 +136,11 @@ export default function Home() {
         </div>
         
         <div className="mb-4">
+          <div className="text-xs sm:text-sm text-muted-foreground text-center mb-1 h-5" role="status" aria-live="polite">
+            {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
+            {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
+            {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
+          </div>
           <div className="flex flex-wrap justify-center items-center gap-3">
             <button
               onClick={handleNewLead}
@@ -159,11 +164,6 @@ export default function Home() {
             </button>
             <DataBackup data={data} />
             <ExportButton data={data} />
-          </div>
-          <div className="text-xs sm:text-sm text-muted-foreground text-center mt-2" role="status" aria-live="polite">
-            {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
-            {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
-            {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
           </div>
         </div>
         
