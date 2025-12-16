@@ -114,6 +114,20 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
       </div>
 
+      {offsetPercentage >= 99 && (
+        <div className="bg-amber-500/20 border border-amber-500/50 rounded-lg p-3 text-sm">
+          <div className="flex items-start gap-2">
+            <span className="text-lg">⚠️</span>
+            <div>
+              <p className="font-semibold text-amber-600 dark:text-amber-400">System at Maximum Capacity</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Your solar system is offsetting 100% of its production. Increasing your monthly bill won't increase savings unless you upgrade to a larger system.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div
         className="relative h-8 bg-secondary rounded-full overflow-hidden"
         role="progressbar"
