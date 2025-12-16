@@ -15,7 +15,7 @@ const handleReset = (reset: () => void) => {
   try {
     reset();
   } catch (e) {
-    const errorMessage = e instanceof Error ? e.message : String(e);
+    const errorMessage = e instanceof Error ? e.message : 'Unknown error';
     console.error('Failed to reset:', errorMessage.replace(/[\r\n]/g, ' '));
   }
 };
