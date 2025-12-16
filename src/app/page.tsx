@@ -25,6 +25,7 @@ export default function Home() {
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
+  const [calculationStatus, setCalculationStatus] = useState<'idle' | 'calculating' | 'success'>('idle');
   const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
   const lang: Language = (data?.language || 'en') as Language;
@@ -252,11 +253,18 @@ export default function Home() {
             <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-shadow">
               <h2 className="text-lg sm:text-xl font-semibold mb-8">{t('calculator')}</h2>
               <div className="space-y-6 sm:space-y-8 overflow-visible">
-                <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-3">
                   <button
                     onClick={async () => {
+                      setCalculationStatus('calculating');
+                      console.log('=== CALCULATION START ===');
+                      console.log('Current data object:', data);
+                      console.log('currentMonthlyBill:', data.currentMonthlyBill);
+                      console.log('systemCost:', data.systemCost);
+                      console.log('systemSizeKw:', data.systemSizeKw);
+                      console.log('electricityRate:', data.electricityRate);
                       const { calculateSolarSavings } = await import('@/lib/calculations');
-                      const results = calculateSolarSavings({
+                      const inputs = {
                         currentMonthlyBill: data.currentMonthlyBill,
                         yearlyInflationRate: data.yearlyInflationRate,
                         systemCost: data.systemCost,
@@ -270,17 +278,32 @@ export default function Home() {
                         downPayment: data.downPayment,
                         loanInterestRate: data.loanInterestRate,
                         has25YearInverterWarranty: data.has25YearInverterWarranty,
-                      });
+                      };
+                      console.log('Inputs to calculation:', inputs);
+
+                      const results = calculateSolarSavings(inputs);
+                      console.log('Results from calculation:', results);
+                      console.log('=== CALCULATION END ===');
+                      
                       setData({
                         twentyFiveYearSavings: results.twentyFiveYearSavings,
                         breakEvenYear: results.breakEvenYear,
                         yearlyBreakdown: results.yearlyBreakdown,
                       });
+                      
+                      setCalculationStatus('success');
+                      setTimeout(() => setCalculationStatus('idle'), 3000);
                     }}
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button"
+                    disabled={calculationStatus === 'calculating'}
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button disabled:opacity-50"
                   >
-                    💻 Calculate Savings
+                    {calculationStatus === 'calculating' ? '⏳ Calculating...' : '💻 Calculate Savings'}
                   </button>
+                  {calculationStatus === 'success' && (
+                    <div className="text-sm text-green-600 font-semibold animate-pulse">
+                      ✓ Calculated Successfully!
+                    </div>
+                  )}
                 </div>
                 <SystemDetailsSection data={data} onUpdate={setData} />
               </div>
