@@ -71,7 +71,18 @@ export function ExportButton({ data }: ExportButtonProps) {
     // Add logo if available (top right)
     if (data.companyLogo) {
       try {
-        doc.addImage(data.companyLogo, 'PNG', 150, 10, 0, 15, undefined, 'NONE', 0);
+        const img = new Image();
+        img.src = data.companyLogo;
+        const aspectRatio = img.width / img.height;
+        const maxHeight = 20;
+        const maxWidth = 40;
+        let logoHeight = maxHeight;
+        let logoWidth = logoHeight * aspectRatio;
+        if (logoWidth > maxWidth) {
+          logoWidth = maxWidth;
+          logoHeight = logoWidth / aspectRatio;
+        }
+        doc.addImage(data.companyLogo, 'PNG', 190 - logoWidth, 10, logoWidth, logoHeight, undefined, 'NONE', 0);
       } catch {
         // Logo failed to load, continue without it
       }
@@ -234,7 +245,18 @@ export function ExportButton({ data }: ExportButtonProps) {
     // Add logo if available (top right)
     if (data.companyLogo) {
       try {
-        doc.addImage(data.companyLogo, 'PNG', 150, 10, 0, 15, undefined, 'NONE', 0);
+        const img = new Image();
+        img.src = data.companyLogo;
+        const aspectRatio = img.width / img.height;
+        const maxHeight = 20;
+        const maxWidth = 40;
+        let logoHeight = maxHeight;
+        let logoWidth = logoHeight * aspectRatio;
+        if (logoWidth > maxWidth) {
+          logoWidth = maxWidth;
+          logoHeight = logoWidth / aspectRatio;
+        }
+        doc.addImage(data.companyLogo, 'PNG', 190 - logoWidth, 10, logoWidth, logoHeight, undefined, 'NONE', 0);
       } catch {
         // Logo failed to load, continue without it
       }
