@@ -248,6 +248,13 @@ export default function Home() {
             </div>
           </div>
           
+          <div className={`hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
+            <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">Administrative</h2>
+              <CalculatorForm data={data} onUpdate={setData} />
+            </div>
+          </div>
+          
           <div className="hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
             <EnvironmentalImpact data={data} />
           </div>

@@ -44,20 +44,25 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
   };
 
   return (
-    <div className="space-y-4 sm:space-y-6 overflow-hidden">
-      <div className="flex justify-center pb-2">
-        <button
-          onClick={handleCalculate}
-          className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all text-base shadow-md shimmer-button hover:scale-105"
-        >
-          🧮 Calculate Savings
-        </button>
+    <>
+      <div className="space-y-4 sm:space-y-6 overflow-hidden">
+        <div className="flex justify-center pb-2">
+          <button
+            onClick={handleCalculate}
+            className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all text-base shadow-md shimmer-button hover:scale-105"
+          >
+            🧮 Calculate Savings
+          </button>
+        </div>
+        
+        <SystemDetailsSection data={data} onUpdate={onUpdate} />
       </div>
       
-      <ClientInfoSection data={data} onUpdate={onUpdate} />
-      <CompanyInfoSection data={data} onUpdate={onUpdate} />
-      <PropertyFinancialSection data={data} onUpdate={onUpdate} />
-      <SystemDetailsSection data={data} onUpdate={onUpdate} />
-    </div>
+      <div className="mt-6 space-y-4 sm:space-y-6 overflow-hidden">
+        <ClientInfoSection data={data} onUpdate={onUpdate} />
+        <CompanyInfoSection data={data} onUpdate={onUpdate} />
+        <PropertyFinancialSection data={data} onUpdate={onUpdate} />
+      </div>
+    </>
   );
 }
