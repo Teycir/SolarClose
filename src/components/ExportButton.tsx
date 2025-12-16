@@ -228,18 +228,20 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.setTextColor(100, 100, 100);
     doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 51);
     
-    let y = 60;
+    const startY = 60;
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text(t('clientName'), 20, y);
+    doc.setFont('helvetica', 'bold');
+    doc.text('CLIENT INFORMATION', 20, startY);
     
-    y += 10;
     doc.setFontSize(10);
-    doc.text(data.clientName, 20, y);
+    doc.setFont('helvetica', 'normal');
+    let y = startY + 8;
+    doc.text(`Client Name: ${data.clientName}`, 20, y);
     y += 6;
-    doc.text(data.address, 20, y);
-    if (data.phone) { y += 6; doc.text(data.phone, 20, y); }
-    if (data.email) { y += 6; doc.text(data.email, 20, y); }
+    doc.text(`Address: ${data.address}`, 20, y);
+    if (data.phone) { y += 6; doc.text(`Phone: ${data.phone}`, 20, y); }
+    if (data.email) { y += 6; doc.text(`Email: ${data.email}`, 20, y); }
     
     y += 10;
     doc.setFontSize(14);
