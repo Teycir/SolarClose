@@ -113,7 +113,7 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-8">
           <select
             value={data.language || 'en'}
             onChange={(e) => {
@@ -138,21 +138,21 @@ export default function Home() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleNewLead}
-              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
+              className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
               aria-label="Create new lead"
             >
               ➕ {t('newLead')}
             </button>
             <button
               onClick={() => setShowLeads(!showLeads)}
-              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
+              className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md"
             >
               {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}`}
             </button>
             <button
               onClick={saveLead}
               disabled={!data?.clientName.trim() || isDefaultLead}
-              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
             >
               💾 {t('saveLead')}
             </button>
