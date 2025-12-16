@@ -31,10 +31,10 @@
 
 @keyframes shimmer {
   0% {
-    background-position: -200% center;
+    background-position: -200% -200%;
   }
   100% {
-    background-position: 200% center;
+    background-position: 200% 200%;
   }
 }
 
@@ -54,9 +54,30 @@
 }
 
 .shimmer-button {
-  background-size: 300% 100%;
-  animation: shimmer 60s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  background-color: rgba(251, 191, 36, 0.9) !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shimmer-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  animation: shimmer 60s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .shimmer-button:hover:not(:disabled) {
