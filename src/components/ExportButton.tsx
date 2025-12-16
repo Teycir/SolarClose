@@ -74,34 +74,9 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text(`${t('proposal')} - ${formatDate(data.date, lang)}`, 20, 45);
+    doc.text(`${t('proposal')} - ${formatDate(data.date, lang)} by ${data.companyName}`, 20, 45);
     
-    const startY = 55;
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.setFont('helvetica', 'bold');
-    doc.text('CLIENT INFORMATION', 20, startY);
-    
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    let y = startY + 8;
-    doc.text(`Client Name: ${data.clientName}`, 20, y);
-    y += 6;
-    doc.text(`Address: ${data.address}`, 20, y);
-    if (data.phone) { y += 6; doc.text(`Phone: ${data.phone}`, 20, y); }
-    if (data.email) { y += 6; doc.text(`Email: ${data.email}`, 20, y); }
-    
-    y += 15;
-    doc.setFillColor(255, 248, 220);
-    doc.rect(20, y, 170, 20, 'F');
-    doc.setFontSize(16);
-    doc.setTextColor(255, 193, 7);
-    doc.text(`${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 105, y + 10, { align: 'center' });
-    doc.setFontSize(9);
-    doc.setTextColor(100, 100, 100);
-    doc.text(t('twentyFiveYearSavings'), 105, y + 16, { align: 'center' });
-    
-    y += 30;
+    let y = 55;
     
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
