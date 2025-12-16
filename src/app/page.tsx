@@ -254,8 +254,8 @@ export default function Home() {
               <div className="space-y-4 sm:space-y-6 overflow-hidden">
                 <div className="flex justify-center pb-2">
                   <button
-                    onClick={() => {
-                      const { calculateSolarSavings } = require('@/lib/calculations');
+                    onClick={async () => {
+                      const { calculateSolarSavings } = await import('@/lib/calculations');
                       const results = calculateSolarSavings({
                         currentMonthlyBill: data.currentMonthlyBill,
                         yearlyInflationRate: data.yearlyInflationRate,
@@ -277,7 +277,7 @@ export default function Home() {
                         yearlyBreakdown: results.yearlyBreakdown,
                       });
                     }}
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all text-base shadow-md shimmer-button hover:scale-105"
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button"
                   >
                     🧮 Calculate Savings
                   </button>
