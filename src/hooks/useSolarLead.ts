@@ -47,10 +47,12 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
   let savedCompany = '';
   let savedSalesRep = '';
   let savedPhone = '';
+  let savedLogo = '';
   try {
     savedCompany = localStorage.getItem('solarclose-company') || '';
     savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
     savedPhone = localStorage.getItem('solarclose-phone') || '';
+    savedLogo = localStorage.getItem('solarclose-logo') || '';
   } catch (e) {
     console.warn('localStorage unavailable');
   }
@@ -73,7 +75,8 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     address: '',
     companyName: savedCompany,
     companyPhone: savedPhone,
-    productDescription: '',
+    companyLogo: savedLogo || undefined,
+    productDescription: ''
     salesRep: savedSalesRep,
     proposalConditions: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
     currency: 'USD',

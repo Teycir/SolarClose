@@ -7,7 +7,6 @@ import { ConfirmDialog } from './ConfirmDialog';
 interface CompanyItem {
   id: string;
   name: string;
-  logo?: string;
   createdAt: number;
 }
 
@@ -23,6 +22,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [logoSaveSuccess, setLogoSaveSuccess] = useState(false);
   const [logoError, setLogoError] = useState<string>('');
 
   useEffect(() => {
@@ -91,7 +91,6 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       const newItem: CompanyItem = {
         id: `company-${Date.now()}`,
         name: currentName,
-        logo: currentLogo,
         createdAt: Date.now(),
       };
       await db.add('companies', newItem);
@@ -102,6 +101,17 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('Failed to save company:', errorMessage);
       setLogoError('Failed to save company');
+    }
+  };
+
+  const saveLogo = () => {
+    if (!currentLogo) return;
+    try {
+      localStorage.setItem('solarclose-logo', currentLogo);
+      setLogoSaveSuccess(true);
+      setTimeout(() => setLogoSaveSuccess(false), 2000);
+    } catch (error) {
+      setLogoError('Failed to save logo');
     }
   };
 
@@ -130,7 +140,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
   };
 
   return (
-    <div className="space-y-2 mt-2">
+    <div className="space-y-4 mt-2">
       <div className="space-y-1">
         <label className="block text-sm font-medium">
           Company Logo
@@ -160,8 +170,20 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
             <img src={currentLogo} alt="Company logo" className="max-h-16 max-w-[200px] object-contain" />
           </div>
         )}
+        <div className="flex gap-2 items-center">
+          <button
+            type="button"
+            onClick={saveLogo}
+            disabled={!currentLogo}
+            className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
+          >
+            💾 Save Logo
+          </button>
+          {logoSaveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
+        </div>
       </div>
-      <div className="flex gap-2 items-center">
+      <div className="space-y-1">
+        <div className="flex gap-2 items-center">
         <button
           type="button"
           onClick={saveCurrent}
@@ -178,6 +200,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
         >
           {showList ? '✕ Hide' : `📋 Saved (${items.length})`}
         </button>
+        </div>
       </div>
 
       {showList && items.length > 0 && (
@@ -205,7 +228,6 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
                 type="button"
                 onClick={() => {
                   onSelect(item.name);
-                  if (item.logo) onLogoChange(item.logo);
                   setShowList(false);
                 }}
                 className="flex-1 text-left text-xs hover:bg-secondary/80 p-1 rounded transition-colors"
