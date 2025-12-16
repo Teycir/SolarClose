@@ -248,16 +248,16 @@ export default function Home() {
             <EnvironmentalImpact data={data} />
           </div>
           
-          <div className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
-            <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
-              <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('calculator')}</h2>
-              <div className="space-y-4 sm:space-y-6 overflow-hidden">
-                <div className="flex justify-center pb-2">
+          <div className={`transition-shadow duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
+            <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-shadow">
+              <h2 className="text-lg sm:text-xl font-semibold mb-8">{t('calculator')}</h2>
+              <div className="space-y-6 sm:space-y-8 overflow-visible">
+                <div className="flex justify-center">
                   <button
                     onClick={async (e) => {
                       const btn = e.currentTarget;
-                      btn.classList.add('brightness-75');
-                      setTimeout(() => btn.classList.remove('brightness-75'), 1000);
+                      btn.style.filter = 'brightness(0.75)';
+                      setTimeout(() => { btn.style.filter = ''; }, 1000);
                       const { calculateSolarSavings } = await import('@/lib/calculations');
                       const results = calculateSolarSavings({
                         currentMonthlyBill: data.currentMonthlyBill,
@@ -280,7 +280,7 @@ export default function Home() {
                         yearlyBreakdown: results.yearlyBreakdown,
                       });
                     }}
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button transition-[filter] duration-1000"
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button"
                   >
                     💻 Calculate Savings
                   </button>
