@@ -78,19 +78,19 @@ This gives your customers honest, realistic expectations they can trust.
 ## 📄 Two Types of PDFs
 
 ### Client Proposal PDF
-✓ Your company logo and branding  
-✓ Customer information  
-✓ System specifications  
-✓ Total investment and incentives  
-✓ 25-year savings projection  
-✓ Clean, professional layout  
+✓ Your company logo and branding
+✓ Customer information
+✓ System specifications
+✓ Total investment and incentives
+✓ 25-year savings projection
+✓ Clean, professional layout
 
 ### Internal Sales Sheet PDF
-✓ Complete lead details and notes  
-✓ Property and roof information  
-✓ Lead status tracking  
-✓ Internal pricing breakdown  
-✓ Sales rep information  
+✓ Complete lead details and notes
+✓ Property and roof information
+✓ Lead status tracking
+✓ Internal pricing breakdown
+✓ Sales rep information
 
 Both PDFs automatically save with the customer's name for easy filing.
 
@@ -120,10 +120,10 @@ Want to customize SolarClose for your sales team with:
 
 ## ❓ Questions?
 
-**Need help?** The app is designed to be simple, but if you have questions:
-- Check the tooltips (ℹ️ icons) in the app
+**Need help?** The app is designed to be simple:
 - All fields are clearly labeled
 - Your data saves automatically
+- No signup or configuration needed
 
 **For solar companies**: Contact us about team licensing and custom branding.
 
