@@ -3,7 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useSolarLead } from '@/hooks/useSolarLead';
 import { getTranslation, languageFlags, type Language, type TranslationKey } from '@/lib/translations';
-import { CalculatorForm } from '@/components/CalculatorForm';
+import { SystemDetailsSection } from '@/components/form-sections/SystemDetailsSection';
+import { ClientInfoSection } from '@/components/form-sections/ClientInfoSection';
+import { CompanyInfoSection } from '@/components/form-sections/CompanyInfoSection';
+import { PropertyFinancialSection } from '@/components/form-sections/PropertyFinancialSection';
 import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
@@ -244,14 +247,50 @@ export default function Home() {
           <div className={`hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('calculator')}</h2>
-              <CalculatorForm data={data} onUpdate={setData} />
+              <div className="space-y-4 sm:space-y-6 overflow-hidden">
+                <div className="flex justify-center pb-2">
+                  <button
+                    onClick={() => {
+                      const { calculateSolarSavings } = require('@/lib/calculations');
+                      const results = calculateSolarSavings({
+                        currentMonthlyBill: data.currentMonthlyBill,
+                        yearlyInflationRate: data.yearlyInflationRate,
+                        systemCost: data.systemCost,
+                        systemSizeKw: data.systemSizeKw,
+                        electricityRate: data.electricityRate,
+                        sunHoursPerDay: data.sunHoursPerDay,
+                        federalTaxCreditPercent: data.federalTaxCredit,
+                        stateIncentiveDollars: data.stateIncentive,
+                        financingOption: data.financingOption,
+                        loanTerm: data.loanTerm,
+                        downPayment: data.downPayment,
+                        loanInterestRate: data.loanInterestRate,
+                        has25YearInverterWarranty: data.has25YearInverterWarranty,
+                      });
+                      setData({
+                        twentyFiveYearSavings: results.twentyFiveYearSavings,
+                        breakEvenYear: results.breakEvenYear,
+                        yearlyBreakdown: results.yearlyBreakdown,
+                      });
+                    }}
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all text-base shadow-md shimmer-button hover:scale-105"
+                  >
+                    🧮 Calculate Savings
+                  </button>
+                </div>
+                <SystemDetailsSection data={data} onUpdate={setData} />
+              </div>
             </div>
           </div>
           
           <div className={`hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">Administrative</h2>
-              <CalculatorForm data={data} onUpdate={setData} />
+              <div className="space-y-4 sm:space-y-6 overflow-hidden">
+                <ClientInfoSection data={data} onUpdate={setData} />
+                <CompanyInfoSection data={data} onUpdate={setData} />
+                <PropertyFinancialSection data={data} onUpdate={setData} />
+              </div>
             </div>
           </div>
           
