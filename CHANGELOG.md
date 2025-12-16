@@ -4,6 +4,20 @@ All notable changes to SolarClose will be documented in this file.
 
 ## [1.2.0] - 2025-01-XX
 
+### UI/UX Enhancements
+- 🎨 **Button Standardization**: Unified all header buttons with consistent yellow/orange gradient, equal sizing (flex-1 min-w-[120px]), and centered layout
+- ✨ **Eye Candy Effects**: Added animated number counter for 25-year savings, confetti celebration for >$50k savings, hover lift on cards, diagonal shimmer on buttons (60s), smooth chart animation (2s), and glass morphism
+- 🎯 **ROI Display**: Made ROI text green when positive, red when negative, increased to text-base font-bold text-green-700
+- 📍 **Layout Improvements**: Moved save status above Save Lead button with fixed height (h-5) to prevent shifts, restructured header with title on own row (mb-8), moved company save button below company name input
+- 🔒 **Privacy Messaging**: Added "Your data never leaves your device" tagline below SolarClose header
+- 💡 **Export Tooltip**: Added custom tooltip explaining "Generates 2 PDFs: Client Proposal + Internal Sheet" with amber-orange gradient styling matching button design
+- 🌐 **Translations**: Added backup, restore, share, saveLead, howItWorks keys for all 5 languages (English, Spanish, Italian, French, German)
+- ☀️ **Floating Sun Icon**: Added animated sun icon in header with subtle float animation (6s, 5px movement)
+
+### Bug Fixes
+- 🐛 **Export Button**: Fixed cropping issue by removing flex-1 from wrapper div, added it to button element instead
+- 🐛 **Tooltip Styling**: Enhanced tooltip with harmonious amber-orange gradient, font-semibold, border, z-50, and shadow-xl for better visibility
+
 ### Code Quality
 - 🔧 **Error Handling**: Improved error handling across all components with proper type annotations
 - 📝 **Readability**: Simplified complex expressions and extracted magic numbers into named constants
@@ -20,6 +34,9 @@ All notable changes to SolarClose will be documented in this file.
 - Added default values to prevent undefined errors
 - Simplified complex ternary expressions
 - Enhanced accessibility with proper ARIA attributes
+- Added AnimatedNumber and Confetti components for enhanced user experience
+- Implemented shimmer-button class with ::after pseudo-element and diagonal gradient (135deg)
+- Added keyframe animations: gradient-shift, confetti, shimmer (60s), float (6s)
 
 ---
 
