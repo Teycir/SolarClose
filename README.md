@@ -1,90 +1,120 @@
-# SolarClose - Solar ROI Calculator
+# SolarClose - Close More Solar Deals
 
-🌟 **Live App**: https://solarclose.pages.dev
+🌟 **Start Using Now**: https://solarclose.pages.dev
 
-Professional PWA for solar sales representatives to calculate ROI and generate branded proposals.
-
-## ✨ Features
-
-✅ **Offline-First** - Works without internet using IndexedDB  
-✅ **Real-Time Calculations** - Instant 25-year savings projections  
-✅ **Auto-Save** - Debounced saves every 500ms  
-✅ **PDF Export** - Professional proposals with company branding  
-✅ **Mobile Responsive** - Optimized for phones, tablets, and desktop  
-✅ **Solar Theme** - Beautiful sun-inspired gradient design  
-✅ **Company Personalization** - Custom branding in proposals  
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 14 (App Router, TypeScript)
-- **Styling**: Tailwind CSS with custom solar theme
-- **Offline**: Serwist (Service Workers) + IndexedDB
-- **PDF**: jsPDF for client-side generation
-- **Deployment**: Cloudflare Pages
-
-## 🚀 Quick Start
-
-```bash
-git clone https://github.com/yourusername/solarclose.git
-cd solarclose
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000)
-
-## 📱 Mobile Optimized
-
-- Touch-friendly interface
-- Responsive design for all screen sizes
-- Perfect for field sales on tablets and phones
-- iOS Safari optimized inputs
-
-## 🎨 Design
-
-- **Gold Theme**: Professional solar industry colors
-- **Sun Gradients**: Eye-pleasing background with solar inspiration
-- **Glass Morphism**: Semi-transparent cards with backdrop blur
-- **Dark/Light Mode**: Automatic theme switching
-
-## 📄 PDF Features
-
-- Company branding in header
-- Professional layout with solar theme
-- Client information and system details
-- 25-year savings highlight
-- Automatic filename generation
-
-## 🧮 Calculation Methodology
-
-Accurate 25-year ROI projections using industry-standard assumptions:
-
-- **Performance Ratio**: 80% real-world efficiency (accounts for shading, temperature, soiling, inverter losses)
-- **Panel Degradation**: 0.5% annually from year 1 baseline
-- **Maintenance Costs**: $150/year base (inflates with utility rates)
-- **Inverter Replacement**: ~$300/kW at year 13
-- **Federal Tax Credit**: Configurable % (default 30%)
-- **State Incentives**: Configurable $ amount
-- **Utility Rate Inflation**: Configurable % (default 4%)
-- **Net System Cost**: Accounts for all incentives before calculating payback
-
-## 🔒 License
-
-**Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)**
-
-### You are free to:
-- **Share** — copy and redistribute the material in any medium or format
-
-### Under the following terms:
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made
-- **NonCommercial** — You may not use the material for commercial purposes
-- **NoDerivatives** — If you remix, transform, or build upon the material, you may not distribute the modified material
-- **No additional restrictions** — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits
-
-**Commercial licensing available upon request.**
-
-For commercial use, custom development, or licensing inquiries, please contact the author.
+Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.
 
 ---
 
-© 2024 SolarClose. All rights reserved.
+## 💰 Why Sales Reps Love SolarClose
+
+✅ **Works Anywhere** - No WiFi needed. Perfect for door-to-door or remote areas  
+✅ **Instant Results** - Show 25-year savings while you're still talking  
+✅ **Never Lose Data** - Everything saves automatically as you type  
+✅ **Professional Proposals** - Generate branded PDFs your customers can share with family  
+✅ **Use Any Device** - Works on your phone, tablet, or laptop  
+✅ **Looks Amazing** - Beautiful solar-themed design impresses customers  
+✅ **Your Company Brand** - Add your logo and company name to every proposal  
+
+---
+
+## 📱 How to Use SolarClose
+
+### **Step 1: Enter Customer Info**
+Type in your customer's name, address, and contact details. Everything saves automatically.
+
+### **Step 2: Add System Details**
+- System size (kW)
+- Total cost
+- Current electric bill
+- Available incentives
+
+### **Step 3: Show the Savings**
+Watch the calculator instantly show:
+- Monthly savings
+- Payback period
+- 25-year total savings
+- Return on investment
+
+### **Step 4: Generate Proposal**
+Tap "Generate PDF" and email or text a professional proposal to your customer on the spot.
+
+---
+
+## 🎯 Perfect For
+
+- **Door-to-Door Sales** - Works offline, no internet required
+- **Home Consultations** - Show numbers in real-time during your pitch
+- **Follow-Up Meetings** - Pull up saved calculations instantly
+- **Trade Shows** - Quick quotes for interested prospects
+- **Phone Sales** - Calculate while you talk
+
+---
+
+## 💡 What Makes Our Calculator Accurate
+
+We use real-world numbers, not perfect lab conditions:
+
+- **Real Efficiency**: 80% (accounts for weather, shade, and dirt on panels)
+- **Panel Aging**: Panels produce slightly less each year (0.5% decline)
+- **Maintenance**: $150/year for cleaning and upkeep
+- **Inverter Replacement**: Budgeted at year 13
+- **Tax Credits**: 30% federal credit included (adjustable)
+- **Rising Electric Rates**: 4% annual increase (adjustable)
+- **State Rebates**: Add any local incentives
+
+This gives your customers honest, realistic expectations they can trust.
+
+---
+
+## 📄 Professional Proposals Include
+
+✓ Your company logo and branding  
+✓ Customer information  
+✓ System specifications  
+✓ Total investment and incentives  
+✓ 25-year savings projection  
+✓ Clean, professional layout  
+
+Proposals automatically save with the customer's name for easy filing.
+
+---
+
+## 📲 Getting Started
+
+1. **Visit**: https://solarclose.pages.dev
+2. **Bookmark** the page on your phone's home screen
+3. **Start calculating** - no signup required!
+
+That's it. No downloads, no accounts, no hassle.
+
+---
+
+## 💼 For Solar Companies
+
+Want to customize SolarClose for your sales team with:
+- Your company branding built-in
+- Custom calculation assumptions
+- Your specific incentive programs
+- Team training and support
+
+**Contact us for commercial licensing and customization.**
+
+---
+
+## ❓ Questions?
+
+**Need help?** The app is designed to be simple, but if you have questions:
+- Check the tooltips (ℹ️ icons) in the app
+- All fields are clearly labeled
+- Your data saves automatically
+
+**For solar companies**: Contact us about team licensing and custom branding.
+
+---
+
+© 2025 SolarClose. All Rights Reserved. [View License](LICENSE.md)
+
+Made by Teycir - <https://teycirbensoltane.tn>
+
+Free for individual sales reps. Commercial licensing available.
