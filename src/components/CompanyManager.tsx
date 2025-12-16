@@ -64,13 +64,13 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       reader.onload = (event) => {
         const img = new Image();
         img.onload = () => {
-          // Validate dimensions (recommended: 200x60 to 400x120)
-          if (img.width < 150 || img.width > 500) {
-            setLogoError('Logo width should be between 150-500px');
+          // Validate dimensions
+          if (img.width < 200 || img.width > 600) {
+            setLogoError('Logo width should be between 200-600px');
             return;
           }
-          if (img.height < 40 || img.height > 150) {
-            setLogoError('Logo height should be between 40-150px');
+          if (img.height < 60 || img.height > 200) {
+            setLogoError('Logo height should be between 60-200px');
             return;
           }
           onLogoChange(event.target?.result as string);
@@ -150,10 +150,10 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
             </button>
           )}
         </div>
-        <p className="text-xs text-muted-foreground">PNG or JPG, 150-500px wide, 40-150px tall, max 500KB</p>
+        <p className="text-xs text-muted-foreground">PNG or JPG, 200-600px wide, 60-200px tall, max 500KB</p>
         {logoError && <p className="text-xs text-destructive">{logoError}</p>}
         {currentLogo && (
-          <div className="bg-white p-2 rounded border inline-block">
+          <div className="bg-white p-2 rounded border flex justify-center items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={currentLogo} alt="Company logo" className="max-h-16 max-w-[200px] object-contain" />
           </div>
