@@ -85,7 +85,7 @@ export function ExportButton({ data }: ExportButtonProps) {
       <button
         onClick={handleExport}
         disabled={isGenerating || !canExport}
-        className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md disabled:opacity-50"
+        className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
         aria-label={t('exportPDFs')}
         title={!canExport ? t('enterClientInfo') : ''}
       >
@@ -96,7 +96,7 @@ export function ExportButton({ data }: ExportButtonProps) {
         <button
           onClick={handleShare}
           disabled={isGenerating || !canExport}
-          className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md disabled:opacity-50"
+          className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
           aria-label="Share proposal"
           title={!canExport ? t('enterClientInfo') : 'Share proposal via WhatsApp, Email, etc.'}
         >

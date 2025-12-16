@@ -86,13 +86,13 @@ export function DataBackup({ data }: DataBackupProps) {
       <button
         onClick={exportData}
         disabled={status === 'exporting'}
-        className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md disabled:opacity-50"
+        className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
         title="Export all leads as JSON backup"
       >
         💾 {t('backup')}
       </button>
       
-      <label className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md cursor-pointer text-center">
+      <label className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap shadow-md shimmer-button cursor-pointer text-center">
         📥 {t('restore')}
         <input
           type="file"

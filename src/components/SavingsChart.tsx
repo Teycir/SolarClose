@@ -87,6 +87,10 @@ export function SavingsChart({ data }: SavingsChartProps) {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    animation: {
+      duration: 2000,
+      easing: 'easeInOutQuart' as const,
+    },
     interaction: {
       mode: 'index' as const,
       intersect: false,

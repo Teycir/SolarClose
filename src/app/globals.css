@@ -29,6 +29,39 @@
   animation: confetti 2.5s ease-out forwards;
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.shimmer-button {
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.float-sun {
+  animation: float 3s ease-in-out infinite;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
