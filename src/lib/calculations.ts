@@ -10,7 +10,7 @@ export interface SolarCalculationInputs {
   sunHoursPerDay: number;
   federalTaxCreditPercent: number;
   stateIncentiveDollars: number;
-  financingOption?: 'Cash' | 'Loan' | 'Lease' | 'PPA';
+  financingOption?: 'Cash' | 'Loan';
   loanTerm?: number; // years
   loanInterestRate?: number; // percent
   downPayment?: number; // dollars
@@ -21,7 +21,8 @@ export interface SolarCalculationInputs {
  */
 export interface SolarCalculationResults {
   twentyFiveYearSavings: number;
-  breakEvenYear: number;
+  breakEvenYear: number | null;
+  breaksEvenWithin25Years: boolean;
   yearlyBreakdown: Array<{
     year: number;
     utilityCost: number;
@@ -43,10 +44,18 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     
     // Validate inputs
     if (systemSizeKw <= 0 || electricityRate < 0 || sunHoursPerDay <= 0 || currentMonthlyBill < 0 || systemCost < 0) {
-      return { twentyFiveYearSavings: 0, breakEvenYear: 0, yearlyBreakdown: [] };
+      return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
     }
-  
-  const inflationMultiplier = 1 + (yearlyInflationRate / 100);
+    
+    if (yearlyInflationRate < -50 || yearlyInflationRate > 50) {
+      return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
+    }
+    
+    if (financingOption === 'Loan' && loanTerm <= 0) {
+      return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
+    }
+    
+    const inflationMultiplier = 1 + (yearlyInflationRate / 100);
   
   // Calculate net system cost after incentives
   const federalCredit = systemCost * (federalTaxCreditPercent / 100);
@@ -56,10 +65,17 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   const loanAmount = Math.max(0, netSystemCost - downPayment);
   const monthlyRate = (loanInterestRate / 100) / 12;
   const numPayments = loanTerm * 12;
-  const monthlyLoanPayment = loanAmount > 0 && financingOption === 'Loan' && monthlyRate > 0
-    ? (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1)
-    : 0;
-  const totalLoanCost = monthlyLoanPayment * numPayments;
+  let monthlyLoanPayment = 0;
+  
+  if (loanAmount > 0 && financingOption === 'Loan') {
+    if (monthlyRate === 0) {
+      // Zero interest rate: simple division
+      monthlyLoanPayment = loanAmount / numPayments;
+    } else {
+      // Standard amortization formula
+      monthlyLoanPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    }
+  }
   
   // Production calculations with performance ratio
   const performanceRatio = 0.80; // 80% real-world efficiency
@@ -69,32 +85,33 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   
   // Realistic maintenance costs
   const baseMaintenance = 150; // $150/year base
-  const inverterReplacement = systemSizeKw * 300; // ~$300/kW around year 12-15
+  const inverterReplacement = systemSizeKw * 300; // ~$300/kW every 12 years
   
   // Calculate current annual usage
   const currentAnnualUsage = electricityRate > 0 ? (currentMonthlyBill / electricityRate) * 12 : 0;
-  const offsetPercentage = currentAnnualUsage > 0 ? Math.min(year1Production / currentAnnualUsage, 1.0) : 0;
   
   let cumulativeSavings = financingOption === 'Loan' ? -downPayment : -netSystemCost;
-  let breakEvenYear = 0;
+  let breakEvenYear: number | null = null;
   const yearlyBreakdown = [];
   
-  let inflationFactor = 1;
-  let degradationFactor = 1;
-  
   for (let year = 1; year <= PROJECTION_YEARS; year++) {
+    // Apply inflation and degradation for this year
+    const inflationFactor = Math.pow(inflationMultiplier, year - 1);
+    const degradationFactor = Math.pow(1 - degradationRate, year - 1);
+    
     // Utility cost with inflation
     const utilityWithoutSolar = currentMonthlyBill * 12 * inflationFactor;
     
-    // Solar production degrades from year 1 baseline
-    const productionMultiplier = degradationFactor;
-    const yearProduction = year1Production * productionMultiplier;
-    const actualOffset = currentAnnualUsage > 0 ? Math.min(yearProduction / currentAnnualUsage, offsetPercentage) : 0;
-    const yearlySolarSavings = utilityWithoutSolar * actualOffset;
+    // Solar production degrades each year
+    const yearProduction = year1Production * degradationFactor;
     
-    // Maintenance with inflation + inverter replacement
+    // Calculate savings: production covers a percentage of usage, capped at 100% of bill
+    const offsetPercentage = currentAnnualUsage > 0 ? Math.min(yearProduction / currentAnnualUsage, 1.0) : 0;
+    const yearlySolarSavings = utilityWithoutSolar * offsetPercentage;
+    
+    // Maintenance with inflation + inverter replacement every 12 years
     const maintenanceCost = baseMaintenance * inflationFactor;
-    const inverterCost = year === 13 ? inverterReplacement : 0;
+    const inverterCost = (year === 12 || year === 24) ? inverterReplacement * inflationFactor : 0;
     
     // Add loan payments if within loan term
     const yearlyLoanPayment = financingOption === 'Loan' && year <= loanTerm ? monthlyLoanPayment * 12 : 0;
@@ -103,11 +120,11 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     const netYearlySavings = yearlySolarSavings - totalYearlyCost;
     cumulativeSavings += netYearlySavings;
     
-    if (breakEvenYear === 0 && cumulativeSavings > 0) {
+    if (breakEvenYear === null && cumulativeSavings > 0) {
       breakEvenYear = year;
     }
     
-    const solarCost = year === 1 ? systemCost : totalYearlyCost;
+    const solarCost = year === 1 ? netSystemCost : totalYearlyCost;
     yearlyBreakdown.push({
       year,
       utilityCost: utilityWithoutSolar,
@@ -115,22 +132,18 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
       cumulativeSavings
     });
     
-    inflationFactor *= inflationMultiplier;
-    degradationFactor *= (1 - degradationRate);
+
   }
-  
-    if (breakEvenYear === 0) {
-      breakEvenYear = PROJECTION_YEARS;
-    }
 
     return {
       twentyFiveYearSavings: Math.round(cumulativeSavings),
       breakEvenYear,
+      breaksEvenWithin25Years: breakEvenYear !== null,
       yearlyBreakdown
     };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Failed to calculate solar savings:', errorMessage.replace(/[\r\n]/g, ' '));
-    return { twentyFiveYearSavings: 0, breakEvenYear: 0, yearlyBreakdown: [] };
+    return { twentyFiveYearSavings: 0, breakEvenYear: null, breaksEvenWithin25Years: false, yearlyBreakdown: [] };
   }
 }

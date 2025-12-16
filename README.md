@@ -66,7 +66,7 @@ We use real-world numbers, not perfect lab conditions:
 - **Real Efficiency**: 80% (accounts for weather, shade, and dirt on panels)
 - **Panel Aging**: Panels produce slightly less each year (0.5% decline)
 - **Maintenance**: $150/year for cleaning and upkeep
-- **Inverter Replacement**: Budgeted at year 13
+- **Inverter Replacement**: Every 12 years (years 12 and 24)
 - **Tax Credits**: 30% federal credit included (adjustable)
 - **Rising Electric Rates**: 4% annual increase (adjustable)
 - **State Rebates**: Add any local incentives

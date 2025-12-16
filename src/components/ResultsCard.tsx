@@ -47,7 +47,7 @@ export function ResultsCard({ data }: ResultsCardProps) {
             {t("breakEvenYear")}
           </p>
           <p className="text-lg sm:text-xl font-bold break-words">
-            {isNegativeSavings
+            {data.breakEvenYear === null || isNegativeSavings
               ? t("never")
               : `${t("year")} ${data.breakEvenYear}`}
           </p>

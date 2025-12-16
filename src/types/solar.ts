@@ -58,7 +58,7 @@ export interface SolarLead {
   
   // Calculated Results (Cached)
   twentyFiveYearSavings: number;
-  breakEvenYear: number;
+  breakEvenYear: number | null;
   
   // Meta
   isSynced: boolean; // True if pushed to Cloudflare

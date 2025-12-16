@@ -73,7 +73,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
         tension: 0.3,
         borderWidth: 3,
         pointRadius: (context: any) => {
-          return context.dataIndex + 1 === data.breakEvenYear ? 8 : 0;
+          return data.breakEvenYear && context.dataIndex + 1 === data.breakEvenYear ? 8 : 0;
         },
         pointHoverRadius: 6,
         pointBackgroundColor: 'rgb(255, 193, 7)',
@@ -108,7 +108,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
           },
           afterBody: (context: any) => {
             const year = context[0].dataIndex + 1;
-            if (year === data.breakEvenYear) {
+            if (data.breakEvenYear && year === data.breakEvenYear) {
               return '\n🎯 BREAK-EVEN POINT';
             }
             return '';
@@ -152,15 +152,19 @@ export function SavingsChart({ data }: SavingsChartProps) {
     <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">{t('chartTitle')}</h3>
-        <div className="text-xs bg-primary/20 px-3 py-1 rounded-full">
-          🎯 {t('chartBreakEven')}: {t('chartYear')} {data.breakEvenYear}
-        </div>
+        {data.breakEvenYear && (
+          <div className="text-xs bg-primary/20 px-3 py-1 rounded-full">
+            🎯 {t('chartBreakEven')}: {t('chartYear')} {data.breakEvenYear}
+          </div>
+        )}
       </div>
       <div className="h-72">
         <Line data={chartData} options={options} />
       </div>
       <div className="text-center pt-3 border-t text-sm space-y-1">
-        <p className="text-muted-foreground">{t('chartCrossesZero')} {data.breakEvenYear} - {t('chartRecovered')}</p>
+        {data.breakEvenYear && (
+          <p className="text-muted-foreground">{t('chartCrossesZero')} {data.breakEvenYear} - {t('chartRecovered')}</p>
+        )}
         <p className="text-xs text-amber-400">💡 {t('chartIncludes')}</p>
       </div>
       <div className="text-center pt-2 border-t">

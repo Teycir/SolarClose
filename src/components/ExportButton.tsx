@@ -163,7 +163,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     const avgAnnualSavings = Math.round(data.twentyFiveYearSavings / 25);
     const avgMonthlySavings = Math.round(avgAnnualSavings / 12);
     
-    doc.text(`Break-Even Period: ${t('year')} ${data.breakEvenYear}`, 20, y);
+    doc.text(`Break-Even Period: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : 'Never'}`, 20, y);
     y += 8;
     doc.text(`Average Monthly Savings: ${getCurrencySymbol()}${formatNumber(avgMonthlySavings)}`, 20, y);
     y += 8;
@@ -311,7 +311,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     doc.text(`System Cost: ${getCurrencySymbol()}${formatNumber(data.systemCost)}`, 20, y); y += 6;
     doc.text(`Current Monthly Bill: ${getCurrencySymbol()}${data.currentMonthlyBill}`, 20, y); y += 6;
     doc.text(`25-Year Savings: ${getCurrencySymbol()}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 6;
-    doc.text(`Break-Even Year: Year ${data.breakEvenYear}`, 20, y); y += 6;
+    doc.text(`Break-Even Year: ${data.breakEvenYear ? `Year ${data.breakEvenYear}` : 'Never'}`, 20, y); y += 6;
     if (data.financingOption) { 
       doc.text(`Financing: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 6;
       if (data.financingOption === 'Loan' && data.loanTerm) {

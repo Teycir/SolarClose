@@ -90,7 +90,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     federalTaxCredit: 30,
     stateIncentive: 1000,
     twentyFiveYearSavings: results.twentyFiveYearSavings,
-    breakEvenYear: results.breakEvenYear,
+    breakEvenYear: results.breakEvenYear ?? 0,
     isSynced: false,
   };
 };

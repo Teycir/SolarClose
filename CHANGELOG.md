@@ -2,6 +2,42 @@
 
 All notable changes to SolarClose will be documented in this file.
 
+## [1.1.0] - 2025-01-XX
+
+### Improved
+- 🔧 **Calculation Accuracy**: Inverter replacement now occurs every 12 years (years 12 and 24) instead of only year 13
+- 💰 **Inflation Applied to Future Costs**: Inverter replacement costs now properly inflated to replacement year
+- 📊 **Break-Even Logic**: Returns `null` when system never breaks even instead of misleading "Year 25"
+- ✅ **Input Validation**: Added validation for inflation rate (-50% to 50%) and loan term (must be > 0)
+- 🔢 **Zero Interest Rate**: Proper handling of 0% interest loans with simple division
+- 🎯 **Offset Calculation**: Simplified and corrected solar production offset logic
+- 📈 **Savings Chart**: Properly displays "bumps" at inverter replacement years
+
+### Fixed
+- 🐛 Removed unused `totalLoanCost` variable
+- 🐛 Fixed double-counting of inflation in savings calculations
+- 🐛 Corrected year 1 solar cost display (now shows net cost after incentives)
+- 🐛 UI components now handle `null` break-even year gracefully (displays "Never")
+
+### Removed
+- ❌ Removed unimplemented financing options (Lease/PPA) from interface
+
+### Documentation
+- 📚 Added comprehensive `CALCULATION_LOGIC_DOCUMENTATION.md` with:
+  - Complete mathematical formulas and examples
+  - Expert review responses for all 10 industry questions
+  - Edge case handling documentation
+  - Validation checklist
+- ✅ All numerical examples verified for accuracy
+- ✅ Expert review applied with corrections
+
+### Technical
+- Updated `SolarCalculationResults` interface with `breaksEvenWithin25Years` boolean flag
+- Changed `breakEvenYear` type from `number` to `number | null`
+- Enhanced error handling for edge cases
+
+---
+
 ## [1.0.0] - 2024-12-15
 
 ### Added
