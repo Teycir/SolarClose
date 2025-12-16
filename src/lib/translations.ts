@@ -86,6 +86,10 @@ type TranslationKeys = {
   chartRecovered: string;
   chartIncludes: string;
   chartTotalSavings: string;
+  backup: string;
+  restore: string;
+  share: string;
+  saveLead: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -177,6 +181,10 @@ export const translations: Record<string, TranslationKeys> = {
     chartRecovered: "that's when you've recovered your investment!",
     chartIncludes: 'Includes maintenance (~$150/year) and inverter replacement (Year 13)',
     chartTotalSavings: 'Total 25-Year Savings',
+    backup: 'Backup',
+    restore: 'Restore',
+    share: 'Share',
+    saveLead: 'Save Lead',
   },
   es: {
     title: 'SolarClose',
@@ -266,6 +274,10 @@ export const translations: Record<string, TranslationKeys> = {
     chartRecovered: '¡es cuando has recuperado tu inversión!',
     chartIncludes: 'Incluye mantenimiento (~150€/año) y reemplazo de inversor (Año 13)',
     chartTotalSavings: 'Ahorros Totales a 25 Años',
+    backup: 'Respaldar',
+    restore: 'Restaurar',
+    share: 'Compartir',
+    saveLead: 'Guardar Cliente',
   },
   it: {
     title: 'SolarClose',
@@ -355,6 +367,10 @@ export const translations: Record<string, TranslationKeys> = {
     chartRecovered: 'è quando hai recuperato il tuo investimento!',
     chartIncludes: 'Include manutenzione (~150€/anno) e sostituzione inverter (Anno 13)',
     chartTotalSavings: 'Risparmi Totali a 25 Anni',
+    backup: 'Backup',
+    restore: 'Ripristina',
+    share: 'Condividi',
+    saveLead: 'Salva Cliente',
   },
   fr: {
     title: 'SolarClose',
@@ -444,6 +460,10 @@ export const translations: Record<string, TranslationKeys> = {
     chartRecovered: "c'est quand vous avez récupéré votre investissement!",
     chartIncludes: 'Inclut maintenance (~150€/an) et remplacement onduleur (Année 13)',
     chartTotalSavings: 'Économies Totales sur 25 Ans',
+    backup: 'Sauvegarder',
+    restore: 'Restaurer',
+    share: 'Partager',
+    saveLead: 'Enregistrer Client',
   },
   de: {
     title: 'SolarClose',
@@ -533,6 +553,10 @@ export const translations: Record<string, TranslationKeys> = {
     chartRecovered: 'dann haben Sie Ihre Investition zurückgewonnen!',
     chartIncludes: 'Inkl. Wartung (~150€/Jahr) und Wechselrichter-Austausch (Jahr 13)',
     chartTotalSavings: 'Gesamteinsparungen über 25 Jahre',
+    backup: 'Sichern',
+    restore: 'Wiederherstellen',
+    share: 'Teilen',
+    saveLead: 'Kunde Speichern',
   },
 };
 

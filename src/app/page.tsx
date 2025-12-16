@@ -113,28 +113,29 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
-          <div className="flex items-center gap-3">
-            <select
-              value={data.language || 'en'}
-              onChange={(e) => {
-                const lang = e.target.value as Language;
-                const currency = lang === 'en' ? 'USD' : 'EUR';
-                setData({ language: lang, currency } as Partial<SolarLead>);
-              }}
-              className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
-              aria-label="Select language"
-              title="Select language"
-            >
-              <option value="en">{languageFlags.en}</option>
-              <option value="es">{languageFlags.es}</option>
-              <option value="it">{languageFlags.it}</option>
-              <option value="fr">{languageFlags.fr}</option>
-              <option value="de">{languageFlags.de}</option>
-            </select>
-            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">{t('title')}</h1>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
+        <div className="flex items-center gap-3 mb-6">
+          <select
+            value={data.language || 'en'}
+            onChange={(e) => {
+              const lang = e.target.value as Language;
+              const currency = lang === 'en' ? 'USD' : 'EUR';
+              setData({ language: lang, currency } as Partial<SolarLead>);
+            }}
+            className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
+            aria-label="Select language"
+            title="Select language"
+          >
+            <option value="en">{languageFlags.en}</option>
+            <option value="es">{languageFlags.es}</option>
+            <option value="it">{languageFlags.it}</option>
+            <option value="fr">{languageFlags.fr}</option>
+            <option value="de">{languageFlags.de}</option>
+          </select>
+          <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">{t('title')}</h1>
+        </div>
+        
+        <div className="mb-4">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={handleNewLead}
               className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap"
@@ -151,16 +152,16 @@ export default function Home() {
             <button
               onClick={saveLead}
               disabled={!data?.clientName.trim() || isDefaultLead}
-              className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              💾 Save Lead
+              💾 {t('saveLead')}
             </button>
             <div className="text-xs sm:text-sm text-muted-foreground" role="status" aria-live="polite">
               {saveStatus === 'saving' && <span aria-label="Saving">💾 Saving...</span>}
               {saveStatus === 'saved' && <span aria-label="Saved successfully">✓ Saved</span>}
               {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
             </div>
-            <DataBackup />
+            <DataBackup language={lang} />
             <ExportButton data={data} />
           </div>
         </div>

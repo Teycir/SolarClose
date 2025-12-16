@@ -2,9 +2,15 @@
 
 import { useState } from 'react';
 import { openDB } from 'idb';
-import type { SolarLead } from '@/types/solar';
+import type { SolarLead, Language } from '@/types/solar';
+import { getTranslation, type TranslationKey } from '@/lib/translations';
 
-export function DataBackup() {
+interface DataBackupProps {
+  language?: Language;
+}
+
+export function DataBackup({ language = 'en' }: DataBackupProps) {
+  const t = (key: string) => getTranslation(language, key as TranslationKey);
   const [status, setStatus] = useState<'idle' | 'exporting' | 'importing' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
 
@@ -75,18 +81,18 @@ export function DataBackup() {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <>
       <button
         onClick={exportData}
         disabled={status === 'exporting'}
-        className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50"
+        className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap disabled:opacity-50"
         title="Export all leads as JSON backup"
       >
-        💾 Backup
+        💾 {t('backup')}
       </button>
       
-      <label className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap cursor-pointer">
-        📥 Restore
+      <label className="bg-primary text-primary-foreground font-semibold py-2 px-4 rounded-lg hover:opacity-90 active:scale-95 transition-all text-sm whitespace-nowrap cursor-pointer">
+        📥 {t('restore')}
         <input
           type="file"
           accept=".json"
@@ -104,6 +110,6 @@ export function DataBackup() {
           {status === 'error' && `⚠ ${message}`}
         </span>
       )}
-    </div>
-  );
+    </>
+  );}
 }
