@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSolarLead } from '@/hooks/useSolarLead';
 import { getTranslation, languageFlags, type Language, type TranslationKey } from '@/lib/translations';
 import { SystemDetailsSection } from '@/components/form-sections/SystemDetailsSection';
@@ -25,12 +25,60 @@ export default function Home() {
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
-  const [calculationStatus, setCalculationStatus] = useState<'idle' | 'calculating'>('idle');
+
   const { data, setData, saveStatus, saveLead } = useSolarLead(currentLeadId);
   
   const lang: Language = (data?.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const isDefaultLead = currentLeadId === 'default-lead';
+
+  // Auto-recalculate when inputs change
+  useEffect(() => {
+    if (!data || isDefaultLead) return;
+
+    const recalculate = async () => {
+      const { calculateSolarSavings } = await import('@/lib/calculations');
+      const results = calculateSolarSavings({
+        currentMonthlyBill: data.currentMonthlyBill,
+        yearlyInflationRate: data.yearlyInflationRate,
+        systemCost: data.systemCost,
+        systemSizeKw: data.systemSizeKw,
+        electricityRate: data.electricityRate,
+        sunHoursPerDay: data.sunHoursPerDay,
+        federalTaxCreditPercent: data.federalTaxCredit,
+        stateIncentiveDollars: data.stateIncentive,
+        financingOption: data.financingOption as 'Cash' | 'Loan' | undefined,
+        loanTerm: data.loanTerm,
+        downPayment: data.downPayment,
+        loanInterestRate: data.loanInterestRate,
+        has25YearInverterWarranty: data.has25YearInverterWarranty,
+      });
+
+      setData({
+        twentyFiveYearSavings: results.twentyFiveYearSavings,
+        breakEvenYear: results.breakEvenYear,
+        yearlyBreakdown: results.yearlyBreakdown,
+      });
+    };
+
+    recalculate();
+  }, [
+    data?.currentMonthlyBill,
+    data?.yearlyInflationRate,
+    data?.systemCost,
+    data?.systemSizeKw,
+    data?.electricityRate,
+    data?.sunHoursPerDay,
+    data?.federalTaxCredit,
+    data?.stateIncentive,
+    data?.financingOption,
+    data?.loanTerm,
+    data?.downPayment,
+    data?.loanInterestRate,
+    data?.has25YearInverterWarranty,
+    isDefaultLead,
+    setData
+  ]);
 
   useEffect(() => {
     if (!showLeads) return;
@@ -253,59 +301,7 @@ export default function Home() {
             <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-shadow">
               <h2 className="text-lg sm:text-xl font-semibold mb-8">{t('calculator')}</h2>
               <div className="space-y-6 sm:space-y-8 overflow-visible">
-                <div className="flex justify-center">
-                  <button
-                    onClick={async (e) => {
-                      const btn = e.currentTarget;
-                      btn.style.filter = 'brightness(0.7)';
-                      setCalculationStatus('calculating');
-                      console.log('=== CALCULATION START ===');
-                      console.log('Current data object:', data);
-                      console.log('currentMonthlyBill:', data.currentMonthlyBill);
-                      console.log('systemCost:', data.systemCost);
-                      console.log('systemSizeKw:', data.systemSizeKw);
-                      console.log('electricityRate:', data.electricityRate);
-                      const { calculateSolarSavings } = await import('@/lib/calculations');
-                      const inputs = {
-                        currentMonthlyBill: data.currentMonthlyBill,
-                        yearlyInflationRate: data.yearlyInflationRate,
-                        systemCost: data.systemCost,
-                        systemSizeKw: data.systemSizeKw,
-                        electricityRate: data.electricityRate,
-                        sunHoursPerDay: data.sunHoursPerDay,
-                        federalTaxCreditPercent: data.federalTaxCredit,
-                        stateIncentiveDollars: data.stateIncentive,
-                        financingOption: data.financingOption as 'Cash' | 'Loan' | undefined,
-                        loanTerm: data.loanTerm,
-                        downPayment: data.downPayment,
-                        loanInterestRate: data.loanInterestRate,
-                        has25YearInverterWarranty: data.has25YearInverterWarranty,
-                      };
-                      console.log('Inputs to calculation:', inputs);
 
-                      const results = calculateSolarSavings(inputs);
-                      console.log('Results from calculation:', results);
-                      console.log('OLD twentyFiveYearSavings:', data.twentyFiveYearSavings);
-                      console.log('NEW twentyFiveYearSavings:', results.twentyFiveYearSavings);
-                      console.log('=== CALCULATION END ===');
-
-                      setData({
-                        twentyFiveYearSavings: results.twentyFiveYearSavings,
-                        breakEvenYear: results.breakEvenYear,
-                        yearlyBreakdown: results.yearlyBreakdown,
-                      });
-
-                      setTimeout(() => {
-                        btn.style.filter = '';
-                        setCalculationStatus('idle');
-                      }, 1000);
-                    }}
-                    disabled={calculationStatus === 'calculating'}
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg text-base shadow-md shimmer-button disabled:opacity-50 transition-all"
-                  >
-                    {calculationStatus === 'calculating' ? '⏳ Calculating...' : '💻 Calculate Savings'}
-                  </button>
-                </div>
                 <SystemDetailsSection data={data} onUpdate={setData} />
               </div>
             </div>
