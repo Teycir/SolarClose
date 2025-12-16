@@ -8,7 +8,7 @@ import { ResultsCard } from '@/components/ResultsCard';
 import { ExportButton } from '@/components/ExportButton';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { openDB } from 'idb';
-import type { SolarLead } from '@/types/solar';
+import type { SolarLead, Currency } from '@/types/solar';
 
 const generateLeadId = () => `lead-${Date.now()}`;
 
