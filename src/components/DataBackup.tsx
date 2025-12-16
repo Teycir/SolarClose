@@ -83,25 +83,38 @@ export function DataBackup({ data }: DataBackupProps) {
 
   return (
     <>
-      <button
-        onClick={exportData}
-        disabled={status === 'exporting'}
-        className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
-        title="Export all leads as JSON backup"
-      >
-        💾 {t('backup')}
-      </button>
+      <div className="relative group">
+        <button
+          onClick={exportData}
+          disabled={status === 'exporting'}
+          className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50"
+        >
+          💾 {t('backup')}
+        </button>
+        {status === 'idle' && (
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-xs font-semibold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 border border-orange-300">
+            Export all leads as JSON backup
+          </div>
+        )}
+      </div>
       
-      <label className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button cursor-pointer text-center">
-        📥 {t('restore')}
-        <input
-          type="file"
-          accept=".json"
-          onChange={importData}
-          className="hidden"
-          disabled={status === 'importing'}
-        />
-      </label>
+      <div className="relative group">
+        <label className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button cursor-pointer text-center">
+          📥 {t('restore')}
+          <input
+            type="file"
+            accept=".json"
+            onChange={importData}
+            className="hidden"
+            disabled={status === 'importing'}
+          />
+        </label>
+        {status === 'idle' && (
+          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-gradient-to-r from-amber-400 to-orange-400 text-black text-xs font-semibold rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 border border-orange-300">
+            Import leads from JSON backup
+          </div>
+        )}
+      </div>
       
       {status !== 'idle' && (
         <span className="text-xs text-muted-foreground">
