@@ -262,6 +262,15 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   doc.setFontSize(10);
   if (data.salesRep) { doc.text(`${t('salesRep')}: ${data.salesRep}`, 20, y); y += 6; }
   if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 6; }
+  if (data.updatedAt) {
+    const daysDiff = Math.floor((Date.now() - data.updatedAt) / (1000 * 60 * 60 * 24));
+    let lastContactedText = '';
+    if (daysDiff === 0) lastContactedText = t('today');
+    else if (daysDiff === 1) lastContactedText = t('yesterday');
+    else lastContactedText = `${daysDiff} ${t('daysAgo')}`;
+    doc.text(`${t('lastContacted')}: ${lastContactedText}`, 20, y);
+    y += 6;
+  }
   
   y += 5;
   doc.setFontSize(14);
