@@ -54,7 +54,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
         />
         {isAtMaxCapacity && (
           <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-            System at max capacity. Increase system size below ⬇️ for higher bills.
+            System at max capacity. Increase system size for higher bills.
           </p>
         )}
       </div>
