@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import type { SolarLead } from '@/types/solar';
 import { calculateSolarSavings } from '@/lib/calculations';
 import { ClientInfoSection } from './form-sections/ClientInfoSection';
@@ -14,7 +15,7 @@ interface CalculatorFormProps {
 
 export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
 
-  const handleCalculate = () => {
+  useEffect(() => {
     try {
       const results = calculateSolarSavings({
         currentMonthlyBill: data.currentMonthlyBill,
@@ -46,20 +47,26 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
       }
     }
-  };
+  }, [
+    data.currentMonthlyBill,
+    data.yearlyInflationRate,
+    data.systemCost,
+    data.systemSizeKw,
+    data.electricityRate,
+    data.sunHoursPerDay,
+    data.federalTaxCredit,
+    data.stateIncentive,
+    data.financingOption,
+    data.loanTerm,
+    data.downPayment,
+    data.loanInterestRate,
+    data.has25YearInverterWarranty,
+    onUpdate
+  ]);
 
   return (
     <>
       <div className="space-y-4 sm:space-y-6 overflow-hidden">
-        <div className="flex justify-center pb-2">
-          <button
-            onClick={handleCalculate}
-            className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all text-base shadow-md shimmer-button hover:scale-105"
-          >
-            🧮 Calculate Savings
-          </button>
-        </div>
-        
         <SystemDetailsSection data={data} onUpdate={onUpdate} />
       </div>
       
