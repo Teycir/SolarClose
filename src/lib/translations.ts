@@ -136,6 +136,12 @@ type TranslationKeys = {
   pdfPropertyDetails: string;
   pdfFinancing: string;
   pdfConfidential: string;
+  copySummary: string;
+  copied: string;
+  lastContacted: string;
+  daysAgo: string;
+  today: string;
+  yesterday: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -277,6 +283,12 @@ export const translations: Record<string, TranslationKeys> = {
     pdfPropertyDetails: 'Property Details',
     pdfFinancing: 'Financing',
     pdfConfidential: 'CONFIDENTIAL - Internal Use Only',
+    copySummary: 'Copy Summary',
+    copied: 'Copied!',
+    lastContacted: 'Last contacted',
+    daysAgo: 'days ago',
+    today: 'today',
+    yesterday: 'yesterday',
   },
   es: {
     title: 'SolarClose',
@@ -416,6 +428,12 @@ export const translations: Record<string, TranslationKeys> = {
     pdfPropertyDetails: 'Detalles de la Propiedad',
     pdfFinancing: 'Financiamiento',
     pdfConfidential: 'CONFIDENCIAL - Solo Uso Interno',
+    copySummary: 'Copiar Resumen',
+    copied: '¡Copiado!',
+    lastContacted: 'Último contacto',
+    daysAgo: 'días atrás',
+    today: 'hoy',
+    yesterday: 'ayer',
   },
   it: {
     title: 'SolarClose',
@@ -555,6 +573,12 @@ export const translations: Record<string, TranslationKeys> = {
     pdfPropertyDetails: 'Dettagli Proprietà',
     pdfFinancing: 'Finanziamento',
     pdfConfidential: 'CONFIDENZIALE - Solo Uso Interno',
+    copySummary: 'Copia Riepilogo',
+    copied: 'Copiato!',
+    lastContacted: 'Ultimo contatto',
+    daysAgo: 'giorni fa',
+    today: 'oggi',
+    yesterday: 'ieri',
   },
   fr: {
     title: 'SolarClose',
@@ -694,6 +718,12 @@ export const translations: Record<string, TranslationKeys> = {
     pdfPropertyDetails: 'Détails de la Propriété',
     pdfFinancing: 'Financement',
     pdfConfidential: 'CONFIDENTIEL - Usage Interne Uniquement',
+    copySummary: 'Copier Résumé',
+    copied: 'Copié!',
+    lastContacted: 'Dernier contact',
+    daysAgo: 'jours',
+    today: 'aujourd\'hui',
+    yesterday: 'hier',
   },
   de: {
     title: 'SolarClose',
@@ -833,6 +863,12 @@ export const translations: Record<string, TranslationKeys> = {
     pdfPropertyDetails: 'Immobiliendetails',
     pdfFinancing: 'Finanzierung',
     pdfConfidential: 'VERTRAULICH - Nur Für Internen Gebrauch',
+    copySummary: 'Zusammenfassung Kopieren',
+    copied: 'Kopiert!',
+    lastContacted: 'Letzter Kontakt',
+    daysAgo: 'Tage her',
+    today: 'heute',
+    yesterday: 'gestern',
   },
 };
 

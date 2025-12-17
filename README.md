@@ -30,7 +30,9 @@ We use a **Business Source License (BSL)**, which means:
 ✅ **Privacy Guaranteed** - Your leads live on your device. We never see them  
 ✅ **Professional PDF Proposals** - Generate branded PDFs your customers can share  
 ✅ **"Kitchen Table" Ready** - Beautiful glass-morphism design that looks expensive  
-✅ **Multi-Language** - English, Spanish, Italian, French, and German  
+✅ **Fully Multi-Language** - Complete UI, PDFs, and calculations in English, Spanish, Italian, French, and German  
+✅ **Quick Copy Summary** - One-click to copy talking points for texting prospects  
+✅ **Smart Lead Tracking** - "Last Contacted" timestamps prevent duplicate visits  
 ✅ **Psychological Sales Tools** - Visual progress bars, animated counters, and "Confetti" celebrations for big savings
 
 ---
@@ -52,21 +54,30 @@ Instantly display:
 - Monthly payment swap (Old Bill vs. Solar + Loan)
 - 25-Year Total Savings
 - Break-even point (ROI)
+- One-click "Copy Summary" to text prospects
 
 ### **4. Close the Deal**
 
 Click **"Export PDF"** to generate:
 
-- **Client Proposal:** A clean, branded PDF for the homeowner
+- **Client Proposal:** A clean, branded PDF for the homeowner (in their language)
 - **Sales Sheet:** A detailed technical breakdown for your records
+
+### **5. Track & Follow Up**
+
+- **Last Contacted** timestamps on every lead
+- Never knock the same door twice by mistake
+- Prioritize follow-ups at a glance
 
 ---
 
 ## 🎯 Perfect For
 
-- **Door-to-Door Reps:** No signal? No problem
+- **Door-to-Door Reps:** No signal? No problem. Works 100% offline
+- **Multi-Language Markets:** Serve Spanish, Italian, French, and German customers with native-language proposals
 - **Privacy-Conscious Teams:** Stop feeding your lead data to SaaS aggregators
 - **Speed Closers:** When you don't have 15 minutes to wait for a complex CAD design
+- **Text-First Closers:** Copy formatted savings to text prospects instantly
 
 ---
 
@@ -81,6 +92,29 @@ We don't hide our math. We use realistic, conservative numbers to build trust:
 - **Inflation**: 4% annual utility rate increase (customizable)
 
 _Want to check the math? [Read the Code.](https://github.com/Teycir/SolarClose/blob/main/src/lib/calculations.ts)_
+
+---
+
+## 🌍 Multi-Language Support
+
+**Fully localized in 5 languages** - Not just the UI, but everything:
+
+- 🇺🇸 **English** - Complete interface, PDFs, and calculations
+- 🇪🇸 **Spanish (Español)** - Perfect for US Hispanic markets and Latin America
+- 🇮🇹 **Italian (Italiano)** - Serve Italian-speaking customers
+- 🇫🇷 **French (Français)** - For French-speaking markets
+- 🇩🇪 **German (Deutsch)** - Complete German localization
+
+**What's translated:**
+- ✅ Entire user interface
+- ✅ PDF proposals (client-facing)
+- ✅ PDF sales sheets (internal)
+- ✅ All form labels and buttons
+- ✅ Error messages and tooltips
+- ✅ Currency formatting ($/€)
+- ✅ Date formatting (US/EU styles)
+
+**Switch languages instantly** - One click in the top-left corner. Your leads remember their language preference.
 
 ---
 

@@ -1,4 +1,4 @@
-# 🚀 New Features Added to SolarClose
+# 🚀 Features in SolarClose
 
 ## 1. 🌳 Environmental Impact Card
 **Purpose**: Appeal to emotional decision-making by showing environmental benefits
@@ -71,6 +71,82 @@ navigator.share({
 
 ---
 
+## 5. 📋 Quick Copy Summary
+**Purpose**: Instant text/email follow-up with formatted talking points
+
+**What it copies:**
+```
+✅ $XX,XXX saved over 25 years
+✅ Break-even in Year X
+✅ XX% bill offset
+✅ Equivalent to planting XXX trees
+```
+
+**Features:**
+- One-click clipboard copy
+- Visual feedback (checkmark icon)
+- Perfect for texting prospects
+- Handles "I need to think about it" objections
+- Works offline (native Clipboard API)
+
+**Location:** Below 25-year savings in Results Card
+
+**Use Case:** Rep at door: "Let me text you these numbers so you can show your spouse"
+
+---
+
+## 6. 🕒 Last Contacted Timestamp
+**Purpose**: Prevent duplicate visits and prioritize follow-ups
+
+**What it shows:**
+- "Last contacted: today"
+- "Last contacted: yesterday"
+- "Last contacted: X days ago"
+
+**Features:**
+- Automatic calculation from `updatedAt` field
+- Relative time display
+- Multi-language support
+- Quick visual scan of lead freshness
+
+**Location:** Lead list view (under each lead's address)
+
+**Benefits:**
+- Prevents awkward "didn't I already knock here?" moments
+- Helps prioritize which leads need follow-up
+- Quick visual scan of territory coverage
+
+---
+
+## 7. 🌍 Complete Multi-Language Support
+**Purpose**: Serve diverse markets with native-language proposals
+
+**Languages:**
+- 🇺🇸 English
+- 🇪🇸 Spanish (Español)
+- 🇮🇹 Italian (Italiano)
+- 🇫🇷 French (Français)
+- 🇩🇪 German (Deutsch)
+
+**What's translated:**
+- Entire UI (144 translation keys)
+- Client-facing PDFs
+- Internal sales sheets
+- Form labels and tooltips
+- Error messages
+- Currency formatting ($/€)
+- Date formatting (US/EU styles)
+
+**Features:**
+- One-click language switcher
+- Language preference saved per lead
+- Automatic currency switching (USD/EUR)
+- Native date formats
+
+**Location:** Top-left corner (flag selector)
+
+---
+
 ## 🎯 Impact Summary
 
 ### Sales Psychology Benefits:
@@ -90,7 +166,10 @@ navigator.share({
 - Savings Chart: ~60 lines
 - Bill Swap: ~70 lines
 - Share Button: ~30 lines
-- **Total: ~210 lines of code**
+- Quick Copy Summary: ~40 lines
+- Last Contacted: ~15 lines
+- Multi-Language: ~8,000 lines (144 keys × 5 languages)
+- **Total: ~8,265 lines of feature code**
 
 ---
 

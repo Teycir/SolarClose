@@ -6,6 +6,7 @@ import { formatCurrency } from "@/lib/currency";
 import { getTranslation, type TranslationKey } from "@/lib/translations";
 import { AnimatedNumber } from './AnimatedNumber';
 import { Confetti } from './Confetti';
+import { Copy, Check } from 'lucide-react';
 
 interface ResultsCardProps {
   data: SolarLead;
@@ -24,6 +25,7 @@ function getTranslate(language: string | undefined) {
 export function ResultsCard({ data }: ResultsCardProps) {
   const t = getTranslate(data.language);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [copied, setCopied] = useState(false);
   
   useEffect(() => {
     if (data.twentyFiveYearSavings > 50000) {
@@ -49,6 +51,24 @@ export function ResultsCard({ data }: ResultsCardProps) {
   const progressBarColor = isNegativeSavings ? "bg-destructive" : "bg-primary";
   const savingsTextColor = isNegativeSavings ? "text-destructive" : "text-primary";
   const formattedAnnualProduction = Math.round(annualProduction).toLocaleString();
+
+  const DAYS_PER_YEAR = 365;
+  const CO2_PER_KWH = 0.85;
+  const co2SavedLbs = Math.round(annualProduction * CO2_PER_KWH * 25);
+  const treesEquivalent = Math.round(co2SavedLbs / 48);
+
+  const handleCopySummary = async () => {
+    const currencySymbol = data.currency === 'EUR' ? '€' : '$';
+    const summary = `✅ ${currencySymbol}${Math.abs(data.twentyFiveYearSavings).toLocaleString()} saved over 25 years\n✅ Break-even in Year ${data.breakEvenYear || 'N/A'}\n✅ ${Math.round(offsetPercentage)}% bill offset\n✅ Equivalent to planting ${treesEquivalent.toLocaleString()} trees`;
+    
+    try {
+      await navigator.clipboard.writeText(summary);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   return (
     <article
@@ -76,18 +96,8 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
       </div>
 
-      <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg relative group">
+      <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg relative">
         <Confetti trigger={showConfetti} />
-        <button
-          onClick={() => {
-            const value = `${data.currency === 'EUR' ? '€' : '$'}${Math.abs(data.twentyFiveYearSavings).toLocaleString()}`;
-            navigator.clipboard.writeText(value);
-          }}
-          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-secondary-foreground/10 rounded"
-          title="Copy to clipboard"
-        >
-          📋
-        </button>
         <h2 className="text-xs sm:text-sm text-muted-foreground mb-2">
           {isNegativeSavings
             ? t("twentyFiveYearLoss")
@@ -102,6 +112,14 @@ export function ResultsCard({ data }: ResultsCardProps) {
             suffix={isNegativeSavings ? ` ${t("loss")}` : ''}
           />
         </p>
+        <button
+          onClick={handleCopySummary}
+          className="mt-4 flex items-center gap-2 mx-auto px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-lg transition-all text-sm font-medium"
+          title={t('copySummary')}
+        >
+          {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+          {copied ? t('copied') : t('copySummary')}
+        </button>
       </div>
 
       <div className="space-y-3">

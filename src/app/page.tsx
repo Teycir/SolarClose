@@ -321,10 +321,16 @@ export default function Home() {
                       {lead.clientName || "Unnamed Lead"}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {lead.address || "No address"} •
-                      {lead.updatedAt
-                        ? ` Updated ${new Date(lead.updatedAt).toLocaleDateString()}`
-                        : ` Created ${new Date(lead.createdAt).toLocaleDateString()}`}
+                      {lead.address || "No address"}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {(() => {
+                        const lastUpdate = lead.updatedAt || lead.createdAt;
+                        const daysDiff = Math.floor((Date.now() - lastUpdate) / (1000 * 60 * 60 * 24));
+                        if (daysDiff === 0) return `🕒 ${t('lastContacted')}: ${t('today')}`;
+                        if (daysDiff === 1) return `🕒 ${t('lastContacted')}: ${t('yesterday')}`;
+                        return `🕒 ${t('lastContacted')}: ${daysDiff} ${t('daysAgo')}`;
+                      })()}
                     </div>
                   </button>
                   <button
