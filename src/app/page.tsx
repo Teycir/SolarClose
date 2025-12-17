@@ -214,7 +214,7 @@ export default function Home() {
             <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">
               {t("title")}
             </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1 whitespace-pre-line">
               {t("subtitle")}
             </p>
           </div>
