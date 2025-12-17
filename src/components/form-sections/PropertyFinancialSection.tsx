@@ -45,9 +45,9 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             <option value="">{t('selectType')}</option>
             <option value="Residential">{t('residential')}</option>
             <option value="Commercial">{t('commercial')}</option>
-            <option value="Industrial">Industrial</option>
-            <option value="Agricultural">Agricultural</option>
-            <option value="Multi-Family">Multi-Family</option>
+            <option value="Industrial">{t('industrial')}</option>
+            <option value="Agricultural">{t('agricultural')}</option>
+            <option value="Multi-Family">{t('multiFamily')}</option>
           </select>
         </div>
         <div>
@@ -119,9 +119,9 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             <option value="Metal">{t('metal')}</option>
             <option value="Tile">{t('tile')}</option>
             <option value="Flat">{t('flat')}</option>
-            <option value="Concrete">Concrete</option>
-            <option value="Wood Shake">Wood Shake</option>
-            <option value="Slate">Slate</option>
+            <option value="Concrete">{t('concrete')}</option>
+            <option value="Wood Shake">{t('woodShake')}</option>
+            <option value="Slate">{t('slate')}</option>
             <option value="TPO">TPO</option>
             <option value="EPDM">EPDM</option>
           </select>
@@ -150,11 +150,12 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             value={data.utilityProvider || ''}
             onChange={(e) => {
               const value = e.target.value;
-              const sanitized = value.replace(/[^a-zA-Z0-9\s&.-]/g, '');
+              const sanitized = value.replace(/[^a-zA-Z0-9\s&.-]/g, '').slice(0, 100);
               onUpdate({ utilityProvider: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder={`${t('eg')} PG and E`}
+            maxLength={100}
           />
         </div>
         <div>
@@ -180,7 +181,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
           value={data.notes || ''}
           onChange={(e) => {
             try {
-              const sanitized = e.target.value.replace(/[<>"]/g, '').slice(0, 2000);
+              const sanitized = e.target.value.replace(/[<>"]/g, '').slice(0, 1000);
               onUpdate({ notes: sanitized });
             } catch (error) {
               console.error('Error updating notes:', error instanceof Error ? error.message : 'Unknown error');
@@ -189,7 +190,9 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder={t('placeholderNotes')}
           rows={3}
+          maxLength={1000}
         />
+        <div className="text-xs text-muted-foreground mt-1">{(data.notes || '').length}/1000</div>
       </div>
     </>
   );

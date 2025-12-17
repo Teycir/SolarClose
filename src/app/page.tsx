@@ -247,7 +247,7 @@ export default function Home() {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-muted-foreground" role="status" aria-live="polite">
-          Loading...
+          {t('loading')}
         </p>
       </main>
     );
@@ -294,20 +294,20 @@ export default function Home() {
             aria-live="polite"
           >
             {saveStatus === "saving" && (
-              <span aria-label="Saving">💾 Saving...</span>
+              <span aria-label={t('saving')}>💾 {t('saving')}</span>
             )}
             {saveStatus === "saved" && (
-              <span aria-label="Saved successfully">✓ Saved</span>
+              <span aria-label={t('saved')}>✓ {t('saved')}</span>
             )}
             {saveStatus === "error" && (
-              <span aria-label="Save error">⚠ Error</span>
+              <span aria-label={t('error')}>⚠ {t('error')}</span>
             )}
           </div>
-          <div className="flex flex-wrap justify-center items-center gap-3">
+          <div className="flex flex-wrap justify-center items-center gap-2">
             <Tooltip text={t("tooltipNewLead")}>
               <button
                 onClick={handleNewLead}
-                className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button"
+                className="min-w-[80px] max-w-[100px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-2 rounded-lg transition-all text-[9px] sm:text-[10px] shadow-md shimmer-button"
                 aria-label="Create new lead"
               >
                 <span className="block truncate">➕ {t("newLead")}</span>
@@ -317,7 +317,7 @@ export default function Home() {
               <button
                 onClick={() => setShowLeads(!showLeads)}
                 disabled={allLeads.length === 0}
-                className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+                className="min-w-[80px] max-w-[110px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-2 rounded-lg transition-all text-[9px] sm:text-[10px] shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="block truncate">
                   {showLeads
@@ -330,9 +330,9 @@ export default function Home() {
               <button
                 onClick={handleSaveLead}
                 disabled={isDefaultLead || justSaved}
-                className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+                className="min-w-[80px] max-w-[100px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-2 rounded-lg transition-all text-[9px] sm:text-[10px] shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="block truncate">{justSaved ? `✓ ${t("savedLead")}` : `💾 ${t("saveLead")}`}</span>
+                <span className="block truncate">{justSaved ? `✓ ${t("saved")}` : `💾 ${t("saveLead")}`}</span>
               </button>
             </Tooltip>
             <DataBackup data={data} />
@@ -343,7 +343,7 @@ export default function Home() {
         {showLeads && allLeads.length > 0 && (
           <div className="mb-4 bg-card/80 backdrop-blur-sm border rounded-lg p-4 shadow-lg">
             <div className="flex justify-between items-center mb-2">
-              <h3 className="font-semibold">All Leads ({allLeads.length})</h3>
+              <h3 className="font-semibold">{t('allLeads')} ({allLeads.length})</h3>
               <button
                 onClick={() => {
                   setConfirmDialog({
@@ -355,7 +355,7 @@ export default function Home() {
                 }}
                 className="text-xs text-destructive hover:underline"
               >
-                Clear All
+                {t('clearAll')}
               </button>
             </div>
             <div className="space-y-2 max-h-60 overflow-y-auto">
@@ -368,10 +368,10 @@ export default function Home() {
                     }`}
                   >
                     <div className="font-medium">
-                      {lead.clientName || "Unnamed Lead"}
+                      {lead.clientName || t('unnamedLead')}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {lead.address || "No address"}
+                      {lead.address || t('noAddress')}
                     </div>
                     <div className="text-xs text-muted-foreground mt-1">
                       {(() => {
@@ -388,7 +388,7 @@ export default function Home() {
                       setConfirmDialog({
                         isOpen: true,
                         title: t('deleteLead'),
-                        message: `${t('areYouSureDelete')} "${lead.clientName || "Unnamed Lead"}"?`,
+                        message: `${t('areYouSureDelete')} "${lead.clientName || t('unnamedLead')}"?`,
                         onConfirm: () => handleDeleteLead(lead.id),
                       });
                     }}
@@ -406,11 +406,9 @@ export default function Home() {
         {isDefaultLead && (
           <div className="mb-6 bg-gradient-to-r from-yellow-400/20 via-orange-500/20 to-yellow-600/20 border-2 border-yellow-500/50 rounded-lg p-6 text-center">
             <div className="text-4xl mb-3">👋</div>
-            <h3 className="text-xl font-bold mb-2">Welcome to SolarClose!</h3>
+            <h3 className="text-xl font-bold mb-2">{t('welcomeTitle')}</h3>
             <p className="text-muted-foreground">
-              To get started, please click{" "}
-              <strong>&quot;➕ New Lead&quot;</strong> above to create a new
-              lead.{allLeads.length > 0 ? " Or select an existing lead." : ""}
+              {t('welcomeMessage')}{allLeads.length > 0 ? " " + t('viewLeads').toLowerCase() + "." : ""}
             </p>
           </div>
         )}
@@ -459,9 +457,9 @@ export default function Home() {
                 <button
                   onClick={handleSaveLead}
                   disabled={isDefaultLead || justSaved}
-                  className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                 >
-                  {justSaved ? `✓ ${t("savedLead")}` : `💾 ${t("saveLead")}`}
+                  {justSaved ? `✓ ${t("saved")}` : `💾 ${t("saveLead")}`}
                 </button>
               </div>
             </div>
@@ -520,8 +518,8 @@ export default function Home() {
           confirmText={confirmDialog.title.includes(t('missingRequiredFields')) ? t('ok') : t('confirm')}
           cancelText={confirmDialog.title.includes(t('missingRequiredFields')) ? "" : t('cancel')}
           isDangerous={
-            confirmDialog.title.includes("Delete") ||
-            confirmDialog.title.includes("Clear")
+            confirmDialog.title.includes(t('deleteLead')) ||
+            confirmDialog.title.includes(t('clearAllLeads'))
           }
         />
       )}

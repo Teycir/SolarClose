@@ -99,15 +99,15 @@ export function DataBackup({ data }: DataBackupProps) {
         <button
           onClick={exportData}
           disabled={status === 'exporting'}
-          className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
+          className="min-w-[80px] max-w-[100px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-2 rounded-lg transition-all text-[9px] sm:text-[10px] shadow-md shimmer-button disabled:opacity-50"
         >
           <span className="block truncate">⬇️ {t('backup')}</span>
         </button>
       </Tooltip>
       
       <Tooltip text={t('tooltipRestore')}>
-        <label className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button cursor-pointer block text-center">
-          ⬆️ {t('restore')}
+        <label className="min-w-[80px] max-w-[100px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-2 rounded-lg transition-all text-[9px] sm:text-[10px] shadow-md shimmer-button cursor-pointer block text-center">
+          <span className="block truncate">⬆️ {t('restore')}</span>
           <input
             type="file"
             accept=".json"

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { openDB } from 'idb';
 import { ConfirmDialog } from './ConfirmDialog';
+import { getTranslation, type Language, type TranslationKey } from '@/lib/translations';
 
 interface ProductDescription {
   id: string;
@@ -13,9 +14,11 @@ interface ProductDescription {
 interface ProductDescriptionManagerProps {
   currentDescription: string;
   onSelect: (description: string) => void;
+  language?: Language;
 }
 
-export function ProductDescriptionManager({ currentDescription, onSelect }: ProductDescriptionManagerProps) {
+export function ProductDescriptionManager({ currentDescription, onSelect, language = 'en' }: ProductDescriptionManagerProps) {
+  const t = (key: string) => getTranslation(language, key as TranslationKey);
   const [descriptions, setDescriptions] = useState<ProductDescription[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
@@ -99,35 +102,35 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
           disabled={!currentDescription.trim()}
           className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
         >
-          💾 Save
+          💾 {t('save')}
         </button>
-        {saveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
+        {saveSuccess && <span className="text-xs text-green-600">✓ {t('saved')}</span>}
         <button
           type="button"
           onClick={() => setShowList(!showList)}
           className="text-xs bg-secondary px-3 py-1 rounded hover:opacity-90"
         >
-          {showList ? '✕ Hide' : `📋 Saved (${descriptions.length})`}
+          {showList ? `✕ ${t('hide')}` : `📋 ${t('saved')} (${descriptions.length})`}
         </button>
       </div>
 
       {showList && descriptions.length > 0 && (
         <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-60 overflow-y-auto">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-semibold">Saved</span>
+            <span className="text-xs font-semibold">{t('saved')}</span>
             <button
               type="button"
               onClick={() => {
                 setConfirmDialog({
                   isOpen: true,
-                  title: 'Clear All',
-                  message: 'Delete all saved product descriptions?',
+                  title: t('clearAll'),
+                  message: t('clearAllConfirmation'),
                   onConfirm: clearAllDescriptions
                 });
               }}
               className="text-xs text-destructive hover:underline"
             >
-              Clear All
+              {t('clearAll')}
             </button>
           </div>
           {descriptions.map(desc => (
@@ -147,8 +150,8 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
                 onClick={() => {
                   setConfirmDialog({
                     isOpen: true,
-                    title: 'Delete Template',
-                    message: 'Are you sure you want to delete this template?',
+                    title: t('delete'),
+                    message: t('deleteConfirmation'),
                     onConfirm: () => deleteDescription(desc.id)
                   });
                 }}
@@ -168,9 +171,9 @@ export function ProductDescriptionManager({ currentDescription, onSelect }: Prod
           message={confirmDialog.message}
           onConfirm={confirmDialog.onConfirm}
           onCancel={() => setConfirmDialog(null)}
-          confirmText="Confirm"
-          cancelText="Cancel"
-          isDangerous={confirmDialog.title.includes('Delete') || confirmDialog.title.includes('Clear')}
+          confirmText={t('confirm')}
+          cancelText={t('cancel')}
+          isDangerous={confirmDialog.title.includes(t('delete')) || confirmDialog.title.includes(t('clearAll'))}
         />
       )}
     </div>

@@ -44,6 +44,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
         <ProductDescriptionManager
           currentDescription={data.productDescription}
           onSelect={(desc) => onUpdate({ productDescription: desc })}
+          language={lang}
         />
       </div>
 
@@ -52,21 +53,24 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
         <textarea
           value={data.proposalConditions || ''}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"]/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '').slice(0, 800);
             onUpdate({ proposalConditions: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder={t('proposalCondPlaceholder')}
           rows={3}
+          maxLength={800}
           required
           aria-required="true"
         />
+        <div className="text-xs text-muted-foreground mt-1">{(data.proposalConditions || '').length}/800</div>
         <GenericDataManager
           storeName="proposal-conditions"
           currentValue={data.proposalConditions || ''}
           onSelect={(conditions) => onUpdate({ proposalConditions: conditions })}
           label="proposal condition"
           multiline={true}
+          language={lang}
         />
       </div>
 
@@ -76,12 +80,13 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
           type="text"
           value={data.companyName}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.,-]/g, '');
+            const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.,-]/g, '').slice(0, 100);
             saveToLocalStorage('solarclose-company', sanitized);
             onUpdate({ companyName: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder={t('placeholderCompany')}
+          maxLength={100}
           required
           aria-required="true"
         />
@@ -117,12 +122,13 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             type="tel"
             value={data.companyPhone}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^0-9+\-() ]/g, '');
+              const sanitized = e.target.value.replace(/[^0-9+\-() ]/g, '').slice(0, 30);
               saveToLocalStorage('solarclose-phone', sanitized);
               onUpdate({ companyPhone: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder="(555) 000-0000"
+            maxLength={30}
             required
             aria-required="true"
           />
@@ -134,6 +140,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
               onUpdate({ companyPhone: phone });
             }}
             label="phone"
+            language={lang}
           />
         </div>
         <div>
@@ -142,12 +149,13 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             type="text"
             value={data.salesRep || ''}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
+              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '').slice(0, 100);
               saveToLocalStorage('solarclose-salesrep', sanitized);
               onUpdate({ salesRep: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder={t('placeholderSalesRep')}
+            maxLength={100}
             required
             aria-required="true"
           />
@@ -159,6 +167,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
               onUpdate({ salesRep: name });
             }}
             label="sales rep"
+            language={lang}
           />
         </div>
       </div>

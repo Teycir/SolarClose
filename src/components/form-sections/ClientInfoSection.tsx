@@ -31,14 +31,15 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
           value={data.clientName}
           onChange={(e) => {
             try {
-              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
+              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '').slice(0, 100);
               onUpdate({ clientName: sanitized });
             } catch (error) {
               console.error('Error updating client name:', error instanceof Error ? error.message : 'Unknown error');
             }
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
-          placeholder="John Doe"
+          placeholder={t('johnDoe')}
+          maxLength={100}
           required
           aria-required="true"
         />
@@ -50,11 +51,12 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
           type="text"
           value={data.address}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"]/g, '');
+            const sanitized = e.target.value.replace(/[<>"]/g, '').slice(0, 200);
             onUpdate({ address: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="123 Main St"
+          maxLength={200}
           required
           aria-required="true"
         />
@@ -67,11 +69,12 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
             type="tel"
             value={data.phone || ''}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^0-9+\-() ]/g, '');
+              const sanitized = e.target.value.replace(/[^0-9+\-() ]/g, '').slice(0, 30);
               onUpdate({ phone: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder="(555) 123-4567"
+            maxLength={30}
           />
         </div>
         <div>

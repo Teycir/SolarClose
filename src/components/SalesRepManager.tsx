@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { openDB } from 'idb';
 import { ConfirmDialog } from './ConfirmDialog';
+import { getTranslation, type Language, type TranslationKey } from '@/lib/translations';
 
 interface SalesRepItem {
   id: string;
@@ -13,9 +14,11 @@ interface SalesRepItem {
 interface SalesRepManagerProps {
   currentName: string;
   onSelect: (name: string) => void;
+  language?: Language;
 }
 
-export function SalesRepManager({ currentName, onSelect }: SalesRepManagerProps) {
+export function SalesRepManager({ currentName, onSelect, language = 'en' }: SalesRepManagerProps) {
+  const t = (key: string) => getTranslation(language, key as TranslationKey);
   const [items, setItems] = useState<SalesRepItem[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
@@ -86,35 +89,35 @@ export function SalesRepManager({ currentName, onSelect }: SalesRepManagerProps)
           disabled={!currentName.trim()}
           className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
         >
-          💾 Save
+          💾 {t('save')}
         </button>
-        {saveSuccess && <span className="text-xs text-green-600">✓ Saved</span>}
+        {saveSuccess && <span className="text-xs text-green-600">✓ {t('saved')}</span>}
         <button
           type="button"
           onClick={() => setShowList(!showList)}
           className="text-xs bg-secondary px-3 py-1 rounded hover:opacity-90"
         >
-          {showList ? '✕ Hide' : `📋 Saved (${items.length})`}
+          {showList ? `✕ ${t('hide')}` : `📋 ${t('saved')} (${items.length})`}
         </button>
       </div>
 
       {showList && items.length > 0 && (
         <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-3 space-y-2 max-h-40 overflow-y-auto mt-2">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-xs font-semibold">Saved</span>
+            <span className="text-xs font-semibold">{t('saved')}</span>
             <button
               type="button"
               onClick={() => {
                 setConfirmDialog({
                   isOpen: true,
-                  title: 'Clear All',
-                  message: 'Delete all saved sales reps?',
+                  title: t('clearAll'),
+                  message: t('clearAllConfirmation'),
                   onConfirm: clearAll
                 });
               }}
               className="text-xs text-destructive hover:underline"
             >
-              Clear All
+              {t('clearAll')}
             </button>
           </div>
           {items.map(item => (
@@ -134,8 +137,8 @@ export function SalesRepManager({ currentName, onSelect }: SalesRepManagerProps)
                 onClick={() => {
                   setConfirmDialog({
                     isOpen: true,
-                    title: 'Delete',
-                    message: `Delete "${item.name}"?`,
+                    title: t('delete'),
+                    message: `${t('deleteConfirmation')} "${item.name}"?`,
                     onConfirm: () => deleteItem(item.id)
                   });
                 }}
@@ -155,8 +158,8 @@ export function SalesRepManager({ currentName, onSelect }: SalesRepManagerProps)
           message={confirmDialog.message}
           onConfirm={confirmDialog.onConfirm}
           onCancel={() => setConfirmDialog(null)}
-          confirmText="Confirm"
-          cancelText="Cancel"
+          confirmText={t('confirm')}
+          cancelText={t('cancel')}
           isDangerous={true}
         />
       )}
