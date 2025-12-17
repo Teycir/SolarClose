@@ -43,6 +43,9 @@ export function ExportButton({ data }: ExportButtonProps) {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Failed to generate PDF:', errorMessage.replace(/[\r\n]/g, ' '));
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
     } finally {
       setIsGenerating(false);
     }

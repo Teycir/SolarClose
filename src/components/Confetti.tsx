@@ -12,16 +12,24 @@ export function Confetti({ trigger }: ConfettiProps) {
   useEffect(() => {
     if (!trigger) return;
 
-    const colors = ['#FCD34D', '#FB923C', '#FBBF24', '#F59E0B', '#EAB308'];
-    const newParticles = Array.from({ length: 100 }, (_, i) => ({
-      id: Date.now() + i,
-      x: Math.random() * 100,
-      delay: Math.random() * 0.5,
-      color: colors[Math.floor(Math.random() * colors.length)]
-    }));
+    try {
+      const colors = ['#FCD34D', '#FB923C', '#FBBF24', '#F59E0B', '#EAB308'];
+      const newParticles = Array.from({ length: 100 }, (_, i) => ({
+        id: Date.now() + i,
+        x: Math.random() * 100,
+        delay: Math.random() * 0.5,
+        color: colors[Math.floor(Math.random() * colors.length)] || colors[0]
+      }));
 
-    setParticles(newParticles);
-    setTimeout(() => setParticles([]), 5000);
+      setParticles(newParticles);
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
+      console.error('Failed to create confetti:', errorMsg);
+      return;
+    }
+
+    const timer = setTimeout(() => setParticles([]), 5000);
+    return () => clearTimeout(timer);
   }, [trigger]);
 
   if (particles.length === 0) return null;

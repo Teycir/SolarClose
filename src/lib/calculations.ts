@@ -60,7 +60,8 @@ const EMPTY_RESULT: SolarCalculationResults = {
  */
 export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalculationResults {
   try {
-    console.log('[CALC] Received inputs:', inputs);
+    const sanitizedInputs = JSON.stringify(inputs).replace(/[\r\n]/g, ' ');
+    console.log('[CALC] Received inputs:', sanitizedInputs);
     const {
       currentMonthlyBill = 0,
       yearlyInflationRate = 0,
@@ -76,7 +77,7 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
       downPayment = 0,
       has25YearInverterWarranty = false
     } = inputs ?? {};
-    console.log('[CALC] Destructured currentMonthlyBill:', currentMonthlyBill);
+    console.log('[CALC] Destructured currentMonthlyBill:', String(currentMonthlyBill).replace(/[\r\n]/g, ' '));
     
     // Validate inputs
     const hasInvalidInputs =
@@ -134,7 +135,7 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
   
   // Calculate current annual usage
   const currentAnnualUsage = electricityRate > 0 ? (currentMonthlyBill / electricityRate) * 12 : 0;
-  console.log('[CALC] currentAnnualUsage (kWh):', currentAnnualUsage, '= (', currentMonthlyBill, '/', electricityRate, ') * 12');
+  console.log('[CALC] currentAnnualUsage (kWh):', String(currentAnnualUsage).replace(/[\r\n]/g, ' '), '= (', String(currentMonthlyBill).replace(/[\r\n]/g, ' '), '/', String(electricityRate).replace(/[\r\n]/g, ' '), ') * 12');
   
   let cumulativeSavings = financingOption === 'Loan' ? -downPayment : -netSystemCost;
   let breakEvenYear: number | null = null;
@@ -148,7 +149,7 @@ export function calculateSolarSavings(inputs: SolarCalculationInputs): SolarCalc
     // Utility cost with inflation
     const utilityWithoutSolar = currentMonthlyBill * 12 * inflationFactor;
     if (year === 1) {
-      console.log('[CALC] Year 1 utilityWithoutSolar:', utilityWithoutSolar, '= ', currentMonthlyBill, '* 12 *', inflationFactor);
+      console.log('[CALC] Year 1 utilityWithoutSolar:', String(utilityWithoutSolar).replace(/[\r\n]/g, ' '), '= ', String(currentMonthlyBill).replace(/[\r\n]/g, ' '), '* 12 *', String(inflationFactor).replace(/[\r\n]/g, ' '));
     }
     
     // Solar production degrades each year

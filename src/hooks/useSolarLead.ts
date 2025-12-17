@@ -37,6 +37,9 @@ const getDB = async () => {
       const errorMsg = error instanceof Error ? error.message : String(error);
       const sanitizedError = errorMsg.replace(/[\r\n]/g, ' ');
       console.error('Failed to open IndexedDB:', sanitizedError);
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
       dbPromise = null;
       throw error;
     });
@@ -124,6 +127,9 @@ export function useSolarLead(leadId: string) {
         const errorMsg = error instanceof Error ? error.message : String(error);
         const sanitizedError = errorMsg.replace(/[\r\n]/g, ' ');
         console.error('Failed to load lead:', sanitizedError);
+        if (error instanceof Error && error.stack) {
+          console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+        }
         if (isMounted) {
           setSaveStatus('error');
         }
@@ -134,6 +140,9 @@ export function useSolarLead(leadId: string) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       const sanitizedError = errorMsg.replace(/[\r\n]/g, ' ');
       console.error('Unhandled error in loadData:', sanitizedError);
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
     });
     
     return () => {
@@ -158,6 +167,9 @@ export function useSolarLead(leadId: string) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       const sanitizedError = errorMsg.replace(/[\r\n]/g, ' ');
       console.error('Failed to save lead:', sanitizedError);
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
       setSaveStatus('error');
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
       statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 3000);
@@ -169,7 +181,15 @@ export function useSolarLead(leadId: string) {
       if (!prev) return null;
       const updated = { ...prev, ...updates };
       if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(() => saveToIndexedDB(updated), 500);
+      debounceRef.current = setTimeout(() => {
+        saveToIndexedDB(updated).catch((error) => {
+          const errorMsg = error instanceof Error ? error.message : String(error);
+          console.error('Error in debounced save:', errorMsg.replace(/[\r\n]/g, ' '));
+          if (error instanceof Error && error.stack) {
+            console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+          }
+        });
+      }, 500);
       return updated;
     });
   }, [saveToIndexedDB]);
@@ -189,6 +209,9 @@ export function useSolarLead(leadId: string) {
       const errorMsg = error instanceof Error ? error.message : String(error);
       const sanitizedError = errorMsg.replace(/[\r\n]/g, ' ');
       console.error('Unexpected error in saveLead:', sanitizedError);
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
     }
   }, [data, saveToIndexedDB]);
 

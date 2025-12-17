@@ -31,9 +31,14 @@ export function ConfirmDialog({
   const confirmButtonClass = `${baseButtonClass} ${isDangerous ? dangerClass : primaryClass}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="dialog-title"
+    >
       <div className="bg-card border rounded-lg shadow-2xl max-w-md w-full p-6 space-y-4">
-        <h3 className="text-lg font-semibold">{title}</h3>
+        <h3 id="dialog-title" className="text-lg font-semibold">{title}</h3>
         <p className="text-sm text-muted-foreground">{message}</p>
         <div className="flex gap-3 justify-end">
           <button
@@ -43,6 +48,9 @@ export function ConfirmDialog({
               } catch (error: unknown) {
                 const errorMessage = error instanceof Error ? error.message : String(error);
                 console.error('Error in cancel handler:', errorMessage.replace(/[\r\n]/g, ' '));
+                if (error instanceof Error && error.stack) {
+                  console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+                }
               }
             }}
             className={cancelButtonClass}
@@ -56,6 +64,9 @@ export function ConfirmDialog({
               } catch (error: unknown) {
                 const errorMessage = error instanceof Error ? error.message : String(error);
                 console.error('Error in confirm handler:', errorMessage.replace(/[\r\n]/g, ' '));
+                if (error instanceof Error && error.stack) {
+                  console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+                }
               }
             }}
             className={confirmButtonClass}

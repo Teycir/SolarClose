@@ -685,7 +685,11 @@ export type TranslationKey = keyof typeof translations.en;
 
 export function getTranslation(lang: Language, key: TranslationKey): string {
   try {
-    return translations[lang]?.[key] || translations.en[key] || key;
+    const langTranslation = translations[lang]?.[key];
+    if (langTranslation) return langTranslation;
+    const enTranslation = translations.en[key];
+    if (enTranslation) return enTranslation;
+    return key;
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Translation error:', errorMessage.replace(/[\r\n]/g, ' '));

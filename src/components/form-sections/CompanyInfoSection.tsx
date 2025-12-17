@@ -21,7 +21,7 @@ const saveToLocalStorage = (key: string, value: string) => {
 
 export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) {
   const lang = (data.language || 'en') as Language;
-  const t = (key: string) => getTranslation(lang, key as any);
+  const t = (key: string) => getTranslation(lang, key as TranslationKey);
 
   return (
     <>
@@ -30,7 +30,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
         <textarea
           value={data.productDescription}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[<>"]/g, '').substring(0, 500);
+            const sanitized = e.target.value.replace(/[<>"'&]/g, '').substring(0, 500);
             onUpdate({ productDescription: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
@@ -169,8 +169,12 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
           type="email"
           value={data.companyEmail || ''}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase();
-            onUpdate({ companyEmail: sanitized });
+            try {
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase().slice(0, 254);
+              onUpdate({ companyEmail: sanitized });
+            } catch (error) {
+              console.error('Error updating company email:', error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error');
+            }
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="info@company.com"

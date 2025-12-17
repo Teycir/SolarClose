@@ -44,35 +44,51 @@ export default function Home() {
   const isDefaultLead = currentLeadId === "default-lead";
 
   // Auto-recalculate when inputs change
+  const shouldRecalculate = useCallback(() => {
+    return data && !isDefaultLead;
+  }, [data, isDefaultLead]);
+
   useEffect(() => {
-    if (!data || isDefaultLead) return;
+    if (!shouldRecalculate()) return;
 
     const recalculate = async () => {
-      const { calculateSolarSavings } = await import("@/lib/calculations");
-      const results = calculateSolarSavings({
-        currentMonthlyBill: data.currentMonthlyBill,
-        yearlyInflationRate: data.yearlyInflationRate,
-        systemCost: data.systemCost,
-        systemSizeKw: data.systemSizeKw,
-        electricityRate: data.electricityRate,
-        sunHoursPerDay: data.sunHoursPerDay,
-        federalTaxCreditPercent: data.federalTaxCredit,
-        stateIncentiveDollars: data.stateIncentive,
-        financingOption: data.financingOption as "Cash" | "Loan" | undefined,
-        loanTerm: data.loanTerm,
-        downPayment: data.downPayment,
-        loanInterestRate: data.loanInterestRate,
-        has25YearInverterWarranty: data.has25YearInverterWarranty,
-      });
+      try {
+        if (!data) return;
+        const { calculateSolarSavings } = await import("@/lib/calculations");
+        const results = calculateSolarSavings({
+          currentMonthlyBill: data.currentMonthlyBill,
+          yearlyInflationRate: data.yearlyInflationRate,
+          systemCost: data.systemCost,
+          systemSizeKw: data.systemSizeKw,
+          electricityRate: data.electricityRate,
+          sunHoursPerDay: data.sunHoursPerDay,
+          federalTaxCreditPercent: data.federalTaxCredit,
+          stateIncentiveDollars: data.stateIncentive,
+          financingOption: data.financingOption as "Cash" | "Loan" | undefined,
+          loanTerm: data.loanTerm,
+          downPayment: data.downPayment,
+          loanInterestRate: data.loanInterestRate,
+          has25YearInverterWarranty: data.has25YearInverterWarranty,
+        });
 
-      setData({
-        twentyFiveYearSavings: results.twentyFiveYearSavings,
-        breakEvenYear: results.breakEvenYear,
-        yearlyBreakdown: results.yearlyBreakdown,
-      });
+        setData({
+          twentyFiveYearSavings: results.twentyFiveYearSavings,
+          breakEvenYear: results.breakEvenYear,
+          yearlyBreakdown: results.yearlyBreakdown,
+        });
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message.replace(/[\r\n]/g, " ")
+            : "Unknown error";
+        console.error("Failed to recalculate:", errorMessage);
+      }
     };
 
-    recalculate();
+    recalculate().catch((error) => {
+      const errorMessage = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
+      console.error('Recalculate promise rejected:', errorMessage);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     data?.currentMonthlyBill,

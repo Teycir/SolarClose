@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import type { SolarLead } from '@/types/solar';
 import { formatCurrency } from '@/lib/currency';
 
@@ -12,29 +14,50 @@ const DAYS_PER_YEAR = 365;
 const PERFORMANCE_RATIO = 0.8;
 
 export function BillSwapComparison({ data }: BillSwapComparisonProps) {
-  if (data.financingOption !== 'Loan' || !data.loanTerm) return null;
+  const calculations = useMemo(() => {
+    if (data.financingOption !== 'Loan' || !data.loanTerm) return null;
 
-  const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
-  const netCost = Math.max(0, data.systemCost - federalCredit - data.stateIncentive);
-  const loanAmount = Math.max(0, netCost - (data.downPayment || 0));
-  const interestRate = (data.loanInterestRate || 6.99) / 100;
-  const monthlyRate = interestRate / MONTHS_PER_YEAR;
-  const numPayments = data.loanTerm * MONTHS_PER_YEAR;
-  let monthlyLoanPayment = 0;
-  if (loanAmount > 0) {
-    if (monthlyRate === 0) {
-      monthlyLoanPayment = loanAmount / numPayments;
-    } else {
-      monthlyLoanPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+    const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
+    const netCost = Math.max(0, data.systemCost - federalCredit - data.stateIncentive);
+    const loanAmount = Math.max(0, netCost - (data.downPayment || 0));
+    const interestRate = (data.loanInterestRate || 6.99) / 100;
+    const monthlyRate = interestRate / MONTHS_PER_YEAR;
+    const numPayments = data.loanTerm * MONTHS_PER_YEAR;
+    let monthlyLoanPayment = 0;
+    if (loanAmount > 0) {
+      if (monthlyRate === 0) {
+        monthlyLoanPayment = loanAmount / numPayments;
+      } else {
+        const rateCompounded = Math.pow(1 + monthlyRate, numPayments);
+        monthlyLoanPayment = (loanAmount * monthlyRate * rateCompounded) / (rateCompounded - 1);
+      }
     }
-  }
 
-  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
-  const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * MONTHS_PER_YEAR : 0;
-  const offsetPercentage = annualUsage > 0 ? Math.min(annualProduction / annualUsage, 1) : 0;
-  const estimatedNewBill = data.currentMonthlyBill * (1 - offsetPercentage);
-  const totalMonthlyPayment = monthlyLoanPayment + estimatedNewBill;
-  const monthlySavings = data.currentMonthlyBill - totalMonthlyPayment;
+    const annualProduction = data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
+    const annualUsage = data.electricityRate > 0 ? (data.currentMonthlyBill / data.electricityRate) * MONTHS_PER_YEAR : 0;
+    const offsetPercentage = annualUsage > 0 ? Math.min(annualProduction / annualUsage, 1) : 0;
+    const estimatedNewBill = data.currentMonthlyBill * (1 - offsetPercentage);
+    const totalMonthlyPayment = monthlyLoanPayment + estimatedNewBill;
+    const monthlySavings = data.currentMonthlyBill - totalMonthlyPayment;
+
+    return { monthlyLoanPayment, estimatedNewBill, totalMonthlyPayment, monthlySavings };
+  }, [
+    data.financingOption,
+    data.loanTerm,
+    data.systemCost,
+    data.federalTaxCredit,
+    data.stateIncentive,
+    data.downPayment,
+    data.loanInterestRate,
+    data.systemSizeKw,
+    data.sunHoursPerDay,
+    data.currentMonthlyBill,
+    data.electricityRate,
+  ]);
+
+  if (!calculations) return null;
+
+  const { monthlyLoanPayment, estimatedNewBill, totalMonthlyPayment, monthlySavings } = calculations;
 
   return (
     <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 backdrop-blur-sm border border-amber-700/50 rounded-lg p-4 sm:p-6 space-y-4">

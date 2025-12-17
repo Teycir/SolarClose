@@ -12,6 +12,13 @@ interface CompanyItem {
   createdAt: number;
 }
 
+interface ConfirmDialogState {
+  isOpen: boolean;
+  title: string;
+  message: string;
+  onConfirm: () => void;
+}
+
 interface CompanyManagerProps {
   currentName: string;
   currentLogo?: string;
@@ -27,7 +34,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const [items, setItems] = useState<CompanyItem[]>([]);
   const [showList, setShowList] = useState(false);
-  const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
+  const [confirmDialog, setConfirmDialog] = useState<ConfirmDialogState | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [logoSaveSuccess, setLogoSaveSuccess] = useState(false);
   const [logoError, setLogoError] = useState<string>('');
@@ -42,7 +49,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
       const stored = await db.getAll('companies');
       setItems(Array.isArray(stored) ? stored.sort((a, b) => b.createdAt - a.createdAt) : []);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
       console.error('Failed to load companies:', errorMessage);
       setItems([]);
     }

@@ -25,21 +25,26 @@ export function CalculatorForm({ data, onUpdate }: CalculatorFormProps) {
         sunHoursPerDay: data.sunHoursPerDay,
         federalTaxCreditPercent: data.federalTaxCredit,
         stateIncentiveDollars: data.stateIncentive,
-        financingOption: data.financingOption as any,
+        financingOption: (data.financingOption as 'Cash' | 'Loan') || 'Cash',
         loanTerm: data.loanTerm,
         downPayment: data.downPayment,
         loanInterestRate: data.loanInterestRate,
         has25YearInverterWarranty: data.has25YearInverterWarranty,
       });
 
-      onUpdate({
-        twentyFiveYearSavings: results.twentyFiveYearSavings,
-        breakEvenYear: results.breakEvenYear,
-        yearlyBreakdown: results.yearlyBreakdown,
-      });
+      if (results) {
+        onUpdate({
+          twentyFiveYearSavings: results.twentyFiveYearSavings,
+          breakEvenYear: results.breakEvenYear,
+          yearlyBreakdown: results.yearlyBreakdown,
+        });
+      }
     } catch (error) {
       const sanitizedError = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
       console.error('Failed to calculate solar savings:', sanitizedError);
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
     }
   };
 

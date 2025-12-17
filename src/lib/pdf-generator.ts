@@ -2,16 +2,32 @@ import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 
 const formatDate = (dateStr: string, lang: Language) => {
-  const date = new Date(dateStr + 'T00:00:00');
-  return lang === 'en' ? date.toLocaleDateString('en-US') : date.toLocaleDateString('fr-FR');
+  try {
+    const date = new Date(dateStr + 'T00:00:00');
+    if (isNaN(date.getTime())) {
+      return dateStr;
+    }
+    return lang === 'en' ? date.toLocaleDateString('en-US') : date.toLocaleDateString('fr-FR');
+  } catch (error) {
+    console.error('Error formatting date:', error instanceof Error ? error.message : 'Unknown error');
+    return dateStr;
+  }
 };
 
 const formatDateForFilename = (dateStr: string, lang: Language) => {
-  const date = new Date(dateStr + 'T00:00:00');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = date.getFullYear();
-  return lang === 'en' ? `${month}-${day}-${year}` : `${day}-${month}-${year}`;
+  try {
+    const date = new Date(dateStr + 'T00:00:00');
+    if (isNaN(date.getTime())) {
+      return dateStr.replace(/[^0-9-]/g, '');
+    }
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getFullYear();
+    return lang === 'en' ? `${month}-${day}-${year}` : `${day}-${month}-${year}`;
+  } catch (error) {
+    console.error('Error formatting date for filename:', error instanceof Error ? error.message : 'Unknown error');
+    return dateStr.replace(/[^0-9-]/g, '');
+  }
 };
 
 const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
@@ -36,6 +52,11 @@ const addCompanyHeader = async (doc: any, data: SolarLead) => {
     try {
       const img = new Image();
       img.src = data.companyLogo;
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        setTimeout(reject, 5000);
+      });
       const aspectRatio = img.width / img.height;
       const maxHeight = 20;
       const maxWidth = 40;
@@ -46,8 +67,8 @@ const addCompanyHeader = async (doc: any, data: SolarLead) => {
         logoHeight = logoWidth / aspectRatio;
       }
       doc.addImage(data.companyLogo, 'PNG', 190 - logoWidth, 10, logoWidth, logoHeight, undefined, 'NONE', 0);
-    } catch {
-      // Logo failed to load
+    } catch (error) {
+      console.error('Failed to load company logo:', error instanceof Error ? error.message : 'Unknown error');
     }
   }
 };
@@ -62,7 +83,9 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
-  doc.text(`${t('proposal')} - ${formatDate(data.date, lang)} by ${data.companyName}`, 20, 45);
+  const formattedDate = formatDate(data.date, lang);
+  const proposalTitle = `${t('proposal')} - ${formattedDate} by ${data.companyName}`;
+  doc.text(proposalTitle, 20, 45);
   
   let y = 55;
   
@@ -80,7 +103,10 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setFontSize(11);
   doc.text(`System Size: ${data.systemSizeKw} kW`, 20, y);
   y += 8;
-  doc.text(`Estimated Annual Production: ${Math.round(data.systemSizeKw * data.sunHoursPerDay * 365 * 0.8).toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
+  const DAYS_PER_YEAR = 365;
+  const PERFORMANCE_RATIO = 0.8;
+  const estimatedProduction = Math.round(data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO);
+  doc.text(`Estimated Annual Production: ${estimatedProduction.toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
   y += 15;
   
   doc.setFontSize(14);
@@ -150,8 +176,10 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setTextColor(0, 0, 0);
   y += 15;
   
-  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * 0.8;
-  const co2SavedLbs = Math.round(annualProduction * 0.85 * 25);
+  const YEARS = 25;
+  const CO2_PER_KWH = 0.85;
+  const annualProduction = data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
+  const co2SavedLbs = Math.round(annualProduction * CO2_PER_KWH * YEARS);
   const isMetric = lang !== 'en';
   const co2Saved = isMetric ? Math.round(co2SavedLbs * 0.453592) : co2SavedLbs;
   const co2Unit = isMetric ? 'kg' : 'lbs';
@@ -252,38 +280,47 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   doc.text(`Current Monthly Bill: ${getCurrencySymbol(data.currency)}${data.currentMonthlyBill}`, 20, y); y += 6;
   doc.text(`25-Year Savings: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 6;
   doc.text(`Break-Even Year: ${data.breakEvenYear ? `Year ${data.breakEvenYear}` : 'Never'}`, 20, y); y += 6;
-  if (data.financingOption) { 
-    doc.text(`Financing: ${t(data.financingOption.toLowerCase() as any) || data.financingOption}`, 20, y); y += 6;
+  if (data.financingOption) {
+    const financingText = t(data.financingOption.toLowerCase() as any) || data.financingOption;
+    doc.text(`Financing: ${financingText}`, 20, y);
+    y += 6;
     if (data.financingOption === 'Loan' && data.loanTerm) {
       if (data.downPayment && data.downPayment > 0) {
-        doc.text(`  Down Payment: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y); y += 6;
+        doc.text(`  Down Payment: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
+        y += 6;
       }
-      doc.text(`  Loan Term: ${data.loanTerm} years`, 20, y); y += 6;
+      doc.text(`  Loan Term: ${data.loanTerm} years`, 20, y);
+      y += 6;
     }
   }
   if (data.utilityProvider) { doc.text(`Utility Provider: ${data.utilityProvider}`, 20, y); y += 6; }
   if (data.avgKwhPerMonth) { doc.text(`Avg kWh/Month: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
   
-  if (data.productDescription && y < 210) {
+  const MAX_PRODUCT_DESC_Y = 210;
+  const MAX_NOTES_Y = 235;
+  const TEXT_WIDTH = 170;
+  const LINE_HEIGHT = 4.5;
+  
+  if (data.productDescription && y < MAX_PRODUCT_DESC_Y) {
     y += 5;
     doc.setFontSize(14);
     doc.text('Product Description', 20, y);
     y += 8;
     doc.setFontSize(9);
-    const descLines = doc.splitTextToSize(data.productDescription, 170);
-    const maxDescLines = Math.floor((235 - y) / 4.5);
+    const descLines = doc.splitTextToSize(data.productDescription, TEXT_WIDTH);
+    const maxDescLines = Math.floor((235 - y) / LINE_HEIGHT);
     doc.text(descLines.slice(0, maxDescLines), 20, y);
-    y += (Math.min(descLines.length, maxDescLines) * 4.5) + 5;
+    y += (Math.min(descLines.length, maxDescLines) * LINE_HEIGHT) + 5;
   }
   
-  if (data.notes && y < 235) {
+  if (data.notes && y < MAX_NOTES_Y) {
     y += 5;
     doc.setFontSize(14);
     doc.text('Notes', 20, y);
     y += 8;
     doc.setFontSize(9);
-    const lines = doc.splitTextToSize(data.notes, 170);
-    const maxLines = Math.floor((260 - y) / 4.5);
+    const lines = doc.splitTextToSize(data.notes, TEXT_WIDTH);
+    const maxLines = Math.floor((260 - y) / LINE_HEIGHT);
     doc.text(lines.slice(0, maxLines), 20, y);
   }
   
@@ -300,12 +337,11 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
 }
 
 export function sanitizeFilename(name: string): string {
-  const sanitized = name
-    .replace(/[^a-zA-Z0-9-_\s]/g, '')
-    .replace(/\.\./g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .substring(0, 100);
+  let sanitized = name.replace(/[^a-zA-Z0-9-_\s]/g, '');
+  sanitized = sanitized.replace(/\.\./g, '');
+  sanitized = sanitized.trim();
+  sanitized = sanitized.replace(/\s+/g, '-');
+  sanitized = sanitized.substring(0, 100);
   return sanitized || 'proposal';
 }
 

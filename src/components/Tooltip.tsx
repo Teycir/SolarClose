@@ -8,6 +8,10 @@ interface TooltipProps {
 }
 
 export function Tooltip({ children, text }: TooltipProps) {
+  if (!text || typeof text !== 'string') {
+    return <>{children}</>;
+  }
+  
   return (
     <div className="relative group">
       {children}

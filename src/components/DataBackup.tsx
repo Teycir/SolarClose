@@ -27,20 +27,31 @@ export function DataBackup({ data }: DataBackupProps) {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `solarclose-backup-${new Date().toISOString().split('T')[0]}.json`;
+      const timestamp = new Date().toISOString();
+      const dateStr = timestamp.split('T')[0];
+      link.download = `solarclose-backup-${dateStr}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      if (!leads || leads.length === 0) {
+        URL.revokeObjectURL(url);
+        throw new Error('No leads to export');
+      }
+      
       URL.revokeObjectURL(url);
       
       setStatus('success');
       setMessage(`Exported ${leads.length} leads`);
-      setTimeout(() => setStatus('idle'), 3000);
+      const timer = setTimeout(() => setStatus('idle'), 3000);
+      return () => clearTimeout(timer);
     } catch (error) {
       setStatus('error');
-      const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+      const errorMsg = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
       setMessage(`Export failed: ${errorMsg}`);
       console.error('Export failed:', errorMsg);
+      if (error instanceof Error && error.stack) {
+        console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+      }
       setTimeout(() => setStatus('idle'), 3000);
     }
   };

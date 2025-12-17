@@ -24,12 +24,19 @@ export const metadata: Metadata = {
     url: 'https://solarclose.pages.dev',
     siteName: 'SolarClose',
     locale: 'en_US',
+    images: [{
+      url: '/og-image.png',
+      width: 1200,
+      height: 630,
+      alt: 'SolarClose - Solar Proposal Tool',
+    }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'SolarClose - Free Solar Proposal Tool',
     description: 'Generate professional solar proposals instantly. Works offline. Free for sales reps.',
     creator: '@teycir',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
@@ -53,11 +60,11 @@ export const viewport: Viewport = {
   themeColor: '#FFC107',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
@@ -65,5 +72,5 @@ export default function RootLayout({
         {children}
       </body>
     </html>
-  )
+  );
 }

@@ -8,7 +8,9 @@ export function ServiceWorkerManager() {
   useEffect(() => {
     const clearAll = async () => {
       try {
-        const currentVersion = sessionStorage.getItem('cache-version');
+        const currentVersion = typeof window !== 'undefined' && window.sessionStorage 
+          ? sessionStorage.getItem('cache-version') 
+          : null;
 
         if (currentVersion !== CACHE_VERSION) {
           if ('serviceWorker' in navigator) {
@@ -31,10 +33,12 @@ export function ServiceWorkerManager() {
             }
           }
 
-          sessionStorage.setItem('cache-version', CACHE_VERSION);
-          const url = new URL(window.location.href);
-          url.searchParams.set('v', Date.now().toString());
-          window.location.replace(url.toString());
+          if (typeof window !== 'undefined' && window.sessionStorage) {
+            sessionStorage.setItem('cache-version', CACHE_VERSION);
+            const url = new URL(window.location.href);
+            url.searchParams.set('v', Date.now().toString());
+            window.location.replace(url.toString());
+          }
         } else {
           const url = new URL(window.location.href);
           if (url.searchParams.has('v')) {
@@ -48,7 +52,8 @@ export function ServiceWorkerManager() {
     };
     
     clearAll().catch((error) => {
-      console.error('Failed to execute clearAll:', error instanceof Error ? error.message : String(error));
+      const sanitized = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : String(error).replace(/[\r\n]/g, ' ');
+      console.error('Failed to execute clearAll:', sanitized);
     });
   }, []);
 

@@ -32,6 +32,11 @@ try {
     console.error('Stack trace:', errorStack.replace(/[\r\n]/g, ' | '));
   }
   self.addEventListener('fetch', (event: FetchEvent) => {
-    event.respondWith(fetch(event.request));
+    try {
+      event.respondWith(fetch(event.request));
+    } catch (fetchError) {
+      const fetchErrorMsg = fetchError instanceof Error ? fetchError.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
+      console.error('Fetch failed:', fetchErrorMsg);
+    }
   });
 }

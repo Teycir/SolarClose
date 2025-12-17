@@ -48,18 +48,29 @@ export interface SolarLead {
   language?: Language;
   
   // Inputs
-  currentMonthlyBill: number; // e.g. 250
-  yearlyInflationRate: number; // e.g. 4 (percent)
-  systemSizeKw: number; // e.g. 8.5
-  systemCost: number; // e.g. 25000
-  electricityRate: number; // e.g. 0.15 ($/kWh)
-  sunHoursPerDay: number; // e.g. 5
-  federalTaxCredit: number; // e.g. 30 (percent)
-  stateIncentive: number; // e.g. 1000 ($)
-  has25YearInverterWarranty?: boolean; // If true, no inverter replacement costs
+  /** Current monthly electricity bill in dollars (e.g. 250) */
+  currentMonthlyBill: number;
+  /** Annual utility rate increase percentage (e.g. 4 for 4%) */
+  yearlyInflationRate: number;
+  /** Solar system size in kilowatts (e.g. 8.5) */
+  systemSizeKw: number;
+  /** Total system cost before incentives in dollars (e.g. 25000) */
+  systemCost: number;
+  /** Current electricity rate in dollars per kWh (e.g. 0.15) */
+  electricityRate: number;
+  /** Average daily sun hours for the location (e.g. 5) */
+  sunHoursPerDay: number;
+  /** Federal tax credit percentage (e.g. 30 for 30%) */
+  federalTaxCredit: number;
+  /** State incentive amount in dollars (e.g. 1000) */
+  stateIncentive: number;
+  /** If true, no inverter replacement costs are included in calculations */
+  has25YearInverterWarranty?: boolean;
   
   // Calculated Results (Cached)
+  /** Total savings over 25 years after all costs */
   twentyFiveYearSavings: number;
+  /** Year when cumulative savings become positive, or null if never breaks even */
   breakEvenYear: number | null;
   yearlyBreakdown?: Array<{
     year: number;
@@ -69,5 +80,6 @@ export interface SolarLead {
   }>;
   
   // Meta
-  isSynced: boolean; // True if pushed to Cloudflare
+  /** Indicates if the lead has been synced to cloud storage */
+  isSynced: boolean;
 }

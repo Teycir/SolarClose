@@ -10,7 +10,7 @@ interface ClientInfoSectionProps {
 
 export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
   const lang = (data.language || 'en') as Language;
-  const t = (key: string) => getTranslation(lang, key as any);
+  const t = (key: string) => getTranslation(lang, key as TranslationKey);
 
   return (
     <>
@@ -30,8 +30,12 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
           type="text"
           value={data.clientName}
           onChange={(e) => {
-            const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
-            onUpdate({ clientName: sanitized });
+            try {
+              const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
+              onUpdate({ clientName: sanitized });
+            } catch (error) {
+              console.error('Error updating client name:', error instanceof Error ? error.message : 'Unknown error');
+            }
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="John Doe"
@@ -76,7 +80,7 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
             type="email"
             value={data.email || ''}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase();
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase().slice(0, 254);
               onUpdate({ email: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"

@@ -6,6 +6,9 @@ const logError = (error: Error | null) => {
   try {
     const errorMessage = error?.message || 'Unknown error';
     console.error('Application error:', errorMessage.replace(/[\r\n]/g, ' '));
+    if (error?.stack) {
+      console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+    }
   } catch {
     console.error('Failed to log error');
   }
@@ -14,8 +17,12 @@ const logError = (error: Error | null) => {
 const handleReset = (reset: () => void) => {
   try {
     reset();
-  } catch {
-    console.error('Failed to reset');
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
+    console.error('Failed to reset:', errorMessage);
+    if (error instanceof Error && error.stack) {
+      console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+    }
   }
 };
 
@@ -31,8 +38,13 @@ export default function Error({
   }, [error]);
 
   const defaultMessage = 'An unexpected error occurred. Please try again.';
-  const sanitizedMessage = error?.message?.replace(/[<>"'&]/g, '');
-  const displayMessage = sanitizedMessage || defaultMessage;
+  let displayMessage = defaultMessage;
+  try {
+    const sanitizedMessage = error?.message?.replace(/[<>"'&]/g, '').substring(0, 200);
+    displayMessage = sanitizedMessage || defaultMessage;
+  } catch {
+    displayMessage = defaultMessage;
+  }
   const onReset = () => handleReset(reset);
 
   return (

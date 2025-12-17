@@ -28,7 +28,8 @@ export function ResultsCard({ data }: ResultsCardProps) {
   useEffect(() => {
     if (data.twentyFiveYearSavings > 50000) {
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 4000);
+      const timer = setTimeout(() => setShowConfetti(false), 4000);
+      return () => clearTimeout(timer);
     }
   }, [data.twentyFiveYearSavings]);
   const annualProduction =

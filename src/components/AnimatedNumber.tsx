@@ -14,7 +14,7 @@ export function AnimatedNumber({ value, duration = 1500, className = '', prefix 
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
-    let startTime: number;
+    let startTime: number | undefined;
     let animationFrame: number;
 
     const animate = (currentTime: number) => {
