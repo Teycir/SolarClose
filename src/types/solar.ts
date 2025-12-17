@@ -4,6 +4,7 @@ export type Language = 'en' | 'es' | 'it' | 'fr' | 'de';
 export interface SolarLead {
   id: string;
   createdAt: number;
+  updatedAt?: number;
   date: string;
   
   // Client Info

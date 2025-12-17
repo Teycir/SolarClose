@@ -75,8 +75,18 @@ export function ResultsCard({ data }: ResultsCardProps) {
         </div>
       </div>
 
-      <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg relative">
+      <div className="text-center p-4 sm:p-6 bg-secondary rounded-lg relative group">
         <Confetti trigger={showConfetti} />
+        <button
+          onClick={() => {
+            const value = `${data.currency === 'EUR' ? '€' : '$'}${Math.abs(data.twentyFiveYearSavings).toLocaleString()}`;
+            navigator.clipboard.writeText(value);
+          }}
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-secondary-foreground/10 rounded"
+          title="Copy to clipboard"
+        >
+          📋
+        </button>
         <h2 className="text-xs sm:text-sm text-muted-foreground mb-2">
           {isNegativeSavings
             ? t("twentyFiveYearLoss")

@@ -149,7 +149,8 @@ export function useSolarLead(leadId: string) {
     try {
       setSaveStatus('saving');
       const db = await getDB();
-      await db.put(STORE_NAME, leadData);
+      const dataWithTimestamp = { ...leadData, updatedAt: Date.now() };
+      await db.put(STORE_NAME, dataWithTimestamp);
       setSaveStatus('saved');
       if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
       statusTimeoutRef.current = setTimeout(() => setSaveStatus('idle'), 2000);

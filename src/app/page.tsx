@@ -186,7 +186,7 @@ export default function Home() {
           </select>
           <div>
             <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">{t('title')}</h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">🔒 Your data never leaves your device</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">🔒 Your data never leaves your device • Works offline on browser, mobile and tablet</p>
           </div>
         </div>
         
@@ -208,7 +208,7 @@ export default function Home() {
               onClick={() => setShowLeads(!showLeads)}
               className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button"
             >
-              {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}`}
+              {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}${allLeads.length > 0 ? ` (${allLeads.length})` : ''}`}
             </button>
             <button
               onClick={saveLead}
@@ -250,7 +250,10 @@ export default function Home() {
                     }`}
                   >
                     <div className="font-medium">{lead.clientName || 'Unnamed Lead'}</div>
-                    <div className="text-xs text-muted-foreground">{lead.address || 'No address'} • {new Date(lead.createdAt).toLocaleDateString()}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {lead.address || 'No address'} • 
+                      {lead.updatedAt ? ` Updated ${new Date(lead.updatedAt).toLocaleDateString()}` : ` Created ${new Date(lead.createdAt).toLocaleDateString()}`}
+                    </div>
                   </button>
                   <button
                     onClick={() => {
@@ -298,7 +301,7 @@ export default function Home() {
           </div>
           
           <div className={`transition-shadow duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
-            <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-shadow">
+            <div className="bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 rounded-lg p-6 sm:p-8 shadow-2xl hover:shadow-2xl transition-shadow">
               <h2 className="text-lg sm:text-xl font-semibold mb-8">{t('calculator')}</h2>
               <div className="space-y-6 sm:space-y-8 overflow-visible">
 
@@ -308,7 +311,7 @@ export default function Home() {
           </div>
           
           <div className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
-            <div className="bg-card/80 backdrop-blur-sm border rounded-lg p-4 sm:p-6 shadow-lg">
+            <div className="bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 rounded-lg p-4 sm:p-6 shadow-2xl">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">Administrative</h2>
               <div className="space-y-4 sm:space-y-6 overflow-hidden">
                 <ClientInfoSection data={data} onUpdate={setData} />

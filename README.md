@@ -1,16 +1,18 @@
 # SolarClose - Close More Solar Deals
 
+![SolarClose Screenshot](/Assets/screencapture.png)
+
 ![Solar](https://img.shields.io/badge/Solar-Energy-yellow?style=flat-square)
 ![Sales](https://img.shields.io/badge/Sales-Tool-orange?style=flat-square)
 ![Offline](https://img.shields.io/badge/Works-Offline-green?style=flat-square)
 ![Free](https://img.shields.io/badge/Free-For%20Reps-blue?style=flat-square)
 ![License](https://img.shields.io/badge/License-BSL--1.1-red?style=flat-square)
 
-🌟 **Start Using Now**: https://solarclose.pages.dev
+🌟 **Start Using Now**: <https://solarclose.pages.dev>
 
 Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.
 
-📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md) | [Fixes Implemented](FIXES_IMPLEMENTED.md)
+📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md)
 
 ---
 
@@ -21,32 +23,44 @@ Your pocket-sized solar proposal tool. Show homeowners their savings in seconds 
 ✅ **Never Lose Data** - Backup/restore feature prevents data loss  
 ✅ **Professional Proposals** - Generate branded PDFs your customers can share with family  
 ✅ **Use Any Device** - Works on your phone, tablet, or laptop  
-✅ **Looks Amazing** - Beautiful solar-themed design impresses customers  
+✅ **Looks Amazing** - Beautiful glass-morphism design with transparent cards
 ✅ **Your Company Brand** - Add your logo and company name to every proposal  
 ✅ **Multi-Language** - Available in English, Spanish, Italian, French, and German  
+✅ **Visual Progress Bars** - See ROI and bill offset at a glance  
+✅ **Animated Numbers** - Smooth counting animations for savings display
+✅ **Confetti Celebration** - Celebrate big savings over $50k
+✅ **Environmental Impact** - Show CO2 savings and trees equivalent
+✅ **25-Year Chart** - Interactive savings breakdown year by year
+✅ **Bill Swap Comparison** - Before/after monthly payment visualization
 
 ---
 
 ## 📱 How to Use SolarClose
 
 ### **Step 1: Enter Customer Info**
+
 Type in your customer's name, address, and contact details. Everything saves automatically.
 
 ### **Step 2: Add System Details**
+
 - System size (kW)
 - Total cost
 - Current electric bill
 - Available incentives
 
 ### **Step 3: Show the Savings**
+
 Watch the calculator instantly show:
+
 - Monthly savings
 - Payback period
 - 25-year total savings
 - Return on investment
 
 ### **Step 4: Generate Proposals**
+
 Click "Export PDF" to generate:
+
 - **Client Proposal PDF** - Professional proposal to share with customers
 - **Internal Sales Sheet PDF** - Detailed lead information for your records
 
@@ -95,6 +109,7 @@ This gives your customers honest, realistic expectations they can trust.
 ## 📄 Two Types of PDFs
 
 ### Client Proposal PDF
+
 ✓ Your company logo and branding
 ✓ Customer information
 ✓ System specifications
@@ -102,7 +117,9 @@ This gives your customers honest, realistic expectations they can trust.
 ✓ 25-year savings projection
 ✓ Clean, professional layout
 
+
 ### Internal Sales Sheet PDF
+
 ✓ Complete lead details and notes
 ✓ Property and roof information
 ✓ Lead status tracking
@@ -115,17 +132,44 @@ Both PDFs automatically save with the customer's name for easy filing.
 
 ## 📲 Getting Started
 
-1. **Visit**: https://solarclose.pages.dev
+### Use Online (Recommended)
+
+1. **Visit**: <https://solarclose.pages.dev>
 2. **Bookmark** the page on your phone's home screen
 3. **Start calculating** - no signup required!
 
 That's it. No downloads, no accounts, no hassle.
+
+### Install Locally (For Development)
+
+```bash
+# Clone the repository
+git clone https://github.com/Teycir/SolarClose.git
+cd SolarClose
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Deploy to Cloudflare Pages
+npm run deploy
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+**Requirements**: Node.js 18+ and npm
 
 ---
 
 ## 💼 For Solar Companies
 
 Want to customize SolarClose for your sales team with:
+
 - Your company branding built-in
 - Custom calculation assumptions
 - Your specific incentive programs
@@ -156,7 +200,7 @@ Yes, completely free for individual sales reps. Solar companies can contact us f
 Any device with a modern web browser - phones, tablets, laptops, and desktops.
 
 **How do I backup my data?**
-Click the "💾 Backup" button in the header to download all your leads as a JSON file. Store it safely and use "📥 Restore" to import it back anytime.
+Click the "Backup" button in the header to download all your leads as a JSON file. Store it safely and use "Restore" to import it back anytime.
 
 **What languages are supported?**
 English, Spanish, Italian, French, and German. Switch languages using the flag selector in the header.
