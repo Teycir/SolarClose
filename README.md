@@ -31,6 +31,7 @@ We use a **Business Source License (BSL)**, which means:
 ✅ **Professional PDF Proposals** - Generate branded PDFs your customers can share  
 ✅ **"Kitchen Table" Ready** - Beautiful glass-morphism design that looks expensive  
 ✅ **Fully Multi-Language** - Complete UI, PDFs, and calculations in English, Spanish, Italian, French, and German  
+✅ **Visual 25-Year Chart** - Show cumulative savings over time with break-even point highlighted  
 ✅ **Quick Copy Summary** - One-click to copy talking points for texting prospects  
 ✅ **Smart Lead Tracking** - "Last Contacted" timestamps prevent duplicate visits  
 ✅ **Psychological Sales Tools** - Visual progress bars, animated counters, and "Confetti" celebrations for big savings
@@ -52,8 +53,9 @@ Input system size (kW), total cost, and current electric bill.
 Instantly display:
 
 - Monthly payment swap (Old Bill vs. Solar + Loan)
-- 25-Year Total Savings
-- Break-even point (ROI)
+- 25-Year Total Savings with visual chart
+- Break-even point (ROI) highlighted on timeline
+- Environmental impact (CO₂ offset, trees planted equivalent)
 - One-click "Copy Summary" to text prospects
 
 ### **4. Close the Deal**
