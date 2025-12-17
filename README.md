@@ -25,14 +25,14 @@ Your pocket-sized solar proposal tool. Show homeowners their savings in seconds 
 ✅ **Never Lose Data** - Backup/restore feature prevents data loss  
 ✅ **Professional Proposals** - Generate branded PDFs your customers can share with family  
 ✅ **Use Any Device** - Works on your phone, tablet, or laptop  
-✅ **Looks Amazing** - Beautiful glass-morphism design with transparent cards
+✅ **Looks Amazing** - Beautiful glass-morphism design with transparent cards  
 ✅ **Your Company Brand** - Add your logo and company name to every proposal  
 ✅ **Multi-Language** - Available in English, Spanish, Italian, French, and German  
 ✅ **Visual Progress Bars** - See ROI and bill offset at a glance  
-✅ **Animated Numbers** - Smooth counting animations for savings display
-✅ **Confetti Celebration** - Celebrate big savings over $50k
-✅ **Environmental Impact** - Show CO2 savings and trees equivalent
-✅ **25-Year Chart** - Interactive savings breakdown year by year
+✅ **Animated Numbers** - Smooth counting animations for savings display  
+✅ **Confetti Celebration** - Celebrate big savings over $50k  
+✅ **Environmental Impact** - Show CO2 savings and trees equivalent  
+✅ **25-Year Chart** - Interactive savings breakdown year by year  
 ✅ **Bill Swap Comparison** - Before/after monthly payment visualization
 
 ---
