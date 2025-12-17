@@ -109,6 +109,7 @@ type TranslationKeys = {
   proposalCondPlaceholder: string;
   companyLogo: string;
   administrative: string;
+  subtitle: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -223,6 +224,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalCondPlaceholder: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
     companyLogo: 'Company Logo',
     administrative: 'Administrative',
+    subtitle: '🔒 Your data never leaves your device • Works offline on browser, mobile and tablet',
   },
   es: {
     title: 'SolarClose',
@@ -335,6 +337,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalCondPlaceholder: 'Esta propuesta es válida por 30 días.\nPrecio final sujeto a inspección del sitio.\nPlazo de instalación: 4-8 semanas después de la aprobación.',
     companyLogo: 'Logo de la Empresa',
     administrative: 'Administrativo',
+    subtitle: '🔒 Tus datos nunca salen de tu dispositivo • Funciona sin conexión en navegador, móvil y tableta',
   },
   it: {
     title: 'SolarClose',
@@ -447,6 +450,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalCondPlaceholder: 'Questa proposta è valida per 30 giorni.\nPrezzo finale soggetto a ispezione del sito.\nTempi di installazione: 4-8 settimane dopo l\'approvazione.',
     companyLogo: 'Logo Aziendale',
     administrative: 'Amministrativo',
+    subtitle: '🔒 I tuoi dati non lasciano mai il tuo dispositivo • Funziona offline su browser, mobile e tablet',
   },
   fr: {
     title: 'SolarClose',
@@ -559,6 +563,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalCondPlaceholder: 'Cette proposition est valable 30 jours.\nPrix final sous réserve d\'inspection du site.\nDélai d\'installation: 4-8 semaines après approbation.',
     companyLogo: 'Logo de l\'Entreprise',
     administrative: 'Administratif',
+    subtitle: '🔒 Vos données ne quittent jamais votre appareil • Fonctionne hors ligne sur navigateur, mobile et tablette',
   },
   de: {
     title: 'SolarClose',
@@ -671,6 +676,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalCondPlaceholder: 'Dieses Angebot ist 30 Tage gültig.\nEndpreis vorbehaltlich Standortinspektion.\nInstallationszeitraum: 4-8 Wochen nach Genehmigung.',
     companyLogo: 'Firmenlogo',
     administrative: 'Verwaltung',
+    subtitle: '🔒 Ihre Daten verlassen nie Ihr Gerät • Funktioniert offline auf Browser, Handy und Tablet',
   },
 };
 

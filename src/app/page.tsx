@@ -187,7 +187,7 @@ export default function Home() {
           </select>
           <div>
             <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">{t('title')}</h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1">🔒 Your data never leaves your device • Works offline on browser, mobile and tablet</p>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">{t('subtitle')}</p>
           </div>
         </div>
         
