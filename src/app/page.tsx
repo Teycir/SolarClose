@@ -450,6 +450,31 @@ export default function Home() {
                 <CompanyInfoSection data={data} onUpdate={setData} />
                 <PropertyFinancialSection data={data} onUpdate={setData} />
               </div>
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={async () => {
+                    const missing = validateRequiredFields();
+                    if (missing.length > 0) {
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: t('missingRequiredFields'),
+                        message: `${t('pleaseFillIn')}: ${missing.join(', ')}`,
+                        onConfirm: () => setConfirmDialog(null),
+                      });
+                      return;
+                    }
+                    await saveLead();
+                    const db = await openDB("solar-leads", 2);
+                    const leads = await db.getAll("leads");
+                    setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
+                    setShowLeads(true);
+                  }}
+                  disabled={isDefaultLead}
+                  className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  💾 {t("saveLead")}
+                </button>
+              </div>
             </div>
           </div>
         </div>
