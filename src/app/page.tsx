@@ -265,6 +265,12 @@ export default function Home() {
             onChange={(e) => {
               const lang = e.target.value as Language;
               const currency = lang === "en" ? "USD" : "EUR";
+              try {
+                localStorage.setItem('solarclose-language', lang);
+                localStorage.setItem('solarclose-currency', currency);
+              } catch (e) {
+                console.warn('localStorage unavailable');
+              }
               setData({ language: lang, currency } as Partial<SolarLead>);
             }}
             className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"

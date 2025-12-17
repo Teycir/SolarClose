@@ -52,11 +52,15 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
   let savedSalesRep = '';
   let savedPhone = '';
   let savedLogo = '';
+  let savedLanguage = 'en';
+  let savedCurrency = 'USD';
   try {
     savedCompany = localStorage.getItem('solarclose-company') || '';
     savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
     savedPhone = localStorage.getItem('solarclose-phone') || '';
     savedLogo = localStorage.getItem('solarclose-logo') || '';
+    savedLanguage = localStorage.getItem('solarclose-language') || 'en';
+    savedCurrency = localStorage.getItem('solarclose-currency') || 'USD';
   } catch (e) {
     console.warn('localStorage unavailable');
   }
@@ -83,8 +87,8 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     productDescription: '',
     salesRep: savedSalesRep,
     proposalConditions: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
-    currency: 'USD',
-    language: 'en',
+    currency: savedCurrency,
+    language: savedLanguage,
     currentMonthlyBill: 250,
     yearlyInflationRate: 4,
     systemSizeKw: 8.5,
