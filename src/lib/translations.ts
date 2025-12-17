@@ -97,6 +97,12 @@ type TranslationKeys = {
   tooltipBackup: string;
   tooltipRestore: string;
   tooltipExport: string;
+  envImpactTitle: string;
+  envCo2Offset: string;
+  envTreesPlanted: string;
+  envEquivalent: string;
+  envCarMiles: string;
+  envNotDriven: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -199,6 +205,12 @@ export const translations: Record<string, TranslationKeys> = {
     tooltipBackup: 'Backup all leads to file',
     tooltipRestore: 'Restore leads from backup',
     tooltipExport: 'Export PDFs',
+    envImpactTitle: 'Environmental Impact (25 Years)',
+    envCo2Offset: 'CO₂ Offset',
+    envTreesPlanted: 'Trees Planted',
+    envEquivalent: 'equivalent',
+    envCarMiles: 'Car Miles',
+    envNotDriven: 'not driven',
   },
   es: {
     title: 'SolarClose',
@@ -299,6 +311,12 @@ export const translations: Record<string, TranslationKeys> = {
     tooltipBackup: 'Respaldar todos los clientes',
     tooltipRestore: 'Restaurar clientes desde respaldo',
     tooltipExport: 'Exportar PDFs',
+    envImpactTitle: 'Impacto Ambiental (25 Años)',
+    envCo2Offset: 'Compensación CO₂',
+    envTreesPlanted: 'Árboles Plantados',
+    envEquivalent: 'equivalente',
+    envCarMiles: 'Millas en Auto',
+    envNotDriven: 'no conducidas',
   },
   it: {
     title: 'SolarClose',
@@ -399,6 +417,12 @@ export const translations: Record<string, TranslationKeys> = {
     tooltipBackup: 'Backup di tutti i clienti',
     tooltipRestore: 'Ripristina clienti da backup',
     tooltipExport: 'Esporta PDFs',
+    envImpactTitle: 'Impatto Ambientale (25 Anni)',
+    envCo2Offset: 'Compensazione CO₂',
+    envTreesPlanted: 'Alberi Piantati',
+    envEquivalent: 'equivalente',
+    envCarMiles: 'Miglia Auto',
+    envNotDriven: 'non percorse',
   },
   fr: {
     title: 'SolarClose',
@@ -499,6 +523,12 @@ export const translations: Record<string, TranslationKeys> = {
     tooltipBackup: 'Sauvegarder tous les clients',
     tooltipRestore: 'Restaurer les clients depuis la sauvegarde',
     tooltipExport: 'Exporter PDFs',
+    envImpactTitle: 'Impact Environnemental (25 Ans)',
+    envCo2Offset: 'Compensation CO₂',
+    envTreesPlanted: 'Arbres Plantés',
+    envEquivalent: 'équivalent',
+    envCarMiles: 'Miles en Voiture',
+    envNotDriven: 'non parcourus',
   },
   de: {
     title: 'SolarClose',
@@ -599,6 +629,12 @@ export const translations: Record<string, TranslationKeys> = {
     tooltipBackup: 'Alle Kunden sichern',
     tooltipRestore: 'Kunden aus Sicherung wiederherstellen',
     tooltipExport: 'PDFs exportieren',
+    envImpactTitle: 'Umweltauswirkungen (25 Jahre)',
+    envCo2Offset: 'CO₂-Kompensation',
+    envTreesPlanted: 'Gepflanzte Bäume',
+    envEquivalent: 'Äquivalent',
+    envCarMiles: 'Automeilen',
+    envNotDriven: 'nicht gefahren',
   },
 };
 
