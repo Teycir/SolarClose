@@ -359,8 +359,9 @@ export function sanitizeFilename(name: string): string {
 
 export function getFilename(data: SolarLead, type: 'client' | 'seller'): string {
   const lang = (data.language || 'en') as Language;
+  const t = (key: string) => getTranslation(lang, key as any);
   const sanitized = sanitizeFilename(data.clientName);
   const dateStr = formatDateForFilename(data.date, lang);
-  const suffix = type === 'client' ? 'CLIENT-Proposal' : 'SELLER-Internal';
+  const suffix = type === 'client' ? t('pdfFilenameClient') : t('pdfFilenameSeller');
   return `${sanitized}-${dateStr}-${suffix}.pdf`;
 }

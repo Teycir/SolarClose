@@ -195,6 +195,8 @@ type TranslationKeys = {
   pdfSalesRepresentative: string;
   pdfPhone: string;
   pdfFooterCreatedWith: string;
+  pdfFilenameClient: string;
+  pdfFilenameSeller: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -395,6 +397,8 @@ export const translations: Record<string, TranslationKeys> = {
     pdfSalesRepresentative: 'Sales Representative:',
     pdfPhone: 'Phone:',
     pdfFooterCreatedWith: 'Created with SolarClose - Free Solar ROI Calculator.',
+    pdfFilenameClient: 'PROSPECT-Proposal',
+    pdfFilenameSeller: 'PROSPECTOR-Internal',
   },
   es: {
     title: 'SolarClose',
@@ -593,6 +597,8 @@ export const translations: Record<string, TranslationKeys> = {
     pdfSalesRepresentative: 'Representante de Ventas:',
     pdfPhone: 'Teléfono:',
     pdfFooterCreatedWith: 'Creado con SolarClose - Calculadora ROI Solar Gratuita.',
+    pdfFilenameClient: 'PROSPECTO-Presupuesto',
+    pdfFilenameSeller: 'PROSPECTOR-Interno',
   },
   it: {
     title: 'SolarClose',
@@ -791,6 +797,8 @@ export const translations: Record<string, TranslationKeys> = {
     pdfSalesRepresentative: 'Rappresentante di Vendita:',
     pdfPhone: 'Telefono:',
     pdfFooterCreatedWith: 'Creato con SolarClose - Calcolatore ROI Solare Gratuito.',
+    pdfFilenameClient: 'PROSPETTO-Preventivo',
+    pdfFilenameSeller: 'PROSPECTOR-Interno',
   },
   fr: {
     title: 'SolarClose',
@@ -989,6 +997,8 @@ export const translations: Record<string, TranslationKeys> = {
     pdfSalesRepresentative: 'Représentant Commercial:',
     pdfPhone: 'Téléphone:',
     pdfFooterCreatedWith: 'Créé avec SolarClose - Calculateur ROI Solaire Gratuit.',
+    pdfFilenameClient: 'PROSPECT-Devis',
+    pdfFilenameSeller: 'PROSPECTEUR-Interne',
   },
   de: {
     title: 'SolarClose',
@@ -1187,6 +1197,8 @@ export const translations: Record<string, TranslationKeys> = {
     pdfSalesRepresentative: 'Vertriebsmitarbeiter:',
     pdfPhone: 'Telefon:',
     pdfFooterCreatedWith: 'Erstellt mit SolarClose - Kostenloser Solar-ROI-Rechner.',
+    pdfFilenameClient: 'INTERESSENT-Angebot',
+    pdfFilenameSeller: 'PROSPECTOR-Intern',
   },
 };
 
