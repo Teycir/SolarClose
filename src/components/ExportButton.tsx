@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 import { generateClientPDF, generateSellerPDF, getFilename } from '@/lib/pdf-generator';
+import { Tooltip } from './Tooltip';
 
 interface ExportButtonProps {
   data: SolarLead;
@@ -82,18 +83,16 @@ export function ExportButton({ data }: ExportButtonProps) {
 
   return (
     <>
-      <div className="relative group">
+      <Tooltip text={t('tooltipExport')}>
         <button
           onClick={handleExport}
           disabled={isGenerating || !canExport}
           className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
           aria-label={t('exportPDFs')}
-          title={t('tooltipExport')}
         >
           <span className="block truncate">📄 {getButtonText()}</span>
         </button>
-
-      </div>
+      </Tooltip>
       
       {canShare && (
         <button

@@ -15,6 +15,7 @@ import { SavingsChart } from '@/components/SavingsChart';
 import { BillSwapComparison } from '@/components/BillSwapComparison';
 import { SocialShare } from '@/components/SocialShare';
 import { DataBackup } from '@/components/DataBackup';
+import { Tooltip } from '@/components/Tooltip';
 import { openDB } from 'idb';
 import type { SolarLead } from '@/types/solar';
 
@@ -197,30 +198,33 @@ export default function Home() {
             {saveStatus === 'error' && <span aria-label="Save error">⚠ Error</span>}
           </div>
           <div className="flex flex-wrap justify-center items-center gap-3">
-            <button
-              onClick={handleNewLead}
-              className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button"
-              aria-label="Create new lead"
-              title={t('tooltipNewLead')}
-            >
-              <span className="block truncate">➕ {t('newLead')}</span>
-            </button>
-            <button
-              onClick={() => setShowLeads(!showLeads)}
-              disabled={allLeads.length === 0}
-              className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
-              title={t('tooltipViewLeads')}
-            >
-              <span className="block truncate">{showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}${allLeads.length > 0 ? ` (${allLeads.length})` : ''}`}</span>
-            </button>
-            <button
-              onClick={saveLead}
-              disabled={!data?.clientName.trim() || isDefaultLead}
-              className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
-              title={t('tooltipSaveLead')}
-            >
-              <span className="block truncate">💾 {t('saveLead')}</span>
-            </button>
+            <Tooltip text={t('tooltipNewLead')}>
+              <button
+                onClick={handleNewLead}
+                className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button"
+                aria-label="Create new lead"
+              >
+                <span className="block truncate">➕ {t('newLead')}</span>
+              </button>
+            </Tooltip>
+            <Tooltip text={t('tooltipViewLeads')}>
+              <button
+                onClick={() => setShowLeads(!showLeads)}
+                disabled={allLeads.length === 0}
+                className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="block truncate">{showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}${allLeads.length > 0 ? ` (${allLeads.length})` : ''}`}</span>
+              </button>
+            </Tooltip>
+            <Tooltip text={t('tooltipSaveLead')}>
+              <button
+                onClick={saveLead}
+                disabled={!data?.clientName.trim() || isDefaultLead}
+                className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="block truncate">💾 {t('saveLead')}</span>
+              </button>
+            </Tooltip>
             <DataBackup data={data} />
             <ExportButton data={data} />
           </div>

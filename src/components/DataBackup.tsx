@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { openDB } from 'idb';
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
+import { Tooltip } from './Tooltip';
 
 interface DataBackupProps {
   data?: { language?: Language };
@@ -83,29 +84,28 @@ export function DataBackup({ data }: DataBackupProps) {
 
   return (
     <>
-      <div className="relative group">
+      <Tooltip text={t('tooltipBackup')}>
         <button
           onClick={exportData}
           disabled={status === 'exporting'}
           className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
-          title={t('tooltipBackup')}
         >
           <span className="block truncate">⬇️ {t('backup')}</span>
         </button>
-
-      </div>
+      </Tooltip>
       
-      <label className="relative group w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button cursor-pointer block text-center" title={t('tooltipRestore')}>
-        ⬆️ {t('restore')}
-        <input
-          type="file"
-          accept=".json"
-          onChange={importData}
-          className="hidden"
-          disabled={status === 'importing'}
-        />
-
-      </label>
+      <Tooltip text={t('tooltipRestore')}>
+        <label className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button cursor-pointer block text-center">
+          ⬆️ {t('restore')}
+          <input
+            type="file"
+            accept=".json"
+            onChange={importData}
+            className="hidden"
+            disabled={status === 'importing'}
+          />
+        </label>
+      </Tooltip>
       
       {status !== 'idle' && (
         <span className="text-xs text-muted-foreground">
