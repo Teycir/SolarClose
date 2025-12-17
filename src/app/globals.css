@@ -152,4 +152,9 @@
     background-size: 400% 400%;
     animation: gradient-shift 16s ease-in-out infinite;
   }
+  
+  select option {
+    background-color: #000000;
+    color: white;
+  }
 }
