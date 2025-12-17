@@ -52,15 +52,17 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
   let savedSalesRep = '';
   let savedPhone = '';
   let savedLogo = '';
-  let savedLanguage = 'en';
-  let savedCurrency = 'USD';
+  let savedLanguage: 'en' | 'es' | 'it' | 'fr' | 'de' = 'en';
+  let savedCurrency: 'USD' | 'EUR' = 'USD';
   try {
     savedCompany = localStorage.getItem('solarclose-company') || '';
     savedSalesRep = localStorage.getItem('solarclose-salesrep') || '';
     savedPhone = localStorage.getItem('solarclose-phone') || '';
     savedLogo = localStorage.getItem('solarclose-logo') || '';
-    savedLanguage = localStorage.getItem('solarclose-language') || 'en';
-    savedCurrency = localStorage.getItem('solarclose-currency') || 'USD';
+    const lang = localStorage.getItem('solarclose-language');
+    savedLanguage = (lang === 'es' || lang === 'it' || lang === 'fr' || lang === 'de') ? lang : 'en';
+    const curr = localStorage.getItem('solarclose-currency');
+    savedCurrency = curr === 'EUR' ? 'EUR' : 'USD';
   } catch (e) {
     console.warn('localStorage unavailable');
   }
