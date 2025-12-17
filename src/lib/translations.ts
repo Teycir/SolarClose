@@ -142,6 +142,8 @@ type TranslationKeys = {
   daysAgo: string;
   today: string;
   yesterday: string;
+  missingRequiredFields: string;
+  pleaseFillIn: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -289,6 +291,8 @@ export const translations: Record<string, TranslationKeys> = {
     daysAgo: 'days ago',
     today: 'today',
     yesterday: 'yesterday',
+    missingRequiredFields: 'Missing Required Fields',
+    pleaseFillIn: 'Please fill in',
   },
   es: {
     title: 'SolarClose',
@@ -434,6 +438,8 @@ export const translations: Record<string, TranslationKeys> = {
     daysAgo: 'días atrás',
     today: 'hoy',
     yesterday: 'ayer',
+    missingRequiredFields: 'Campos Requeridos Faltantes',
+    pleaseFillIn: 'Por favor complete',
   },
   it: {
     title: 'SolarClose',
@@ -579,6 +585,8 @@ export const translations: Record<string, TranslationKeys> = {
     daysAgo: 'giorni fa',
     today: 'oggi',
     yesterday: 'ieri',
+    missingRequiredFields: 'Campi Obbligatori Mancanti',
+    pleaseFillIn: 'Si prega di compilare',
   },
   fr: {
     title: 'SolarClose',
@@ -724,6 +732,8 @@ export const translations: Record<string, TranslationKeys> = {
     daysAgo: 'jours',
     today: 'aujourd\'hui',
     yesterday: 'hier',
+    missingRequiredFields: 'Champs Requis Manquants',
+    pleaseFillIn: 'Veuillez remplir',
   },
   de: {
     title: 'SolarClose',
@@ -869,6 +879,8 @@ export const translations: Record<string, TranslationKeys> = {
     daysAgo: 'Tage her',
     today: 'heute',
     yesterday: 'gestern',
+    missingRequiredFields: 'Fehlende Pflichtfelder',
+    pleaseFillIn: 'Bitte ausfüllen',
   },
 };
 

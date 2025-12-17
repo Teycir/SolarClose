@@ -129,7 +129,7 @@ export default function Home() {
       }
     };
     loadLeads();
-  }, [showLeads, saveStatus]);
+  }, [showLeads]);
 
   const handleClearAllLeads = async () => {
     try {
@@ -191,6 +191,35 @@ export default function Home() {
     setCurrentLeadId(leadId);
     setShowLeads(false);
   };
+
+  const validateRequiredFields = () => {
+    const missing: string[] = [];
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data?.clientName?.trim()) missing.push(t('clientName'));
+    if (!data?.address?.trim()) missing.push(t('address'));
+    if (!data?.productDescription?.trim()) missing.push(t('productDescription'));
+    if (!data?.proposalConditions?.trim()) missing.push(t('proposalConditions'));
+    if (!data?.companyName?.trim()) missing.push(t('companyName'));
+    if (!data?.companyPhone?.trim()) missing.push(t('companyPhone'));
+    if (!data?.salesRep?.trim()) missing.push(t('salesRep'));
+    if (data?.email && !emailRegex.test(data.email)) missing.push(t('email') + ' (invalid format)');
+    if (data?.companyEmail && !emailRegex.test(data.companyEmail)) missing.push(t('companyEmail') + ' (invalid format)');
+    return missing;
+  };
+
+  const refreshLeads = useCallback(async () => {
+    try {
+      const db = await openDB("solar-leads", 2);
+      const leads = await db.getAll("leads");
+      const sortedLeads = Array.isArray(leads)
+        ? leads.sort((a, b) => b.createdAt - a.createdAt)
+        : [];
+      setAllLeads(sortedLeads);
+    } catch (error: unknown) {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      console.error("Failed to refresh leads:", errorMsg.replace(/[\r\n]/g, " "));
+    }
+  }, []);
 
   if (!data) {
     return (
@@ -277,8 +306,24 @@ export default function Home() {
             </Tooltip>
             <Tooltip text={t("tooltipSaveLead")}>
               <button
-                onClick={saveLead}
-                disabled={!data?.clientName.trim() || isDefaultLead}
+                onClick={async () => {
+                  const missing = validateRequiredFields();
+                  if (missing.length > 0) {
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: t('missingRequiredFields'),
+                      message: `${t('pleaseFillIn')}: ${missing.join(', ')}`,
+                      onConfirm: () => setConfirmDialog(null),
+                    });
+                    return;
+                  }
+                  await saveLead();
+                  const db = await openDB("solar-leads", 2);
+                  const leads = await db.getAll("leads");
+                  setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
+                  setShowLeads(true);
+                }}
+                disabled={isDefaultLead}
                 className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <span className="block truncate">💾 {t("saveLead")}</span>
@@ -458,8 +503,8 @@ export default function Home() {
           message={confirmDialog.message}
           onConfirm={confirmDialog.onConfirm}
           onCancel={() => setConfirmDialog(null)}
-          confirmText="Confirm"
-          cancelText="Cancel"
+          confirmText={confirmDialog.title.includes("Missing") ? "OK" : "Confirm"}
+          cancelText={confirmDialog.title.includes("Missing") ? "" : "Cancel"}
           isDangerous={
             confirmDialog.title.includes("Delete") ||
             confirmDialog.title.includes("Clear")
