@@ -67,6 +67,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     console.warn('localStorage unavailable');
   }
   const { calculateSolarSavings } = await import('@/lib/calculations');
+  const { getTranslation } = await import('@/lib/translations');
   const results = calculateSolarSavings({
     currentMonthlyBill: 120,
     yearlyInflationRate: 3.5,
@@ -77,6 +78,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     federalTaxCreditPercent: 30,
     stateIncentiveDollars: 0,
   });
+  const defaultProposalConditions = getTranslation(savedLanguage, 'proposalCondPlaceholder');
   return {
     id: leadId,
     createdAt: Date.now(),
@@ -88,7 +90,7 @@ const createDefaultLead = async (leadId: string): Promise<SolarLead> => {
     companyLogo: savedLogo || undefined,
     productDescription: '',
     salesRep: savedSalesRep,
-    proposalConditions: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
+    proposalConditions: defaultProposalConditions,
     currency: savedCurrency,
     language: savedLanguage,
     currentMonthlyBill: 120,
