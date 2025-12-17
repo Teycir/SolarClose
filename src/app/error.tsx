@@ -18,10 +18,11 @@ const handleReset = (reset: () => void) => {
   try {
     reset();
   } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error';
+    const err = error as Error;
+    const errorMessage = err?.message?.replace(/[\r\n]/g, ' ') || 'Unknown error';
     console.error('Failed to reset:', errorMessage);
-    if (error instanceof Error && error.stack) {
-      console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+    if (err?.stack) {
+      console.error('Stack trace:', err.stack.replace(/[\r\n]/g, ' | '));
     }
   }
 };
