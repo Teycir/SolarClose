@@ -108,6 +108,7 @@ type TranslationKeys = {
   proposalConditions: string;
   proposalCondPlaceholder: string;
   companyLogo: string;
+  administrative: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -221,6 +222,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalConditions: 'Proposal Conditions',
     proposalCondPlaceholder: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
     companyLogo: 'Company Logo',
+    administrative: 'Administrative',
   },
   es: {
     title: 'SolarClose',
@@ -332,6 +334,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalConditions: 'Condiciones de la Propuesta',
     proposalCondPlaceholder: 'Esta propuesta es válida por 30 días.\nPrecio final sujeto a inspección del sitio.\nPlazo de instalación: 4-8 semanas después de la aprobación.',
     companyLogo: 'Logo de la Empresa',
+    administrative: 'Administrativo',
   },
   it: {
     title: 'SolarClose',
@@ -443,6 +446,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalConditions: 'Condizioni della Proposta',
     proposalCondPlaceholder: 'Questa proposta è valida per 30 giorni.\nPrezzo finale soggetto a ispezione del sito.\nTempi di installazione: 4-8 settimane dopo l\'approvazione.',
     companyLogo: 'Logo Aziendale',
+    administrative: 'Amministrativo',
   },
   fr: {
     title: 'SolarClose',
@@ -554,6 +558,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalConditions: 'Conditions de la Proposition',
     proposalCondPlaceholder: 'Cette proposition est valable 30 jours.\nPrix final sous réserve d\'inspection du site.\nDélai d\'installation: 4-8 semaines après approbation.',
     companyLogo: 'Logo de l\'Entreprise',
+    administrative: 'Administratif',
   },
   de: {
     title: 'SolarClose',
@@ -665,6 +670,7 @@ export const translations: Record<string, TranslationKeys> = {
     proposalConditions: 'Angebotsbedingungen',
     proposalCondPlaceholder: 'Dieses Angebot ist 30 Tage gültig.\nEndpreis vorbehaltlich Standortinspektion.\nInstallationszeitraum: 4-8 Wochen nach Genehmigung.',
     companyLogo: 'Firmenlogo',
+    administrative: 'Verwaltung',
   },
 };
 

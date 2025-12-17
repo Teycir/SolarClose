@@ -320,7 +320,7 @@ export default function Home() {
           
           <div className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 rounded-lg p-4 sm:p-6 shadow-2xl">
-              <h2 className="text-lg sm:text-xl font-semibold mb-4">Administrative</h2>
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">{t('administrative')}</h2>
               <div className="space-y-4 sm:space-y-6">
                 <ClientInfoSection data={data} onUpdate={setData} />
                 <CompanyInfoSection data={data} onUpdate={setData} />
