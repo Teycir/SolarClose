@@ -8,8 +8,11 @@ interface EnvironmentalImpactProps {
 }
 
 export function EnvironmentalImpact({ data }: EnvironmentalImpactProps) {
+  const lang = (data.language || 'en') as Language;
+  const isMetric = lang !== 'en';
   const annualProduction = (data.systemSizeKw || 0) * (data.sunHoursPerDay || 0) * 365 * 0.8;
   const co2SavedLbs = Math.max(0, Math.round(annualProduction * 0.85 * 25));
+  const co2Saved = isMetric ? Math.round(co2SavedLbs * 0.453592) : co2SavedLbs;
   const treesEquivalent = Math.max(0, Math.round(co2SavedLbs / 48));
   const carMilesEquivalent = Math.max(0, Math.round(co2SavedLbs * 0.5));
 
@@ -23,8 +26,8 @@ export function EnvironmentalImpact({ data }: EnvironmentalImpactProps) {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="text-center p-3 bg-black/20 rounded-lg">
           <p className="text-xs text-muted-foreground mb-1">CO₂ Offset</p>
-          <p className="text-xl font-bold text-green-400">{co2SavedLbs.toLocaleString()}</p>
-          <p className="text-xs text-muted-foreground">lbs</p>
+          <p className="text-xl font-bold text-green-400">{co2Saved.toLocaleString()}</p>
+          <p className="text-xs text-muted-foreground">{isMetric ? 'kg' : 'lbs'}</p>
         </div>
         
         <div className="text-center p-3 bg-black/20 rounded-lg">

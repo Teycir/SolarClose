@@ -152,6 +152,9 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   
   const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * 0.8;
   const co2SavedLbs = Math.round(annualProduction * 0.85 * 25);
+  const isMetric = lang !== 'en';
+  const co2Saved = isMetric ? Math.round(co2SavedLbs * 0.453592) : co2SavedLbs;
+  const co2Unit = isMetric ? 'kg' : 'lbs';
   const treesEquivalent = Math.round(co2SavedLbs / 48);
   
   doc.setFontSize(12);
@@ -160,7 +163,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   y += 8;
   doc.setFontSize(10);
   doc.setTextColor(0, 0, 0);
-  doc.text(`CO2 Offset: ${co2SavedLbs.toLocaleString('en-US').replace(/,/g, ' ')} lbs`, 20, y);
+  doc.text(`CO2 Offset: ${co2Saved.toLocaleString('en-US').replace(/,/g, ' ')} ${co2Unit}`, 20, y);
   y += 6;
   doc.text(`Trees Planted Equivalent: ${treesEquivalent.toLocaleString('en-US').replace(/,/g, ' ')} trees`, 20, y);
   y += 10;
