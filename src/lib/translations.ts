@@ -191,6 +191,10 @@ type TranslationKeys = {
   years: string;
   shareLabel: string;
   imageRequirements: string;
+  pdfCompany: string;
+  pdfSalesRepresentative: string;
+  pdfPhone: string;
+  pdfFooterCreatedWith: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -387,6 +391,10 @@ export const translations: Record<string, TranslationKeys> = {
     years: 'years',
     shareLabel: 'Share:',
     imageRequirements: 'PNG or JPG, 100-1000px wide, 50-500px tall, max 500KB',
+    pdfCompany: 'Company:',
+    pdfSalesRepresentative: 'Sales Representative:',
+    pdfPhone: 'Phone:',
+    pdfFooterCreatedWith: 'Created with SolarClose - Free Solar ROI Calculator.',
   },
   es: {
     title: 'SolarClose',
@@ -504,7 +512,7 @@ export const translations: Record<string, TranslationKeys> = {
     pdfEstimatedProduction: 'Producción Anual Estimada',
     pdfInvestmentReturns: 'Inversión y Retornos',
     pdfTotalSystemCost: 'Costo Total del Sistema',
-    pdfFederalTaxCredit: 'Crédito Fiscal Federal',
+    pdfFederalTaxCredit: 'Crédito Fiscal',
     pdfStateIncentive: 'Incentivo Estatal',
     pdfNetInvestment: 'Inversión Neta',
     pdfDownPayment: 'Pago Inicial',
@@ -581,6 +589,10 @@ export const translations: Record<string, TranslationKeys> = {
     years: 'años',
     shareLabel: 'Compartir:',
     imageRequirements: 'PNG o JPG, 100-1000px de ancho, 50-500px de alto, máx 500KB',
+    pdfCompany: 'Empresa:',
+    pdfSalesRepresentative: 'Representante de Ventas:',
+    pdfPhone: 'Teléfono:',
+    pdfFooterCreatedWith: 'Creado con SolarClose - Calculadora ROI Solar Gratuita.',
   },
   it: {
     title: 'SolarClose',
@@ -698,7 +710,7 @@ export const translations: Record<string, TranslationKeys> = {
     pdfEstimatedProduction: 'Produzione Annuale Stimata',
     pdfInvestmentReturns: 'Investimento e Ritorni',
     pdfTotalSystemCost: 'Costo Totale del Sistema',
-    pdfFederalTaxCredit: 'Credito Fiscale Federale',
+    pdfFederalTaxCredit: 'Credito Fiscale',
     pdfStateIncentive: 'Incentivo Statale',
     pdfNetInvestment: 'Investimento Netto',
     pdfDownPayment: 'Acconto',
@@ -775,6 +787,10 @@ export const translations: Record<string, TranslationKeys> = {
     years: 'anni',
     shareLabel: 'Condividi:',
     imageRequirements: 'PNG o JPG, 100-1000px larghezza, 50-500px altezza, max 500KB',
+    pdfCompany: 'Azienda:',
+    pdfSalesRepresentative: 'Rappresentante di Vendita:',
+    pdfPhone: 'Telefono:',
+    pdfFooterCreatedWith: 'Creato con SolarClose - Calcolatore ROI Solare Gratuito.',
   },
   fr: {
     title: 'SolarClose',
@@ -892,7 +908,7 @@ export const translations: Record<string, TranslationKeys> = {
     pdfEstimatedProduction: 'Production Annuelle Estimée',
     pdfInvestmentReturns: 'Investissement et Retours',
     pdfTotalSystemCost: 'Coût Total du Système',
-    pdfFederalTaxCredit: 'Crédit d\'Impôt Fédéral',
+    pdfFederalTaxCredit: 'Crédit d\'Impôt',
     pdfStateIncentive: 'Incitatif d\'\u00c9tat',
     pdfNetInvestment: 'Investissement Net',
     pdfDownPayment: 'Acompte',
@@ -969,6 +985,10 @@ export const translations: Record<string, TranslationKeys> = {
     years: 'ans',
     shareLabel: 'Partager:',
     imageRequirements: 'PNG ou JPG, 100-1000px largeur, 50-500px hauteur, max 500KB',
+    pdfCompany: 'Entreprise:',
+    pdfSalesRepresentative: 'Représentant Commercial:',
+    pdfPhone: 'Téléphone:',
+    pdfFooterCreatedWith: 'Créé avec SolarClose - Calculateur ROI Solaire Gratuit.',
   },
   de: {
     title: 'SolarClose',
@@ -1086,7 +1106,7 @@ export const translations: Record<string, TranslationKeys> = {
     pdfEstimatedProduction: 'Geschätzte Jahresproduktion',
     pdfInvestmentReturns: 'Investition und Renditen',
     pdfTotalSystemCost: 'Gesamtsystemkosten',
-    pdfFederalTaxCredit: 'Bundessteuergutschrift',
+    pdfFederalTaxCredit: 'Steuergutschrift',
     pdfStateIncentive: 'Staatlicher Anreiz',
     pdfNetInvestment: 'Nettoinvestition',
     pdfDownPayment: 'Anzahlung',
@@ -1163,6 +1183,10 @@ export const translations: Record<string, TranslationKeys> = {
     years: 'Jahre',
     shareLabel: 'Teilen:',
     imageRequirements: 'PNG oder JPG, 100-1000px Breite, 50-500px Höhe, max 500KB',
+    pdfCompany: 'Unternehmen:',
+    pdfSalesRepresentative: 'Vertriebsmitarbeiter:',
+    pdfPhone: 'Telefon:',
+    pdfFooterCreatedWith: 'Erstellt mit SolarClose - Kostenloser Solar-ROI-Rechner.',
   },
 };
 

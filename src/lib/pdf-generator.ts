@@ -33,19 +33,19 @@ const formatDateForFilename = (dateStr: string, lang: Language) => {
 
 const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
 
-const addCompanyHeader = async (doc: any, data: SolarLead) => {
+const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (key: string) => string) => {
   doc.setFontSize(12);
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
-  doc.text(`Company: ${data.companyName}`, 20, 15);
+  doc.text(`${t('pdfCompany')} ${data.companyName}`, 20, 15);
   
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(60, 60, 60);
   let headerY = 21;
-  if (data.salesRep) { doc.text(`Sales Representative: ${data.salesRep}`, 20, headerY); headerY += 5; }
-  doc.text(`Phone: ${data.companyPhone}`, 20, headerY); headerY += 5;
-  if (data.companyEmail) { doc.text(`Email: ${data.companyEmail}`, 20, headerY); }
+  if (data.salesRep) { doc.text(`${t('pdfSalesRepresentative')} ${data.salesRep}`, 20, headerY); headerY += 5; }
+  doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY); headerY += 5;
+  if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); }
   
   if (data.companyLogo) {
     try {
@@ -78,7 +78,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
   
-  await addCompanyHeader(doc, data);
+  await addCompanyHeader(doc, data, lang, t);
   
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
@@ -218,7 +218,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.text(data.companyName, 105, 276, { align: 'center' });
   doc.text(`${t('pdfGeneratedOn')} ${formatDate(new Date().toISOString().split('T')[0], lang)}`, 105, 281, { align: 'center' });
   doc.setTextColor(100, 100, 255);
-  doc.textWithLink('Created with SolarClose - Free Solar ROI Calculator.', 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
+  doc.textWithLink(t('pdfFooterCreatedWith'), 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
   
   return doc.output('blob');
 }
@@ -229,7 +229,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
   
-  await addCompanyHeader(doc, data);
+  await addCompanyHeader(doc, data, lang, t);
   
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
@@ -343,7 +343,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   doc.text(t('pdfConfidential'), 105, 276, { align: 'center' });
   doc.text(data.companyName, 105, 281, { align: 'center' });
   doc.setTextColor(100, 100, 255);
-  doc.textWithLink('Created with SolarClose - Free Solar ROI Calculator.', 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
+  doc.textWithLink(t('pdfFooterCreatedWith'), 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
   
   return doc.output('blob');
 }
