@@ -19,7 +19,7 @@ We use a **Business Source License (BSL)**, which means:
 2. **Free for Individuals:** Independent reps can use it forever.
 3. **Auditable Security:** You don't have to trust us—you can verify us.
 
-📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md)
+📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md) | [PWA Setup](PWA_SETUP.md)
 
 ---
 
@@ -171,6 +171,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+**PWA Features**: SolarClose is a Progressive Web App. See [PWA_SETUP.md](PWA_SETUP.md) for installation and offline capabilities.
 
 ---
 
