@@ -12,14 +12,45 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
 
-  // Calculate max useful monthly bill based on system cost and size
+  // Calculate max useful monthly bill based on system size only
   const PERFORMANCE_RATIO = 0.8;
   const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * PERFORMANCE_RATIO;
   const productionBasedMax = data.electricityRate > 0 ? Math.ceil((annualProduction / 12) * data.electricityRate / 10) * 10 : 1000;
-  const costBasedMax = Math.ceil(data.systemCost / 50);
-  const maxUsefulBill = Math.max(productionBasedMax, costBasedMax);
-  const cappedMaxBill = Math.min(Math.max(maxUsefulBill, 100), 2000);
+  const cappedMaxBill = Math.min(Math.max(productionBasedMax, 100), 2000);
   const isAtMaxCapacity = data.currentMonthlyBill >= cappedMaxBill - 10;
+
+  // Auto-adjust monthly bill if it exceeds new max
+  const handleSystemSizeChange = (newSize: number) => {
+    const newAnnualProduction = newSize * data.sunHoursPerDay * 365 * PERFORMANCE_RATIO;
+    const newMax = data.electricityRate > 0 ? Math.ceil((newAnnualProduction / 12) * data.electricityRate / 10) * 10 : 1000;
+    const newCappedMax = Math.min(Math.max(newMax, 100), 2000);
+    const updates: Partial<SolarLead> = { systemSizeKw: newSize };
+    if (data.currentMonthlyBill > newCappedMax) {
+      updates.currentMonthlyBill = newCappedMax;
+    }
+    onUpdate(updates);
+  };
+
+  const handleSunHoursChange = (newHours: number) => {
+    const newAnnualProduction = data.systemSizeKw * newHours * 365 * PERFORMANCE_RATIO;
+    const newMax = data.electricityRate > 0 ? Math.ceil((newAnnualProduction / 12) * data.electricityRate / 10) * 10 : 1000;
+    const newCappedMax = Math.min(Math.max(newMax, 100), 2000);
+    const updates: Partial<SolarLead> = { sunHoursPerDay: newHours };
+    if (data.currentMonthlyBill > newCappedMax) {
+      updates.currentMonthlyBill = newCappedMax;
+    }
+    onUpdate(updates);
+  };
+
+  const handleElectricityRateChange = (newRate: number) => {
+    const newMax = newRate > 0 ? Math.ceil((annualProduction / 12) * newRate / 10) * 10 : 1000;
+    const newCappedMax = Math.min(Math.max(newMax, 100), 2000);
+    const updates: Partial<SolarLead> = { electricityRate: newRate };
+    if (data.currentMonthlyBill > newCappedMax) {
+      updates.currentMonthlyBill = newCappedMax;
+    }
+    onUpdate(updates);
+  };
 
   return (
     <>
@@ -33,7 +64,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           max="20"
           step="0.5"
           value={data.systemSizeKw}
-          onChange={(e) => onUpdate({ systemSizeKw: Number(e.target.value) })}
+          onChange={(e) => handleSystemSizeChange(Number(e.target.value))}
           className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
@@ -99,7 +130,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           max="0.40"
           step="0.01"
           value={data.electricityRate}
-          onChange={(e) => onUpdate({ electricityRate: Number(e.target.value) })}
+          onChange={(e) => handleElectricityRateChange(Number(e.target.value))}
           className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
@@ -114,7 +145,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           max="10"
           step="0.5"
           value={data.sunHoursPerDay}
-          onChange={(e) => onUpdate({ sunHoursPerDay: Number(e.target.value) })}
+          onChange={(e) => handleSunHoursChange(Number(e.target.value))}
           className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
