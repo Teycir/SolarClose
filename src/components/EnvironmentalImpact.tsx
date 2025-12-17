@@ -23,7 +23,8 @@ export function EnvironmentalImpact({ data }: EnvironmentalImpactProps) {
   const co2SavedLbs = Math.max(0, Math.round(annualProduction * CO2_PER_KWH * YEARS));
   const co2Saved = isMetric ? Math.round(co2SavedLbs * LBS_TO_KG) : co2SavedLbs;
   const treesEquivalent = Math.max(0, Math.round(co2SavedLbs / LBS_PER_TREE));
-  const carMilesEquivalent = Math.max(0, Math.round(co2SavedLbs * MILES_PER_LB_CO2));
+  const carMiles = Math.max(0, Math.round(co2SavedLbs * MILES_PER_LB_CO2));
+  const carDistance = isMetric ? Math.round(carMiles * 1.60934) : carMiles;
 
   return (
     <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 backdrop-blur-sm border border-green-700/50 rounded-lg p-4 sm:p-6 space-y-4">
@@ -47,7 +48,7 @@ export function EnvironmentalImpact({ data }: EnvironmentalImpactProps) {
         
         <div className="text-center p-3 bg-black/20 rounded-lg">
           <p className="text-xs text-muted-foreground mb-1">{t('envCarMiles')}</p>
-          <p className="text-xl font-bold text-green-400">{carMilesEquivalent.toLocaleString()}</p>
+          <p className="text-xl font-bold text-green-400">{carDistance.toLocaleString()}</p>
           <p className="text-xs text-muted-foreground">{t('envNotDriven')}</p>
         </div>
       </div>
