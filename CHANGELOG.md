@@ -2,9 +2,18 @@
 
 All notable changes to SolarClose will be documented in this file.
 
-## [1.2.0] - 2025-01-XX
+## [1.2.1] - 2025-12-XX
+
+### Bug Fixes
+
+- 🐛 **Chart Label**: Fixed inverter replacement year display from "Year 13" to "Year 12" in chart footer across all 5 languages
+
+---
+
+## [1.2.0] - 2025-12-XX
 
 ### UI/UX Enhancements
+
 - 🎨 **Button Standardization**: Unified all header buttons with consistent yellow/orange gradient, equal sizing (flex-1 min-w-[120px]), and centered layout
 - ✨ **Eye Candy Effects**: Added animated number counter for 25-year savings, confetti celebration for >$50k savings, hover lift on cards, diagonal shimmer on buttons (60s), smooth chart animation (2s), and glass morphism
 - 🎯 **ROI Display**: Made ROI text green when positive, red when negative, increased to text-base font-bold text-green-700
@@ -14,11 +23,13 @@ All notable changes to SolarClose will be documented in this file.
 - 🌐 **Translations**: Added backup, restore, share, saveLead, howItWorks keys for all 5 languages (English, Spanish, Italian, French, German)
 - ☀️ **Floating Sun Icon**: Added animated sun icon in header with subtle float animation (6s, 5px movement)
 
-### Bug Fixes
+### Fixes
+
 - 🐛 **Export Button**: Fixed cropping issue by removing flex-1 from wrapper div, added it to button element instead
 - 🐛 **Tooltip Styling**: Enhanced tooltip with harmonious amber-orange gradient, font-semibold, border, z-50, and shadow-xl for better visibility
 
 ### Code Quality
+
 - 🔧 **Error Handling**: Improved error handling across all components with proper type annotations
 - 📝 **Readability**: Simplified complex expressions and extracted magic numbers into named constants
 - 🧹 **Code Cleanup**: Removed unused parameters and improved maintainability
@@ -28,6 +39,7 @@ All notable changes to SolarClose will be documented in this file.
 - 🎯 **Validation**: Enhanced input validation with clearer error handling
 
 ### Technical Improvements
+
 - Split long destructuring statements into multiple lines for better readability
 - Extracted EMPTY_RESULT constant to reduce code duplication
 - Improved error message sanitization throughout the codebase
@@ -40,9 +52,10 @@ All notable changes to SolarClose will be documented in this file.
 
 ---
 
-## [1.1.0] - 2025-01-XX
+## [1.1.0] - 2025-12-XX
 
 ### Improved
+
 - 🔧 **Calculation Accuracy**: Inverter replacement now occurs every 12 years (years 12 and 24) instead of only year 13
 - 💰 **Inflation Applied to Future Costs**: Inverter replacement costs now properly inflated to replacement year
 - 📊 **Break-Even Logic**: Returns `null` when system never breaks even instead of misleading "Year 25"
@@ -52,15 +65,18 @@ All notable changes to SolarClose will be documented in this file.
 - 📈 **Savings Chart**: Properly displays "bumps" at inverter replacement years
 
 ### Fixed
+
 - 🐛 Removed unused `totalLoanCost` variable
 - 🐛 Fixed double-counting of inflation in savings calculations
 - 🐛 Corrected year 1 solar cost display (now shows net cost after incentives)
 - 🐛 UI components now handle `null` break-even year gracefully (displays "Never")
 
 ### Removed
+
 - ❌ Removed unimplemented financing options (Lease/PPA) from interface
 
 ### Documentation
+
 - 📚 Added comprehensive `CALCULATION_LOGIC_DOCUMENTATION.md` with:
   - Complete mathematical formulas and examples
   - Expert review responses for all 10 industry questions
@@ -70,6 +86,7 @@ All notable changes to SolarClose will be documented in this file.
 - ✅ Expert review applied with corrections
 
 ### Technical
+
 - Updated `SolarCalculationResults` interface with `breaksEvenWithin25Years` boolean flag
 - Changed `breakEvenYear` type from `number` to `number | null`
 - Enhanced error handling for edge cases
@@ -79,6 +96,7 @@ All notable changes to SolarClose will be documented in this file.
 ## [1.0.0] - 2024-12-15
 
 ### Added
+
 - 🎉 Initial release of SolarClose Solar ROI Calculator
 - ⚡ Offline-first PWA with IndexedDB storage
 - 📊 Real-time 25-year solar savings calculations
@@ -96,6 +114,7 @@ All notable changes to SolarClose will be documented in this file.
 - 💎 Glass morphism design with backdrop blur effects
 
 ### Technical Features
+
 - Next.js 14 with App Router and TypeScript
 - Tailwind CSS with custom solar theme
 - Serwist service workers for offline support
@@ -106,6 +125,7 @@ All notable changes to SolarClose will be documented in this file.
 - PWA manifest and service worker
 
 ### Calculations
+
 - 25-year total savings projections
 - Break-even year calculations
 - Inflation rate adjustments
@@ -113,6 +133,7 @@ All notable changes to SolarClose will be documented in this file.
 - Real-time updates as inputs change
 
 ### Export Features
+
 - Professional PDF proposals
 - Company branding in headers
 - Client information sections
@@ -121,11 +142,12 @@ All notable changes to SolarClose will be documented in this file.
 - Automatic filename generation
 
 ### License
+
 - CC BY-NC-ND 4.0 (Creative Commons Attribution-NonCommercial-NoDerivatives)
 - Non-commercial use only
 - Commercial licensing available upon request
 
 ---
 
-**Live App**: https://solarclose.pages.dev
-**Repository**: https://github.com/Teycir/SolarClose
+**Live App**: <https://solarclose.pages.dev>
+**Repository**: <https://github.com/Teycir/SolarClose>
