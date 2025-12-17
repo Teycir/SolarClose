@@ -4,6 +4,10 @@ const CURRENCY_SYMBOLS: Record<string, string> = {
   GBP: '£',
 };
 
+export function getCurrencySymbol(currency: string = 'USD'): string {
+  return CURRENCY_SYMBOLS[currency] || '$';
+}
+
 export function formatCurrency(amount: number, currency: string = 'USD'): string {
   if (!isFinite(amount)) amount = 0;
   

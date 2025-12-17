@@ -2,6 +2,7 @@
 
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
+import { getCurrencySymbol } from '@/lib/currency';
 
 interface PropertyFinancialSectionProps {
   data: SolarLead;
@@ -11,6 +12,7 @@ interface PropertyFinancialSectionProps {
 export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSectionProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
+  const currencySymbol = getCurrencySymbol(data.currency || 'USD');
   
   const DEFAULT_LOAN_TERM = 20;
   const DEFAULT_INTEREST_RATE = 6.99;
@@ -68,7 +70,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
       {data.financingOption === 'Loan' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20">
           <div>
-            <label className="block text-sm font-medium mb-2">{t('downPayment')}: ${(data.downPayment || 0).toLocaleString()}</label>
+            <label className="block text-sm font-medium mb-2">{t('downPayment')}: {currencySymbol}{(data.downPayment || 0).toLocaleString()}</label>
             <input
               type="range"
               min="0"

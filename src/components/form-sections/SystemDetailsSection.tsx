@@ -2,6 +2,7 @@
 
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
+import { getCurrencySymbol } from '@/lib/currency';
 
 interface SystemDetailsSectionProps {
   data: SolarLead;
@@ -11,6 +12,7 @@ interface SystemDetailsSectionProps {
 export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
+  const currencySymbol = getCurrencySymbol(data.currency || 'USD');
 
   // Calculate max useful monthly bill based on system size only
   const PERFORMANCE_RATIO = 0.8;
@@ -71,7 +73,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t('currentMonthlyBill')}: ${data.currentMonthlyBill}
+          {t('currentMonthlyBill')}: {currencySymbol}{data.currentMonthlyBill}
           {isAtMaxCapacity && <span className="ml-2 text-xs text-amber-500">⚠️ Max</span>}
         </label>
         <input
@@ -107,7 +109,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t('systemCost')}: ${data.systemCost.toLocaleString()}
+          {t('systemCost')}: {currencySymbol}{data.systemCost.toLocaleString()}
         </label>
         <input
           type="range"
@@ -122,7 +124,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t('electricityRate')}: ${data.electricityRate}/kWh
+          {t('electricityRate')}: {currencySymbol}{data.electricityRate}/kWh
         </label>
         <input
           type="range"
@@ -167,7 +169,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
 
       <div>
         <label className="block text-sm font-medium mb-2">
-          {t('stateIncentive')}: ${data.stateIncentive.toLocaleString()}
+          {t('stateIncentive')}: {currencySymbol}{data.stateIncentive.toLocaleString()}
         </label>
         <input
           type="range"

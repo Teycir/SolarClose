@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 import { generateClientPDF, generateSellerPDF, getFilename } from '@/lib/pdf-generator';
+import { formatCurrency } from '@/lib/currency';
 import { Tooltip } from './Tooltip';
 
 interface ExportButtonProps {
@@ -72,11 +73,6 @@ export function ExportButton({ data }: ExportButtonProps) {
     } finally {
       setIsGenerating(false);
     }
-  };
-
-  const formatCurrency = (amount: number, currency?: string) => {
-    const symbol = currency === 'EUR' ? '€' : '$';
-    return `${symbol}${Math.round(amount).toLocaleString()}`;
   };
 
   const getButtonText = () => {

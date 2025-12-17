@@ -1,5 +1,6 @@
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
+import { getCurrencySymbol } from '@/lib/currency';
 
 const formatDate = (dateStr: string, lang: Language) => {
   try {
@@ -31,8 +32,6 @@ const formatDateForFilename = (dateStr: string, lang: Language) => {
 };
 
 const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
-
-const getCurrencySymbol = (currency?: string) => currency === 'USD' ? '$' : '€';
 
 const addCompanyHeader = async (doc: any, data: SolarLead) => {
   doc.setFontSize(12);
