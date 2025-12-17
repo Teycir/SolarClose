@@ -80,7 +80,7 @@ We don't hide our math. We use realistic, conservative numbers to build trust:
 - **Inverter Replacement**: Factored at Year 12 & 24 (customizable)
 - **Inflation**: 4% annual utility rate increase (customizable)
 
-_Want to check the math? [Read the Code.](https://github.com/Teycir/SolarClose/blob/main/src/utils/calculations.ts)_
+_Want to check the math? [Read the Code.](https://github.com/Teycir/SolarClose/blob/main/src/lib/calculations.ts)_
 
 ---
 
