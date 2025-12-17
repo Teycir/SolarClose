@@ -590,7 +590,7 @@ export const translations: Record<string, TranslationKeys> = {
     chartIncludes: 'Inkl. Wartung (~150€/Jahr) und Wechselrichter-Austausch (Jahr 13)',
     chartTotalSavings: 'Gesamteinsparungen über 25 Jahre',
     backup: 'Sichern',
-    restore: 'Wiederherstellen',
+    restore: 'Laden',
     share: 'Teilen',
     saveLead: 'Kunde Speichern',
     tooltipNewLead: 'Neuen Kunden erstellen',
