@@ -10,6 +10,8 @@
 
 🌟 **Start Using Now**: <https://solarclose.pages.dev>
 
+**Most solar software runs in the cloud, meaning they have your data. SolarClose is different. It runs entirely on your iPad. ALL the source code is public. Your IT guy can audit it to prove that zero data leaves the device.**
+
 Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.
 
 📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md)
