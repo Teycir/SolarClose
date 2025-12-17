@@ -68,7 +68,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
       {data.financingOption === 'Loan' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20">
           <div>
-            <label className="block text-sm font-medium mb-2">Down Payment: ${(data.downPayment || 0).toLocaleString()}</label>
+            <label className="block text-sm font-medium mb-2">{t('downPayment')}: ${(data.downPayment || 0).toLocaleString()}</label>
             <input
               type="range"
               min="0"
@@ -80,7 +80,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Loan Term: {data.loanTerm || DEFAULT_LOAN_TERM} years</label>
+            <label className="block text-sm font-medium mb-2">{t('loanTerm')}: {data.loanTerm || DEFAULT_LOAN_TERM} {t('years')}</label>
             <input
               type="range"
               min="5"
@@ -92,7 +92,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Interest Rate: {data.loanInterestRate || DEFAULT_INTEREST_RATE}%</label>
+            <label className="block text-sm font-medium mb-2">{t('interestRate')}: {data.loanInterestRate || DEFAULT_INTEREST_RATE}%</label>
             <input
               type="range"
               min="3"

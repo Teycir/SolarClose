@@ -176,6 +176,21 @@ type TranslationKeys = {
   delete: string;
   deleteConfirmation: string;
   clearAllConfirmation: string;
+  inverterWarranty25: string;
+  systemAtMaxCapacity: string;
+  monthlyPaymentComparison: string;
+  currentBill: string;
+  newPayment: string;
+  monthlySavings: string;
+  perMonth: string;
+  newPaymentIncludes: string;
+  reducedUtilityBill: string;
+  downPayment: string;
+  loanTerm: string;
+  interestRate: string;
+  years: string;
+  shareLabel: string;
+  imageRequirements: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -357,6 +372,21 @@ export const translations: Record<string, TranslationKeys> = {
     delete: 'Delete',
     deleteConfirmation: 'Are you sure you want to delete this item?',
     clearAllConfirmation: 'Delete all saved items?',
+    inverterWarranty25: 'System has 25-year Inverter Warranty (e.g., Enphase Microinverters, SolarEdge with extended warranty)',
+    systemAtMaxCapacity: 'System at max capacity. Increase system size for higher bills.',
+    monthlyPaymentComparison: 'Monthly Payment Comparison',
+    currentBill: 'Current Bill',
+    newPayment: 'New Payment',
+    monthlySavings: 'Monthly Savings',
+    perMonth: '/month',
+    newPaymentIncludes: 'New payment includes: Loan',
+    reducedUtilityBill: 'Reduced utility bill',
+    downPayment: 'Down Payment',
+    loanTerm: 'Loan Term',
+    interestRate: 'Interest Rate',
+    years: 'years',
+    shareLabel: 'Share:',
+    imageRequirements: 'PNG or JPG, 100-1000px wide, 50-500px tall, max 500KB',
   },
   es: {
     title: 'SolarClose',
@@ -536,6 +566,21 @@ export const translations: Record<string, TranslationKeys> = {
     delete: 'Eliminar',
     deleteConfirmation: '¿Está seguro de que desea eliminar este elemento?',
     clearAllConfirmation: '¿Eliminar todos los elementos guardados?',
+    inverterWarranty25: 'El sistema tiene garantía de inversor de 25 años (ej., Microinversores Enphase, SolarEdge con garantía extendida)',
+    systemAtMaxCapacity: 'Sistema a capacidad máxima. Aumente el tamaño del sistema para facturas más altas.',
+    monthlyPaymentComparison: 'Comparación de Pagos Mensuales',
+    currentBill: 'Factura Actual',
+    newPayment: 'Nuevo Pago',
+    monthlySavings: 'Ahorros Mensuales',
+    perMonth: '/mes',
+    newPaymentIncludes: 'El nuevo pago incluye: Préstamo',
+    reducedUtilityBill: 'Factura de servicios reducida',
+    downPayment: 'Pago Inicial',
+    loanTerm: 'Plazo del Préstamo',
+    interestRate: 'Tasa de Interés',
+    years: 'años',
+    shareLabel: 'Compartir:',
+    imageRequirements: 'PNG o JPG, 100-1000px de ancho, 50-500px de alto, máx 500KB',
   },
   it: {
     title: 'SolarClose',
@@ -715,6 +760,21 @@ export const translations: Record<string, TranslationKeys> = {
     delete: 'Elimina',
     deleteConfirmation: 'Sei sicuro di voler eliminare questo elemento?',
     clearAllConfirmation: 'Eliminare tutti gli elementi salvati?',
+    inverterWarranty25: 'Il sistema ha una garanzia inverter di 25 anni (es., Microinverter Enphase, SolarEdge con garanzia estesa)',
+    systemAtMaxCapacity: 'Sistema a capacità massima. Aumentare la dimensione del sistema per bollette più alte.',
+    monthlyPaymentComparison: 'Confronto Pagamenti Mensili',
+    currentBill: 'Bolletta Attuale',
+    newPayment: 'Nuovo Pagamento',
+    monthlySavings: 'Risparmi Mensili',
+    perMonth: '/mese',
+    newPaymentIncludes: 'Il nuovo pagamento include: Prestito',
+    reducedUtilityBill: 'Bolletta ridotta',
+    downPayment: 'Acconto',
+    loanTerm: 'Durata del Prestito',
+    interestRate: 'Tasso di Interesse',
+    years: 'anni',
+    shareLabel: 'Condividi:',
+    imageRequirements: 'PNG o JPG, 100-1000px larghezza, 50-500px altezza, max 500KB',
   },
   fr: {
     title: 'SolarClose',
@@ -894,6 +954,21 @@ export const translations: Record<string, TranslationKeys> = {
     delete: 'Supprimer',
     deleteConfirmation: 'Êtes-vous sûr de vouloir supprimer cet élément?',
     clearAllConfirmation: 'Supprimer tous les éléments enregistrés?',
+    inverterWarranty25: 'Le système dispose d\'une garantie onduleur de 25 ans (ex., Micro-onduleurs Enphase, SolarEdge avec garantie étendue)',
+    systemAtMaxCapacity: 'Système à capacité maximale. Augmentez la taille du système pour des factures plus élevées.',
+    monthlyPaymentComparison: 'Comparaison des Paiements Mensuels',
+    currentBill: 'Facture Actuelle',
+    newPayment: 'Nouveau Paiement',
+    monthlySavings: 'Économies Mensuelles',
+    perMonth: '/mois',
+    newPaymentIncludes: 'Le nouveau paiement comprend: Prêt',
+    reducedUtilityBill: 'Facture de services réduite',
+    downPayment: 'Acompte',
+    loanTerm: 'Durée du Prêt',
+    interestRate: 'Taux d\'Intérêt',
+    years: 'ans',
+    shareLabel: 'Partager:',
+    imageRequirements: 'PNG ou JPG, 100-1000px largeur, 50-500px hauteur, max 500KB',
   },
   de: {
     title: 'SolarClose',
@@ -1073,6 +1148,21 @@ export const translations: Record<string, TranslationKeys> = {
     delete: 'Löschen',
     deleteConfirmation: 'Möchten Sie dieses Element wirklich löschen?',
     clearAllConfirmation: 'Alle gespeicherten Elemente löschen?',
+    inverterWarranty25: 'System hat 25-jährige Wechselrichter-Garantie (z.B. Enphase Mikrowechselrichter, SolarEdge mit erweiterter Garantie)',
+    systemAtMaxCapacity: 'System bei maximaler Kapazität. Erhöhen Sie die Systemgröße für höhere Rechnungen.',
+    monthlyPaymentComparison: 'Monatlicher Zahlungsvergleich',
+    currentBill: 'Aktuelle Rechnung',
+    newPayment: 'Neue Zahlung',
+    monthlySavings: 'Monatliche Einsparungen',
+    perMonth: '/Monat',
+    newPaymentIncludes: 'Die neue Zahlung umfasst: Darlehen',
+    reducedUtilityBill: 'Reduzierte Stromrechnung',
+    downPayment: 'Anzahlung',
+    loanTerm: 'Darlehenslaufzeit',
+    interestRate: 'Zinssatz',
+    years: 'Jahre',
+    shareLabel: 'Teilen:',
+    imageRequirements: 'PNG oder JPG, 100-1000px Breite, 50-500px Höhe, max 500KB',
   },
 };
 

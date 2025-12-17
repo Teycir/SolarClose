@@ -85,7 +85,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
         />
         {isAtMaxCapacity && (
           <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-            System at max capacity. Increase system size for higher bills.
+            {t('systemAtMaxCapacity')}
           </p>
         )}
       </div>
@@ -189,7 +189,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           className="w-5 h-5 cursor-pointer"
         />
         <label htmlFor="inverter-warranty" className="text-sm font-medium cursor-pointer flex-1">
-          System has 25-year Inverter Warranty (e.g., Enphase Microinverters, SolarEdge with extended warranty)
+          {t('inverterWarranty25')}
         </label>
       </div>
     </>

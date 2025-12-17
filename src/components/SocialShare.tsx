@@ -1,13 +1,17 @@
 'use client';
 
-import type { SolarLead } from '@/types/solar';
+import type { SolarLead, Language } from '@/types/solar';
 import { formatCurrency } from '@/lib/currency';
+import { getTranslation } from '@/lib/translations';
 
 interface SocialShareProps {
   data: SolarLead;
 }
 
 export function SocialShare({ data }: SocialShareProps) {
+  const lang = (data.language || 'en') as Language;
+  const t = (key: string) => getTranslation(lang, key as any);
+  
   const defaultUrl = 'https://solarclose.pages.dev';
   const url = typeof window !== 'undefined' ? window.location.href : defaultUrl;
   const savings = formatCurrency(data.twentyFiveYearSavings, data.currency);
@@ -21,7 +25,7 @@ export function SocialShare({ data }: SocialShareProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs text-muted-foreground">Share:</span>
+      <span className="text-xs text-muted-foreground">{t('shareLabel')}</span>
       <a
         href={shareLinks.twitter}
         target="_blank"
