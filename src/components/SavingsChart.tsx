@@ -42,7 +42,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
     labels: results.yearlyBreakdown.map(y => y.year === 1 || y.year % 5 === 0 || y.year === 25 ? `${y.year}` : ''),
     datasets: [
       {
-        label: 'Cumulative Savings',
+        label: t('chartCumulativeSavings'),
         data: results.yearlyBreakdown.map(y => y.cumulativeSavings),
         borderColor: 'rgb(255, 193, 7)',
         backgroundColor: (context: any) => {
@@ -98,7 +98,7 @@ export function SavingsChart({ data }: SavingsChartProps) {
           afterBody: (context: any) => {
             const year = context[0].dataIndex + 1;
             if (data.breakEvenYear && year === data.breakEvenYear) {
-              return '\n🎯 BREAK-EVEN POINT';
+              return `\n🎯 ${t('chartBreakEven').toUpperCase()}`;
             }
             return '';
           }
