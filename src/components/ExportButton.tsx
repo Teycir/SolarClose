@@ -86,7 +86,7 @@ export function ExportButton({ data }: ExportButtonProps) {
         <button
           onClick={handleExport}
           disabled={isGenerating || !canExport}
-          className="flex-1 min-w-[100px] max-w-[140px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
+          className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
           aria-label={t('exportPDFs')}
           title={t('tooltipExport')}
         >
@@ -99,7 +99,7 @@ export function ExportButton({ data }: ExportButtonProps) {
         <button
           onClick={handleShare}
           disabled={isGenerating || !canExport}
-          className="flex-1 min-w-[100px] max-w-[140px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
+          className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50"
           aria-label="Share proposal"
         >
           <span className="block truncate">📤 {t('share')}</span>

@@ -199,7 +199,7 @@ export default function Home() {
           <div className="flex flex-wrap justify-center items-center gap-3">
             <button
               onClick={handleNewLead}
-              className="flex-1 min-w-[100px] max-w-[140px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button"
+              className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button"
               aria-label="Create new lead"
               title={t('tooltipNewLead')}
             >
@@ -208,7 +208,7 @@ export default function Home() {
             <button
               onClick={() => setShowLeads(!showLeads)}
               disabled={allLeads.length === 0}
-              className="flex-1 min-w-[100px] max-w-[140px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
               title={t('tooltipViewLeads')}
             >
               <span className="block truncate">{showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}${allLeads.length > 0 ? ` (${allLeads.length})` : ''}`}</span>
@@ -216,7 +216,7 @@ export default function Home() {
             <button
               onClick={saveLead}
               disabled={!data?.clientName.trim() || isDefaultLead}
-              className="flex-1 min-w-[100px] max-w-[140px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
               title={t('tooltipSaveLead')}
             >
               <span className="block truncate">💾 {t('saveLead')}</span>
