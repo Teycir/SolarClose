@@ -26,7 +26,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
   return (
     <>
       <div>
-        <label className="block text-sm font-medium mb-2">Product Description *</label>
+        <label className="block text-sm font-medium mb-2">{t('productDescription')} *</label>
         <textarea
           value={data.productDescription}
           onChange={(e) => {
@@ -34,7 +34,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             onUpdate({ productDescription: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
-          placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
+          placeholder={t('productDescPlaceholder')}
           rows={3}
           maxLength={500}
           required
@@ -48,7 +48,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
       </div>
 
       <div>
-        <label className="block text-sm font-medium mb-2">Proposal Conditions *</label>
+        <label className="block text-sm font-medium mb-2">{t('proposalConditions')} *</label>
         <textarea
           value={data.proposalConditions || ''}
           onChange={(e) => {
@@ -56,7 +56,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             onUpdate({ proposalConditions: sanitized });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
-          placeholder="This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval."
+          placeholder={t('proposalCondPlaceholder')}
           rows={3}
           required
           aria-required="true"
@@ -94,6 +94,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
           }}
           onLogoChange={(logo) => onUpdate({ companyLogo: logo })}
           showOnlyNameButtons={true}
+          language={lang}
         />
       </div>
       
@@ -106,6 +107,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
         }}
         onLogoChange={(logo) => onUpdate({ companyLogo: logo })}
         showOnlyLogo={true}
+        language={lang}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

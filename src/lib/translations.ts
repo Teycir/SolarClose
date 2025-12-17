@@ -103,6 +103,11 @@ type TranslationKeys = {
   envEquivalent: string;
   envCarMiles: string;
   envNotDriven: string;
+  productDescription: string;
+  productDescPlaceholder: string;
+  proposalConditions: string;
+  proposalCondPlaceholder: string;
+  companyLogo: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -211,6 +216,11 @@ export const translations: Record<string, TranslationKeys> = {
     envEquivalent: 'equivalent',
     envCarMiles: 'Car Miles',
     envNotDriven: 'not driven',
+    productDescription: 'Product Description',
+    productDescPlaceholder: 'e.g., Premium solar panels (400W), 10-year warranty, professional installation included...',
+    proposalConditions: 'Proposal Conditions',
+    proposalCondPlaceholder: 'This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval.',
+    companyLogo: 'Company Logo',
   },
   es: {
     title: 'SolarClose',
@@ -317,6 +327,11 @@ export const translations: Record<string, TranslationKeys> = {
     envEquivalent: 'equivalente',
     envCarMiles: 'Millas en Auto',
     envNotDriven: 'no conducidas',
+    productDescription: 'Descripción del Producto',
+    productDescPlaceholder: 'ej., Paneles solares premium (400W), garantía de 10 años, instalación profesional incluida...',
+    proposalConditions: 'Condiciones de la Propuesta',
+    proposalCondPlaceholder: 'Esta propuesta es válida por 30 días.\nPrecio final sujeto a inspección del sitio.\nPlazo de instalación: 4-8 semanas después de la aprobación.',
+    companyLogo: 'Logo de la Empresa',
   },
   it: {
     title: 'SolarClose',
@@ -423,6 +438,11 @@ export const translations: Record<string, TranslationKeys> = {
     envEquivalent: 'equivalente',
     envCarMiles: 'Miglia Auto',
     envNotDriven: 'non percorse',
+    productDescription: 'Descrizione del Prodotto',
+    productDescPlaceholder: 'es., Pannelli solari premium (400W), garanzia di 10 anni, installazione professionale inclusa...',
+    proposalConditions: 'Condizioni della Proposta',
+    proposalCondPlaceholder: 'Questa proposta è valida per 30 giorni.\nPrezzo finale soggetto a ispezione del sito.\nTempi di installazione: 4-8 settimane dopo l\'approvazione.',
+    companyLogo: 'Logo Aziendale',
   },
   fr: {
     title: 'SolarClose',
@@ -529,6 +549,11 @@ export const translations: Record<string, TranslationKeys> = {
     envEquivalent: 'équivalent',
     envCarMiles: 'Miles en Voiture',
     envNotDriven: 'non parcourus',
+    productDescription: 'Description du Produit',
+    productDescPlaceholder: 'ex., Panneaux solaires premium (400W), garantie de 10 ans, installation professionnelle incluse...',
+    proposalConditions: 'Conditions de la Proposition',
+    proposalCondPlaceholder: 'Cette proposition est valable 30 jours.\nPrix final sous réserve d\'inspection du site.\nDélai d\'installation: 4-8 semaines après approbation.',
+    companyLogo: 'Logo de l\'Entreprise',
   },
   de: {
     title: 'SolarClose',
@@ -635,6 +660,11 @@ export const translations: Record<string, TranslationKeys> = {
     envEquivalent: 'Äquivalent',
     envCarMiles: 'Automeilen',
     envNotDriven: 'nicht gefahren',
+    productDescription: 'Produktbeschreibung',
+    productDescPlaceholder: 'z.B., Premium-Solarpanels (400W), 10 Jahre Garantie, professionelle Installation inklusive...',
+    proposalConditions: 'Angebotsbedingungen',
+    proposalCondPlaceholder: 'Dieses Angebot ist 30 Tage gültig.\nEndpreis vorbehaltlich Standortinspektion.\nInstallationszeitraum: 4-8 Wochen nach Genehmigung.',
+    companyLogo: 'Firmenlogo',
   },
 };
 

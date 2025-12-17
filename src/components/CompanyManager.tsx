@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { openDB } from 'idb';
 import { ConfirmDialog } from './ConfirmDialog';
+import type { Language } from '@/types/solar';
+import { getTranslation, type TranslationKey } from '@/lib/translations';
 
 interface CompanyItem {
   id: string;
@@ -17,9 +19,12 @@ interface CompanyManagerProps {
   onLogoChange: (logo: string | undefined) => void;
   showOnlyNameButtons?: boolean;
   showOnlyLogo?: boolean;
+  language?: Language;
 }
 
-export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChange, showOnlyNameButtons, showOnlyLogo }: CompanyManagerProps) {
+export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChange, showOnlyNameButtons, showOnlyLogo, language }: CompanyManagerProps) {
+  const lang = (language || 'en') as Language;
+  const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const [items, setItems] = useState<CompanyItem[]>([]);
   const [showList, setShowList] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ isOpen: boolean; title: string; message: string; onConfirm: () => void } | null>(null);
@@ -243,7 +248,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
     return (
       <div className="space-y-1">
         <label className="block text-sm font-medium">
-          Company Logo
+          {t('companyLogo')}
         </label>
         <div className="flex gap-2 items-center">
           <input
@@ -289,7 +294,7 @@ export function CompanyManager({ currentName, currentLogo, onSelect, onLogoChang
     <div className="space-y-4 mt-2">
       <div className="space-y-1">
         <label className="block text-sm font-medium">
-          Company Logo
+          {t('companyLogo')}
         </label>
         <div className="flex gap-2 items-center">
           <input
