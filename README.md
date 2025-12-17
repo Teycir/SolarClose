@@ -1,216 +1,145 @@
-# SolarClose - Close More Solar Deals
+# SolarClose - The Offline-First Solar Calculator
 
 ![SolarClose Screenshot](/Assets/screencapture.png)
 
-![Solar](https://img.shields.io/badge/Solar-Energy-yellow?style=flat-square)
-![Sales](https://img.shields.io/badge/Sales-Tool-orange?style=flat-square)
-![Offline](https://img.shields.io/badge/Works-Offline-green?style=flat-square)
-![Free](https://img.shields.io/badge/Free-For%20Reps-blue?style=flat-square)
-![License](https://img.shields.io/badge/License-BSL--1.1-red?style=flat-square)
+![Solar](https://img.shields.io/badge/Solar-Energy-facc15?style=flat-square)
+![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=flat-square)
+![Offline](https://img.shields.io/badge/Offline-Ready-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-BSL_1.1-red?style=flat-square)
 
 🌟 **Start Using Now**: <https://solarclose.pages.dev>
 
-**Most solar software runs in the cloud, meaning they have your data. SolarClose is different. It runs entirely on your iPad. ALL the source code is public. Your IT guy can audit it to prove that zero data leaves the device.**
+**The Solar Sales Tool That Respects Your Data.**
 
-Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.
+Most solar software runs in the cloud, meaning they own your leads. **SolarClose is different.** It runs entirely on your iPad/Laptop.
+
+We use a **Business Source License (BSL)**, which means:
+
+1. **100% Transparency:** All source code is public. Your IT team can audit it to prove **zero data leaves the device.**
+2. **Free for Individuals:** Independent reps can use it forever.
+3. **Auditable Security:** You don't have to trust us—you can verify us.
 
 📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md)
 
 ---
 
-## 💰 Why Sales Reps Love SolarClose
+## 💰 Why Top Closers Use SolarClose
 
-✅ **Works Anywhere** - No WiFi needed. Perfect for door-to-door or remote areas  
-✅ **Instant Results** - Show 25-year savings while you're still talking  
-✅ **Never Lose Data** - Backup/restore feature prevents data loss  
-✅ **Professional Proposals** - Generate branded PDFs your customers can share with family  
-✅ **Use Any Device** - Works on your phone, tablet, or laptop  
-✅ **Looks Amazing** - Beautiful glass-morphism design with transparent cards  
-✅ **Your Company Brand** - Add your logo and company name to every proposal  
-✅ **Multi-Language** - Available in English, Spanish, Italian, French, and German  
-✅ **Visual Progress Bars** - See ROI and bill offset at a glance  
-✅ **Animated Numbers** - Smooth counting animations for savings display  
-✅ **Confetti Celebration** - Celebrate big savings over $50k  
-✅ **Environmental Impact** - Show CO2 savings and trees equivalent  
-✅ **25-Year Chart** - Interactive savings breakdown year by year  
-✅ **Bill Swap Comparison** - Before/after monthly payment visualization
+✅ **Works Offline** - Close deals in basements or rural areas without signal  
+✅ **Instant ROI** - Show 25-year savings while you're still talking. No loading screens  
+✅ **Privacy Guaranteed** - Your leads live on your device. We never see them  
+✅ **Professional PDF Proposals** - Generate branded PDFs your customers can share  
+✅ **"Kitchen Table" Ready** - Beautiful glass-morphism design that looks expensive  
+✅ **Multi-Language** - English, Spanish, Italian, French, and German  
+✅ **Psychological Sales Tools** - Visual progress bars, animated counters, and "Confetti" celebrations for big savings
 
 ---
 
-## 📱 How to Use SolarClose
+## 📱 How It Works
 
-### **Step 1: Enter Customer Info**
+### **1. Enter Customer Info**
 
-Type in your customer's name, address, and contact details. Everything saves automatically.
+Type in the name and address. Everything auto-saves to your device's local storage.
 
-### **Step 2: Add System Details**
+### **2. Build the System**
 
-- System size (kW)
-- Total cost
-- Current electric bill
-- Available incentives
+Input system size (kW), total cost, and current electric bill.
 
-### **Step 3: Show the Savings**
+### **3. Show the Savings**
 
-Watch the calculator instantly show:
+Instantly display:
 
-- Monthly savings
-- Payback period
-- 25-year total savings
-- Return on investment
+- Monthly payment swap (Old Bill vs. Solar + Loan)
+- 25-Year Total Savings
+- Break-even point (ROI)
 
-### **Step 4: Generate Proposals**
+### **4. Close the Deal**
 
-Click "Export PDF" to generate:
+Click **"Export PDF"** to generate:
 
-- **Client Proposal PDF** - Professional proposal to share with customers
-- **Internal Sales Sheet PDF** - Detailed lead information for your records
+- **Client Proposal:** A clean, branded PDF for the homeowner
+- **Sales Sheet:** A detailed technical breakdown for your records
 
 ---
 
 ## 🎯 Perfect For
 
-- **Door-to-Door Sales** - Works offline, no internet required
-- **Home Consultations** - Show numbers in real-time during your pitch
-- **Follow-Up Meetings** - Pull up saved calculations instantly
-- **Trade Shows** - Quick quotes for interested prospects
-- **Phone Sales** - Calculate while you talk
+- **Door-to-Door Reps:** No signal? No problem
+- **Privacy-Conscious Teams:** Stop feeding your lead data to SaaS aggregators
+- **Speed Closers:** When you don't have 15 minutes to wait for a complex CAD design
 
 ---
 
-## 💡 What Makes Our Calculator Accurate
+## 💡 Calculation Methodology (Auditable)
 
-We use real-world numbers, not perfect lab conditions:
+We don't hide our math. We use realistic, conservative numbers to build trust:
 
-- **Real Efficiency**: 80% (accounts for weather, shade, and dirt on panels)
-- **Panel Aging**: Panels produce slightly less each year (0.5% decline)
-- **Maintenance**: $150/year for cleaning and upkeep
-- **Inverter Replacement**: Every 12 years (years 12 and 24) - or skip if 25-year warranty
-- **Tax Credits**: 30% federal credit included (adjustable)
-- **Rising Electric Rates**: 4% annual increase (adjustable)
-- **State Rebates**: Add any local incentives
-- **Financing Options**: Cash or loan calculations with custom terms
+- **Real Efficiency**: 80% derating (accounts for weather/shade/inverter loss)
+- **Degradation**: 0.5% annual panel output decline
+- **Maintenance Buffer**: Optional $150/yr maintenance factor
+- **Inverter Replacement**: Factored at Year 12 & 24 (customizable)
+- **Inflation**: 4% annual utility rate increase (customizable)
 
-This gives your customers honest, realistic expectations they can trust.
-
-📖 **[See detailed calculation methodology →](CALCULATIONS.md)**
+_Want to check the math? [Read the Code.](https://github.com/Teycir/SolarClose/blob/main/src/utils/calculations.ts)_
 
 ---
 
-## 🔒 Data Backup & Security
+## 🔒 Security & Backup
 
-**Never Lose Your Leads Again!**
+**Your Data, Your Device.**
 
-- **💾 Backup Button**: Export all leads to JSON file
-- **📥 Restore Button**: Import leads from backup file
-- **☁️ Store Anywhere**: Save backups to Google Drive, Dropbox, or email
-- **🔐 100% Local**: All data stays on your device, nothing sent to servers
-
----
-
-## 📄 Two Types of PDFs
-
-### Client Proposal PDF
-
-✓ Your company logo and branding
-✓ Customer information
-✓ System specifications
-✓ Total investment and incentives
-✓ 25-year savings projection
-✓ Clean, professional layout
-
-
-### Internal Sales Sheet PDF
-
-✓ Complete lead details and notes
-✓ Property and roof information
-✓ Lead status tracking
-✓ Internal pricing breakdown
-✓ Sales rep information
-
-Both PDFs automatically save with the customer's name for easy filing.
+- **Local Storage:** All data persists in your browser. Clearing cookies clears data
+- **JSON Backup:** Click "Backup" to download a universal JSON file of your leads
+- **Cloud Freedom:** Save that backup to _your_ Google Drive, not ours
 
 ---
 
-## 📲 Getting Started
+## 📜 License & Pricing
 
-### Use Online (Recommended)
+**SolarClose is Source-Available under the Business Source License (BSL) 1.1.**
 
-1. **Visit**: <https://solarclose.pages.dev>
-2. **Bookmark** the page on your phone's home screen
-3. **Start calculating** - no signup required!
+### 🟢 Free for Individuals
 
-That's it. No downloads, no accounts, no hassle.
+Are you an individual sales rep or a homeowner?
 
-### Install Locally (For Development)
+- **Cost:** $0
+- **Usage:** Unlimited personal use
+- **Requirement:** None. Enjoy the tool
+
+### 🏢 Commercial / White Label
+
+Are you a Solar Company, Dealer, or Team Lead?
+
+- **Usage:** If you want to deploy this to a team, white-label it with your branding, or integrate it into your CRM
+- **Cost:** Requires a Commercial License
+- **Benefits:**
+  - Your Company Logo & Colors
+  - Custom Incentives/Loan Products pre-loaded
+  - Centralized Team Deployment
+
+**[Contact us for a Commercial License](mailto:teycir.bensoltane@gmail.com)**
+
+---
+
+## 📲 Developers (Run it Locally)
 
 ```bash
 # Clone the repository
 git clone https://github.com/Teycir/SolarClose.git
-cd SolarClose
 
 # Install dependencies
 npm install
 
 # Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Deploy to Cloudflare Pages
-npm run deploy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-**Requirements**: Node.js 18+ and npm
+Open [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 💼 For Solar Companies
-
-Want to customize SolarClose for your sales team with:
-
-- Your company branding built-in
-- Custom calculation assumptions
-- Your specific incentive programs
-- Team training and support
-
-**Contact us for commercial licensing and customization.**
-
----
-
-## ❓ FAQ
-
-**Do I need to create an account?**
-No! Just visit the site and start using it immediately.
-
-**Does it work offline?**
-Yes! Once loaded, SolarClose works without internet connection.
-
-**Where is my data stored?**
-All data is stored locally on your device. Nothing is sent to our servers.
-
-**Can I use my company logo?**
-Yes! Upload your logo and it will appear on all client proposals.
-
-**Is it really free?**
-Yes, completely free for individual sales reps. Solar companies can contact us for team licensing.
-
-**What devices does it work on?**
-Any device with a modern web browser - phones, tablets, laptops, and desktops.
-
-**How do I backup my data?**
-Click the "Backup" button in the header to download all your leads as a JSON file. Store it safely and use "Restore" to import it back anytime.
-
-**What languages are supported?**
-English, Spanish, Italian, French, and German. Switch languages using the flag selector in the header.
-
----
-
-© 2025 SolarClose. All Rights Reserved. [View License](LICENSE.md)
+© 2025 SolarClose.
+Code becomes Open Source (Apache 2.0) on **Jan 1, 2029**.
+[View Full License](LICENSE)
 
 Made by Teycir - <https://teycirbensoltane.tn>
-
-Free for individual sales reps. Commercial licensing available.
