@@ -90,7 +90,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   let y = 55;
   
   doc.setFontSize(14);
-  doc.text('Product Description', 20, y);
+  doc.text(t('productDescription'), 20, y);
   y += 10;
   doc.setFontSize(10);
   const descLines = doc.splitTextToSize(data.productDescription, 170);
@@ -98,22 +98,22 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   y += (descLines.length * 5) + 10;
   
   doc.setFontSize(14);
-  doc.text('System Details', 20, y);
+  doc.text(t('pdfSystemDetails'), 20, y);
   y += 10;
   doc.setFontSize(11);
-  doc.text(`System Size: ${data.systemSizeKw} kW`, 20, y);
+  doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y);
   y += 8;
   const DAYS_PER_YEAR = 365;
   const PERFORMANCE_RATIO = 0.8;
   const estimatedProduction = Math.round(data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO);
-  doc.text(`Estimated Annual Production: ${estimatedProduction.toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
+  doc.text(`${t('pdfEstimatedProduction')}: ${estimatedProduction.toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
   y += 15;
   
   doc.setFontSize(14);
-  doc.text('Investment & Returns', 20, y);
+  doc.text(t('pdfInvestmentReturns'), 20, y);
   y += 10;
   doc.setFontSize(11);
-  doc.text(`Total System Cost: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y);
+  doc.text(`${t('pdfTotalSystemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y);
   y += 7;
   
   const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
@@ -121,15 +121,15 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
-  doc.text(`  - Federal Tax Credit (${data.federalTaxCredit}%): -${getCurrencySymbol(data.currency)}${formatNumber(federalCredit)}`, 20, y);
+  doc.text(`  - ${t('pdfFederalTaxCredit')} (${data.federalTaxCredit}%): -${getCurrencySymbol(data.currency)}${formatNumber(federalCredit)}`, 20, y);
   y += 6;
   if (data.stateIncentive > 0) {
-    doc.text(`  - State Incentive: -${getCurrencySymbol(data.currency)}${formatNumber(data.stateIncentive)}`, 20, y);
+    doc.text(`  - ${t('pdfStateIncentive')}: -${getCurrencySymbol(data.currency)}${formatNumber(data.stateIncentive)}`, 20, y);
     y += 6;
   }
   doc.setFontSize(11);
   doc.setTextColor(0, 0, 0);
-  doc.text(`Net Investment: ${getCurrencySymbol(data.currency)}${formatNumber(netCost)}`, 20, y);
+  doc.text(`${t('pdfNetInvestment')}: ${getCurrencySymbol(data.currency)}${formatNumber(netCost)}`, 20, y);
   y += 10;
   
   if (data.financingOption === 'Loan' && data.loanTerm) {
@@ -149,14 +149,14 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     if (data.downPayment && data.downPayment > 0) {
-      doc.text(`  Down Payment: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
+      doc.text(`  ${t('pdfDownPayment')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
       y += 6;
     }
-    doc.text(`  Financed Amount: ${getCurrencySymbol(data.currency)}${formatNumber(loanAmount)}`, 20, y);
+    doc.text(`  ${t('pdfFinancedAmount')}: ${getCurrencySymbol(data.currency)}${formatNumber(loanAmount)}`, 20, y);
     y += 6;
-    doc.text(`  Loan Term: ${data.loanTerm} years @ ${data.loanInterestRate || 6.99}% APR`, 20, y);
+    doc.text(`  ${t('pdfLoanTerm')}: ${data.loanTerm} ${t('pdfYears')} @ ${data.loanInterestRate || 6.99}% APR`, 20, y);
     y += 6;
-    doc.text(`  Monthly Payment: ${getCurrencySymbol(data.currency)}${formatNumber(monthlyPayment)}`, 20, y);
+    doc.text(`  ${t('pdfMonthlyPayment')}: ${getCurrencySymbol(data.currency)}${formatNumber(monthlyPayment)}`, 20, y);
     y += 8;
     doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
@@ -165,14 +165,14 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const avgAnnualSavings = Math.round(data.twentyFiveYearSavings / 25);
   const avgMonthlySavings = Math.round(avgAnnualSavings / 12);
   
-  doc.text(`Break-Even Period: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : 'Never'}`, 20, y);
+  doc.text(`${t('pdfBreakEvenPeriod')}: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : t('never')}`, 20, y);
   y += 8;
-  doc.text(`Average Monthly Savings: ${getCurrencySymbol(data.currency)}${formatNumber(avgMonthlySavings)}`, 20, y);
+  doc.text(`${t('pdfAvgMonthlySavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(avgMonthlySavings)}`, 20, y);
   y += 8;
-  doc.text(`Average Annual Savings: ${getCurrencySymbol(data.currency)}${formatNumber(avgAnnualSavings)}`, 20, y);
+  doc.text(`${t('pdfAvgAnnualSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(avgAnnualSavings)}`, 20, y);
   y += 8;
   doc.setTextColor(255, 193, 7);
-  doc.text(`Total 25-Year Savings: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
+  doc.text(`${t('pdfTotal25YearSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
   doc.setTextColor(0, 0, 0);
   y += 15;
   
@@ -187,18 +187,18 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(12);
   doc.setTextColor(34, 139, 34);
-  doc.text('Environmental Impact (25 Years)', 20, y);
+  doc.text(t('envImpactTitle'), 20, y);
   y += 8;
   doc.setFontSize(10);
   doc.setTextColor(0, 0, 0);
-  doc.text(`CO2 Offset: ${co2Saved.toLocaleString('en-US').replace(/,/g, ' ')} ${co2Unit}`, 20, y);
+  doc.text(`${t('envCo2Offset')}: ${co2Saved.toLocaleString('en-US').replace(/,/g, ' ')} ${co2Unit}`, 20, y);
   y += 6;
-  doc.text(`Trees Planted Equivalent: ${treesEquivalent.toLocaleString('en-US').replace(/,/g, ' ')} trees`, 20, y);
+  doc.text(`${t('envTreesPlanted')} ${t('envEquivalent')}: ${treesEquivalent.toLocaleString('en-US').replace(/,/g, ' ')} ${t('pdfTrees')}`, 20, y);
   y += 10;
   
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
-  doc.text(`* Savings calculated with ${data.yearlyInflationRate}% annual utility rate increase`, 20, y);
+  doc.text(`* ${t('pdfSavingsCalculated')} ${data.yearlyInflationRate}% annual utility rate increase`, 20, y);
   doc.setTextColor(0, 0, 0);
   y += 8;
   
@@ -217,7 +217,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(data.companyName, 105, 276, { align: 'center' });
-  doc.text(`Generated on ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 281, { align: 'center' });
+  doc.text(`${t('pdfGeneratedOn')} ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 281, { align: 'center' });
   
   return doc.output('blob');
 }
@@ -232,69 +232,69 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
-  doc.text(`INTERNAL SALES SHEET - ${formatDate(data.date, lang)}`, 20, 45);
+  doc.text(`${t('pdfInternalSalesSheet')} - ${formatDate(data.date, lang)}`, 20, 45);
   
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
-  doc.text(`Lead ID: ${data.id.slice(0, 8)}`, 20, 51);
+  doc.text(`${t('pdfLeadId')}: ${data.id.slice(0, 8)}`, 20, 51);
   
   const startY = 60;
   doc.setFontSize(14);
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
-  doc.text('CLIENT INFORMATION', 20, startY);
+  doc.text(t('pdfClientInfo'), 20, startY);
   
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   let y = startY + 8;
-  doc.text(`Client Name: ${data.clientName}`, 20, y);
+  doc.text(`${t('clientName')}: ${data.clientName}`, 20, y);
   y += 6;
-  doc.text(`Address: ${data.address}`, 20, y);
-  if (data.phone) { y += 6; doc.text(`Phone: ${data.phone}`, 20, y); }
-  if (data.email) { y += 6; doc.text(`Email: ${data.email}`, 20, y); }
+  doc.text(`${t('address')}: ${data.address}`, 20, y);
+  if (data.phone) { y += 6; doc.text(`${t('phone')}: ${data.phone}`, 20, y); }
+  if (data.email) { y += 6; doc.text(`${t('email')}: ${data.email}`, 20, y); }
   
   y += 10;
   doc.setFontSize(14);
-  doc.text('Sales Information', 20, y);
+  doc.text(t('pdfSalesInfo'), 20, y);
   y += 10;
   doc.setFontSize(10);
-  if (data.salesRep) { doc.text(`Sales Rep: ${data.salesRep}`, 20, y); y += 6; }
-  if (data.leadStatus) { doc.text(`Lead Status: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 6; }
-  
-  y += 5;
-  doc.setFontSize(14);
-  doc.text('Property Details', 20, y);
-  y += 10;
-  doc.setFontSize(10);
-  if (data.propertyType) { doc.text(`Property Type: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 6; }
-  if (data.roofType) { doc.text(`Roof Type: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 6; }
-  if (data.roofCondition) { doc.text(`Roof Condition: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 6; }
+  if (data.salesRep) { doc.text(`${t('salesRep')}: ${data.salesRep}`, 20, y); y += 6; }
+  if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 6; }
   
   y += 5;
   doc.setFontSize(14);
-  doc.text('System Details', 20, y);
+  doc.text(t('pdfPropertyDetails'), 20, y);
   y += 10;
   doc.setFontSize(10);
-  doc.text(`System Size: ${data.systemSizeKw} kW`, 20, y); y += 6;
-  doc.text(`System Cost: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y); y += 6;
-  doc.text(`Current Monthly Bill: ${getCurrencySymbol(data.currency)}${data.currentMonthlyBill}`, 20, y); y += 6;
-  doc.text(`25-Year Savings: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 6;
-  doc.text(`Break-Even Year: ${data.breakEvenYear ? `Year ${data.breakEvenYear}` : 'Never'}`, 20, y); y += 6;
+  if (data.propertyType) { doc.text(`${t('propertyType')}: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 6; }
+  if (data.roofType) { doc.text(`${t('roofType')}: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 6; }
+  if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 6; }
+  
+  y += 5;
+  doc.setFontSize(14);
+  doc.text(t('pdfSystemDetails'), 20, y);
+  y += 10;
+  doc.setFontSize(10);
+  doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y); y += 6;
+  doc.text(`${t('systemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y); y += 6;
+  doc.text(`${t('currentMonthlyBill')}: ${getCurrencySymbol(data.currency)}${data.currentMonthlyBill}`, 20, y); y += 6;
+  doc.text(`${t('twentyFiveYearSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 6;
+  doc.text(`${t('breakEvenYear')}: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : t('never')}`, 20, y); y += 6;
   if (data.financingOption) {
     const financingText = t(data.financingOption.toLowerCase() as any) || data.financingOption;
-    doc.text(`Financing: ${financingText}`, 20, y);
+    doc.text(`${t('pdfFinancing')}: ${financingText}`, 20, y);
     y += 6;
     if (data.financingOption === 'Loan' && data.loanTerm) {
       if (data.downPayment && data.downPayment > 0) {
-        doc.text(`  Down Payment: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
+        doc.text(`  ${t('pdfDownPayment')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
         y += 6;
       }
-      doc.text(`  Loan Term: ${data.loanTerm} years`, 20, y);
+      doc.text(`  ${t('pdfLoanTerm')}: ${data.loanTerm} ${t('pdfYears')}`, 20, y);
       y += 6;
     }
   }
-  if (data.utilityProvider) { doc.text(`Utility Provider: ${data.utilityProvider}`, 20, y); y += 6; }
-  if (data.avgKwhPerMonth) { doc.text(`Avg kWh/Month: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
+  if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 6; }
+  if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
   
   const MAX_PRODUCT_DESC_Y = 210;
   const MAX_NOTES_Y = 235;
@@ -304,7 +304,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   if (data.productDescription && y < MAX_PRODUCT_DESC_Y) {
     y += 5;
     doc.setFontSize(14);
-    doc.text('Product Description', 20, y);
+    doc.text(t('productDescription'), 20, y);
     y += 8;
     doc.setFontSize(9);
     const descLines = doc.splitTextToSize(data.productDescription, TEXT_WIDTH);
@@ -316,7 +316,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   if (data.notes && y < MAX_NOTES_Y) {
     y += 5;
     doc.setFontSize(14);
-    doc.text('Notes', 20, y);
+    doc.text(t('notes'), 20, y);
     y += 8;
     doc.setFontSize(9);
     const lines = doc.splitTextToSize(data.notes, TEXT_WIDTH);
@@ -330,7 +330,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
-  doc.text('CONFIDENTIAL - Internal Use Only', 105, 276, { align: 'center' });
+  doc.text(t('pdfConfidential'), 105, 276, { align: 'center' });
   doc.text(data.companyName, 105, 281, { align: 'center' });
   
   return doc.output('blob');

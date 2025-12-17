@@ -4,6 +4,12 @@ All notable changes to SolarClose will be documented in this file.
 
 ## [1.2.3] - 2025-12-XX
 
+### Internationalization
+
+- 🌍 **Complete PDF Translations**: All PDF exports now fully translated across 5 languages (English, Spanish, Italian, French, German)
+- ✅ **Client PDF**: Product Description, System Details, Investment & Returns, Loan Terms, Savings, Environmental Impact
+- ✅ **Seller PDF**: Internal Sales Sheet, Client Information, Sales Information, Property Details, System Details, Financing
+
 ### UI/UX Improvements
 
 - 🔄 **Field Reordering**: Moved System Size field above Current Monthly Bill for better workflow

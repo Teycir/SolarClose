@@ -110,6 +110,32 @@ type TranslationKeys = {
   companyLogo: string;
   administrative: string;
   subtitle: string;
+  pdfSystemDetails: string;
+  pdfEstimatedProduction: string;
+  pdfInvestmentReturns: string;
+  pdfTotalSystemCost: string;
+  pdfFederalTaxCredit: string;
+  pdfStateIncentive: string;
+  pdfNetInvestment: string;
+  pdfDownPayment: string;
+  pdfFinancedAmount: string;
+  pdfLoanTerm: string;
+  pdfMonthlyPayment: string;
+  pdfBreakEvenPeriod: string;
+  pdfAvgMonthlySavings: string;
+  pdfAvgAnnualSavings: string;
+  pdfTotal25YearSavings: string;
+  pdfSavingsCalculated: string;
+  pdfGeneratedOn: string;
+  pdfYears: string;
+  pdfTrees: string;
+  pdfInternalSalesSheet: string;
+  pdfLeadId: string;
+  pdfClientInfo: string;
+  pdfSalesInfo: string;
+  pdfPropertyDetails: string;
+  pdfFinancing: string;
+  pdfConfidential: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -225,6 +251,32 @@ export const translations: Record<string, TranslationKeys> = {
     companyLogo: 'Company Logo',
     administrative: 'Administrative',
     subtitle: '🔒 Your data never leaves your device\nWorks offline on browser, mobile and tablet',
+    pdfSystemDetails: 'System Details',
+    pdfEstimatedProduction: 'Estimated Annual Production',
+    pdfInvestmentReturns: 'Investment & Returns',
+    pdfTotalSystemCost: 'Total System Cost',
+    pdfFederalTaxCredit: 'Federal Tax Credit',
+    pdfStateIncentive: 'State Incentive',
+    pdfNetInvestment: 'Net Investment',
+    pdfDownPayment: 'Down Payment',
+    pdfFinancedAmount: 'Financed Amount',
+    pdfLoanTerm: 'Loan Term',
+    pdfMonthlyPayment: 'Monthly Payment',
+    pdfBreakEvenPeriod: 'Break-Even Period',
+    pdfAvgMonthlySavings: 'Average Monthly Savings',
+    pdfAvgAnnualSavings: 'Average Annual Savings',
+    pdfTotal25YearSavings: 'Total 25-Year Savings',
+    pdfSavingsCalculated: 'Savings calculated with',
+    pdfGeneratedOn: 'Generated on',
+    pdfYears: 'years',
+    pdfTrees: 'trees',
+    pdfInternalSalesSheet: 'INTERNAL SALES SHEET',
+    pdfLeadId: 'Lead ID',
+    pdfClientInfo: 'CLIENT INFORMATION',
+    pdfSalesInfo: 'Sales Information',
+    pdfPropertyDetails: 'Property Details',
+    pdfFinancing: 'Financing',
+    pdfConfidential: 'CONFIDENTIAL - Internal Use Only',
   },
   es: {
     title: 'SolarClose',
@@ -338,6 +390,32 @@ export const translations: Record<string, TranslationKeys> = {
     companyLogo: 'Logo de la Empresa',
     administrative: 'Administrativo',
     subtitle: '🔒 Tus datos nunca salen de tu dispositivo\nFunciona sin conexión en navegador, móvil y tableta',
+    pdfSystemDetails: 'Detalles del Sistema',
+    pdfEstimatedProduction: 'Producción Anual Estimada',
+    pdfInvestmentReturns: 'Inversión y Retornos',
+    pdfTotalSystemCost: 'Costo Total del Sistema',
+    pdfFederalTaxCredit: 'Crédito Fiscal Federal',
+    pdfStateIncentive: 'Incentivo Estatal',
+    pdfNetInvestment: 'Inversión Neta',
+    pdfDownPayment: 'Pago Inicial',
+    pdfFinancedAmount: 'Monto Financiado',
+    pdfLoanTerm: 'Plazo del Préstamo',
+    pdfMonthlyPayment: 'Pago Mensual',
+    pdfBreakEvenPeriod: 'Período de Equilibrio',
+    pdfAvgMonthlySavings: 'Ahorro Mensual Promedio',
+    pdfAvgAnnualSavings: 'Ahorro Anual Promedio',
+    pdfTotal25YearSavings: 'Ahorros Totales a 25 Años',
+    pdfSavingsCalculated: 'Ahorros calculados con',
+    pdfGeneratedOn: 'Generado el',
+    pdfYears: 'años',
+    pdfTrees: 'árboles',
+    pdfInternalSalesSheet: 'HOJA DE VENTAS INTERNA',
+    pdfLeadId: 'ID de Cliente',
+    pdfClientInfo: 'INFORMACIÓN DEL CLIENTE',
+    pdfSalesInfo: 'Información de Ventas',
+    pdfPropertyDetails: 'Detalles de la Propiedad',
+    pdfFinancing: 'Financiamiento',
+    pdfConfidential: 'CONFIDENCIAL - Solo Uso Interno',
   },
   it: {
     title: 'SolarClose',
@@ -451,6 +529,32 @@ export const translations: Record<string, TranslationKeys> = {
     companyLogo: 'Logo Aziendale',
     administrative: 'Amministrativo',
     subtitle: '🔒 I tuoi dati non lasciano mai il tuo dispositivo\nFunziona offline su browser, mobile e tablet',
+    pdfSystemDetails: 'Dettagli del Sistema',
+    pdfEstimatedProduction: 'Produzione Annuale Stimata',
+    pdfInvestmentReturns: 'Investimento e Ritorni',
+    pdfTotalSystemCost: 'Costo Totale del Sistema',
+    pdfFederalTaxCredit: 'Credito Fiscale Federale',
+    pdfStateIncentive: 'Incentivo Statale',
+    pdfNetInvestment: 'Investimento Netto',
+    pdfDownPayment: 'Acconto',
+    pdfFinancedAmount: 'Importo Finanziato',
+    pdfLoanTerm: 'Durata del Prestito',
+    pdfMonthlyPayment: 'Pagamento Mensile',
+    pdfBreakEvenPeriod: 'Periodo di Pareggio',
+    pdfAvgMonthlySavings: 'Risparmio Mensile Medio',
+    pdfAvgAnnualSavings: 'Risparmio Annuale Medio',
+    pdfTotal25YearSavings: 'Risparmi Totali a 25 Anni',
+    pdfSavingsCalculated: 'Risparmi calcolati con',
+    pdfGeneratedOn: 'Generato il',
+    pdfYears: 'anni',
+    pdfTrees: 'alberi',
+    pdfInternalSalesSheet: 'SCHEDA VENDITE INTERNA',
+    pdfLeadId: 'ID Cliente',
+    pdfClientInfo: 'INFORMAZIONI CLIENTE',
+    pdfSalesInfo: 'Informazioni Vendite',
+    pdfPropertyDetails: 'Dettagli Proprietà',
+    pdfFinancing: 'Finanziamento',
+    pdfConfidential: 'CONFIDENZIALE - Solo Uso Interno',
   },
   fr: {
     title: 'SolarClose',
@@ -564,6 +668,32 @@ export const translations: Record<string, TranslationKeys> = {
     companyLogo: 'Logo de l\'Entreprise',
     administrative: 'Administratif',
     subtitle: '🔒 Vos données ne quittent jamais votre appareil\nFonctionne hors ligne sur navigateur, mobile et tablette',
+    pdfSystemDetails: 'Détails du Système',
+    pdfEstimatedProduction: 'Production Annuelle Estimée',
+    pdfInvestmentReturns: 'Investissement et Retours',
+    pdfTotalSystemCost: 'Coût Total du Système',
+    pdfFederalTaxCredit: 'Crédit d\'Impôt Fédéral',
+    pdfStateIncentive: 'Incitatif d\'\u00c9tat',
+    pdfNetInvestment: 'Investissement Net',
+    pdfDownPayment: 'Acompte',
+    pdfFinancedAmount: 'Montant Financé',
+    pdfLoanTerm: 'Durée du Prêt',
+    pdfMonthlyPayment: 'Paiement Mensuel',
+    pdfBreakEvenPeriod: 'Période de Rentabilité',
+    pdfAvgMonthlySavings: 'Économies Mensuelles Moyennes',
+    pdfAvgAnnualSavings: 'Économies Annuelles Moyennes',
+    pdfTotal25YearSavings: 'Économies Totales sur 25 Ans',
+    pdfSavingsCalculated: 'Économies calculées avec',
+    pdfGeneratedOn: 'Généré le',
+    pdfYears: 'ans',
+    pdfTrees: 'arbres',
+    pdfInternalSalesSheet: 'FICHE DE VENTE INTERNE',
+    pdfLeadId: 'ID Client',
+    pdfClientInfo: 'INFORMATIONS CLIENT',
+    pdfSalesInfo: 'Informations de Vente',
+    pdfPropertyDetails: 'Détails de la Propriété',
+    pdfFinancing: 'Financement',
+    pdfConfidential: 'CONFIDENTIEL - Usage Interne Uniquement',
   },
   de: {
     title: 'SolarClose',
@@ -677,6 +807,32 @@ export const translations: Record<string, TranslationKeys> = {
     companyLogo: 'Firmenlogo',
     administrative: 'Verwaltung',
     subtitle: '🔒 Ihre Daten verlassen nie Ihr Gerät\nFunktioniert offline auf Browser, Handy und Tablet',
+    pdfSystemDetails: 'Systemdetails',
+    pdfEstimatedProduction: 'Geschätzte Jahresproduktion',
+    pdfInvestmentReturns: 'Investition und Renditen',
+    pdfTotalSystemCost: 'Gesamtsystemkosten',
+    pdfFederalTaxCredit: 'Bundessteuergutschrift',
+    pdfStateIncentive: 'Staatlicher Anreiz',
+    pdfNetInvestment: 'Nettoinvestition',
+    pdfDownPayment: 'Anzahlung',
+    pdfFinancedAmount: 'Finanzierter Betrag',
+    pdfLoanTerm: 'Darlehenslaufzeit',
+    pdfMonthlyPayment: 'Monatliche Zahlung',
+    pdfBreakEvenPeriod: 'Break-Even-Zeitraum',
+    pdfAvgMonthlySavings: 'Durchschnittliche Monatliche Einsparungen',
+    pdfAvgAnnualSavings: 'Durchschnittliche Jährliche Einsparungen',
+    pdfTotal25YearSavings: 'Gesamteinsparungen über 25 Jahre',
+    pdfSavingsCalculated: 'Einsparungen berechnet mit',
+    pdfGeneratedOn: 'Generiert am',
+    pdfYears: 'Jahre',
+    pdfTrees: 'Bäume',
+    pdfInternalSalesSheet: 'INTERNES VERKAUFSBLATT',
+    pdfLeadId: 'Kunden-ID',
+    pdfClientInfo: 'KUNDENINFORMATIONEN',
+    pdfSalesInfo: 'Verkaufsinformationen',
+    pdfPropertyDetails: 'Immobiliendetails',
+    pdfFinancing: 'Finanzierung',
+    pdfConfidential: 'VERTRAULICH - Nur Für Internen Gebrauch',
   },
 };
 
