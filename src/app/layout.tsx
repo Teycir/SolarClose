@@ -2,10 +2,12 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { ServiceWorkerManager } from '@/components/ServiceWorkerManager'
+import { StructuredData } from './schema'
 
 const inter = Inter({ subsets: ['latin'], fallback: ['system-ui', 'arial'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://solarclose.pages.dev'),
   title: 'SolarClose - Free Solar Proposal Tool for Sales Reps | Works Offline',
   description: 'Free solar proposal calculator for sales reps. Generate professional PDF proposals instantly. Works offline, no signup required. Calculate 25-year savings, ROI, and payback period on any device.',
   keywords: ['solar calculator', 'solar proposal tool', 'solar sales software', 'solar ROI calculator', 'solar savings calculator', 'offline solar tool', 'solar panel calculator', 'solar proposal generator', 'free solar calculator', 'solar sales tool'],
@@ -67,6 +69,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <StructuredData />
+      </head>
       <body className={inter.className}>
         <ServiceWorkerManager />
         {children}

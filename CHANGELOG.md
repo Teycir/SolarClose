@@ -2,6 +2,29 @@
 
 All notable changes to SolarClose will be documented in this file.
 
+## [1.2.3] - 2025-12-XX
+
+### UI/UX Improvements
+
+- 🔄 **Field Reordering**: Moved System Size field above Current Monthly Bill for better workflow
+- 📊 **Dynamic Bill Cap**: Monthly bill cap now adapts to both system size and system cost (max increased to $2000)
+- ⬇️ **Better Guidance**: Added down arrow emoji to "Increase system size below" message
+- 💡 **Improved Readability**: Extracted magic numbers into named constants (DEFAULT_LOAN_TERM, DEFAULT_INTEREST_RATE)
+
+### SEO Optimization
+
+- 🔍 **Structured Data**: Added JSON-LD schema markup for better search engine understanding
+- 🌐 **MetadataBase**: Fixed metadataBase warning by setting proper base URL
+- 📄 **Complete SEO**: Verified robots.txt, sitemap.xml, Open Graph, and Twitter Cards
+
+### Code Quality
+
+- 🧹 **React Hooks**: Fixed exhaustive-deps warning in GenericDataManager with eslint-disable comment
+- 📝 **Code Clarity**: Broke down complex expressions in PropertyFinancialSection and SystemDetailsSection
+- ♻️ **Maintainability**: Extracted inline calculations into separate variables for better readability
+
+---
+
 ## [1.2.2] - 2025-12-XX
 
 ### Code Quality Improvements
