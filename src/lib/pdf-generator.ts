@@ -217,7 +217,9 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(data.companyName, 105, 276, { align: 'center' });
-  doc.text(`${t('pdfGeneratedOn')} ${formatDate(new Date().toISOString().split('T')[0], lang)} | SolarClose`, 105, 281, { align: 'center' });
+  doc.text(`${t('pdfGeneratedOn')} ${formatDate(new Date().toISOString().split('T')[0], lang)}`, 105, 281, { align: 'center' });
+  doc.setTextColor(100, 100, 255);
+  doc.textWithLink('Created with SolarClose - Free Solar ROI Calculator.', 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
   
   return doc.output('blob');
 }
@@ -332,6 +334,8 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   doc.setTextColor(150, 150, 150);
   doc.text(t('pdfConfidential'), 105, 276, { align: 'center' });
   doc.text(data.companyName, 105, 281, { align: 'center' });
+  doc.setTextColor(100, 100, 255);
+  doc.textWithLink('Created with SolarClose - Free Solar ROI Calculator.', 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
   
   return doc.output('blob');
 }
