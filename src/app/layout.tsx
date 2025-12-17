@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     icon: '/favicon.svg',
     apple: '/icon-192.png',
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'SolarClose',
+  },
   openGraph: {
     title: 'SolarClose - Free Solar Proposal Tool for Sales Reps',
     description: 'Generate professional solar proposals instantly. Works offline, calculates 25-year savings, ROI, and payback period. Free for individual sales reps.',
