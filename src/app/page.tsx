@@ -109,7 +109,6 @@ export default function Home() {
   ]);
 
   useEffect(() => {
-    if (!showLeads) return;
     const loadLeads = async () => {
       try {
         const db = await openDB("solar-leads", 2);
