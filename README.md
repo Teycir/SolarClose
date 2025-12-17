@@ -12,7 +12,7 @@
 
 Your pocket-sized solar proposal tool. Show homeowners their savings in seconds and send professional proposals right from your phone.
 
-📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md)
+📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATION_LOGIC_DOCUMENTATION.md)
 
 ---
 
@@ -91,7 +91,7 @@ We use real-world numbers, not perfect lab conditions:
 
 This gives your customers honest, realistic expectations they can trust.
 
-📖 **[See detailed calculation methodology →](CALCULATIONS.md)**
+📖 **[See detailed calculation methodology →](CALCULATION_LOGIC_DOCUMENTATION.md)**
 
 ---
 
