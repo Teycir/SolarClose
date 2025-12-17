@@ -16,6 +16,7 @@ interface ResultsCardProps {
 const PERFORMANCE_RATIO = 0.8; // 80% real-world efficiency
 const DAYS_PER_YEAR = 365;
 const MONTHS_PER_YEAR = 12;
+const CO2_PER_KWH = 0.85;
 
 function getTranslate(language: string | undefined) {
   const lang = (language || "en") as Language;
@@ -51,9 +52,6 @@ export function ResultsCard({ data }: ResultsCardProps) {
   const progressBarColor = isNegativeSavings ? "bg-destructive" : "bg-primary";
   const savingsTextColor = isNegativeSavings ? "text-destructive" : "text-primary";
   const formattedAnnualProduction = Math.round(annualProduction).toLocaleString();
-
-  const DAYS_PER_YEAR = 365;
-  const CO2_PER_KWH = 0.85;
   const co2SavedLbs = Math.round(annualProduction * CO2_PER_KWH * 25);
   const treesEquivalent = Math.round(co2SavedLbs / 48);
 
@@ -65,8 +63,8 @@ export function ResultsCard({ data }: ResultsCardProps) {
       await navigator.clipboard.writeText(summary);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
+    } catch {
+      // Silently fail if clipboard not available
     }
   };
 
