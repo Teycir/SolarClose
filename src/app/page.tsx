@@ -181,8 +181,8 @@ export default function Home() {
 
     setConfirmDialog({
       isOpen: true,
-      title: "Create New Lead",
-      message: "Current lead will be saved. Continue?",
+      title: t('createNewLead'),
+      message: t('currentLeadWillBeSaved'),
       onConfirm: confirmNewLead,
     });
   };
@@ -205,6 +205,28 @@ export default function Home() {
     if (data?.email && !emailRegex.test(data.email)) missing.push(t('email') + ' (invalid format)');
     if (data?.companyEmail && !emailRegex.test(data.companyEmail)) missing.push(t('companyEmail') + ' (invalid format)');
     return missing;
+  };
+
+  const [justSaved, setJustSaved] = useState(false);
+
+  const handleSaveLead = async () => {
+    const missing = validateRequiredFields();
+    if (missing.length > 0) {
+      setConfirmDialog({
+        isOpen: true,
+        title: t('missingRequiredFields'),
+        message: `${t('pleaseFillIn')}: ${missing.join(', ')}`,
+        onConfirm: () => setConfirmDialog(null),
+      });
+      return;
+    }
+    await saveLead();
+    const db = await openDB("solar-leads", 2);
+    const leads = await db.getAll("leads");
+    setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
+    setShowLeads(true);
+    setJustSaved(true);
+    setTimeout(() => setJustSaved(false), 2000);
   };
 
   const refreshLeads = useCallback(async () => {
@@ -306,27 +328,11 @@ export default function Home() {
             </Tooltip>
             <Tooltip text={t("tooltipSaveLead")}>
               <button
-                onClick={async () => {
-                  const missing = validateRequiredFields();
-                  if (missing.length > 0) {
-                    setConfirmDialog({
-                      isOpen: true,
-                      title: t('missingRequiredFields'),
-                      message: `${t('pleaseFillIn')}: ${missing.join(', ')}`,
-                      onConfirm: () => setConfirmDialog(null),
-                    });
-                    return;
-                  }
-                  await saveLead();
-                  const db = await openDB("solar-leads", 2);
-                  const leads = await db.getAll("leads");
-                  setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
-                  setShowLeads(true);
-                }}
-                disabled={isDefaultLead}
+                onClick={handleSaveLead}
+                disabled={isDefaultLead || justSaved}
                 className="w-[100px] sm:w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-1 sm:px-3 rounded-lg transition-all text-[10px] sm:text-xs shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span className="block truncate">💾 {t("saveLead")}</span>
+                <span className="block truncate">{justSaved ? `✓ ${t("savedLead")}` : `💾 ${t("saveLead")}`}</span>
               </button>
             </Tooltip>
             <DataBackup data={data} />
@@ -342,9 +348,8 @@ export default function Home() {
                 onClick={() => {
                   setConfirmDialog({
                     isOpen: true,
-                    title: "Clear All Leads",
-                    message:
-                      "This will permanently delete all leads from the database. This action cannot be undone!",
+                    title: t('clearAllLeads'),
+                    message: t('clearAllLeadsWarning'),
                     onConfirm: handleClearAllLeads,
                   });
                 }}
@@ -382,8 +387,8 @@ export default function Home() {
                     onClick={() => {
                       setConfirmDialog({
                         isOpen: true,
-                        title: "Delete Lead",
-                        message: `Are you sure you want to delete "${lead.clientName || "Unnamed Lead"}"?`,
+                        title: t('deleteLead'),
+                        message: `${t('areYouSureDelete')} "${lead.clientName || "Unnamed Lead"}"?`,
                         onConfirm: () => handleDeleteLead(lead.id),
                       });
                     }}
@@ -452,27 +457,11 @@ export default function Home() {
               </div>
               <div className="mt-6 flex justify-center">
                 <button
-                  onClick={async () => {
-                    const missing = validateRequiredFields();
-                    if (missing.length > 0) {
-                      setConfirmDialog({
-                        isOpen: true,
-                        title: t('missingRequiredFields'),
-                        message: `${t('pleaseFillIn')}: ${missing.join(', ')}`,
-                        onConfirm: () => setConfirmDialog(null),
-                      });
-                      return;
-                    }
-                    await saveLead();
-                    const db = await openDB("solar-leads", 2);
-                    const leads = await db.getAll("leads");
-                    setAllLeads(Array.isArray(leads) ? leads.sort((a, b) => b.createdAt - a.createdAt) : []);
-                    setShowLeads(true);
-                  }}
-                  disabled={isDefaultLead}
+                  onClick={handleSaveLead}
+                  disabled={isDefaultLead || justSaved}
                   className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  💾 {t("saveLead")}
+                  {justSaved ? `✓ ${t("savedLead")}` : `💾 ${t("saveLead")}`}
                 </button>
               </div>
             </div>
@@ -528,8 +517,8 @@ export default function Home() {
           message={confirmDialog.message}
           onConfirm={confirmDialog.onConfirm}
           onCancel={() => setConfirmDialog(null)}
-          confirmText={confirmDialog.title.includes("Missing") ? "OK" : "Confirm"}
-          cancelText={confirmDialog.title.includes("Missing") ? "" : "Cancel"}
+          confirmText={confirmDialog.title.includes(t('missingRequiredFields')) ? t('ok') : t('confirm')}
+          cancelText={confirmDialog.title.includes(t('missingRequiredFields')) ? "" : t('cancel')}
           isDangerous={
             confirmDialog.title.includes("Delete") ||
             confirmDialog.title.includes("Clear")

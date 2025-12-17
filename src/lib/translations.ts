@@ -144,6 +144,16 @@ type TranslationKeys = {
   yesterday: string;
   missingRequiredFields: string;
   pleaseFillIn: string;
+  savedLead: string;
+  createNewLead: string;
+  currentLeadWillBeSaved: string;
+  deleteLead: string;
+  areYouSureDelete: string;
+  clearAllLeads: string;
+  clearAllLeadsWarning: string;
+  confirm: string;
+  cancel: string;
+  ok: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -293,6 +303,16 @@ export const translations: Record<string, TranslationKeys> = {
     yesterday: 'yesterday',
     missingRequiredFields: 'Missing Required Fields',
     pleaseFillIn: 'Please fill in',
+    savedLead: 'Saved!',
+    createNewLead: 'Create New Lead',
+    currentLeadWillBeSaved: 'Current lead will be saved. Continue?',
+    deleteLead: 'Delete Lead',
+    areYouSureDelete: 'Are you sure you want to delete',
+    clearAllLeads: 'Clear All Leads',
+    clearAllLeadsWarning: 'This will permanently delete all leads from the database. This action cannot be undone!',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    ok: 'OK',
   },
   es: {
     title: 'SolarClose',
@@ -440,6 +460,16 @@ export const translations: Record<string, TranslationKeys> = {
     yesterday: 'ayer',
     missingRequiredFields: 'Campos Requeridos Faltantes',
     pleaseFillIn: 'Por favor complete',
+    savedLead: '¡Guardado!',
+    createNewLead: 'Crear Nuevo Cliente',
+    currentLeadWillBeSaved: 'El cliente actual se guardará. ¿Continuar?',
+    deleteLead: 'Eliminar Cliente',
+    areYouSureDelete: '¿Está seguro de que desea eliminar',
+    clearAllLeads: 'Borrar Todos los Clientes',
+    clearAllLeadsWarning: '¡Esto eliminará permanentemente todos los clientes de la base de datos. Esta acción no se puede deshacer!',
+    confirm: 'Confirmar',
+    cancel: 'Cancelar',
+    ok: 'OK',
   },
   it: {
     title: 'SolarClose',
@@ -587,6 +617,16 @@ export const translations: Record<string, TranslationKeys> = {
     yesterday: 'ieri',
     missingRequiredFields: 'Campi Obbligatori Mancanti',
     pleaseFillIn: 'Si prega di compilare',
+    savedLead: 'Salvato!',
+    createNewLead: 'Crea Nuovo Cliente',
+    currentLeadWillBeSaved: 'Il cliente corrente verrà salvato. Continuare?',
+    deleteLead: 'Elimina Cliente',
+    areYouSureDelete: 'Sei sicuro di voler eliminare',
+    clearAllLeads: 'Cancella Tutti i Clienti',
+    clearAllLeadsWarning: 'Questo eliminerà permanentemente tutti i clienti dal database. Questa azione non può essere annullata!',
+    confirm: 'Conferma',
+    cancel: 'Annulla',
+    ok: 'OK',
   },
   fr: {
     title: 'SolarClose',
@@ -734,6 +774,16 @@ export const translations: Record<string, TranslationKeys> = {
     yesterday: 'hier',
     missingRequiredFields: 'Champs Requis Manquants',
     pleaseFillIn: 'Veuillez remplir',
+    savedLead: 'Enregistré!',
+    createNewLead: 'Créer un Nouveau Client',
+    currentLeadWillBeSaved: 'Le client actuel sera enregistré. Continuer?',
+    deleteLead: 'Supprimer le Client',
+    areYouSureDelete: 'Êtes-vous sûr de vouloir supprimer',
+    clearAllLeads: 'Effacer Tous les Clients',
+    clearAllLeadsWarning: 'Cela supprimera définitivement tous les clients de la base de données. Cette action ne peut pas être annulée!',
+    confirm: 'Confirmer',
+    cancel: 'Annuler',
+    ok: 'OK',
   },
   de: {
     title: 'SolarClose',
@@ -881,6 +931,16 @@ export const translations: Record<string, TranslationKeys> = {
     yesterday: 'gestern',
     missingRequiredFields: 'Fehlende Pflichtfelder',
     pleaseFillIn: 'Bitte ausfüllen',
+    savedLead: 'Gespeichert!',
+    createNewLead: 'Neuen Kunden Erstellen',
+    currentLeadWillBeSaved: 'Der aktuelle Kunde wird gespeichert. Fortfahren?',
+    deleteLead: 'Kunde Löschen',
+    areYouSureDelete: 'Sind Sie sicher, dass Sie löschen möchten',
+    clearAllLeads: 'Alle Kunden Löschen',
+    clearAllLeadsWarning: 'Dadurch werden alle Kunden dauerhaft aus der Datenbank gelöscht. Diese Aktion kann nicht rückgängig gemacht werden!',
+    confirm: 'Bestätigen',
+    cancel: 'Abbrechen',
+    ok: 'OK',
   },
 };
 
