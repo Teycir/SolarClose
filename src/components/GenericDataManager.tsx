@@ -26,6 +26,7 @@ export function GenericDataManager({ storeName, currentValue, onSelect, label = 
 
   useEffect(() => {
     loadItems();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadItems = async () => {
