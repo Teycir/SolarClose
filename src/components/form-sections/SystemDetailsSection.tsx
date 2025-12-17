@@ -12,15 +12,32 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
 
-  // Calculate max useful monthly bill (where system reaches 100% offset)
+  // Calculate max useful monthly bill based on system cost and size
   const PERFORMANCE_RATIO = 0.8;
   const annualProduction = data.systemSizeKw * data.sunHoursPerDay * 365 * PERFORMANCE_RATIO;
-  const maxUsefulBill = data.electricityRate > 0 ? Math.ceil((annualProduction / 12) * data.electricityRate / 10) * 10 : 1000;
-  const cappedMaxBill = Math.min(Math.max(maxUsefulBill, 100), 1000);
+  const productionBasedMax = data.electricityRate > 0 ? Math.ceil((annualProduction / 12) * data.electricityRate / 10) * 10 : 1000;
+  const costBasedMax = Math.ceil(data.systemCost / 50);
+  const maxUsefulBill = Math.max(productionBasedMax, costBasedMax);
+  const cappedMaxBill = Math.min(Math.max(maxUsefulBill, 100), 2000);
   const isAtMaxCapacity = data.currentMonthlyBill >= cappedMaxBill - 10;
 
   return (
     <>
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          {t('systemSize')}: {data.systemSizeKw} kW
+        </label>
+        <input
+          type="range"
+          min="3"
+          max="20"
+          step="0.5"
+          value={data.systemSizeKw}
+          onChange={(e) => onUpdate({ systemSizeKw: Number(e.target.value) })}
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
+        />
+      </div>
+
       <div>
         <label className="block text-sm font-medium mb-2">
           {t('currentMonthlyBill')}: ${data.currentMonthlyBill}
@@ -37,7 +54,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
         />
         {isAtMaxCapacity && (
           <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-            System at max capacity. Increase system size for higher bills.
+            System at max capacity. Increase system size below ⬇️ for higher bills.
           </p>
         )}
       </div>
@@ -53,21 +70,6 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="0.5"
           value={data.yearlyInflationRate}
           onChange={(e) => onUpdate({ yearlyInflationRate: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">
-          {t('systemSize')}: {data.systemSizeKw} kW
-        </label>
-        <input
-          type="range"
-          min="3"
-          max="20"
-          step="0.5"
-          value={data.systemSizeKw}
-          onChange={(e) => onUpdate({ systemSizeKw: Number(e.target.value) })}
           className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>

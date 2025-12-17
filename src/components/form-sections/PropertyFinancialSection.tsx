@@ -11,6 +11,9 @@ interface PropertyFinancialSectionProps {
 export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSectionProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
+  
+  const DEFAULT_LOAN_TERM = 20;
+  const DEFAULT_INTEREST_RATE = 6.99;
 
   return (
     <>
@@ -77,25 +80,25 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Loan Term: {data.loanTerm || 20} years</label>
+            <label className="block text-sm font-medium mb-2">Loan Term: {data.loanTerm || DEFAULT_LOAN_TERM} years</label>
             <input
               type="range"
               min="5"
               max="25"
               step="5"
-              value={data.loanTerm || 20}
+              value={data.loanTerm || DEFAULT_LOAN_TERM}
               onChange={(e) => onUpdate({ loanTerm: Number(e.target.value) })}
               className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Interest Rate: {data.loanInterestRate || 6.99}%</label>
+            <label className="block text-sm font-medium mb-2">Interest Rate: {data.loanInterestRate || DEFAULT_INTEREST_RATE}%</label>
             <input
               type="range"
               min="3"
               max="15"
               step="0.25"
-              value={data.loanInterestRate || 6.99}
+              value={data.loanInterestRate || DEFAULT_INTEREST_RATE}
               onChange={(e) => onUpdate({ loanInterestRate: Number(e.target.value) })}
               className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
             />
@@ -146,7 +149,8 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             type="text"
             value={data.utilityProvider || ''}
             onChange={(e) => {
-              const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.-]/g, '');
+              const value = e.target.value;
+              const sanitized = value.replace(/[^a-zA-Z0-9\s&.-]/g, '');
               onUpdate({ utilityProvider: sanitized });
             }}
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
@@ -160,7 +164,8 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             value={data.avgKwhPerMonth || ''}
             onChange={(e) => {
               const parsedValue = parseFloat(e.target.value);
-              onUpdate({ avgKwhPerMonth: !isNaN(parsedValue) && parsedValue >= 0 ? parsedValue : undefined });
+              const isValid = !isNaN(parsedValue) && parsedValue >= 0;
+              onUpdate({ avgKwhPerMonth: isValid ? parsedValue : undefined });
             }}
             min="0"
             className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
