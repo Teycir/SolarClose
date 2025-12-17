@@ -20,7 +20,7 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
           type="date"
           value={data.date}
           onChange={(e) => onUpdate({ date: e.target.value })}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
         />
       </div>
 
@@ -33,7 +33,7 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
             const sanitized = e.target.value.replace(/[^a-zA-Z\s'-]/g, '');
             onUpdate({ clientName: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="John Doe"
           required
           aria-required="true"
@@ -49,7 +49,7 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
             const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ address: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="123 Main St"
           required
           aria-required="true"
@@ -66,7 +66,7 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
               const sanitized = e.target.value.replace(/[^0-9+\-() ]/g, '');
               onUpdate({ phone: sanitized });
             }}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder="(555) 123-4567"
           />
         </div>
@@ -79,7 +79,7 @@ export function ClientInfoSection({ data, onUpdate }: ClientInfoSectionProps) {
               const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase();
               onUpdate({ email: sanitized });
             }}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder="client@email.com"
           />
         </div>

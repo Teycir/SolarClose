@@ -19,7 +19,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
         <select
           value={data.leadStatus || ''}
           onChange={(e) => onUpdate({ leadStatus: e.target.value })}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
         >
           <option value="">{t('selectStatus')}</option>
           <option value="New">{t('new')}</option>
@@ -37,7 +37,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
           <select
             value={data.propertyType || ''}
             onChange={(e) => onUpdate({ propertyType: e.target.value })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           >
             <option value="">{t('selectType')}</option>
             <option value="Residential">{t('residential')}</option>
@@ -52,7 +52,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
           <select
             value={data.financingOption || 'Cash'}
             onChange={(e) => onUpdate({ financingOption: e.target.value })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           >
             <option value="Cash">{t('cash')}</option>
             <option value="Loan">{t('loan')}</option>
@@ -63,7 +63,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
       </div>
 
       {data.financingOption === 'Loan' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 bg-secondary/50 rounded-lg border border-input">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20">
           <div>
             <label className="block text-sm font-medium mb-2">Down Payment: ${(data.downPayment || 0).toLocaleString()}</label>
             <input
@@ -73,7 +73,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
               step="500"
               value={data.downPayment || 0}
               onChange={(e) => onUpdate({ downPayment: Number(e.target.value) })}
-              className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+              className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
             />
           </div>
           <div>
@@ -85,7 +85,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
               step="5"
               value={data.loanTerm || 20}
               onChange={(e) => onUpdate({ loanTerm: Number(e.target.value) })}
-              className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+              className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
             />
           </div>
           <div>
@@ -97,7 +97,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
               step="0.25"
               value={data.loanInterestRate || 6.99}
               onChange={(e) => onUpdate({ loanInterestRate: Number(e.target.value) })}
-              className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+              className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
             />
           </div>
         </div>
@@ -109,7 +109,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
           <select
             value={data.roofType || ''}
             onChange={(e) => onUpdate({ roofType: e.target.value })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           >
             <option value="">{t('selectType')}</option>
             <option value="Asphalt Shingle">{t('asphaltShingle')}</option>
@@ -128,7 +128,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
           <select
             value={data.roofCondition || ''}
             onChange={(e) => onUpdate({ roofCondition: e.target.value })}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           >
             <option value="">{t('selectCondition')}</option>
             <option value="Excellent">{t('excellent')}</option>
@@ -149,7 +149,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
               const sanitized = e.target.value.replace(/[^a-zA-Z0-9\s&.-]/g, '');
               onUpdate({ utilityProvider: sanitized });
             }}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder={`${t('eg')} PG and E`}
           />
         </div>
@@ -163,7 +163,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
               onUpdate({ avgKwhPerMonth: !isNaN(parsedValue) && parsedValue >= 0 ? parsedValue : undefined });
             }}
             min="0"
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder={`${t('eg')} 850`}
           />
         </div>
@@ -177,7 +177,7 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
             const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ notes: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder={t('placeholderNotes')}
           rows={3}
         />

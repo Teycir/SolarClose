@@ -206,7 +206,8 @@ export default function Home() {
             </button>
             <button
               onClick={() => setShowLeads(!showLeads)}
-              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button"
+              disabled={allLeads.length === 0}
+              className="flex-1 min-w-[120px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-4 rounded-lg transition-all text-sm whitespace-nowrap shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {showLeads ? `✕ ${t('hideLeads')}` : `📋 ${t('viewLeads')}${allLeads.length > 0 ? ` (${allLeads.length})` : ''}`}
             </button>
@@ -313,7 +314,7 @@ export default function Home() {
           <div className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? 'opacity-50 pointer-events-none' : ''}`}>
             <div className="bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 rounded-lg p-4 sm:p-6 shadow-2xl">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">Administrative</h2>
-              <div className="space-y-4 sm:space-y-6 overflow-hidden">
+              <div className="space-y-4 sm:space-y-6">
                 <ClientInfoSection data={data} onUpdate={setData} />
                 <CompanyInfoSection data={data} onUpdate={setData} />
                 <PropertyFinancialSection data={data} onUpdate={setData} />

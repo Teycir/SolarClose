@@ -33,7 +33,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="10"
           value={Math.min(data.currentMonthlyBill, cappedMaxBill)}
           onChange={(e) => onUpdate({ currentMonthlyBill: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
         {isAtMaxCapacity && (
           <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
@@ -53,7 +53,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="0.5"
           value={data.yearlyInflationRate}
           onChange={(e) => onUpdate({ yearlyInflationRate: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
@@ -68,7 +68,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="0.5"
           value={data.systemSizeKw}
           onChange={(e) => onUpdate({ systemSizeKw: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
@@ -83,7 +83,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="1000"
           value={data.systemCost}
           onChange={(e) => onUpdate({ systemCost: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
@@ -98,7 +98,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="0.01"
           value={data.electricityRate}
           onChange={(e) => onUpdate({ electricityRate: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
@@ -113,7 +113,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="0.5"
           value={data.sunHoursPerDay}
           onChange={(e) => onUpdate({ sunHoursPerDay: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
@@ -128,7 +128,7 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="5"
           value={data.federalTaxCredit}
           onChange={(e) => onUpdate({ federalTaxCredit: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
@@ -143,11 +143,11 @@ export function SystemDetailsSection({ data, onUpdate }: SystemDetailsSectionPro
           step="100"
           value={data.stateIncentive}
           onChange={(e) => onUpdate({ stateIncentive: Number(e.target.value) })}
-          className="w-full h-3 sm:h-2 bg-secondary rounded-lg appearance-none cursor-pointer"
+          className="w-full h-3 sm:h-2 bg-white/10 dark:bg-black/20 rounded-lg appearance-none cursor-pointer"
         />
       </div>
 
-      <div className="flex items-center gap-3 p-4 bg-secondary/50 rounded-lg border border-input">
+      <div className="flex items-center gap-3 p-4 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20">
         <input
           type="checkbox"
           id="inverter-warranty"

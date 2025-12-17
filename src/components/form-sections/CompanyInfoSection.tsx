@@ -33,7 +33,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             const sanitized = e.target.value.replace(/[<>"]/g, '').substring(0, 500);
             onUpdate({ productDescription: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="e.g., Premium solar panels (400W), 10-year warranty, professional installation included..."
           rows={3}
           maxLength={500}
@@ -55,7 +55,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             const sanitized = e.target.value.replace(/[<>"]/g, '');
             onUpdate({ proposalConditions: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="This proposal is valid for 30 days.\nFinal pricing subject to site inspection.\nInstallation timeline: 4-8 weeks after approval."
           rows={3}
           required
@@ -80,7 +80,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             saveToLocalStorage('solarclose-company', sanitized);
             onUpdate({ companyName: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder={t('placeholderCompany')}
           required
           aria-required="true"
@@ -119,7 +119,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
               saveToLocalStorage('solarclose-phone', sanitized);
               onUpdate({ companyPhone: sanitized });
             }}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder="(555) 000-0000"
             required
             aria-required="true"
@@ -144,7 +144,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
               saveToLocalStorage('solarclose-salesrep', sanitized);
               onUpdate({ salesRep: sanitized });
             }}
-            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+            className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
             placeholder={t('placeholderSalesRep')}
             required
             aria-required="true"
@@ -170,7 +170,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase();
             onUpdate({ companyEmail: sanitized });
           }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-secondary rounded-lg border border-input text-base"
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder="info@company.com"
         />
       </div>
