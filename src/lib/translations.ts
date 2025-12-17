@@ -91,6 +91,12 @@ type TranslationKeys = {
   restore: string;
   share: string;
   saveLead: string;
+  tooltipNewLead: string;
+  tooltipViewLeads: string;
+  tooltipSaveLead: string;
+  tooltipBackup: string;
+  tooltipRestore: string;
+  tooltipExport: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -187,6 +193,12 @@ export const translations: Record<string, TranslationKeys> = {
     restore: 'Restore',
     share: 'Share',
     saveLead: 'Save Lead',
+    tooltipNewLead: 'Create a new lead',
+    tooltipViewLeads: 'View all saved leads',
+    tooltipSaveLead: 'Save current lead',
+    tooltipBackup: 'Backup all leads to file',
+    tooltipRestore: 'Restore leads from backup',
+    tooltipExport: 'Export PDFs',
   },
   es: {
     title: 'SolarClose',
@@ -281,6 +293,12 @@ export const translations: Record<string, TranslationKeys> = {
     restore: 'Restaurar',
     share: 'Compartir',
     saveLead: 'Guardar Cliente',
+    tooltipNewLead: 'Crear un nuevo cliente',
+    tooltipViewLeads: 'Ver todos los clientes guardados',
+    tooltipSaveLead: 'Guardar cliente actual',
+    tooltipBackup: 'Respaldar todos los clientes',
+    tooltipRestore: 'Restaurar clientes desde respaldo',
+    tooltipExport: 'Exportar PDFs',
   },
   it: {
     title: 'SolarClose',
@@ -375,6 +393,12 @@ export const translations: Record<string, TranslationKeys> = {
     restore: 'Ripristina',
     share: 'Condividi',
     saveLead: 'Salva Cliente',
+    tooltipNewLead: 'Crea un nuovo cliente',
+    tooltipViewLeads: 'Visualizza tutti i clienti salvati',
+    tooltipSaveLead: 'Salva cliente corrente',
+    tooltipBackup: 'Backup di tutti i clienti',
+    tooltipRestore: 'Ripristina clienti da backup',
+    tooltipExport: 'Esporta PDFs',
   },
   fr: {
     title: 'SolarClose',
@@ -469,6 +493,12 @@ export const translations: Record<string, TranslationKeys> = {
     restore: 'Restaurer',
     share: 'Partager',
     saveLead: 'Enregistrer Client',
+    tooltipNewLead: 'Créer un nouveau client',
+    tooltipViewLeads: 'Voir tous les clients enregistrés',
+    tooltipSaveLead: 'Enregistrer le client actuel',
+    tooltipBackup: 'Sauvegarder tous les clients',
+    tooltipRestore: 'Restaurer les clients depuis la sauvegarde',
+    tooltipExport: 'Exporter PDFs',
   },
   de: {
     title: 'SolarClose',
@@ -563,6 +593,12 @@ export const translations: Record<string, TranslationKeys> = {
     restore: 'Wiederherstellen',
     share: 'Teilen',
     saveLead: 'Kunde Speichern',
+    tooltipNewLead: 'Neuen Kunden erstellen',
+    tooltipViewLeads: 'Alle gespeicherten Kunden anzeigen',
+    tooltipSaveLead: 'Aktuellen Kunden speichern',
+    tooltipBackup: 'Alle Kunden sichern',
+    tooltipRestore: 'Kunden aus Sicherung wiederherstellen',
+    tooltipExport: 'PDFs exportieren',
   },
 };
 
