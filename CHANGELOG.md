@@ -2,6 +2,41 @@
 
 All notable changes to SolarClose will be documented in this file.
 
+## [1.3.0] - 2025-01-XX
+
+### Documentation & Internationalization
+
+- 📚 **Multi-Language Documentation**: Created complete HTML documentation pages for all 5 supported languages
+  - How-to-Use guides: English, French (fr), Spanish (es), Italian (it), German (de)
+  - Calculation Methodology pages: English, French (fr), Spanish (es), Italian (it), German (de)
+  - All pages feature matching design with animated gradient backgrounds and glass-morphism styling
+- 🔗 **Smart Language Routing**: Footer links automatically redirect users to language-specific documentation
+- 🎨 **Consistent Design**: All documentation pages match main app styling with yellow-orange gradients
+- 📖 **Comprehensive Guides**: Step-by-step instructions, pro tips, troubleshooting, and keyboard shortcuts
+- 🧮 **Transparent Calculations**: Detailed formulas, parameters, and conservative assumptions explained
+- 🌐 **Localized Content**: All technical terms, formulas, and explanations properly translated
+
+### Branding & Licensing
+
+- 🔒 **Closed-Source Clarification**: Updated README with explicit closed-source proprietary software messaging
+- ⚖️ **Legal Notice**: Added comprehensive legal section with prohibited actions and enforcement warnings
+- 🏢 **Commercial Licensing**: Clear distinction between free web version and commercial licensing options
+- ❌ **Removed Open Source Claims**: Removed "Open source & free to use" text from footer
+- 📋 **Feature Documentation**: Added complete 48+ feature list organized into 9 categories in README
+
+### UI/UX Improvements
+
+- 📄 **Documentation Access**: Added "How to Use" and "Calculations" links in footer
+- 🌍 **Language-Aware Links**: Documentation links respect user's selected language
+- 🎯 **Better Navigation**: Users can easily access help documentation in their preferred language
+
+### Technical
+
+- Created 10 new HTML documentation files (5 languages × 2 pages)
+- Implemented language detection and routing logic in footer
+- Added favicon support to all documentation pages
+- Maintained consistent styling across all static pages
+
 ## [1.2.3] - 2025-12-XX
 
 ### Internationalization
