@@ -293,7 +293,7 @@ export default function Home() {
             </div>
           </div>
           <a
-            href="https://sendspark.com/share/h9tfbqckmaqq824bnxo80tv6ykv09wjq7"
+            href="https://sendspark.com/share/h9tfbqckmqq824bnxo80tv6ykv09wjq7"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm sm:text-base font-semibold hover:text-primary transition-colors whitespace-nowrap"
@@ -488,7 +488,7 @@ export default function Home() {
           <div className="flex flex-col items-center gap-2">
             <div>
               <a
-                href="https://sendspark.com/share/h9tfbqckmaqq824bnxo80tv6ykv09wjq7"
+                href="https://sendspark.com/share/h9tfbqckmqq824bnxo80tv6ykv09wjq7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
