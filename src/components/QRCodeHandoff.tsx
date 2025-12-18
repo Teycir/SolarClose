@@ -107,6 +107,16 @@ export function QRCodeHandoff({ data }: QRCodeHandoffProps) {
                 <li>{t('twentyFiveYearSavings')}</li>
                 <li>{t('companyName')}: {data.companyName}</li>
               </ul>
+              <button
+                onClick={() => {
+                  const url = generateShareableData();
+                  navigator.clipboard.writeText(url);
+                  alert('URL copied! You can paste it in a browser to test.');
+                }}
+                className="mt-2 text-xs underline hover:opacity-70"
+              >
+                Copy test URL
+              </button>
             </div>
           </div>
         </div>

@@ -48,18 +48,20 @@ export default function Home() {
   // Handle QR code data from URL
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (currentLeadId !== 'default-lead') return;
     
     const urlParams = new URLSearchParams(window.location.search);
     const encodedData = urlParams.get('data');
     
-    if (encodedData && currentLeadId === 'default-lead') {
+    if (encodedData) {
       try {
+        console.log('QR code detected, creating new lead...');
         sessionStorage.setItem('qr-data', encodedData);
         const newLeadId = generateLeadId();
         setCurrentLeadId(newLeadId);
         window.history.replaceState({}, '', window.location.pathname);
       } catch (error) {
-        console.error('Failed to decode QR data:', error);
+        console.error('Failed to process QR data:', error);
       }
     }
   }, [currentLeadId]);
@@ -67,16 +69,18 @@ export default function Home() {
   // Apply QR data once lead is ready
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (!data || currentLeadId === 'default-lead') return;
+    if (currentLeadId === 'default-lead') return;
+    if (!data) return;
     
-    const urlParams = new URLSearchParams(window.location.search);
     const encodedData = sessionStorage.getItem('qr-data');
     
     if (encodedData) {
       try {
+        console.log('Applying QR data to new lead...', { leadId: currentLeadId, hasData: !!data });
         const decoded = JSON.parse(atob(encodedData));
         setData(decoded as Partial<SolarLead>);
         sessionStorage.removeItem('qr-data');
+        console.log('QR data applied successfully', decoded);
       } catch (error) {
         console.error('Failed to apply QR data:', error);
       }
