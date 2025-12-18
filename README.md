@@ -70,6 +70,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 🎨 **Animated Counters** - Smooth number animations for savings displays  
 🎨 **Progress Bars** - Visual indicators for system offset and ROI  
 🎨 **Confetti Celebrations** - Trigger on high savings to create excitement  
+🎨 **Show Mode** - Full-screen theatrical presentation view for client reveals  
 🎨 **Responsive Layout** - Works perfectly on iPad, tablets, and laptops  
 🎨 **Dark Mode Ready** - Beautiful on any device in any lighting
 
@@ -123,6 +124,13 @@ Instantly display:
 - One-click "Copy Summary" to text prospects
 
 ### **4. Close the Deal**
+
+Click **"🎭 Show"** to:
+
+- **Theatrical View:** Full-screen presentation mode with big numbers
+- **Client Reveal:** Turn your device around and say "Here is your future"
+- **Distraction-Free:** Hides all inputs, shows only key results
+- **Press ESC to Exit:** Quick return to editing mode
 
 Click **"Export PDF"** to generate:
 

@@ -23,6 +23,7 @@ import { DataBackup } from "@/components/DataBackup";
 import { QRCodeHandoff } from "@/components/QRCodeHandoff";
 import { SignatureButton } from "@/components/SignatureButton";
 import { Tooltip } from "@/components/Tooltip";
+import { ShowMode } from "@/components/ShowMode";
 import { openDB } from "idb";
 import type { SolarLead } from "@/types/solar";
 
@@ -32,6 +33,7 @@ export default function Home() {
   const [currentLeadId, setCurrentLeadId] = useState("default-lead");
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
+  const [showMode, setShowMode] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -357,6 +359,15 @@ export default function Home() {
             <DataBackup data={data} />
             <SignatureButton data={data} onUpdate={setData} />
             <QRCodeHandoff data={data} />
+            <Tooltip text={t("tooltipShowMode")}>
+              <button
+                onClick={() => setShowMode(true)}
+                disabled={isDefaultLead}
+                className="min-w-[80px] max-w-[100px] bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-2 px-2 rounded-lg transition-all text-[9px] sm:text-[10px] shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="block truncate">🎭 {t("showMode")}</span>
+              </button>
+            </Tooltip>
             <ExportButton data={data} />
           </div>
         </div>
@@ -559,6 +570,10 @@ export default function Home() {
             confirmDialog.title.includes(t('clearAllLeads'))
           }
         />
+      )}
+
+      {showMode && (
+        <ShowMode data={data} onClose={() => setShowMode(false)} />
       )}
     </main>
   );

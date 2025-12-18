@@ -28,6 +28,7 @@ export function ExportButton({ data }: ExportButtonProps) {
     
     try {
       setIsGenerating(true);
+      console.log('Exporting PDF with notes:', data.notes ? 'Present' : 'Missing');
       const clientBlob = await generateClientPDF(data);
       const sellerBlob = await generateSellerPDF(data);
       

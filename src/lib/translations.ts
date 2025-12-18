@@ -209,6 +209,11 @@ type TranslationKeys = {
   signatureCaptured: string;
   clear: string;
   scanToVisit: string;
+  showMode: string;
+  yourFuture: string;
+  treesPlanted: string;
+  pressEscToExit: string;
+  tooltipShowMode: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -423,6 +428,11 @@ export const translations: Record<string, TranslationKeys> = {
     signatureCaptured: 'Signed',
     clear: 'Clear',
     scanToVisit: 'Scan to visit SolarClose',
+    showMode: 'Show',
+    yourFuture: 'Your Future',
+    treesPlanted: 'Trees Planted',
+    pressEscToExit: 'Press ESC or click X to exit',
+    tooltipShowMode: 'Theatrical presentation mode',
   },
   es: {
     title: 'SolarClose',
@@ -635,6 +645,11 @@ export const translations: Record<string, TranslationKeys> = {
     signatureCaptured: 'Firmado',
     clear: 'Limpiar',
     scanToVisit: 'Escanea para visitar SolarClose',
+    showMode: 'Mostrar',
+    yourFuture: 'Tu Futuro',
+    treesPlanted: 'Árboles Plantados',
+    pressEscToExit: 'Presiona ESC o haz clic en X para salir',
+    tooltipShowMode: 'Modo de presentación teatral',
   },
   it: {
     title: 'SolarClose',
@@ -847,6 +862,11 @@ export const translations: Record<string, TranslationKeys> = {
     signatureCaptured: 'Firmato',
     clear: 'Cancella',
     scanToVisit: 'Scansiona per visitare SolarClose',
+    showMode: 'Mostra',
+    yourFuture: 'Il Tuo Futuro',
+    treesPlanted: 'Alberi Piantati',
+    pressEscToExit: 'Premi ESC o clicca X per uscire',
+    tooltipShowMode: 'Modalità presentazione teatrale',
   },
   fr: {
     title: 'SolarClose',
@@ -1059,6 +1079,11 @@ export const translations: Record<string, TranslationKeys> = {
     signatureCaptured: 'Signé',
     clear: 'Effacer',
     scanToVisit: 'Scannez pour visiter SolarClose',
+    showMode: 'Afficher',
+    yourFuture: 'Votre Avenir',
+    treesPlanted: 'Arbres Plantés',
+    pressEscToExit: 'Appuyez sur ESC ou cliquez sur X pour quitter',
+    tooltipShowMode: 'Mode présentation théâtrale',
   },
   de: {
     title: 'SolarClose',
@@ -1271,6 +1296,11 @@ export const translations: Record<string, TranslationKeys> = {
     signatureCaptured: 'Unterschrieben',
     clear: 'Löschen',
     scanToVisit: 'Scannen Sie, um SolarClose zu besuchen',
+    showMode: 'Zeigen',
+    yourFuture: 'Ihre Zukunft',
+    treesPlanted: 'Gepflanzte Bäume',
+    pressEscToExit: 'Drücken Sie ESC oder klicken Sie auf X zum Beenden',
+    tooltipShowMode: 'Theatralischer Präsentationsmodus',
   },
 };
 
