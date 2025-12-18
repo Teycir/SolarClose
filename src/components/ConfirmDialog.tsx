@@ -27,7 +27,7 @@ export function ConfirmDialog({
   const baseButtonClass = 'px-4 py-2 rounded-lg transition-colors text-sm font-medium';
   const cancelButtonClass = `${baseButtonClass} bg-secondary hover:bg-secondary/80`;
   const dangerClass = 'bg-destructive text-destructive-foreground hover:bg-destructive/90';
-  const primaryClass = 'bg-primary text-primary-foreground hover:bg-primary/90';
+  const primaryClass = 'bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black hover:opacity-90';
   const confirmButtonClass = `${baseButtonClass} ${isDangerous ? dangerClass : primaryClass}`;
 
   return (
@@ -41,22 +41,24 @@ export function ConfirmDialog({
         <h3 id="dialog-title" className="text-lg font-semibold">{title}</h3>
         <p className="text-sm text-muted-foreground">{message}</p>
         <div className="flex gap-3 justify-end">
-          <button
-            onClick={() => {
-              try {
-                onCancel();
-              } catch (error: unknown) {
-                const errorMessage = error instanceof Error ? error.message : String(error);
-                console.error('Error in cancel handler:', errorMessage.replace(/[\r\n]/g, ' '));
-                if (error instanceof Error && error.stack) {
-                  console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+          {cancelText && (
+            <button
+              onClick={() => {
+                try {
+                  onCancel();
+                } catch (error: unknown) {
+                  const errorMessage = error instanceof Error ? error.message : String(error);
+                  console.error('Error in cancel handler:', errorMessage.replace(/[\r\n]/g, ' '));
+                  if (error instanceof Error && error.stack) {
+                    console.error('Stack trace:', error.stack.replace(/[\r\n]/g, ' | '));
+                  }
                 }
-              }
-            }}
-            className={cancelButtonClass}
-          >
-            {cancelText}
-          </button>
+              }}
+              className={cancelButtonClass}
+            >
+              {cancelText}
+            </button>
+          )}
           <button
             onClick={() => {
               try {
