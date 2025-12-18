@@ -205,33 +205,34 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setTextColor(0, 0, 0);
   y += 8;
 
-  const FOOTER_START = 270;
-  const MIN_SPACE_FOR_SIGNATURE = 30;
-  const MIN_SPACE_FOR_CONDITIONS = 10;
+  const FOOTER_START = 268;
+  const SIGNATURE_HEIGHT = 25;
+  const CONDITIONS_LINE_HEIGHT = 4;
 
-  if (data.proposalConditions && y < (FOOTER_START - MIN_SPACE_FOR_CONDITIONS)) {
-    doc.setFontSize(9);
+  if (data.proposalConditions && y < (FOOTER_START - 5)) {
+    doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
     const conditionLines = doc.splitTextToSize(data.proposalConditions, 170);
-    const availableSpace = FOOTER_START - MIN_SPACE_FOR_SIGNATURE - y;
-    const maxLines = Math.floor(availableSpace / 4.5);
+    const spaceForSignature = data.clientSignature ? SIGNATURE_HEIGHT : 0;
+    const availableSpace = FOOTER_START - spaceForSignature - y - 5;
+    const maxLines = Math.floor(availableSpace / CONDITIONS_LINE_HEIGHT);
     if (maxLines > 0) {
       doc.text(conditionLines.slice(0, maxLines), 20, y);
-      y += (Math.min(conditionLines.length, maxLines) * 4.5) + 5;
+      y += (Math.min(conditionLines.length, maxLines) * CONDITIONS_LINE_HEIGHT) + 3;
     }
   }
 
-  if (data.clientSignature && y < (FOOTER_START - MIN_SPACE_FOR_SIGNATURE)) {
+  if (data.clientSignature && y < (FOOTER_START - 5)) {
     try {
-      doc.setFontSize(9);
+      doc.setFontSize(8);
       doc.setTextColor(0, 0, 0);
       const clientNameText = `${t('clientName')}: ${data.clientName}`;
       const nameLines = doc.splitTextToSize(clientNameText, 170);
       doc.text(nameLines, 20, y);
-      y += 6;
-      doc.addImage(data.clientSignature, 'PNG', 20, y, 50, 15);
-      y += 17;
-      doc.setFontSize(8);
+      y += 5;
+      doc.addImage(data.clientSignature, 'PNG', 20, y, 45, 12);
+      y += 14;
+      doc.setFontSize(7);
       doc.setTextColor(100, 100, 100);
       doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, y);
     } catch (error) {
@@ -270,27 +271,27 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   doc.text(`${t('pdfLeadId')}: ${data.id.slice(0, 8)}`, 20, 57);
 
   const startY = 65;
-  doc.setFontSize(14);
+  doc.setFontSize(12);
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
   doc.text(t('pdfClientInfo'), 20, startY);
 
-  doc.setFontSize(10);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
-  let y = startY + 8;
+  let y = startY + 7;
   doc.text(`${t('clientName')}: ${data.clientName}`, 20, y);
-  y += 6;
+  y += 5;
   doc.text(`${t('address')}: ${data.address}`, 20, y);
-  if (data.phone) { y += 6; doc.text(`${t('phone')}: ${data.phone}`, 20, y); }
-  if (data.email) { y += 6; doc.text(`${t('email')}: ${data.email}`, 20, y); }
+  if (data.phone) { y += 5; doc.text(`${t('phone')}: ${data.phone}`, 20, y); }
+  if (data.email) { y += 5; doc.text(`${t('email')}: ${data.email}`, 20, y); }
 
-  y += 10;
-  doc.setFontSize(14);
+  y += 8;
+  doc.setFontSize(12);
   doc.text(t('pdfSalesInfo'), 20, y);
-  y += 10;
-  doc.setFontSize(10);
-  if (data.salesRep) { doc.text(`${t('salesRep')}: ${data.salesRep}`, 20, y); y += 6; }
-  if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 6; }
+  y += 7;
+  doc.setFontSize(9);
+  if (data.salesRep) { doc.text(`${t('salesRep')}: ${data.salesRep}`, 20, y); y += 5; }
+  if (data.leadStatus) { doc.text(`${t('leadStatus')}: ${t(data.leadStatus.toLowerCase().replace(/\s+/g, '') as any) || data.leadStatus}`, 20, y); y += 5; }
   if (data.updatedAt) {
     const daysDiff = Math.floor((Date.now() - data.updatedAt) / (1000 * 60 * 60 * 24));
     let lastContactedText = '';
@@ -298,75 +299,82 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
     else if (daysDiff === 1) lastContactedText = t('yesterday');
     else lastContactedText = `${daysDiff} ${t('daysAgo')}`;
     doc.text(`${t('lastContacted')}: ${lastContactedText}`, 20, y);
-    y += 6;
+    y += 5;
   }
 
-  y += 5;
-  doc.setFontSize(14);
+  y += 8;
+  doc.setFontSize(12);
   doc.text(t('pdfPropertyDetails'), 20, y);
-  y += 10;
-  doc.setFontSize(10);
-  if (data.propertyType) { doc.text(`${t('propertyType')}: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 6; }
-  if (data.roofType) { doc.text(`${t('roofType')}: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 6; }
-  if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 6; }
+  y += 7;
+  doc.setFontSize(9);
+  if (data.propertyType) { doc.text(`${t('propertyType')}: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 5; }
+  if (data.roofType) { doc.text(`${t('roofType')}: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 5; }
+  if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 5; }
 
-  y += 5;
-  doc.setFontSize(14);
+  y += 8;
+  doc.setFontSize(12);
   doc.text(t('pdfSystemDetails'), 20, y);
-  y += 10;
-  doc.setFontSize(10);
-  doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y); y += 6;
-  doc.text(`${t('systemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y); y += 6;
-  doc.text(`${t('currentMonthlyBill')}: ${getCurrencySymbol(data.currency)}${data.currentMonthlyBill}`, 20, y); y += 6;
-  doc.text(`${t('twentyFiveYearSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 6;
-  doc.text(`${t('breakEvenYear')}: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : t('never')}`, 20, y); y += 6;
+  y += 7;
+  doc.setFontSize(9);
+  doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y); y += 5;
+  doc.text(`${t('systemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y); y += 5;
+  doc.text(`${t('currentMonthlyBill')}: ${getCurrencySymbol(data.currency)}${data.currentMonthlyBill}`, 20, y); y += 5;
+  doc.text(`${t('twentyFiveYearSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y); y += 5;
+  doc.text(`${t('breakEvenYear')}: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : t('never')}`, 20, y); y += 5;
   if (data.financingOption) {
     const financingText = t(data.financingOption.toLowerCase() as any) || data.financingOption;
     doc.text(`${t('pdfFinancing')}: ${financingText}`, 20, y);
-    y += 6;
+    y += 5;
     if (data.financingOption === 'Loan' && data.loanTerm) {
       if (data.downPayment && data.downPayment > 0) {
         doc.text(`  ${t('pdfDownPayment')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
-        y += 6;
+        y += 5;
       }
       doc.text(`  ${t('pdfLoanTerm')}: ${data.loanTerm} ${t('pdfYears')}`, 20, y);
-      y += 6;
+      y += 5;
     }
   }
-  if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 6; }
-  if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
+  if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 5; }
+  if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 5; }
 
-  const FOOTER_START = 270;
+  const FOOTER_START = 268;
   const TEXT_WIDTH = 170;
-  const LINE_HEIGHT = 4.5;
-  const MIN_FOOTER_SPACE = 10;
+  const LINE_HEIGHT = 3.5;
+  const HEADER_HEIGHT = 5;
 
-  if (data.productDescription && y < (FOOTER_START - 30)) {
-    y += 5;
-    doc.setFontSize(14);
+  let remainingSpace = FOOTER_START - y - 5;
+
+  if (data.productDescription && remainingSpace > 15) {
+    y += 6;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
     doc.text(t('productDescription'), 20, y);
-    y += 8;
-    doc.setFontSize(9);
+    y += HEADER_HEIGHT;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
     const descLines = doc.splitTextToSize(data.productDescription, TEXT_WIDTH);
-    const availableSpace = FOOTER_START - MIN_FOOTER_SPACE - y;
-    const maxDescLines = Math.floor(availableSpace / LINE_HEIGHT);
+    const maxDescLines = Math.floor((remainingSpace - HEADER_HEIGHT - 10) / LINE_HEIGHT);
     if (maxDescLines > 0) {
-      doc.text(descLines.slice(0, maxDescLines), 20, y);
-      y += (Math.min(descLines.length, maxDescLines) * LINE_HEIGHT) + 5;
+      const linesToShow = Math.min(descLines.length, maxDescLines);
+      doc.text(descLines.slice(0, linesToShow), 20, y);
+      y += (linesToShow * LINE_HEIGHT) + 3;
+      remainingSpace = FOOTER_START - y - 5;
     }
   }
 
-  if (data.notes && data.notes.trim() && y < (FOOTER_START - 20)) {
-    y += 5;
-    doc.setFontSize(14);
+  if (data.notes && data.notes.trim() && remainingSpace > 10) {
+    y += 6;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
     doc.text(t('notes'), 20, y);
-    y += 8;
-    doc.setFontSize(9);
+    y += HEADER_HEIGHT;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
     const lines = doc.splitTextToSize(data.notes, TEXT_WIDTH);
-    const availableSpace = FOOTER_START - MIN_FOOTER_SPACE - y;
-    const maxLines = Math.floor(availableSpace / LINE_HEIGHT);
+    const maxLines = Math.floor((remainingSpace - HEADER_HEIGHT - 5) / LINE_HEIGHT);
     if (maxLines > 0) {
-      doc.text(lines.slice(0, maxLines), 20, y);
+      const linesToShow = Math.min(lines.length, maxLines);
+      doc.text(lines.slice(0, linesToShow), 20, y);
     }
   }
 
