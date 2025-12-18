@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SolarClose - Calculation Methodology</title>
     <style>
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         * {
             margin: 0;
             padding: 0;
@@ -14,261 +19,220 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(-45deg, #FFFBEA, #FFF4C4, #FFE57F, #FFD54F, #FFCA28, #FFD54F, #FFF4C4);
+            background-size: 400% 400%;
+            animation: gradient-shift 16s ease-in-out infinite;
             min-height: 100vh;
-            padding: 2rem 1rem;
+            padding: 20px;
         }
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #f59e0b;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 2.5em;
         }
         h2 {
-            color: #ea580c;
-            font-size: 1.8rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            border-bottom: 3px solid #fbbf24;
-            padding-bottom: 0.5rem;
+            color: #f97316;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #fbbf24;
+            padding-bottom: 10px;
         }
         h3 {
-            color: #f59e0b;
-            font-size: 1.3rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.8rem;
+            color: #f97316;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
         }
         p {
-            margin-bottom: 1rem;
-            text-align: justify;
+            margin-bottom: 15px;
         }
         .formula {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 1rem;
-            margin: 1rem 0;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-left: 4px solid #f97316;
+            margin: 15px 0;
             font-family: 'Courier New', monospace;
             overflow-x: auto;
+            border-radius: 4px;
         }
         .note {
-            background: #dbeafe;
-            border-left: 4px solid #3b82f6;
-            padding: 1rem;
-            margin: 1rem 0;
+            background: rgba(251, 191, 36, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
         }
         ul {
-            margin-left: 2rem;
-            margin-bottom: 1rem;
+            margin-left: 30px;
+            margin-bottom: 15px;
         }
         li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
         }
         .back-link {
             display: inline-block;
-            margin-top: 2rem;
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            color: #000;
+            margin-top: 30px;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            color: black;
+            padding: 12px 24px;
+            border-radius: 8px;
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: transform 0.2s;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .back-link:hover {
             transform: translateY(-2px);
-        }
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-            h2 {
-                font-size: 1.5rem;
-            }
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>☀️ SolarClose Calculation Methodology</h1>
-        
-        <p><strong>Last Updated:</strong> December 2024</p>
-        
-        <div class="note">
-            <strong>📊 Transparency First:</strong> We believe in showing our work. All calculations use industry-standard formulas and conservative assumptions to provide realistic projections.
-        </div>
+        <p><em>Transparent, Conservative, and Industry-Standard</em></p>
 
-        <h2>1. Annual Solar Production</h2>
-        <p>The foundation of all savings calculations starts with estimating how much electricity your solar system will produce annually.</p>
-        
-        <h3>Base Formula:</h3>
+        <h2>Overview</h2>
+        <p>SolarClose uses realistic, conservative calculations to provide accurate solar savings projections. All formulas are based on industry standards and account for real-world efficiency losses.</p>
+
+        <h2>Annual Solar Production</h2>
+        <h3>Formula:</h3>
         <div class="formula">
-Annual Production (kWh) = System Size (kW) × Sun Hours/Day × 365 days × Efficiency Factor
+Annual Production (kWh) = System Size (kW) × Sun Hours/Day × 365 × Derate Factor
         </div>
         
         <h3>Parameters:</h3>
         <ul>
-            <li><strong>System Size:</strong> Measured in kilowatts (kW) - the rated capacity of your solar panels</li>
-            <li><strong>Sun Hours/Day:</strong> Average peak sun hours for your location (typically 4-6 hours)</li>
-            <li><strong>Efficiency Factor:</strong> 0.80 (80%) - accounts for real-world losses</li>
+            <li><strong>System Size:</strong> Rated capacity in kilowatts (kW)</li>
+            <li><strong>Sun Hours/Day:</strong> Peak sun hours for your location (default: 5 hours)</li>
+            <li><strong>Derate Factor:</strong> 0.80 (80% efficiency accounting for losses)</li>
         </ul>
 
         <div class="note">
-            <strong>Why 80% Efficiency?</strong> Real-world solar systems don't operate at 100% efficiency due to:
-            <ul style="margin-top: 0.5rem;">
-                <li>Weather conditions (clouds, rain, snow)</li>
-                <li>Shading from trees or buildings</li>
-                <li>Inverter conversion losses (~4-8%)</li>
-                <li>Temperature effects (panels are less efficient when hot)</li>
-                <li>Wiring and connection losses</li>
-                <li>Dust and dirt accumulation</li>
+            <strong>Why 80% Derate?</strong> This accounts for:
+            <ul>
+                <li>Inverter efficiency losses (~4-8%)</li>
+                <li>Temperature effects (~3-5%)</li>
+                <li>Shading and soiling (~2-5%)</li>
+                <li>Wiring losses (~2-3%)</li>
+                <li>Age degradation buffer</li>
             </ul>
         </div>
 
-        <h2>2. Panel Degradation</h2>
-        <p>Solar panels gradually lose efficiency over time. We account for this in long-term projections.</p>
-        
+        <h2>Panel Degradation</h2>
         <div class="formula">
 Year N Production = Base Production × (1 - 0.005)^N
         </div>
-        
-        <ul>
-            <li><strong>Degradation Rate:</strong> 0.5% per year (industry standard)</li>
-            <li><strong>After 25 years:</strong> Panels still operate at ~88% of original capacity</li>
-        </ul>
+        <p>Solar panels degrade at approximately <strong>0.5% per year</strong>. This is a conservative industry-standard rate.</p>
 
-        <h2>3. Electricity Cost Inflation</h2>
-        <p>Utility rates historically increase over time. We model this to show future savings.</p>
-        
+        <h2>Utility Bill Projection</h2>
+        <h3>Without Solar:</h3>
         <div class="formula">
-Year N Utility Rate = Current Rate × (1 + Inflation Rate)^N
+Year N Bill = Current Monthly Bill × 12 × (1 + Inflation Rate)^N
         </div>
         
-        <ul>
-            <li><strong>Default Inflation:</strong> 4% annually (customizable)</li>
-            <li><strong>Historical Average:</strong> US electricity rates have increased 2-5% annually over the past 20 years</li>
-        </ul>
-
-        <h2>4. System Offset Percentage</h2>
-        <p>How much of your electric bill is covered by solar production.</p>
-        
+        <h3>With Solar:</h3>
         <div class="formula">
-Offset % = (Annual Solar Production / Annual Consumption) × 100
-Annual Consumption = Monthly Bill × 12 / Electricity Rate
+Year N Bill = (Current Monthly Bill - Solar Offset) × 12 × (1 + Inflation Rate)^N
         </div>
 
-        <h2>5. Monthly Payment Calculations</h2>
-        
-        <h3>Cash Purchase:</h3>
-        <div class="formula">
-Net Cost = System Cost - Federal Tax Credit - State Incentives
-Monthly Solar Cost = $0 (after upfront payment)
-        </div>
+        <p><strong>Default Inflation Rate:</strong> 4% annually (customizable)</p>
 
-        <h3>Loan Financing:</h3>
+        <h2>Solar Offset Calculation</h2>
         <div class="formula">
-Loan Amount = System Cost - Down Payment
-Monthly Payment = Loan Amount × [r(1+r)^n] / [(1+r)^n - 1]
+Monthly Solar Offset = (Annual Production / 12) × Electricity Rate
+        </div>
+        <p>This represents the monthly dollar value of solar energy produced.</p>
+
+        <h2>Loan Payment Calculation</h2>
+        <div class="formula">
+Monthly Payment = P × [r(1+r)^n] / [(1+r)^n - 1]
 
 Where:
-  r = Monthly Interest Rate (Annual Rate / 12)
-  n = Total Payments (Loan Term × 12)
+- P = Principal (System Cost - Down Payment)
+- r = Monthly Interest Rate (APR / 12)
+- n = Number of Payments (Loan Term × 12)
         </div>
 
-        <h2>6. Maintenance Costs</h2>
-        <p>Optional annual maintenance to keep your system running optimally.</p>
-        
+        <h2>Total System Cost</h2>
+        <div class="formula">
+Net Cost = System Cost - Federal Tax Credit - State Incentives + Dealer Fee
+        </div>
         <ul>
-            <li><strong>Default:</strong> $150/year (customizable)</li>
-            <li><strong>Includes:</strong> Panel cleaning, inspection, minor repairs</li>
-            <li><strong>Inflation Adjusted:</strong> Increases 4% annually</li>
+            <li><strong>Federal Tax Credit:</strong> Typically 30% (customizable)</li>
+            <li><strong>State Incentives:</strong> Dollar amount (varies by location)</li>
+            <li><strong>Dealer Fee:</strong> Optional financing fee</li>
         </ul>
 
-        <h2>7. Inverter Replacement</h2>
-        <p>Inverters typically need replacement before panels do.</p>
-        
+        <h2>Maintenance & Replacement Costs</h2>
+        <h3>Annual Maintenance:</h3>
+        <p>Optional $150/year (customizable) for cleaning, inspections, and minor repairs.</p>
+
+        <h3>Inverter Replacement:</h3>
         <ul>
-            <li><strong>Standard Inverters:</strong> Replaced at Year 12 and Year 24</li>
-            <li><strong>25-Year Warranty Inverters:</strong> No replacement needed</li>
+            <li><strong>Standard Warranty:</strong> Replacements at Year 12 and Year 24</li>
+            <li><strong>25-Year Warranty:</strong> No replacement costs</li>
             <li><strong>Default Cost:</strong> $2,000 per replacement (customizable)</li>
         </ul>
 
-        <h2>8. 25-Year Savings Calculation</h2>
-        <p>The total financial benefit over the system's lifetime.</p>
-        
+        <h2>25-Year Savings Calculation</h2>
         <div class="formula">
-For each year (1-25):
-  Utility Savings = Solar Production × Utility Rate (inflation adjusted)
-  Solar Costs = Loan Payment + Maintenance + Inverter (if applicable)
-  Net Savings = Utility Savings - Solar Costs
-  
-Total 25-Year Savings = Sum of all Net Savings + Tax Credits
+Total Savings = Σ(Year 1 to 25) [
+    (Utility Bill Without Solar - Utility Bill With Solar) 
+    - Loan Payment 
+    - Maintenance 
+    - Inverter Replacements
+]
         </div>
 
-        <h2>9. Break-Even Point (ROI)</h2>
-        <p>The year when cumulative savings equal your total investment.</p>
-        
-        <div class="formula">
-Break-Even Year = First year where:
-  Cumulative Savings ≥ Net System Cost
-        </div>
+        <h2>Break-Even Point (ROI)</h2>
+        <p>The break-even year is when cumulative savings equal the net system cost. This is calculated by summing annual savings until the total exceeds the initial investment.</p>
 
-        <h2>10. Environmental Impact</h2>
-        
+        <h2>Environmental Impact</h2>
         <h3>CO₂ Offset:</h3>
         <div class="formula">
-CO₂ Offset (lbs) = Total kWh Produced × 1.56 lbs CO₂/kWh
+CO₂ Offset (lbs) = Annual Production (kWh) × 1.56 lbs/kWh × Years
         </div>
-        <p>Based on EPA's average emissions factor for US electricity grid.</p>
+        <p>Based on EPA's average grid emissions factor.</p>
 
         <h3>Trees Planted Equivalent:</h3>
         <div class="formula">
-Trees Equivalent = CO₂ Offset (lbs) / 48 lbs CO₂/tree/year
+Trees Equivalent = CO₂ Offset (lbs) / 48 lbs/tree/year
         </div>
         <p>One tree absorbs approximately 48 pounds of CO₂ per year.</p>
 
-        <h2>11. Conservative Assumptions</h2>
-        <p>We intentionally use conservative numbers to avoid over-promising:</p>
-        
+        <h2>Conservative Assumptions</h2>
+        <p>SolarClose uses conservative estimates to ensure realistic projections:</p>
         <ul>
-            <li>✅ 80% efficiency derating (some calculators use 85-90%)</li>
-            <li>✅ 0.5% annual degradation (manufacturers often guarantee better)</li>
-            <li>✅ 4% utility inflation (historical average, could be higher)</li>
-            <li>✅ Maintenance costs included (many calculators ignore this)</li>
-            <li>✅ Inverter replacement factored in (often overlooked)</li>
+            <li>80% system efficiency (accounts for all real-world losses)</li>
+            <li>0.5% annual panel degradation</li>
+            <li>4% utility rate inflation (historical average)</li>
+            <li>Maintenance costs included</li>
+            <li>Inverter replacement costs factored in</li>
+            <li>No optimistic "best case" scenarios</li>
         </ul>
 
         <div class="note">
-            <strong>🎯 Our Philosophy:</strong> It's better to under-promise and over-deliver. Real-world results often exceed our projections because we use conservative assumptions.
+            <strong>Note:</strong> Actual results may vary based on location, weather patterns, system orientation, shading, and utility rate changes. These calculations provide a realistic baseline for decision-making.
         </div>
 
-        <h2>12. Limitations & Disclaimers</h2>
-        <ul>
-            <li>Calculations are estimates based on typical conditions</li>
-            <li>Actual results vary by location, weather, and system quality</li>
-            <li>Utility rates and incentives subject to change</li>
-            <li>Consult with a licensed solar professional for site-specific analysis</li>
-            <li>Tax credits require sufficient tax liability to claim</li>
-        </ul>
-
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="/" class="back-link">← Back to Calculator</a>
-        </div>
-
-        <p style="text-align: center; margin-top: 2rem; color: #666; font-size: 0.9rem;">
-            © 2025 SolarClose - Proprietary & Confidential
-        </p>
+        <a href="/" class="back-link">← Back to Calculator</a>
     </div>
 </body>
 </html>
