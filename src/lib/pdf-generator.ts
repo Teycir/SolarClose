@@ -44,8 +44,8 @@ const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (k
   doc.setTextColor(60, 60, 60);
   let headerY = 21;
   if (data.salesRep) { doc.text(`${t('pdfSalesRepresentative')} ${data.salesRep}`, 20, headerY); headerY += 5; }
-  doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY); headerY += 5;
-  if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); }
+  if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); headerY += 5; }
+  doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY);
   
   if (data.companyLogo) {
     try {
