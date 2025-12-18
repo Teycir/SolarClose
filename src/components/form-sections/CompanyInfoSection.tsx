@@ -115,6 +115,24 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
         language={lang}
       />
 
+      <div>
+        <label className="block text-sm font-medium mb-2">{t('companyEmail')} ({t('optional')})</label>
+        <input
+          type="email"
+          value={data.companyEmail || ''}
+          onChange={(e) => {
+            try {
+              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase().slice(0, 254);
+              onUpdate({ companyEmail: sanitized });
+            } catch (error) {
+              console.error('Error updating company email:', error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error');
+            }
+          }}
+          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
+          placeholder="info@company.com"
+        />
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-2">{t('companyPhone')} *</label>
@@ -170,24 +188,6 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
             language={lang}
           />
         </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">{t('companyEmail')} ({t('optional')})</label>
-        <input
-          type="email"
-          value={data.companyEmail || ''}
-          onChange={(e) => {
-            try {
-              const sanitized = e.target.value.replace(/[^a-zA-Z0-9@._+-]/g, '').toLowerCase().slice(0, 254);
-              onUpdate({ companyEmail: sanitized });
-            } catch (error) {
-              console.error('Error updating company email:', error instanceof Error ? error.message.replace(/[\r\n]/g, ' ') : 'Unknown error');
-            }
-          }}
-          className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
-          placeholder="info@company.com"
-        />
       </div>
     </>
   );
