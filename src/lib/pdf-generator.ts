@@ -39,11 +39,6 @@ const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (k
   doc.setFont('helvetica', 'bold');
   doc.text(`${t('pdfCompany')} ${data.companyName}`, 20, 15);
   
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 255);
-  doc.setFont('helvetica', 'normal');
-  doc.textWithLink('solarclose.pages.dev', 190, 15, { align: 'right', url: 'https://solarclose.pages.dev' });
-  
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(60, 60, 60);
@@ -51,6 +46,10 @@ const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (k
   if (data.salesRep) { doc.text(`${t('pdfSalesRepresentative')} ${data.salesRep}`, 20, headerY); headerY += 5; }
   if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); headerY += 5; }
   doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY);
+  
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 255);
+  doc.textWithLink(t('pdfFooterCreatedWith'), 190, headerY, { align: 'right', url: 'https://solarclose.pages.dev' });
   
   if (data.companyLogo) {
     try {
@@ -89,7 +88,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setTextColor(0, 0, 0);
   const formattedDate = formatDate(data.date, lang);
   const proposalTitle = `${t('proposal')} - ${formattedDate} by ${data.companyName}`;
-  doc.text(proposalTitle, 20, 45);
+  doc.text(proposalTitle, 20, 50);
   
   let y = 55;
   
@@ -238,7 +237,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
-  doc.text(`${t('pdfInternalSalesSheet')} - ${formatDate(data.date, lang)}`, 20, 45);
+  doc.text(`${t('pdfInternalSalesSheet')} - ${formatDate(data.date, lang)}`, 20, 50);
   
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
