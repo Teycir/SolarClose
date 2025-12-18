@@ -29,7 +29,20 @@ import type { SolarLead } from "@/types/solar";
 const generateLeadId = () => `lead-${Date.now()}`;
 
 export default function Home() {
-  const [currentLeadId, setCurrentLeadId] = useState("default-lead");
+  // Check for QR data immediately and set initial lead ID
+  const getInitialLeadId = () => {
+    if (typeof window === 'undefined') return 'default-lead';
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = urlParams.get('data');
+    if (encodedData) {
+      console.log('QR data detected on initial load');
+      sessionStorage.setItem('qr-data', encodedData);
+      return generateLeadId();
+    }
+    return 'default-lead';
+  };
+  
+  const [currentLeadId, setCurrentLeadId] = useState(getInitialLeadId);
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{
@@ -45,26 +58,14 @@ export default function Home() {
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const isDefaultLead = currentLeadId === "default-lead";
 
-  // Handle QR code data from URL
+  // Clear URL params after QR data is stored
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    if (currentLeadId !== 'default-lead') return;
-    
     const urlParams = new URLSearchParams(window.location.search);
-    const encodedData = urlParams.get('data');
-    
-    if (encodedData) {
-      try {
-        console.log('QR code detected, creating new lead...');
-        sessionStorage.setItem('qr-data', encodedData);
-        const newLeadId = generateLeadId();
-        setCurrentLeadId(newLeadId);
-        window.history.replaceState({}, '', window.location.pathname);
-      } catch (error) {
-        console.error('Failed to process QR data:', error);
-      }
+    if (urlParams.get('data')) {
+      window.history.replaceState({}, '', window.location.pathname);
     }
-  }, [currentLeadId]);
+  }, []);
 
   // Apply QR data once lead is ready
   useEffect(() => {
