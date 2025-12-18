@@ -40,7 +40,7 @@ export function CompanyInfoSection({ data, onUpdate }: CompanyInfoSectionProps) 
           required
           aria-required="true"
         />
-        <div className="text-xs text-muted-foreground mt-1">{data.productDescription.length}/500</div>
+        <div className="text-xs text-muted-foreground mt-1">{(data.productDescription || '').length}/500</div>
         <ProductDescriptionManager
           currentDescription={data.productDescription}
           onSelect={(desc) => onUpdate({ productDescription: desc })}

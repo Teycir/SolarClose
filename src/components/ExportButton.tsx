@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { SolarLead, Language } from '@/types/solar';
 import { getTranslation, type TranslationKey } from '@/lib/translations';
 import { generateClientPDF, generateSellerPDF, getFilename } from '@/lib/pdf-generator';
@@ -17,9 +17,9 @@ export function ExportButton({ data }: ExportButtonProps) {
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
 
-  useState(() => {
-    setCanShare(typeof navigator !== 'undefined' && !!navigator.share);
-  });
+  useEffect(() => {
+    setCanShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function');
+  }, []);
 
   const canExport = data.clientName.trim() && data.address.trim() && data.companyPhone.trim() && data.companyName.trim() && data.productDescription.trim() && data.salesRep?.trim() && data.proposalConditions?.trim();
 
