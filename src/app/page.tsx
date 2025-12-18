@@ -489,24 +489,23 @@ export default function Home() {
                 </a>
               </span>
             </div>
-            <div className="text-xs">{t("openSourceFree")}</div>
             <div className="text-xs">🔒 {t("dataStaysLocal")}</div>
             <div className="flex gap-3 text-xs">
               <a
-                href="/how-to-use.html"
+                href={`/how-to-use.html?lang=${lang}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
               >
-                📖 How to Use
+                📖 {t('howItWorks')}
               </a>
               <a
-                href="/calculations.html"
+                href={`/calculations.html?lang=${lang}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
               >
-                📊 Calculations
+                📊 {lang === 'en' ? 'Calculations' : lang === 'es' ? 'Cálculos' : lang === 'it' ? 'Calcoli' : lang === 'fr' ? 'Calculs' : 'Berechnungen'}
               </a>
             </div>
           </div>

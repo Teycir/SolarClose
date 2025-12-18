@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SolarClose - How to Use</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <style>
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
@@ -123,6 +124,13 @@
     </style>
 </head>
 <body>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const lang = urlParams.get('lang') || 'en';
+        const titles = {en: 'How to Use SolarClose', es: 'Cómo Usar SolarClose', it: 'Come Usare SolarClose', fr: 'Comment Utiliser SolarClose', de: 'So Verwenden Sie SolarClose'};
+        const backText = {en: '← Back to Calculator', es: '← Volver a la Calculadora', it: '← Torna al Calcolatore', fr: '← Retour au Calculateur', de: '← Zurück zum Rechner'};
+        document.title = titles[lang] || titles.en;
+    </script>
     <div class="container">
         <h1>📖 How to Use SolarClose</h1>
         <p><em>Your complete guide to closing solar deals faster</em></p>
@@ -262,7 +270,10 @@
         <h2>Need Help?</h2>
         <p>For commercial licensing, custom features, or technical support, contact us at <a href="https://teycirbensoltane.tn" target="_blank" style="color: #f97316; font-weight: 600;">teycirbensoltane.tn</a></p>
 
-        <a href="/" class="back-link">← Back to Calculator</a>
+        <a href="/" class="back-link" id="backLink">← Back to Calculator</a>
+        <script>
+            document.getElementById('backLink').textContent = backText[lang] || backText.en;
+        </script>
     </div>
 </body>
 </html>
