@@ -47,10 +47,6 @@ const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (k
   if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); headerY += 5; }
   doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY);
   
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 255);
-  doc.textWithLink(t('pdfFooterCreatedWith'), 190, headerY, { align: 'right', url: 'https://solarclose.pages.dev' });
-  
   if (data.companyLogo) {
     try {
       const img = new Image();

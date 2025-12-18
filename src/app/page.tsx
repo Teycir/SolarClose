@@ -255,41 +255,51 @@ export default function Home() {
   return (
     <main className="min-h-screen p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="text-3xl float-sun" aria-hidden="true">
-            ☀️
+        <div className="flex items-center justify-between gap-3 mb-8">
+          <div className="flex items-center gap-3">
+            <div className="text-3xl float-sun" aria-hidden="true">
+              ☀️
+            </div>
+            <select
+              value={data.language || "en"}
+              onChange={(e) => {
+                const lang = e.target.value as Language;
+                const currency = lang === "en" ? "USD" : "EUR";
+                try {
+                  localStorage.setItem('solarclose-language', lang);
+                  localStorage.setItem('solarclose-currency', currency);
+                } catch (e) {
+                  console.warn('localStorage unavailable');
+                }
+                setData({ language: lang, currency } as Partial<SolarLead>);
+              }}
+              className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
+              aria-label="Select language"
+              title="Select language"
+            >
+              <option value="en">{languageFlags.en}</option>
+              <option value="es">{languageFlags.es}</option>
+              <option value="it">{languageFlags.it}</option>
+              <option value="fr">{languageFlags.fr}</option>
+              <option value="de">{languageFlags.de}</option>
+            </select>
+            <div>
+              <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">
+                {t("title")}
+              </h1>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-1 whitespace-pre-line">
+                {t("subtitle")}
+              </p>
+            </div>
           </div>
-          <select
-            value={data.language || "en"}
-            onChange={(e) => {
-              const lang = e.target.value as Language;
-              const currency = lang === "en" ? "USD" : "EUR";
-              try {
-                localStorage.setItem('solarclose-language', lang);
-                localStorage.setItem('solarclose-currency', currency);
-              } catch (e) {
-                console.warn('localStorage unavailable');
-              }
-              setData({ language: lang, currency } as Partial<SolarLead>);
-            }}
-            className="text-2xl bg-transparent border-none cursor-pointer hover:opacity-80 transition-opacity"
-            aria-label="Select language"
-            title="Select language"
+          <a
+            href="https://sendspark.com/share/h9tfbqckmaqq824bnxo80tv6ykv09wjq7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm sm:text-base font-semibold hover:text-primary transition-colors whitespace-nowrap"
           >
-            <option value="en">{languageFlags.en}</option>
-            <option value="es">{languageFlags.es}</option>
-            <option value="it">{languageFlags.it}</option>
-            <option value="fr">{languageFlags.fr}</option>
-            <option value="de">{languageFlags.de}</option>
-          </select>
-          <div>
-            <h1 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 bg-clip-text text-transparent">
-              {t("title")}
-            </h1>
-            <p className="text-xs sm:text-sm text-muted-foreground mt-1 whitespace-pre-line">
-              {t("subtitle")}
-            </p>
-          </div>
+            🎥 Demo
+          </a>
         </div>
 
         <div className="mb-4">
