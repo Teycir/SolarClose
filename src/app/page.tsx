@@ -477,6 +477,15 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center gap-2">
             <div>
+              <a
+                href="https://sendspark.com/share/ralisa93p7hmslj0mux88tborltwxqil"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                🎥 Demo
+              </a>
+              {" | "}
               <span>
                 {t("madeBy")}{" "}
                 <a
