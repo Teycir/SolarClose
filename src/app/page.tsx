@@ -22,6 +22,7 @@ import { SocialShare } from "@/components/SocialShare";
 import { DataBackup } from "@/components/DataBackup";
 import { QRCodeHandoff } from "@/components/QRCodeHandoff";
 import { SignatureButton } from "@/components/SignatureButton";
+import { SalesRepSignatureButton } from "@/components/SalesRepSignatureButton";
 import { Tooltip } from "@/components/Tooltip";
 import { ShowMode } from "@/components/ShowMode";
 import { openDB } from "idb";
@@ -358,6 +359,7 @@ export default function Home() {
             </Tooltip>
             <DataBackup data={data} />
             <SignatureButton data={data} onUpdate={setData} />
+            <SalesRepSignatureButton data={data} onUpdate={setData} />
             <QRCodeHandoff data={data} />
             <Tooltip text={t("tooltipShowMode")}>
               <button

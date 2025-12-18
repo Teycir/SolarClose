@@ -46,8 +46,8 @@ const addCompanyHeader = async (doc: jsPDF, data: SolarLead, lang: Language, t: 
   doc.setTextColor(60, 60, 60);
   let headerY = 21;
   if (data.salesRep) { doc.text(`${t('pdfSalesRepresentative')} ${data.salesRep}`, 20, headerY); headerY += 5; }
-  if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); headerY += 5; }
-  doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY);
+  if (data.companyEmail) { doc.text(`${t('companyEmail')}: ${data.companyEmail}`, 20, headerY); headerY += 5; }
+  doc.text(`${t('companyPhone')}: ${data.companyPhone}`, 20, headerY);
 
   if (data.companyLogo) {
     try {
@@ -222,19 +222,32 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
     }
   }
 
-  if (data.clientSignature && y < (FOOTER_START - 5)) {
+  if ((data.clientSignature || data.salesRepSignature) && y < (FOOTER_START - 5)) {
     try {
       doc.setFontSize(8);
       doc.setTextColor(0, 0, 0);
-      const clientNameText = `${t('clientName')}: ${data.clientName}`;
-      const nameLines = doc.splitTextToSize(clientNameText, 170);
-      doc.text(nameLines, 20, y);
-      y += 5;
-      doc.addImage(data.clientSignature, 'PNG', 20, y, 45, 12);
-      y += 14;
-      doc.setFontSize(7);
-      doc.setTextColor(100, 100, 100);
-      doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, y);
+      
+      if (data.clientSignature) {
+        const clientNameText = `${t('clientName')}: ${data.clientName}`;
+        const nameLines = doc.splitTextToSize(clientNameText, 80);
+        doc.text(nameLines, 20, y);
+        doc.addImage(data.clientSignature, 'PNG', 20, y + 3, 45, 12);
+        doc.setFontSize(7);
+        doc.setTextColor(100, 100, 100);
+        doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, y + 16);
+      }
+      
+      if (data.salesRepSignature) {
+        const repNameText = `${t('salesRep')}: ${data.salesRep || ''}`;
+        const repLines = doc.splitTextToSize(repNameText, 80);
+        doc.setFontSize(8);
+        doc.setTextColor(0, 0, 0);
+        doc.text(repLines, 110, y);
+        doc.addImage(data.salesRepSignature, 'PNG', 110, y + 3, 45, 12);
+        doc.setFontSize(7);
+        doc.setTextColor(100, 100, 100);
+        doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 110, y + 16);
+      }
     } catch (error) {
       console.error('Failed to add signature:', error instanceof Error ? error.message : 'Unknown error');
     }

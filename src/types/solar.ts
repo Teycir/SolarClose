@@ -84,4 +84,6 @@ export interface SolarLead {
   isSynced: boolean;
   /** Client signature as base64 PNG data URL */
   clientSignature?: string;
+  /** Sales rep signature as base64 PNG data URL */
+  salesRepSignature?: string;
 }

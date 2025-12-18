@@ -207,6 +207,7 @@ type TranslationKeys = {
   saveSignature: string;
   captureSignature: string;
   signatureCaptured: string;
+  tooltipSignature: string;
   clear: string;
   scanToVisit: string;
   showMode: string;
@@ -214,6 +215,8 @@ type TranslationKeys = {
   treesPlanted: string;
   pressEscToExit: string;
   tooltipShowMode: string;
+  salesRepSignature: string;
+  tooltipSalesRepSignature: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -426,6 +429,7 @@ export const translations: Record<string, TranslationKeys> = {
     saveSignature: 'Save Signature',
     captureSignature: 'Signature',
     signatureCaptured: 'Signed',
+    tooltipSignature: 'Client signature',
     clear: 'Clear',
     scanToVisit: 'Scan to visit SolarClose',
     showMode: 'Show',
@@ -433,6 +437,8 @@ export const translations: Record<string, TranslationKeys> = {
     treesPlanted: 'Trees Planted',
     pressEscToExit: 'Press ESC or click X to exit',
     tooltipShowMode: 'Theatrical presentation mode',
+    salesRepSignature: 'Rep Sign',
+    tooltipSalesRepSignature: 'Sales rep signature',
   },
   es: {
     title: 'SolarClose',
@@ -643,6 +649,7 @@ export const translations: Record<string, TranslationKeys> = {
     saveSignature: 'Guardar Firma',
     captureSignature: 'Firma',
     signatureCaptured: 'Firmado',
+    tooltipSignature: 'Firma del cliente',
     clear: 'Limpiar',
     scanToVisit: 'Escanea para visitar SolarClose',
     showMode: 'Mostrar',
@@ -650,6 +657,8 @@ export const translations: Record<string, TranslationKeys> = {
     treesPlanted: 'Árboles Plantados',
     pressEscToExit: 'Presiona ESC o haz clic en X para salir',
     tooltipShowMode: 'Modo de presentación teatral',
+    salesRepSignature: 'Firma Rep',
+    tooltipSalesRepSignature: 'Firma del representante',
   },
   it: {
     title: 'SolarClose',
@@ -860,6 +869,7 @@ export const translations: Record<string, TranslationKeys> = {
     saveSignature: 'Salva Firma',
     captureSignature: 'Firma',
     signatureCaptured: 'Firmato',
+    tooltipSignature: 'Firma del cliente',
     clear: 'Cancella',
     scanToVisit: 'Scansiona per visitare SolarClose',
     showMode: 'Mostra',
@@ -867,6 +877,8 @@ export const translations: Record<string, TranslationKeys> = {
     treesPlanted: 'Alberi Piantati',
     pressEscToExit: 'Premi ESC o clicca X per uscire',
     tooltipShowMode: 'Modalità presentazione teatrale',
+    salesRepSignature: 'Firma Rapp',
+    tooltipSalesRepSignature: 'Firma del rappresentante',
   },
   fr: {
     title: 'SolarClose',
@@ -1077,6 +1089,7 @@ export const translations: Record<string, TranslationKeys> = {
     saveSignature: 'Enregistrer la Signature',
     captureSignature: 'Signature',
     signatureCaptured: 'Signé',
+    tooltipSignature: 'Signature du client',
     clear: 'Effacer',
     scanToVisit: 'Scannez pour visiter SolarClose',
     showMode: 'Afficher',
@@ -1084,6 +1097,8 @@ export const translations: Record<string, TranslationKeys> = {
     treesPlanted: 'Arbres Plantés',
     pressEscToExit: 'Appuyez sur ESC ou cliquez sur X pour quitter',
     tooltipShowMode: 'Mode présentation théâtrale',
+    salesRepSignature: 'Sign Rep',
+    tooltipSalesRepSignature: 'Signature du représentant',
   },
   de: {
     title: 'SolarClose',
@@ -1294,6 +1309,7 @@ export const translations: Record<string, TranslationKeys> = {
     saveSignature: 'Unterschrift Speichern',
     captureSignature: 'Unterschrift',
     signatureCaptured: 'Unterschrieben',
+    tooltipSignature: 'Kundenunterschrift',
     clear: 'Löschen',
     scanToVisit: 'Scannen Sie, um SolarClose zu besuchen',
     showMode: 'Zeigen',
@@ -1301,6 +1317,8 @@ export const translations: Record<string, TranslationKeys> = {
     treesPlanted: 'Gepflanzte Bäume',
     pressEscToExit: 'Drücken Sie ESC oder klicken Sie auf X zum Beenden',
     tooltipShowMode: 'Theatralischer Präsentationsmodus',
+    salesRepSignature: 'Vertr. Sign',
+    tooltipSalesRepSignature: 'Unterschrift des Vertreters',
   },
 };
 
