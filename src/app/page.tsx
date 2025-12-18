@@ -52,17 +52,36 @@ export default function Home() {
     const urlParams = new URLSearchParams(window.location.search);
     const encodedData = urlParams.get('data');
     
-    if (encodedData) {
+    if (encodedData && currentLeadId === 'default-lead') {
       try {
-        const decoded = JSON.parse(atob(encodedData));
-        setData(decoded as Partial<SolarLead>);
-        // Clear URL params after loading
+        sessionStorage.setItem('qr-data', encodedData);
+        const newLeadId = generateLeadId();
+        setCurrentLeadId(newLeadId);
         window.history.replaceState({}, '', window.location.pathname);
       } catch (error) {
         console.error('Failed to decode QR data:', error);
       }
     }
-  }, [setData]);
+  }, [currentLeadId]);
+
+  // Apply QR data once lead is ready
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!data || currentLeadId === 'default-lead') return;
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = sessionStorage.getItem('qr-data');
+    
+    if (encodedData) {
+      try {
+        const decoded = JSON.parse(atob(encodedData));
+        setData(decoded as Partial<SolarLead>);
+        sessionStorage.removeItem('qr-data');
+      } catch (error) {
+        console.error('Failed to apply QR data:', error);
+      }
+    }
+  }, [data, currentLeadId, setData]);
 
   // Auto-recalculate when inputs change
   const shouldRecalculate = useCallback(() => {

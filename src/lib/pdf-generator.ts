@@ -33,12 +33,14 @@ const formatDateForFilename = (dateStr: string, lang: Language) => {
 
 const formatNumber = (num: number) => Math.round(num).toLocaleString('en-US').replace(/,/g, ' ');
 
-const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (key: string) => string) => {
+import jsPDF from 'jspdf';
+
+const addCompanyHeader = async (doc: jsPDF, data: SolarLead, lang: Language, t: (key: string) => string) => {
   doc.setFontSize(12);
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
   doc.text(`${t('pdfCompany')} ${data.companyName}`, 20, 15);
-  
+
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(60, 60, 60);
@@ -46,7 +48,7 @@ const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (k
   if (data.salesRep) { doc.text(`${t('pdfSalesRepresentative')} ${data.salesRep}`, 20, headerY); headerY += 5; }
   if (data.companyEmail) { doc.text(`${t('email')}: ${data.companyEmail}`, 20, headerY); headerY += 5; }
   doc.text(`${t('pdfPhone')} ${data.companyPhone}`, 20, headerY);
-  
+
   if (data.companyLogo) {
     try {
       const img = new Image();
@@ -77,18 +79,18 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const doc = new jsPDF();
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
-  
+
   await addCompanyHeader(doc, data, lang, t);
-  
+
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
   const formattedDate = formatDate(data.date, lang);
   const proposalTitle = `${t('proposal')} - ${formattedDate}`;
   const titleLines = doc.splitTextToSize(proposalTitle, 170);
   doc.text(titleLines, 20, 50);
-  
+
   let y = 55;
-  
+
   doc.setFontSize(14);
   doc.text(t('productDescription'), 20, y);
   y += 10;
@@ -96,7 +98,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const descLines = doc.splitTextToSize(data.productDescription, 170);
   doc.text(descLines, 20, y);
   y += (descLines.length * 5) + 10;
-  
+
   doc.setFontSize(14);
   doc.text(t('pdfSystemDetails'), 20, y);
   y += 10;
@@ -108,17 +110,17 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const estimatedProduction = Math.round(data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO);
   doc.text(`${t('pdfEstimatedProduction')}: ${estimatedProduction.toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
   y += 15;
-  
+
   doc.setFontSize(14);
   doc.text(t('pdfInvestmentReturns'), 20, y);
   y += 10;
   doc.setFontSize(11);
   doc.text(`${t('pdfTotalSystemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y);
   y += 7;
-  
+
   const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
   const netCost = data.systemCost - federalCredit - data.stateIncentive;
-  
+
   doc.setFontSize(10);
   doc.setTextColor(100, 100, 100);
   doc.text(`  - ${t('pdfFederalTaxCredit')} (${data.federalTaxCredit}%): -${getCurrencySymbol(data.currency)}${formatNumber(federalCredit)}`, 20, y);
@@ -131,7 +133,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setTextColor(0, 0, 0);
   doc.text(`${t('pdfNetInvestment')}: ${getCurrencySymbol(data.currency)}${formatNumber(netCost)}`, 20, y);
   y += 10;
-  
+
   if (data.financingOption === 'Loan' && data.loanTerm) {
     const loanAmount = Math.max(0, netCost - (data.downPayment || 0));
     const interestRate = (data.loanInterestRate || 6.99) / 100;
@@ -145,7 +147,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
         monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
       }
     }
-    
+
     doc.setFontSize(10);
     doc.setTextColor(100, 100, 100);
     if (data.downPayment && data.downPayment > 0) {
@@ -161,10 +163,10 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
     doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
   }
-  
+
   const avgAnnualSavings = Math.round(data.twentyFiveYearSavings / 25);
   const avgMonthlySavings = Math.round(avgAnnualSavings / 12);
-  
+
   doc.text(`${t('pdfBreakEvenPeriod')}: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : t('never')}`, 20, y);
   y += 8;
   doc.text(`${t('pdfAvgMonthlySavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(avgMonthlySavings)}`, 20, y);
@@ -175,7 +177,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.text(`${t('pdfTotal25YearSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
   doc.setTextColor(0, 0, 0);
   y += 15;
-  
+
   const YEARS = 25;
   const CO2_PER_KWH = 0.85;
   const annualProduction = data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO;
@@ -184,7 +186,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const co2Saved = isMetric ? Math.round(co2SavedLbs * 0.453592) : co2SavedLbs;
   const co2Unit = isMetric ? 'kg' : 'lbs';
   const treesEquivalent = Math.round(co2SavedLbs / 48);
-  
+
   doc.setFontSize(12);
   doc.setTextColor(34, 139, 34);
   doc.text(t('envImpactTitle'), 20, y);
@@ -195,17 +197,18 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   y += 6;
   doc.text(`${t('envTreesPlanted')} ${t('envEquivalent')}: ${treesEquivalent.toLocaleString('en-US').replace(/,/g, ' ')} ${t('pdfTrees')}`, 20, y);
   y += 10;
-  
+
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
-  doc.text(`* ${t('pdfSavingsCalculated')} ${data.yearlyInflationRate}% annual utility rate increase`, 20, y);
+  const savingsNote = `* ${t('pdfSavingsCalculated')} ${data.yearlyInflationRate}% ${lang === 'en' ? 'annual utility rate increase' : lang === 'es' ? 'aumento anual de tarifas' : lang === 'it' ? 'aumento annuale delle tariffe' : lang === 'fr' ? 'augmentation annuelle des tarifs' : 'jährliche Tariferhöhung'}`;
+  doc.text(savingsNote, 20, y);
   doc.setTextColor(0, 0, 0);
   y += 8;
-  
+
   const FOOTER_START = 270;
   const MIN_SPACE_FOR_SIGNATURE = 30;
   const MIN_SPACE_FOR_CONDITIONS = 10;
-  
+
   if (data.proposalConditions && y < (FOOTER_START - MIN_SPACE_FOR_CONDITIONS)) {
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
@@ -217,7 +220,7 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
       y += (Math.min(conditionLines.length, maxLines) * 4.5) + 5;
     }
   }
-  
+
   if (data.clientSignature && y < (FOOTER_START - MIN_SPACE_FOR_SIGNATURE)) {
     try {
       doc.setFontSize(9);
@@ -235,18 +238,18 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
       console.error('Failed to add signature:', error instanceof Error ? error.message : 'Unknown error');
     }
   }
-  
+
   doc.setDrawColor(200, 200, 200);
   doc.setLineWidth(0.5);
   doc.line(20, 270, 190, 270);
-  
+
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(data.companyName, 105, 276, { align: 'center' });
   doc.text(`${t('pdfGeneratedOn')} ${formatDate(new Date().toISOString().split('T')[0], lang)}`, 105, 281, { align: 'center' });
   doc.setTextColor(100, 100, 255);
   doc.textWithLink(t('pdfFooterCreatedWith'), 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
-  
+
   return doc.output('blob');
 }
 
@@ -255,23 +258,23 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   const doc = new jsPDF();
   const lang = (data.language || 'en') as Language;
   const t = (key: string) => getTranslation(lang, key as any);
-  
+
   await addCompanyHeader(doc, data, lang, t);
-  
+
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
   doc.text(`${t('pdfInternalSalesSheet')} - ${formatDate(data.date, lang)}`, 20, 50);
-  
+
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
   doc.text(`${t('pdfLeadId')}: ${data.id.slice(0, 8)}`, 20, 57);
-  
+
   const startY = 65;
   doc.setFontSize(14);
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
   doc.text(t('pdfClientInfo'), 20, startY);
-  
+
   doc.setFontSize(10);
   doc.setFont('helvetica', 'normal');
   let y = startY + 8;
@@ -280,7 +283,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   doc.text(`${t('address')}: ${data.address}`, 20, y);
   if (data.phone) { y += 6; doc.text(`${t('phone')}: ${data.phone}`, 20, y); }
   if (data.email) { y += 6; doc.text(`${t('email')}: ${data.email}`, 20, y); }
-  
+
   y += 10;
   doc.setFontSize(14);
   doc.text(t('pdfSalesInfo'), 20, y);
@@ -297,7 +300,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
     doc.text(`${t('lastContacted')}: ${lastContactedText}`, 20, y);
     y += 6;
   }
-  
+
   y += 5;
   doc.setFontSize(14);
   doc.text(t('pdfPropertyDetails'), 20, y);
@@ -306,7 +309,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   if (data.propertyType) { doc.text(`${t('propertyType')}: ${t(data.propertyType.toLowerCase() as any) || data.propertyType}`, 20, y); y += 6; }
   if (data.roofType) { doc.text(`${t('roofType')}: ${t(data.roofType.toLowerCase().replace(/\s+/g, '') as any) || data.roofType}`, 20, y); y += 6; }
   if (data.roofCondition) { doc.text(`${t('roofCondition')}: ${t(data.roofCondition.toLowerCase().replace(/\s+/g, '') as any) || data.roofCondition}`, 20, y); y += 6; }
-  
+
   y += 5;
   doc.setFontSize(14);
   doc.text(t('pdfSystemDetails'), 20, y);
@@ -332,12 +335,12 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   }
   if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 6; }
   if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
-  
+
   const FOOTER_START = 270;
   const TEXT_WIDTH = 170;
   const LINE_HEIGHT = 4.5;
   const MIN_FOOTER_SPACE = 10;
-  
+
   if (data.productDescription && y < (FOOTER_START - 30)) {
     y += 5;
     doc.setFontSize(14);
@@ -352,7 +355,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
       y += (Math.min(descLines.length, maxDescLines) * LINE_HEIGHT) + 5;
     }
   }
-  
+
   if (data.notes && y < (FOOTER_START - 20)) {
     y += 5;
     doc.setFontSize(14);
@@ -366,18 +369,18 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
       doc.text(lines.slice(0, maxLines), 20, y);
     }
   }
-  
+
   doc.setDrawColor(200, 200, 200);
   doc.setLineWidth(0.5);
   doc.line(20, 270, 190, 270);
-  
+
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 150);
   doc.text(t('pdfConfidential'), 105, 276, { align: 'center' });
   doc.text(data.companyName, 105, 281, { align: 'center' });
   doc.setTextColor(100, 100, 255);
   doc.textWithLink(t('pdfFooterCreatedWith'), 105, 286, { align: 'center', url: 'https://solarclose.pages.dev' });
-  
+
   return doc.output('blob');
 }
 

@@ -31,16 +31,19 @@ export function ExportButton({ data }: ExportButtonProps) {
       const clientBlob = await generateClientPDF(data);
       const sellerBlob = await generateSellerPDF(data);
       
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(clientBlob);
-      link.download = getFilename(data, 'client');
-      link.click();
-      URL.revokeObjectURL(link.href);
+      const clientUrl = URL.createObjectURL(clientBlob);
+      const clientLink = document.createElement('a');
+      clientLink.href = clientUrl;
+      clientLink.download = getFilename(data, 'client');
+      clientLink.click();
+      URL.revokeObjectURL(clientUrl);
       
-      link.href = URL.createObjectURL(sellerBlob);
-      link.download = getFilename(data, 'seller');
-      link.click();
-      URL.revokeObjectURL(link.href);
+      const sellerUrl = URL.createObjectURL(sellerBlob);
+      const sellerLink = document.createElement('a');
+      sellerLink.href = sellerUrl;
+      sellerLink.download = getFilename(data, 'seller');
+      sellerLink.click();
+      URL.revokeObjectURL(sellerUrl);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       console.error('Failed to generate PDF:', errorMessage.replace(/[\r\n]/g, ' '));

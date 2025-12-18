@@ -51,6 +51,7 @@ export function SignatureCapture({ onSave, onCancel, language = 'en', existingSi
   }, [existingSignature]);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -70,6 +71,7 @@ export function SignatureCapture({ onSave, onCancel, language = 'en', existingSi
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
+    e.preventDefault();
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -110,8 +112,19 @@ export function SignatureCapture({ onSave, onCancel, language = 'en', existingSi
     const canvas = canvasRef.current;
     if (!canvas || isEmpty) return;
 
-    const signature = canvas.toDataURL('image/png');
-    onSave(signature);
+    try {
+      const signature = canvas.toDataURL('image/png', 0.8);
+      // Check size (base64 is ~1.37x original, limit to ~100KB)
+      if (signature.length > 140000) {
+        console.warn('Signature too large, compressing...');
+        const compressed = canvas.toDataURL('image/jpeg', 0.5);
+        onSave(compressed);
+      } else {
+        onSave(signature);
+      }
+    } catch (error) {
+      console.error('Failed to save signature:', error);
+    }
   };
 
   return (

@@ -25,17 +25,32 @@ export function QRCodeHandoff({ data }: QRCodeHandoffProps) {
       systemSizeKw: data.systemSizeKw,
       systemCost: data.systemCost,
       currentMonthlyBill: data.currentMonthlyBill,
+      electricityRate: data.electricityRate,
+      sunHoursPerDay: data.sunHoursPerDay,
+      yearlyInflationRate: data.yearlyInflationRate,
+      federalTaxCredit: data.federalTaxCredit,
+      stateIncentive: data.stateIncentive,
       twentyFiveYearSavings: data.twentyFiveYearSavings,
       breakEvenYear: data.breakEvenYear,
       companyName: data.companyName,
       companyPhone: data.companyPhone,
       salesRep: data.salesRep,
+      productDescription: (data.productDescription || '').substring(0, 200),
+      proposalConditions: (data.proposalConditions || '').substring(0, 200),
       language: data.language,
       currency: data.currency,
+      date: data.date,
     };
     
     const encoded = btoa(JSON.stringify(shareData));
-    return `${baseUrl}?data=${encoded}`;
+    const url = `${baseUrl}?data=${encoded}`;
+    
+    // Warn if URL is too long (most browsers support 2000+ chars)
+    if (url.length > 1800) {
+      console.warn('QR code URL is long:', url.length, 'characters');
+    }
+    
+    return url;
   };
 
   return (
