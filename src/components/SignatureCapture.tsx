@@ -24,18 +24,29 @@ export function SignatureCapture({ onSave, onCancel, language = 'en', existingSi
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    // Set canvas size with device pixel ratio for crisp rendering
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    // Fill with white background
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Load existing signature if provided
     if (existingSignature) {
       const img = new Image();
       img.onload = () => {
-        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         setIsEmpty(false);
       };
+      img.onerror = () => {
+        console.error('Failed to load existing signature');
+        setIsEmpty(true);
+      };
       img.src = existingSignature;
+    } else {
+      setIsEmpty(true);
     }
   }, [existingSignature]);
 
@@ -89,7 +100,9 @@ export function SignatureCapture({ onSave, onCancel, language = 'en', existingSi
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Clear and fill with white background
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     setIsEmpty(true);
   };
 
