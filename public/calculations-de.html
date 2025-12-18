@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarClose - Berechnungsmethodik</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(-45deg, #FFFBEA, #FFF4C4, #FFE57F, #FFD54F, #FFCA28, #FFD54F, #FFF4C4);
+            background-size: 400% 400%;
+            animation: gradient-shift 16s ease-in-out infinite;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        h1 {
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #f97316;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #fbbf24;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #f97316;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .formula {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-left: 4px solid #f97316;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+        .note {
+            background: rgba(251, 191, 36, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            color: black;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☀️ Berechnungsmethodik von SolarClose</h1>
+        <p><em>Transparent, Konservativ und Industriestandard</em></p>
+
+        <h2>Überblick</h2>
+        <p>SolarClose verwendet realistische, konservative Berechnungen, um genaue Solarersparnisprognosen zu liefern. Alle Formeln basieren auf Industriestandards und berücksichtigen reale Effizienzverluste.</p>
+
+        <h2>Jährliche Solarproduktion</h2>
+        <h3>Formel:</h3>
+        <div class="formula">
+Jährliche Produktion (kWh) = Systemgröße (kW) × Sonnenstunden/Tag × 365 × Reduktionsfaktor
+        </div>
+        
+        <h3>Parameter:</h3>
+        <ul>
+            <li><strong>Systemgröße:</strong> Nennleistung in Kilowatt (kW)</li>
+            <li><strong>Sonnenstunden/Tag:</strong> Spitzensonnenstunden für Ihren Standort (Standard: 5 Stunden)</li>
+            <li><strong>Reduktionsfaktor:</strong> 0.80 (80% Effizienz unter Berücksichtigung von Verlusten)</li>
+        </ul>
+
+        <div class="note">
+            <strong>Warum 80% Reduktion?</strong> Dies berücksichtigt:
+            <ul>
+                <li>Wechselrichter-Effizienzverluste (~4-8%)</li>
+                <li>Temperatureffekte (~3-5%)</li>
+                <li>Verschattung und Verschmutzung (~2-5%)</li>
+                <li>Verkabelungsverluste (~2-3%)</li>
+                <li>Altersdegradationspuffer</li>
+            </ul>
+        </div>
+
+        <h2>Panel-Degradation</h2>
+        <div class="formula">
+Produktion Jahr N = Basisproduktion × (1 - 0.005)^N
+        </div>
+        <p>Solarpanels degradieren ungefähr <strong>0.5% pro Jahr</strong>. Dies ist eine konservative Industriestandardrate.</p>
+
+        <h2>Stromrechnungsprojektion</h2>
+        <h3>Ohne Solar:</h3>
+        <div class="formula">
+Rechnung Jahr N = Aktuelle Monatsrechnung × 12 × (1 + Inflationsrate)^N
+        </div>
+        
+        <h3>Mit Solar:</h3>
+        <div class="formula">
+Rechnung Jahr N = (Aktuelle Monatsrechnung - Solare Kompensation) × 12 × (1 + Inflationsrate)^N
+        </div>
+
+        <p><strong>Standard-Inflationsrate:</strong> 4% jährlich (anpassbar)</p>
+
+        <h2>Solare Kompensationsberechnung</h2>
+        <div class="formula">
+Monatliche Solare Kompensation = (Jährliche Produktion / 12) × Stromtarif
+        </div>
+        <p>Dies stellt den monatlichen Eurowert der produzierten Solarenergie dar.</p>
+
+        <h2>Darlehenszahlungsberechnung</h2>
+        <div class="formula">
+Monatliche Zahlung = P × [r(1+r)^n] / [(1+r)^n - 1]
+
+Wo:
+- P = Kapital (Systemkosten - Anzahlung)
+- r = Monatlicher Zinssatz (APR / 12)
+- n = Anzahl der Zahlungen (Darlehenslaufzeit × 12)
+        </div>
+
+        <h2>Gesamtsystemkosten</h2>
+        <div class="formula">
+Nettokosten = Systemkosten - Bundessteuergutschrift - Staatliche Anreize + Händlergebühr
+        </div>
+        <ul>
+            <li><strong>Bundessteuergutschrift:</strong> Typischerweise 30% (anpassbar)</li>
+            <li><strong>Staatliche Anreize:</strong> Eurobetrag (variiert je nach Standort)</li>
+            <li><strong>Händlergebühr:</strong> Optionale Finanzierungsgebühr</li>
+        </ul>
+
+        <h2>Wartungs- und Ersatzkosten</h2>
+        <h3>Jährliche Wartung:</h3>
+        <p>Optional €150/Jahr (anpassbar) für Reinigung, Inspektionen und kleinere Reparaturen.</p>
+
+        <h3>Wechselrichter-Ersatz:</h3>
+        <ul>
+            <li><strong>Standardgarantie:</strong> Ersatz in Jahr 12 und Jahr 24</li>
+            <li><strong>25-Jahres-Garantie:</strong> Keine Ersatzkosten</li>
+            <li><strong>Standardkosten:</strong> €2.000 pro Ersatz (anpassbar)</li>
+        </ul>
+
+        <h2>25-Jahres-Einsparungsberechnung</h2>
+        <div class="formula">
+Gesamteinsparungen = Σ(Jahr 1 bis 25) [
+    (Stromrechnung Ohne Solar - Stromrechnung Mit Solar) 
+    - Darlehenszahlung 
+    - Wartung 
+    - Wechselrichter-Ersatz
+]
+        </div>
+
+        <h2>Break-Even-Punkt (ROI)</h2>
+        <p>Das Break-Even-Jahr ist, wenn die kumulierten Einsparungen den Nettosystemkosten entsprechen. Dies wird berechnet, indem die jährlichen Einsparungen summiert werden, bis die Gesamtsumme die anfängliche Investition übersteigt.</p>
+
+        <h2>Umweltauswirkungen</h2>
+        <h3>CO₂-Kompensation:</h3>
+        <div class="formula">
+CO₂-Kompensation (kg) = Jährliche Produktion (kWh) × 0.707 kg/kWh × Jahre
+        </div>
+        <p>Basierend auf dem durchschnittlichen Netzemissionsfaktor der EPA.</p>
+
+        <h3>Äquivalent Gepflanzter Bäume:</h3>
+        <div class="formula">
+Baumäquivalent = CO₂-Kompensation (kg) / 21.77 kg/Baum/Jahr
+        </div>
+        <p>Ein Baum absorbiert ungefähr 21.77 Kilogramm CO₂ pro Jahr.</p>
+
+        <h2>Konservative Annahmen</h2>
+        <p>SolarClose verwendet konservative Schätzungen, um realistische Prognosen zu gewährleisten:</p>
+        <ul>
+            <li>80% Systemeffizienz (berücksichtigt alle realen Verluste)</li>
+            <li>0.5% jährliche Panel-Degradation</li>
+            <li>4% Tarifinflation (historischer Durchschnitt)</li>
+            <li>Wartungskosten enthalten</li>
+            <li>Wechselrichter-Ersatzkosten berücksichtigt</li>
+            <li>Keine optimistischen "Best-Case"-Szenarien</li>
+        </ul>
+
+        <div class="note">
+            <strong>Hinweis:</strong> Die tatsächlichen Ergebnisse können je nach Standort, Wettermustern, Systemausrichtung, Verschattung und Tarifänderungen variieren. Diese Berechnungen bieten eine realistische Grundlage für die Entscheidungsfindung.
+        </div>
+
+        <a href="/" class="back-link">← Zurück zum Rechner</a>
+    </div>
+</body>
+</html>

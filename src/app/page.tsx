@@ -492,7 +492,7 @@ export default function Home() {
             <div className="text-xs">🔒 {t("dataStaysLocal")}</div>
             <div className="flex gap-3 text-xs">
               <a
-                href={`/how-to-use.html?lang=${lang}`}
+                href={lang === 'fr' ? '/how-to-use-fr.html' : lang === 'es' ? '/how-to-use-es.html' : lang === 'it' ? '/how-to-use-it.html' : lang === 'de' ? '/how-to-use-de.html' : '/how-to-use.html'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
@@ -500,7 +500,7 @@ export default function Home() {
                 📖 {t('howItWorks')}
               </a>
               <a
-                href={`/calculations.html?lang=${lang}`}
+                href={lang === 'fr' ? '/calculations-fr.html' : lang === 'es' ? '/calculations-es.html' : lang === 'it' ? '/calculations-it.html' : lang === 'de' ? '/calculations-de.html' : '/calculations.html'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"

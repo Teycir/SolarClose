@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarClose - Metodología de Cálculo</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(-45deg, #FFFBEA, #FFF4C4, #FFE57F, #FFD54F, #FFCA28, #FFD54F, #FFF4C4);
+            background-size: 400% 400%;
+            animation: gradient-shift 16s ease-in-out infinite;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        h1 {
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #f97316;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #fbbf24;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #f97316;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .formula {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-left: 4px solid #f97316;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+        .note {
+            background: rgba(251, 191, 36, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            color: black;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>☀️ Metodología de Cálculo de SolarClose</h1>
+        <p><em>Transparente, Conservadora y Estándar de la Industria</em></p>
+
+        <h2>Resumen</h2>
+        <p>SolarClose utiliza cálculos realistas y conservadores para proporcionar proyecciones precisas de ahorros solares. Todas las fórmulas se basan en estándares de la industria y tienen en cuenta las pérdidas de eficiencia del mundo real.</p>
+
+        <h2>Producción Solar Anual</h2>
+        <h3>Fórmula:</h3>
+        <div class="formula">
+Producción Anual (kWh) = Tamaño del Sistema (kW) × Horas de Sol/Día × 365 × Factor de Reducción
+        </div>
+        
+        <h3>Parámetros:</h3>
+        <ul>
+            <li><strong>Tamaño del Sistema:</strong> Capacidad nominal en kilovatios (kW)</li>
+            <li><strong>Horas de Sol/Día:</strong> Horas pico de sol para su ubicación (predeterminado: 5 horas)</li>
+            <li><strong>Factor de Reducción:</strong> 0.80 (80% de eficiencia contabilizando pérdidas)</li>
+        </ul>
+
+        <div class="note">
+            <strong>¿Por qué 80% de Reducción?</strong> Esto tiene en cuenta:
+            <ul>
+                <li>Pérdidas de eficiencia del inversor (~4-8%)</li>
+                <li>Efectos de temperatura (~3-5%)</li>
+                <li>Sombreado y suciedad (~2-5%)</li>
+                <li>Pérdidas de cableado (~2-3%)</li>
+                <li>Margen de degradación por edad</li>
+            </ul>
+        </div>
+
+        <h2>Degradación de Paneles</h2>
+        <div class="formula">
+Producción Año N = Producción Base × (1 - 0.005)^N
+        </div>
+        <p>Los paneles solares se degradan aproximadamente <strong>0.5% por año</strong>. Esta es una tasa conservadora estándar de la industria.</p>
+
+        <h2>Proyección de Factura de Servicios</h2>
+        <h3>Sin Solar:</h3>
+        <div class="formula">
+Factura Año N = Factura Mensual Actual × 12 × (1 + Tasa de Inflación)^N
+        </div>
+        
+        <h3>Con Solar:</h3>
+        <div class="formula">
+Factura Año N = (Factura Mensual Actual - Compensación Solar) × 12 × (1 + Tasa de Inflación)^N
+        </div>
+
+        <p><strong>Tasa de Inflación Predeterminada:</strong> 4% anual (personalizable)</p>
+
+        <h2>Cálculo de Compensación Solar</h2>
+        <div class="formula">
+Compensación Solar Mensual = (Producción Anual / 12) × Tarifa Eléctrica
+        </div>
+        <p>Esto representa el valor mensual en dólares de la energía solar producida.</p>
+
+        <h2>Cálculo de Pago de Préstamo</h2>
+        <div class="formula">
+Pago Mensual = P × [r(1+r)^n] / [(1+r)^n - 1]
+
+Donde:
+- P = Principal (Costo del Sistema - Pago Inicial)
+- r = Tasa de Interés Mensual (APR / 12)
+- n = Número de Pagos (Plazo del Préstamo × 12)
+        </div>
+
+        <h2>Costo Total del Sistema</h2>
+        <div class="formula">
+Costo Neto = Costo del Sistema - Crédito Fiscal Federal - Incentivos Estatales + Tarifa del Distribuidor
+        </div>
+        <ul>
+            <li><strong>Crédito Fiscal Federal:</strong> Típicamente 30% (personalizable)</li>
+            <li><strong>Incentivos Estatales:</strong> Monto en dólares (varía según la ubicación)</li>
+            <li><strong>Tarifa del Distribuidor:</strong> Tarifa de financiamiento opcional</li>
+        </ul>
+
+        <h2>Costos de Mantenimiento y Reemplazo</h2>
+        <h3>Mantenimiento Anual:</h3>
+        <p>Opcional $150/año (personalizable) para limpieza, inspecciones y reparaciones menores.</p>
+
+        <h3>Reemplazo de Inversor:</h3>
+        <ul>
+            <li><strong>Garantía Estándar:</strong> Reemplazos en el Año 12 y Año 24</li>
+            <li><strong>Garantía de 25 Años:</strong> Sin costos de reemplazo</li>
+            <li><strong>Costo Predeterminado:</strong> $2,000 por reemplazo (personalizable)</li>
+        </ul>
+
+        <h2>Cálculo de Ahorros a 25 Años</h2>
+        <div class="formula">
+Ahorros Totales = Σ(Año 1 a 25) [
+    (Factura de Servicios Sin Solar - Factura de Servicios Con Solar) 
+    - Pago del Préstamo 
+    - Mantenimiento 
+    - Reemplazos de Inversor
+]
+        </div>
+
+        <h2>Punto de Equilibrio (ROI)</h2>
+        <p>El año de equilibrio es cuando los ahorros acumulados igualan el costo neto del sistema. Esto se calcula sumando los ahorros anuales hasta que el total exceda la inversión inicial.</p>
+
+        <h2>Impacto Ambiental</h2>
+        <h3>Compensación de CO₂:</h3>
+        <div class="formula">
+Compensación de CO₂ (lbs) = Producción Anual (kWh) × 1.56 lbs/kWh × Años
+        </div>
+        <p>Basado en el factor promedio de emisiones de la red de la EPA.</p>
+
+        <h3>Equivalente de Árboles Plantados:</h3>
+        <div class="formula">
+Equivalente de Árboles = Compensación de CO₂ (lbs) / 48 lbs/árbol/año
+        </div>
+        <p>Un árbol absorbe aproximadamente 48 libras de CO₂ por año.</p>
+
+        <h2>Suposiciones Conservadoras</h2>
+        <p>SolarClose utiliza estimaciones conservadoras para garantizar proyecciones realistas:</p>
+        <ul>
+            <li>80% de eficiencia del sistema (contabiliza todas las pérdidas del mundo real)</li>
+            <li>0.5% de degradación anual del panel</li>
+            <li>4% de inflación de tarifas de servicios (promedio histórico)</li>
+            <li>Costos de mantenimiento incluidos</li>
+            <li>Costos de reemplazo de inversor incluidos</li>
+            <li>Sin escenarios optimistas de "mejor caso"</li>
+        </ul>
+
+        <div class="note">
+            <strong>Nota:</strong> Los resultados reales pueden variar según la ubicación, patrones climáticos, orientación del sistema, sombreado y cambios en las tarifas de servicios. Estos cálculos proporcionan una línea base realista para la toma de decisiones.
+        </div>
+
+        <a href="/" class="back-link">← Volver a la Calculadora</a>
+    </div>
+</body>
+</html>

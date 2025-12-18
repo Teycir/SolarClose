@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarClose - So Verwenden Sie</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(-45deg, #FFFBEA, #FFF4C4, #FFE57F, #FFD54F, #FFCA28, #FFD54F, #FFF4C4);
+            background-size: 400% 400%;
+            animation: gradient-shift 16s ease-in-out infinite;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        h1 {
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #f97316;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #fbbf24;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #f97316;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-left: 4px solid #f97316;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(to right, #fbbf24, #f97316);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tip {
+            background: rgba(251, 191, 36, 0.2);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            color: black;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .button-example {
+            display: inline-block;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            color: black;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 So Verwenden Sie SolarClose</h1>
+        <p><em>Ihr vollständiger Leitfaden für schnellere Solarverkäufe</em></p>
+
+        <h2>Erste Schritte</h2>
+        <p>SolarClose ist intuitiv und schnell konzipiert. Hier ist alles, was Sie wissen müssen, um mit dem Verkaufsabschluss zu beginnen.</p>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>Neuen Kunden Erstellen</h3>
+            <p>Klicken Sie auf die Schaltfläche <span class="button-example">➕ Neu</span> oben auf der Seite. Dies erstellt einen neuen Kunden mit leeren Feldern, die für die Informationen Ihres Kunden bereit sind.</p>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>Systemdetails Eingeben</h3>
+            <p>Scrollen Sie zum Abschnitt <strong>Rechner</strong> und füllen Sie aus:</p>
+            <ul>
+                <li><strong>Systemgröße (kW):</strong> Die Kapazität des Solarsystems</li>
+                <li><strong>Systemkosten (€):</strong> Gesamtpreis vor Anreizen</li>
+                <li><strong>Aktuelle Monatsrechnung (€):</strong> Durchschnittliche Stromrechnung des Kunden</li>
+                <li><strong>Stromtarif (€/kWh):</strong> Ihr Versorgungstarif (Standard: €0,13)</li>
+                <li><strong>Sonnenstunden/Tag:</strong> Spitzensonnenstunden für den Standort (Standard: 5)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Finanzierung Konfigurieren (Optional)</h3>
+            <p>Wenn der Kunde finanziert:</p>
+            <ul>
+                <li>Wählen Sie <strong>Darlehen</strong> als Finanzierungsoption</li>
+                <li>Geben Sie Darlehenslaufzeit (Jahre), APR und Anzahlung ein</li>
+                <li>Fügen Sie Händlergebühr hinzu, falls zutreffend</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">4</span>Sofortergebnisse Überprüfen</h3>
+            <p>Der Rechner zeigt automatisch:</p>
+            <ul>
+                <li><strong>Gesamteinsparungen über 25 Jahre</strong> - Große Zahl oben</li>
+                <li><strong>Monatlicher Zahlungsvergleich</strong> - Alte Rechnung vs. Solar + Darlehen</li>
+                <li><strong>Einsparungen-Zeitachsendiagramm</strong> - Visuelle 25-Jahres-Projektion mit Break-Even-Punkt</li>
+                <li><strong>Umweltauswirkungen</strong> - CO₂-Kompensation und Äquivalent gepflanzter Bäume</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">5</span>Kundeninformationen Ausfüllen</h3>
+            <p>Scrollen Sie zum Abschnitt <strong>Verwaltung</strong>:</p>
+            <ul>
+                <li><strong>Kundeninfo:</strong> Name, Adresse, E-Mail, Telefon</li>
+                <li><strong>Firmeninfo:</strong> Ihre Firmendetails (für zukünftige Kunden gespeichert)</li>
+                <li><strong>Produktbeschreibung:</strong> Systemdetails für das Angebot</li>
+                <li><strong>Angebotsbedingungen:</strong> Geschäftsbedingungen</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">6</span>Kunden Speichern</h3>
+            <p>Klicken Sie auf <span class="button-example">💾 Speichern</span>, um den Kunden in Ihrer lokalen Datenbank zu speichern. Der Kunde erscheint in Ihrer Kundenliste mit einem Zeitstempel.</p>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">7</span>Angebot Exportieren</h3>
+            <p>Klicken Sie auf <span class="button-example">📄 PDF Exportieren</span>, um zu generieren:</p>
+            <ul>
+                <li><strong>Kundenangebot:</strong> Sauberes, markiertes PDF für den Hausbesitzer</li>
+                <li><strong>Verkaufsblatt:</strong> Detaillierte Aufschlüsselung für Ihre Unterlagen</li>
+            </ul>
+            <p>Beide PDFs werden sofort in der ausgewählten Sprache des Kunden generiert.</p>
+        </div>
+
+        <h2>Hauptfunktionen</h2>
+
+        <h3>🌍 Mehrsprachige Unterstützung</h3>
+        <p>Klicken Sie auf das Flaggensymbol oben links, um zwischen Englisch, Spanisch, Italienisch, Französisch und Deutsch zu wechseln. Die gesamte Benutzeroberfläche und PDFs werden sofort aktualisiert.</p>
+
+        <h3>📋 Kunden Anzeigen und Verwalten</h3>
+        <p>Klicken Sie auf <span class="button-example">📋 Kunden</span>, um alle gespeicherten Kunden anzuzeigen. Jeder Kunde zeigt:</p>
+        <ul>
+            <li>Kundenname und Adresse</li>
+            <li>Zeitstempel des letzten Kontakts (Heute, Gestern oder vor X Tagen)</li>
+            <li>Schnellzugriff zum Bearbeiten oder Löschen</li>
+        </ul>
+
+        <h3>💾 Sicherung und Wiederherstellung</h3>
+        <p>Klicken Sie auf <span class="button-example">💾 Sichern</span>, um alle Ihre Kunden als JSON-Datei herunterzuladen. Sie können diese Sicherung später wiederherstellen oder auf ein anderes Gerät übertragen.</p>
+
+        <h3>📤 Schnelle Zusammenfassung Kopieren</h3>
+        <p>Klicken Sie im Ergebnisbereich auf <strong>Zusammenfassung Kopieren</strong>, um formatierte Gesprächspunkte zu erhalten, die Sie sofort per SMS an Interessenten senden können.</p>
+
+        <h3>🎉 Konfetti-Feier</h3>
+        <p>Wenn die Einsparungen €50.000 überschreiten, wird automatisch Konfetti ausgelöst, um während Ihrer Präsentation Begeisterung zu erzeugen!</p>
+
+        <h2>Profi-Tipps</h2>
+
+        <div class="tip">
+            <strong>💡 Tipp:</strong> Alle Daten werden automatisch gespeichert, während Sie tippen. Sie müssen nicht manuell speichern, bis Sie bereit sind, den Kunden zu Ihrer Liste hinzuzufügen.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tipp:</strong> Funktioniert 100% offline. Perfekt für Haustürverkäufe in Gebieten mit schlechtem Signal.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tipp:</strong> Installieren Sie als PWA (Progressive Web App), indem Sie in Ihrem Browser auf "Installieren" klicken. Es funktioniert wie eine native App auf Ihrem Gerät.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tipp:</strong> Verwenden Sie die Suchfunktion in der Kundenliste, um Kunden schnell nach Name oder Adresse zu finden.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tipp:</strong> Passen Sie Firmeninformationen, Produktbeschreibungen und Angebotsbedingungen einmal an - sie werden für alle zukünftigen Kunden gespeichert.
+        </div>
+
+        <h2>Tastaturkürzel</h2>
+        <ul>
+            <li><strong>Tab:</strong> Zwischen Feldern navigieren</li>
+            <li><strong>Enter:</strong> Formulare absenden und Dialoge bestätigen</li>
+            <li><strong>Esc:</strong> Dialoge und Modale schließen</li>
+        </ul>
+
+        <h2>Fehlerbehebung</h2>
+
+        <h3>Daten Werden Nicht Gespeichert?</h3>
+        <p>Stellen Sie sicher, dass Ihr Browser lokale Speicherung zulässt. Überprüfen Sie die Browsereinstellungen und stellen Sie sicher, dass Sie sich nicht im privaten/Inkognito-Modus befinden.</p>
+
+        <h3>PDF Wird Nicht Generiert?</h3>
+        <p>Stellen Sie sicher, dass alle erforderlichen Felder ausgefüllt sind (mit roten Rändern markiert). Die App zeigt an, welche Felder fehlen.</p>
+
+        <h3>Daten Verloren?</h3>
+        <p>Wenn Sie Browserdaten gelöscht haben, sind Ihre Kunden verloren, es sei denn, Sie haben eine Sicherung. Exportieren Sie immer regelmäßig Sicherungen!</p>
+
+        <h2>Datenschutz und Sicherheit</h2>
+        <p>🔒 <strong>Alle Daten bleiben auf Ihrem Gerät.</strong> SolarClose sendet niemals Ihre Kundeninformationen an einen Server. Alles wird lokal in Ihrem Browser gespeichert.</p>
+
+        <h2>Benötigen Sie Hilfe?</h2>
+        <p>Für kommerzielle Lizenzen, benutzerdefinierte Funktionen oder technischen Support kontaktieren Sie uns unter <a href="https://teycirbensoltane.tn" target="_blank" style="color: #f97316; font-weight: 600;">teycirbensoltane.tn</a></p>
+
+        <a href="/" class="back-link">← Zurück zum Rechner</a>
+    </div>
+</body>
+</html>
