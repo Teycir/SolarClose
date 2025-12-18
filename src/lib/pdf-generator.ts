@@ -91,48 +91,48 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
 
   let y = 55;
 
-  doc.setFontSize(14);
+  doc.setFontSize(11);
   doc.text(t('productDescription'), 20, y);
-  y += 10;
-  doc.setFontSize(10);
+  y += 7;
+  doc.setFontSize(9);
   const descLines = doc.splitTextToSize(data.productDescription, 170);
   doc.text(descLines, 20, y);
-  y += (descLines.length * 5) + 10;
+  y += (descLines.length * 4) + 7;
 
-  doc.setFontSize(14);
-  doc.text(t('pdfSystemDetails'), 20, y);
-  y += 10;
   doc.setFontSize(11);
+  doc.text(t('pdfSystemDetails'), 20, y);
+  y += 7;
+  doc.setFontSize(9);
   doc.text(`${t('systemSize')}: ${data.systemSizeKw} kW`, 20, y);
-  y += 8;
+  y += 6;
   const DAYS_PER_YEAR = 365;
   const PERFORMANCE_RATIO = 0.8;
   const estimatedProduction = Math.round(data.systemSizeKw * data.sunHoursPerDay * DAYS_PER_YEAR * PERFORMANCE_RATIO);
   doc.text(`${t('pdfEstimatedProduction')}: ${estimatedProduction.toLocaleString('en-US').replace(/,/g, ' ')} kWh`, 20, y);
   y += 15;
 
-  doc.setFontSize(14);
-  doc.text(t('pdfInvestmentReturns'), 20, y);
-  y += 10;
   doc.setFontSize(11);
-  doc.text(`${t('pdfTotalSystemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y);
+  doc.text(t('pdfInvestmentReturns'), 20, y);
   y += 7;
+  doc.setFontSize(9);
+  doc.text(`${t('pdfTotalSystemCost')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.systemCost)}`, 20, y);
+  y += 5;
 
   const federalCredit = data.systemCost * (data.federalTaxCredit / 100);
   const netCost = data.systemCost - federalCredit - data.stateIncentive;
 
-  doc.setFontSize(10);
+  doc.setFontSize(8);
   doc.setTextColor(100, 100, 100);
   doc.text(`  - ${t('pdfFederalTaxCredit')} (${data.federalTaxCredit}%): -${getCurrencySymbol(data.currency)}${formatNumber(federalCredit)}`, 20, y);
-  y += 6;
+  y += 4;
   if (data.stateIncentive > 0) {
     doc.text(`  - ${t('pdfStateIncentive')}: -${getCurrencySymbol(data.currency)}${formatNumber(data.stateIncentive)}`, 20, y);
-    y += 6;
+    y += 4;
   }
-  doc.setFontSize(11);
+  doc.setFontSize(9);
   doc.setTextColor(0, 0, 0);
   doc.text(`${t('pdfNetInvestment')}: ${getCurrencySymbol(data.currency)}${formatNumber(netCost)}`, 20, y);
-  y += 10;
+  y += 7;
 
   if (data.financingOption === 'Loan' && data.loanTerm) {
     const loanAmount = Math.max(0, netCost - (data.downPayment || 0));
@@ -148,19 +148,19 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
       }
     }
 
-    doc.setFontSize(10);
+    doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
     if (data.downPayment && data.downPayment > 0) {
       doc.text(`  ${t('pdfDownPayment')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.downPayment)}`, 20, y);
-      y += 6;
+      y += 4;
     }
     doc.text(`  ${t('pdfFinancedAmount')}: ${getCurrencySymbol(data.currency)}${formatNumber(loanAmount)}`, 20, y);
-    y += 6;
+    y += 4;
     doc.text(`  ${t('pdfLoanTerm')}: ${data.loanTerm} ${t('pdfYears')} @ ${data.loanInterestRate || 6.99}% APR`, 20, y);
-    y += 6;
+    y += 4;
     doc.text(`  ${t('pdfMonthlyPayment')}: ${getCurrencySymbol(data.currency)}${formatNumber(monthlyPayment)}`, 20, y);
-    y += 8;
-    doc.setFontSize(11);
+    y += 6;
+    doc.setFontSize(9);
     doc.setTextColor(0, 0, 0);
   }
 
@@ -168,15 +168,15 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const avgMonthlySavings = Math.round(avgAnnualSavings / 12);
 
   doc.text(`${t('pdfBreakEvenPeriod')}: ${data.breakEvenYear ? `${t('year')} ${data.breakEvenYear}` : t('never')}`, 20, y);
-  y += 8;
+  y += 6;
   doc.text(`${t('pdfAvgMonthlySavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(avgMonthlySavings)}`, 20, y);
-  y += 8;
+  y += 6;
   doc.text(`${t('pdfAvgAnnualSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(avgAnnualSavings)}`, 20, y);
-  y += 8;
+  y += 6;
   doc.setTextColor(255, 193, 7);
   doc.text(`${t('pdfTotal25YearSavings')}: ${getCurrencySymbol(data.currency)}${formatNumber(data.twentyFiveYearSavings)}`, 20, y);
   doc.setTextColor(0, 0, 0);
-  y += 15;
+  y += 10;
 
   const YEARS = 25;
   const CO2_PER_KWH = 0.85;
@@ -187,18 +187,18 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   const co2Unit = isMetric ? 'kg' : 'lbs';
   const treesEquivalent = Math.round(co2SavedLbs / 48);
 
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.setTextColor(34, 139, 34);
   doc.text(t('envImpactTitle'), 20, y);
-  y += 8;
-  doc.setFontSize(10);
+  y += 6;
+  doc.setFontSize(8);
   doc.setTextColor(0, 0, 0);
   doc.text(`${t('envCo2Offset')}: ${co2Saved.toLocaleString('en-US').replace(/,/g, ' ')} ${co2Unit}`, 20, y);
-  y += 6;
+  y += 5;
   doc.text(`${t('envTreesPlanted')} ${t('envEquivalent')}: ${treesEquivalent.toLocaleString('en-US').replace(/,/g, ' ')} ${t('pdfTrees')}`, 20, y);
-  y += 10;
+  y += 7;
 
-  doc.setFontSize(9);
+  doc.setFontSize(7);
   doc.setTextColor(100, 100, 100);
   const savingsNote = `* ${t('pdfSavingsCalculated')} ${data.yearlyInflationRate}% ${lang === 'en' ? 'annual utility rate increase' : lang === 'es' ? 'aumento anual de tarifas' : lang === 'it' ? 'aumento annuale delle tariffe' : lang === 'fr' ? 'augmentation annuelle des tarifs' : 'jährliche Tariferhöhung'}`;
   doc.text(savingsNote, 20, y);
