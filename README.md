@@ -5,7 +5,7 @@
 ![Solar](https://img.shields.io/badge/Solar-Energy-facc15?style=flat-square)
 ![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=flat-square)
 ![Offline](https://img.shields.io/badge/Offline-Ready-blue?style=flat-square)
-![License](https://img.shields.io/badge/License-BSL_1.1-red?style=flat-square)
+![License](https://img.shields.io/badge/License-Proprietary-red?style=flat-square)
 
 🌟 **Start Using Now**: <https://solarclose.pages.dev>
 
@@ -13,28 +13,82 @@
 
 Most solar software runs in the cloud, meaning they own your leads. **SolarClose is different.** It runs entirely on your iPad/Laptop.
 
-We use a **Business Source License (BSL)**, which means:
+**SolarClose is closed-source proprietary software.** All rights reserved.
 
-1. **100% Transparency:** All source code is public. Your IT team can audit it to prove **zero data leaves the device.**
-2. **Free for Individuals:** Independent reps can use it forever.
-3. **Auditable Security:** You don't have to trust us—you can verify us.
+- **Privacy First:** All data stays on your device. Zero data leaves your browser.
+- **Free Web Version:** Try it at <https://solarclose.pages.dev>
+- **Commercial Licensing:** Contact us for team deployment and white-label options.
+- **No Source Code Access:** This software is not open source. Unauthorized copying, modification, or reverse engineering is prohibited.
 
 📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md) | [PWA Setup](PWA_SETUP.md)
 
 ---
 
-## 💰 Why Top Closers Use SolarClose
+## 🚀 Complete Feature List
 
-✅ **Works Offline** - Close deals in basements or rural areas without signal  
-✅ **Instant ROI** - Show 25-year savings while you're still talking. No loading screens  
+### **Core Sales Features**
+✅ **100% Offline Operation** - Close deals in basements, rural areas, or anywhere without signal  
+✅ **Instant ROI Calculations** - Show 25-year savings in real-time. Zero loading screens  
 ✅ **Privacy Guaranteed** - Your leads live on your device. We never see them  
-✅ **Professional PDF Proposals** - Generate branded PDFs your customers can share  
-✅ **"Kitchen Table" Ready** - Beautiful glass-morphism design that looks expensive  
-✅ **Fully Multi-Language** - Complete UI, PDFs, and calculations in English, Spanish, Italian, French, and German  
-✅ **Visual 25-Year Chart** - Show cumulative savings over time with break-even point highlighted  
-✅ **Quick Copy Summary** - One-click to copy talking points for texting prospects  
+✅ **Professional PDF Proposals** - Generate branded client proposals and technical sales sheets  
+✅ **Quick Copy Summary** - One-click to copy formatted talking points for texting prospects  
 ✅ **Smart Lead Tracking** - "Last Contacted" timestamps prevent duplicate visits  
-✅ **Psychological Sales Tools** - Visual progress bars, animated counters, and "Confetti" celebrations for big savings
+✅ **Lead Search & Filter** - Instantly find customers by name or address
+
+### **Financial Analysis**
+💰 **Monthly Payment Comparison** - Old utility bill vs. Solar + Loan payment side-by-side  
+💰 **25-Year Savings Projection** - Total lifetime savings with visual timeline chart  
+💰 **Break-Even Point (ROI)** - Highlighted on timeline showing when system pays for itself  
+💰 **Customizable Loan Terms** - APR, term length, down payment, and dealer fees  
+💰 **Inflation Modeling** - 4% annual utility rate increase (customizable)  
+💰 **Maintenance Costs** - Optional $150/yr maintenance factor  
+💰 **Inverter Replacement** - Factored at Year 12 & 24 (customizable cost)  
+💰 **Panel Degradation** - 0.5% annual output decline built-in
+
+### **Technical Calculations**
+⚡ **System Sizing** - Input system size in kW with automatic production estimates  
+⚡ **Real Efficiency Derating** - 80% derating (weather/shade/inverter loss)  
+⚡ **Annual Production** - kWh/year based on system size and location factors  
+⚡ **Offset Percentage** - Shows how much of electric bill is covered by solar  
+⚡ **Environmental Impact** - CO₂ offset and trees planted equivalent calculations
+
+### **Multi-Language Support**
+🌍 **5 Complete Languages** - English, Spanish, Italian, French, German  
+🌍 **Localized PDFs** - Client proposals in customer's native language  
+🌍 **Currency Formatting** - Automatic $/€ based on language  
+🌍 **Date Formatting** - US/EU styles (MM/DD/YYYY vs DD/MM/YYYY)  
+🌍 **Per-Lead Language** - Each customer remembers their language preference  
+🌍 **Instant Switching** - One-click language toggle in top-left corner
+
+### **User Experience**
+🎨 **Glass-Morphism Design** - Modern, professional interface that looks expensive  
+🎨 **Animated Counters** - Smooth number animations for savings displays  
+🎨 **Progress Bars** - Visual indicators for system offset and ROI  
+🎨 **Confetti Celebrations** - Trigger on high savings to create excitement  
+🎨 **Responsive Layout** - Works perfectly on iPad, tablets, and laptops  
+🎨 **Dark Mode Ready** - Beautiful on any device in any lighting
+
+### **Data Management**
+💾 **Auto-Save** - Every input automatically saved to local storage  
+💾 **JSON Backup/Restore** - Export all leads to universal JSON format  
+💾 **Import Leads** - Restore from backup or migrate devices  
+💾 **Delete Leads** - Individual lead deletion with confirmation  
+💾 **No Cloud Dependency** - All data stays on your device forever
+
+### **PDF Export**
+📄 **Dual PDF Generation** - Client proposal + Technical sales sheet  
+📄 **Branded Design** - Professional layout with your company info  
+📄 **Multi-Language PDFs** - Proposals in customer's language  
+📄 **Detailed Breakdown** - Monthly costs, savings, and 25-year projections  
+📄 **Environmental Stats** - CO₂ and tree equivalents in PDFs  
+📄 **Instant Download** - No server processing, generated in-browser
+
+### **Progressive Web App (PWA)**
+📲 **Install to Home Screen** - Works like a native app  
+📲 **Offline-First Architecture** - Full functionality without internet  
+📲 **Fast Loading** - Instant startup, no server delays  
+📲 **Cross-Platform** - iOS, Android, Windows, macOS, Linux  
+📲 **Auto-Updates** - Latest features delivered automatically
 
 ---
 
@@ -93,7 +147,7 @@ We don't hide our math. We use realistic, conservative numbers to build trust:
 - **Inverter Replacement**: Factored at Year 12 & 24 (customizable)
 - **Inflation**: 4% annual utility rate increase (customizable)
 
-_Want to check the math? [Read the Code.](https://github.com/Teycir/SolarClose/blob/main/src/lib/calculations.ts)_
+_All calculations use industry-standard formulas and conservative assumptions._
 
 ---
 
@@ -132,52 +186,62 @@ _Want to check the math? [Read the Code.](https://github.com/Teycir/SolarClose/b
 
 ## 📜 License & Pricing
 
-**SolarClose is Source-Available under the Business Source License (BSL) 1.1.**
+**SolarClose is closed-source proprietary software. All rights reserved.**
 
-### 🟢 Free for Individuals
+⚠️ **This software is NOT open source.** The source code is confidential and proprietary. Unauthorized access, copying, modification, distribution, or reverse engineering is strictly prohibited and may result in legal action.
 
-Are you an individual sales rep or a homeowner?
+### 🆓 Free Web Version
 
-- **Cost:** $0
-- **Usage:** Unlimited personal use
-- **Requirement:** None. Enjoy the tool
+Use the hosted version at <https://solarclose.pages.dev>
 
-### 🏢 Commercial / White Label
+- **Cost:** Free to use
+- **Usage:** Individual sales reps and homeowners
+- **Limitations:** Web-based only, no white-labeling
 
-Are you a Solar Company, Dealer, or Team Lead?
+### 🏢 Commercial License
 
-- **Usage:** If you want to deploy this to a team, white-label it with your branding, or integrate it into your CRM
-- **Cost:** Requires a Commercial License
-- **Benefits:**
-  - Your Company Logo & Colors
-  - Custom Incentives/Loan Products pre-loaded
-  - Centralized Team Deployment
+For Solar Companies, Dealers, and Teams:
 
-**[Contact us for a Commercial License](https://teycirbensoltane.tn)**
+- **Self-Hosted Deployment:** Run on your own infrastructure
+- **White-Label Branding:** Your company logo, colors, and domain
+- **Custom Features:** Pre-loaded incentives, loan products, and integrations
+- **Team Management:** Centralized deployment and updates
+- **Priority Support:** Direct technical assistance
 
----
-
-## 📲 Developers (Run it Locally)
-
-```bash
-# Clone the repository
-git clone https://github.com/Teycir/SolarClose.git
-
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-**PWA Features**: SolarClose is a Progressive Web App. See [PWA_SETUP.md](PWA_SETUP.md) for installation and offline capabilities.
+**[Contact us for Commercial Licensing](https://teycirbensoltane.tn)**
 
 ---
 
-© 2025 SolarClose.
-Code becomes Open Source (Apache 2.0) on **Jan 1, 2029**.
-[View Full License](LICENSE)
+## 📲 Installation
+
+**Web App (Recommended):**
+- Visit <https://solarclose.pages.dev>
+- Click "Install" in your browser to add to home screen
+- Works offline as a Progressive Web App (PWA)
+
+**Self-Hosted Deployment:**
+- Available with Commercial License only
+- Contact us for deployment documentation and support
+
+---
+
+## ⚖️ Legal Notice
+
+**SolarClose is closed-source proprietary software.**
+
+© 2025 SolarClose. All rights reserved.
+
+This software and its source code are proprietary and confidential. Unauthorized copying, distribution, modification, reverse engineering, decompilation, or disassembly is strictly prohibited and violates intellectual property laws.
+
+**You may NOT:**
+- Access, view, or copy the source code
+- Modify, adapt, or create derivative works
+- Distribute, sublicense, or resell the software
+- Reverse engineer or decompile the application
+- Remove or alter any proprietary notices
+
+**Violations will be prosecuted to the fullest extent of the law.**
+
+For licensing inquiries, contact: <https://teycirbensoltane.tn>
 
 Made by Teycir - <https://teycirbensoltane.tn>

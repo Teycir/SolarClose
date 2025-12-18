@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarClose - How to Use</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #f5576c;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        h2 {
+            color: #f093fb;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #f5576c;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #f5576c;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #f5576c;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .step-number {
+            display: inline-block;
+            background: #f5576c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .tip {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        ul {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #f5576c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .button-example {
+            display: inline-block;
+            background: linear-gradient(to right, #fbbf24, #f97316, #fbbf24);
+            color: black;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 How to Use SolarClose</h1>
+        <p><em>Your complete guide to closing solar deals faster</em></p>
+
+        <h2>Getting Started</h2>
+        <p>SolarClose is designed to be intuitive and fast. Here's everything you need to know to start closing deals.</p>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>Create a New Lead</h3>
+            <p>Click the <span class="button-example">➕ New Lead</span> button at the top of the page. This creates a fresh lead with empty fields ready for your customer's information.</p>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>Enter System Details</h3>
+            <p>Scroll down to the <strong>Calculator</strong> section and fill in:</p>
+            <ul>
+                <li><strong>System Size (kW):</strong> The solar system capacity</li>
+                <li><strong>System Cost ($):</strong> Total price before incentives</li>
+                <li><strong>Current Monthly Bill ($):</strong> Customer's average electric bill</li>
+                <li><strong>Electricity Rate ($/kWh):</strong> Their utility rate (default: $0.13)</li>
+                <li><strong>Sun Hours/Day:</strong> Peak sun hours for location (default: 5)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Configure Financing (Optional)</h3>
+            <p>If the customer is financing:</p>
+            <ul>
+                <li>Select <strong>Loan</strong> as financing option</li>
+                <li>Enter loan term (years), APR, and down payment</li>
+                <li>Add dealer fee if applicable</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">4</span>Review Instant Results</h3>
+            <p>The calculator automatically shows:</p>
+            <ul>
+                <li><strong>25-Year Total Savings</strong> - Big number at the top</li>
+                <li><strong>Monthly Payment Comparison</strong> - Old bill vs. Solar + Loan</li>
+                <li><strong>Savings Timeline Chart</strong> - Visual 25-year projection with break-even point</li>
+                <li><strong>Environmental Impact</strong> - CO₂ offset and trees planted equivalent</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">5</span>Fill in Customer Information</h3>
+            <p>Scroll to the <strong>Administrative</strong> section:</p>
+            <ul>
+                <li><strong>Client Info:</strong> Name, address, email, phone</li>
+                <li><strong>Company Info:</strong> Your company details (saved for future leads)</li>
+                <li><strong>Product Description:</strong> System details for the proposal</li>
+                <li><strong>Proposal Conditions:</strong> Terms and conditions</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">6</span>Save the Lead</h3>
+            <p>Click <span class="button-example">💾 Save Lead</span> to store the customer in your local database. The lead will appear in your leads list with a timestamp.</p>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">7</span>Export Proposal</h3>
+            <p>Click <span class="button-example">📄 Export PDF</span> to generate:</p>
+            <ul>
+                <li><strong>Client Proposal:</strong> Clean, branded PDF for the homeowner</li>
+                <li><strong>Sales Sheet:</strong> Detailed breakdown for your records</li>
+            </ul>
+            <p>Both PDFs are generated instantly in the customer's selected language.</p>
+        </div>
+
+        <h2>Key Features</h2>
+
+        <h3>🌍 Multi-Language Support</h3>
+        <p>Click the flag icon in the top-left to switch between English, Spanish, Italian, French, and German. The entire interface and PDFs will update instantly.</p>
+
+        <h3>📋 View & Manage Leads</h3>
+        <p>Click <span class="button-example">📋 View Leads</span> to see all saved customers. Each lead shows:</p>
+        <ul>
+            <li>Customer name and address</li>
+            <li>Last contacted timestamp (Today, Yesterday, or X days ago)</li>
+            <li>Quick access to edit or delete</li>
+        </ul>
+
+        <h3>💾 Backup & Restore</h3>
+        <p>Click <span class="button-example">💾 Backup</span> to download all your leads as a JSON file. You can restore this backup later or transfer to another device.</p>
+
+        <h3>📤 Quick Copy Summary</h3>
+        <p>In the results section, click <strong>Copy Summary</strong> to get formatted talking points you can text to prospects instantly.</p>
+
+        <h3>🎉 Confetti Celebration</h3>
+        <p>When savings exceed $50,000, confetti automatically triggers to create excitement during your presentation!</p>
+
+        <h2>Pro Tips</h2>
+
+        <div class="tip">
+            <strong>💡 Tip:</strong> All data auto-saves as you type. No need to manually save until you're ready to add the lead to your list.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tip:</strong> Works 100% offline. Perfect for door-to-door sales in areas with poor signal.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tip:</strong> Install as a PWA (Progressive Web App) by clicking "Install" in your browser. It will work like a native app on your device.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tip:</strong> Use the search feature in the leads list to quickly find customers by name or address.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Tip:</strong> Customize company info, product descriptions, and proposal conditions once - they'll be saved for all future leads.
+        </div>
+
+        <h2>Keyboard Shortcuts</h2>
+        <ul>
+            <li><strong>Tab:</strong> Navigate between fields</li>
+            <li><strong>Enter:</strong> Submit forms and confirm dialogs</li>
+            <li><strong>Esc:</strong> Close dialogs and modals</li>
+        </ul>
+
+        <h2>Troubleshooting</h2>
+
+        <h3>Data Not Saving?</h3>
+        <p>Make sure your browser allows local storage. Check browser settings and ensure you're not in private/incognito mode.</p>
+
+        <h3>PDF Not Generating?</h3>
+        <p>Ensure all required fields are filled (marked with red borders). The app will show which fields are missing.</p>
+
+        <h3>Lost Your Data?</h3>
+        <p>If you cleared browser data, your leads are gone unless you have a backup. Always export backups regularly!</p>
+
+        <h2>Privacy & Security</h2>
+        <p>🔒 <strong>All data stays on your device.</strong> SolarClose never sends your customer information to any server. Everything is stored locally in your browser.</p>
+
+        <h2>Need Help?</h2>
+        <p>For commercial licensing, custom features, or technical support, contact us at <a href="https://teycirbensoltane.tn" target="_blank">teycirbensoltane.tn</a></p>
+
+        <a href="/" class="back-link">← Back to Calculator</a>
+    </div>
+</body>
+</html>
