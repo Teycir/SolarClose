@@ -356,7 +356,7 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
     }
   }
 
-  if (data.notes && y < (FOOTER_START - 20)) {
+  if (data.notes && data.notes.trim() && y < (FOOTER_START - 20)) {
     y += 5;
     doc.setFontSize(14);
     doc.text(t('notes'), 20, y);

@@ -182,12 +182,8 @@ export function PropertyFinancialSection({ data, onUpdate }: PropertyFinancialSe
         <textarea
           value={data.notes || ''}
           onChange={(e) => {
-            try {
-              const sanitized = e.target.value.replace(/[<>"]/g, '').slice(0, 500);
-              onUpdate({ notes: sanitized });
-            } catch (error) {
-              console.error('Error updating notes:', error instanceof Error ? error.message : 'Unknown error');
-            }
+            const value = e.target.value.slice(0, 500);
+            onUpdate({ notes: value });
           }}
           className="w-full px-3 sm:px-4 py-3 sm:py-2 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-base"
           placeholder={t('placeholderNotes')}
