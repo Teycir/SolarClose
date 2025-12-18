@@ -197,6 +197,17 @@ type TranslationKeys = {
   pdfFooterCreatedWith: string;
   pdfFilenameClient: string;
   pdfFilenameSeller: string;
+  qrCode: string;
+  qrCodeTitle: string;
+  qrCodeInstructions: string;
+  qrCodeIncluded: string;
+  tooltipQRCode: string;
+  signatureTitle: string;
+  signatureInstructions: string;
+  saveSignature: string;
+  captureSignature: string;
+  signatureCaptured: string;
+  clear: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -399,6 +410,17 @@ export const translations: Record<string, TranslationKeys> = {
     pdfFooterCreatedWith: 'Created with SolarClose - Free Solar ROI Calculator.',
     pdfFilenameClient: 'PROSPECT-Proposal',
     pdfFilenameSeller: 'PROSPECTOR-Internal',
+    qrCode: 'QR Code',
+    qrCodeTitle: 'Share with Client',
+    qrCodeInstructions: 'Client can scan this QR code to view their solar proposal on their device',
+    qrCodeIncluded: 'Data included',
+    tooltipQRCode: 'Generate QR code for client',
+    signatureTitle: 'Client Signature',
+    signatureInstructions: 'Draw signature with mouse or finger',
+    saveSignature: 'Save Signature',
+    captureSignature: 'Signature',
+    signatureCaptured: 'Signed',
+    clear: 'Clear',
   },
   es: {
     title: 'SolarClose',
@@ -599,6 +621,17 @@ export const translations: Record<string, TranslationKeys> = {
     pdfFooterCreatedWith: 'Creado con SolarClose - Calculadora ROI Solar Gratuita.',
     pdfFilenameClient: 'PROSPECTO-Presupuesto',
     pdfFilenameSeller: 'PROSPECTOR-Interno',
+    qrCode: 'Código QR',
+    qrCodeTitle: 'Compartir con Cliente',
+    qrCodeInstructions: 'El cliente puede escanear este código QR para ver su propuesta solar en su dispositivo',
+    qrCodeIncluded: 'Datos incluidos',
+    tooltipQRCode: 'Generar código QR para el cliente',
+    signatureTitle: 'Firma del Cliente',
+    signatureInstructions: 'Dibuje la firma con el ratón o el dedo',
+    saveSignature: 'Guardar Firma',
+    captureSignature: 'Firma',
+    signatureCaptured: 'Firmado',
+    clear: 'Limpiar',
   },
   it: {
     title: 'SolarClose',
@@ -799,6 +832,17 @@ export const translations: Record<string, TranslationKeys> = {
     pdfFooterCreatedWith: 'Creato con SolarClose - Calcolatore ROI Solare Gratuito.',
     pdfFilenameClient: 'PROSPETTO-Preventivo',
     pdfFilenameSeller: 'PROSPECTOR-Interno',
+    qrCode: 'Codice QR',
+    qrCodeTitle: 'Condividi con Cliente',
+    qrCodeInstructions: 'Il cliente può scansionare questo codice QR per visualizzare la proposta solare sul proprio dispositivo',
+    qrCodeIncluded: 'Dati inclusi',
+    tooltipQRCode: 'Genera codice QR per il cliente',
+    signatureTitle: 'Firma del Cliente',
+    signatureInstructions: 'Disegna la firma con il mouse o il dito',
+    saveSignature: 'Salva Firma',
+    captureSignature: 'Firma',
+    signatureCaptured: 'Firmato',
+    clear: 'Cancella',
   },
   fr: {
     title: 'SolarClose',
@@ -999,6 +1043,17 @@ export const translations: Record<string, TranslationKeys> = {
     pdfFooterCreatedWith: 'Créé avec SolarClose - Calculateur ROI Solaire Gratuit.',
     pdfFilenameClient: 'PROSPECT-Devis',
     pdfFilenameSeller: 'PROSPECTEUR-Interne',
+    qrCode: 'Code QR',
+    qrCodeTitle: 'Partager avec le Client',
+    qrCodeInstructions: 'Le client peut scanner ce code QR pour voir sa proposition solaire sur son appareil',
+    qrCodeIncluded: 'Données incluses',
+    tooltipQRCode: 'Générer un code QR pour le client',
+    signatureTitle: 'Signature du Client',
+    signatureInstructions: 'Dessinez la signature avec la souris ou le doigt',
+    saveSignature: 'Enregistrer la Signature',
+    captureSignature: 'Signature',
+    signatureCaptured: 'Signé',
+    clear: 'Effacer',
   },
   de: {
     title: 'SolarClose',
@@ -1199,6 +1254,17 @@ export const translations: Record<string, TranslationKeys> = {
     pdfFooterCreatedWith: 'Erstellt mit SolarClose - Kostenloser Solar-ROI-Rechner.',
     pdfFilenameClient: 'INTERESSENT-Angebot',
     pdfFilenameSeller: 'PROSPECTOR-Intern',
+    qrCode: 'QR-Code',
+    qrCodeTitle: 'Mit Kunde Teilen',
+    qrCodeInstructions: 'Der Kunde kann diesen QR-Code scannen, um sein Solarangebot auf seinem Gerät anzuzeigen',
+    qrCodeIncluded: 'Enthaltene Daten',
+    tooltipQRCode: 'QR-Code für Kunden generieren',
+    signatureTitle: 'Kundenunterschrift',
+    signatureInstructions: 'Unterschrift mit Maus oder Finger zeichnen',
+    saveSignature: 'Unterschrift Speichern',
+    captureSignature: 'Unterschrift',
+    signatureCaptured: 'Unterschrieben',
+    clear: 'Löschen',
   },
 };
 

@@ -4,6 +4,31 @@ All notable changes to SolarClose will be documented in this file.
 
 ## [1.3.0] - 2025-01-XX
 
+### New Features
+
+- 📱 **QR Code Handoff**: Generate QR codes for clients to scan and view proposals on their device
+  - One-click QR generation with modal display
+  - Data encoded in URL (no backend required)
+  - Preserves language preference
+  - Auto-clears URL params after load for privacy
+  - Library: `qrcode.react` (3KB)
+  - Files: `QRCodeHandoff.tsx`, `QR_CODE_HANDOFF.md`
+- ✍️ **Digital Signature Capture**: Native HTML5 Canvas signature capture (zero dependencies)
+  - Touch and mouse support for tablets/phones/desktops
+  - Signatures stored as base64 PNG in IndexedDB
+  - Automatically included in client PDF proposals
+  - Clear and re-sign functionality
+  - Files: `SignatureCapture.tsx`, `SignatureButton.tsx`, `SIGNATURE_CAPTURE.md`
+
+### Technical
+
+- Added `clientSignature?: string` field to SolarLead type
+- Added signature rendering to PDF generator
+- Added URL parameter handler for QR code data loading
+- Bundle impact: +2KB (197KB total, was 195KB)
+- Dependencies: +1 (`qrcode.react`)
+- Code added: ~340 lines (excluding docs)
+
 ### Documentation & Internationalization
 
 - 📚 **Multi-Language Documentation**: Created complete HTML documentation pages for all 5 supported languages

@@ -20,7 +20,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 - **Commercial Licensing:** Contact us for team deployment and white-label options.
 - **No Source Code Access:** This software is not open source. Unauthorized copying, modification, or reverse engineering is prohibited.
 
-📚 **Documentation**: [Features](FEATURES.md) | [Calculation Details](CALCULATIONS.md) | [PWA Setup](PWA_SETUP.md)
+📚 **Documentation**: [Features](FEATURES.md) | [Calculations](CALCULATIONS.md) | [PWA Setup](PWA_SETUP.md) | [QR Handoff](QR_CODE_HANDOFF.md) | [Signatures](SIGNATURE_CAPTURE.md)
 
 ---
 
@@ -73,6 +73,8 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 💾 **JSON Backup/Restore** - Export all leads to universal JSON format  
 💾 **Import Leads** - Restore from backup or migrate devices  
 💾 **Delete Leads** - Individual lead deletion with confirmation  
+💾 **QR Code Handoff** - Generate QR codes for clients to view proposals on their devices  
+💾 **Digital Signatures** - Capture client signatures with touch/mouse (native Canvas, no libraries)  
 💾 **No Cloud Dependency** - All data stays on your device forever
 
 ### **PDF Export**
@@ -118,6 +120,12 @@ Click **"Export PDF"** to generate:
 
 - **Client Proposal:** A clean, branded PDF for the homeowner (in their language)
 - **Sales Sheet:** A detailed technical breakdown for your records
+
+Or click **"📱 QR Code"** to:
+
+- **Instant Handoff:** Generate a QR code the client can scan
+- **Mobile-Friendly:** Client views proposal on their own device
+- **Take Home:** They can review with family without paper
 
 ### **5. Track & Follow Up**
 

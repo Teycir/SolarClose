@@ -82,4 +82,6 @@ export interface SolarLead {
   // Meta
   /** Indicates if the lead has been synced to cloud storage */
   isSynced: boolean;
+  /** Client signature as base64 PNG data URL */
+  clientSignature?: string;
 }

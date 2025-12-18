@@ -20,6 +20,8 @@ import { SavingsChart } from "@/components/SavingsChart";
 import { BillSwapComparison } from "@/components/BillSwapComparison";
 import { SocialShare } from "@/components/SocialShare";
 import { DataBackup } from "@/components/DataBackup";
+import { QRCodeHandoff } from "@/components/QRCodeHandoff";
+import { SignatureButton } from "@/components/SignatureButton";
 import { Tooltip } from "@/components/Tooltip";
 import { openDB } from "idb";
 import type { SolarLead } from "@/types/solar";
@@ -42,6 +44,25 @@ export default function Home() {
   const lang: Language = (data?.language || "en") as Language;
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const isDefaultLead = currentLeadId === "default-lead";
+
+  // Handle QR code data from URL
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = urlParams.get('data');
+    
+    if (encodedData) {
+      try {
+        const decoded = JSON.parse(atob(encodedData));
+        setData(decoded as Partial<SolarLead>);
+        // Clear URL params after loading
+        window.history.replaceState({}, '', window.location.pathname);
+      } catch (error) {
+        console.error('Failed to decode QR data:', error);
+      }
+    }
+  }, [setData]);
 
   // Auto-recalculate when inputs change
   const shouldRecalculate = useCallback(() => {
@@ -351,6 +372,8 @@ export default function Home() {
               </button>
             </Tooltip>
             <DataBackup data={data} />
+            <SignatureButton data={data} onUpdate={setData} />
+            <QRCodeHandoff data={data} />
             <ExportButton data={data} />
           </div>
         </div>

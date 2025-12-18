@@ -83,8 +83,9 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setFontSize(16);
   doc.setTextColor(0, 0, 0);
   const formattedDate = formatDate(data.date, lang);
-  const proposalTitle = `${t('proposal')} - ${formattedDate} by ${data.companyName}`;
-  doc.text(proposalTitle, 20, 50);
+  const proposalTitle = `${t('proposal')} - ${formattedDate}`;
+  const titleLines = doc.splitTextToSize(proposalTitle, 170);
+  doc.text(titleLines, 20, 50);
   
   let y = 55;
   
@@ -201,12 +202,38 @@ export async function generateClientPDF(data: SolarLead): Promise<Blob> {
   doc.setTextColor(0, 0, 0);
   y += 8;
   
-  if (data.proposalConditions && y < 245) {
+  const FOOTER_START = 270;
+  const MIN_SPACE_FOR_SIGNATURE = 30;
+  const MIN_SPACE_FOR_CONDITIONS = 10;
+  
+  if (data.proposalConditions && y < (FOOTER_START - MIN_SPACE_FOR_CONDITIONS)) {
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
     const conditionLines = doc.splitTextToSize(data.proposalConditions, 170);
-    const maxLines = Math.floor((245 - y) / 4.5);
-    doc.text(conditionLines.slice(0, maxLines), 20, y);
+    const availableSpace = FOOTER_START - MIN_SPACE_FOR_SIGNATURE - y;
+    const maxLines = Math.floor(availableSpace / 4.5);
+    if (maxLines > 0) {
+      doc.text(conditionLines.slice(0, maxLines), 20, y);
+      y += (Math.min(conditionLines.length, maxLines) * 4.5) + 5;
+    }
+  }
+  
+  if (data.clientSignature && y < (FOOTER_START - MIN_SPACE_FOR_SIGNATURE)) {
+    try {
+      doc.setFontSize(9);
+      doc.setTextColor(0, 0, 0);
+      const clientNameText = `${t('clientName')}: ${data.clientName}`;
+      const nameLines = doc.splitTextToSize(clientNameText, 170);
+      doc.text(nameLines, 20, y);
+      y += 6;
+      doc.addImage(data.clientSignature, 'PNG', 20, y, 50, 15);
+      y += 17;
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text(`${t('date')}: ${formatDate(data.date, lang)}`, 20, y);
+    } catch (error) {
+      console.error('Failed to add signature:', error instanceof Error ? error.message : 'Unknown error');
+    }
   }
   
   doc.setDrawColor(200, 200, 200);
@@ -237,9 +264,9 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   
   doc.setFontSize(9);
   doc.setTextColor(100, 100, 100);
-  doc.text(`${t('pdfLeadId')}: ${data.id.slice(0, 8)}`, 20, 51);
+  doc.text(`${t('pdfLeadId')}: ${data.id.slice(0, 8)}`, 20, 57);
   
-  const startY = 60;
+  const startY = 65;
   doc.setFontSize(14);
   doc.setTextColor(0, 0, 0);
   doc.setFont('helvetica', 'bold');
@@ -306,32 +333,38 @@ export async function generateSellerPDF(data: SolarLead): Promise<Blob> {
   if (data.utilityProvider) { doc.text(`${t('utilityProvider')}: ${data.utilityProvider}`, 20, y); y += 6; }
   if (data.avgKwhPerMonth) { doc.text(`${t('avgKwhPerMonth')}: ${data.avgKwhPerMonth}`, 20, y); y += 6; }
   
-  const MAX_PRODUCT_DESC_Y = 210;
-  const MAX_NOTES_Y = 235;
+  const FOOTER_START = 270;
   const TEXT_WIDTH = 170;
   const LINE_HEIGHT = 4.5;
+  const MIN_FOOTER_SPACE = 10;
   
-  if (data.productDescription && y < MAX_PRODUCT_DESC_Y) {
+  if (data.productDescription && y < (FOOTER_START - 30)) {
     y += 5;
     doc.setFontSize(14);
     doc.text(t('productDescription'), 20, y);
     y += 8;
     doc.setFontSize(9);
     const descLines = doc.splitTextToSize(data.productDescription, TEXT_WIDTH);
-    const maxDescLines = Math.floor((235 - y) / LINE_HEIGHT);
-    doc.text(descLines.slice(0, maxDescLines), 20, y);
-    y += (Math.min(descLines.length, maxDescLines) * LINE_HEIGHT) + 5;
+    const availableSpace = FOOTER_START - MIN_FOOTER_SPACE - y;
+    const maxDescLines = Math.floor(availableSpace / LINE_HEIGHT);
+    if (maxDescLines > 0) {
+      doc.text(descLines.slice(0, maxDescLines), 20, y);
+      y += (Math.min(descLines.length, maxDescLines) * LINE_HEIGHT) + 5;
+    }
   }
   
-  if (data.notes && y < MAX_NOTES_Y) {
+  if (data.notes && y < (FOOTER_START - 20)) {
     y += 5;
     doc.setFontSize(14);
     doc.text(t('notes'), 20, y);
     y += 8;
     doc.setFontSize(9);
     const lines = doc.splitTextToSize(data.notes, TEXT_WIDTH);
-    const maxLines = Math.floor((260 - y) / LINE_HEIGHT);
-    doc.text(lines.slice(0, maxLines), 20, y);
+    const availableSpace = FOOTER_START - MIN_FOOTER_SPACE - y;
+    const maxLines = Math.floor(availableSpace / LINE_HEIGHT);
+    if (maxLines > 0) {
+      doc.text(lines.slice(0, maxLines), 20, y);
+    }
   }
   
   doc.setDrawColor(200, 200, 200);
