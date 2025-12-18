@@ -39,6 +39,11 @@ const addCompanyHeader = async (doc: any, data: SolarLead, lang: Language, t: (k
   doc.setFont('helvetica', 'bold');
   doc.text(`${t('pdfCompany')} ${data.companyName}`, 20, 15);
   
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 255);
+  doc.setFont('helvetica', 'normal');
+  doc.textWithLink('solarclose.pages.dev', 190, 15, { align: 'right', url: 'https://solarclose.pages.dev' });
+  
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(60, 60, 60);
