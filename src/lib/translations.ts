@@ -208,6 +208,7 @@ type TranslationKeys = {
   captureSignature: string;
   signatureCaptured: string;
   clear: string;
+  scanToVisit: string;
 };
 
 export const translations: Record<string, TranslationKeys> = {
@@ -421,6 +422,7 @@ export const translations: Record<string, TranslationKeys> = {
     captureSignature: 'Signature',
     signatureCaptured: 'Signed',
     clear: 'Clear',
+    scanToVisit: 'Scan to visit SolarClose',
   },
   es: {
     title: 'SolarClose',
@@ -632,6 +634,7 @@ export const translations: Record<string, TranslationKeys> = {
     captureSignature: 'Firma',
     signatureCaptured: 'Firmado',
     clear: 'Limpiar',
+    scanToVisit: 'Escanea para visitar SolarClose',
   },
   it: {
     title: 'SolarClose',
@@ -843,6 +846,7 @@ export const translations: Record<string, TranslationKeys> = {
     captureSignature: 'Firma',
     signatureCaptured: 'Firmato',
     clear: 'Cancella',
+    scanToVisit: 'Scansiona per visitare SolarClose',
   },
   fr: {
     title: 'SolarClose',
@@ -1054,6 +1058,7 @@ export const translations: Record<string, TranslationKeys> = {
     captureSignature: 'Signature',
     signatureCaptured: 'Signé',
     clear: 'Effacer',
+    scanToVisit: 'Scannez pour visiter SolarClose',
   },
   de: {
     title: 'SolarClose',
@@ -1265,6 +1270,7 @@ export const translations: Record<string, TranslationKeys> = {
     captureSignature: 'Unterschrift',
     signatureCaptured: 'Unterschrieben',
     clear: 'Löschen',
+    scanToVisit: 'Scannen Sie, um SolarClose zu besuchen',
   },
 };
 

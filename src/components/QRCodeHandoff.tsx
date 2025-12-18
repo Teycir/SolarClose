@@ -63,38 +63,8 @@ export function QRCodeHandoff({ data }: QRCodeHandoffProps) {
               />
             </div>
             
-            <p className="text-sm text-center font-semibold mb-3">
-              Scan to visit SolarClose
-            </p>
-            
-            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
-              <p className="text-xs font-semibold mb-2">Client will enter:</p>
-              <div className="space-y-1 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Name:</span>
-                  <span className="font-medium">{data.clientName}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">System Size:</span>
-                  <span className="font-medium">{data.systemSizeKw} kW</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">System Cost:</span>
-                  <span className="font-medium">${data.systemCost.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Monthly Bill:</span>
-                  <span className="font-medium">${data.currentMonthlyBill}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Company:</span>
-                  <span className="font-medium">{data.companyName}</span>
-                </div>
-              </div>
-            </div>
-            
-            <p className="text-xs text-center text-muted-foreground">
-              Client scans QR → Opens website → Enters values above
+            <p className="text-sm text-center font-semibold">
+              {t('scanToVisit')}
             </p>
           </div>
         </div>

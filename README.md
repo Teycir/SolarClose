@@ -27,6 +27,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 ## 🚀 Complete Feature List
 
 ### **Core Sales Features**
+
 ✅ **100% Offline Operation** - Close deals in basements, rural areas, or anywhere without signal  
 ✅ **Instant ROI Calculations** - Show 25-year savings in real-time. Zero loading screens  
 ✅ **Privacy Guaranteed** - Your leads live on your device. We never see them  
@@ -36,6 +37,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 ✅ **Lead Search & Filter** - Instantly find customers by name or address
 
 ### **Financial Analysis**
+
 💰 **Monthly Payment Comparison** - Old utility bill vs. Solar + Loan payment side-by-side  
 💰 **25-Year Savings Projection** - Total lifetime savings with visual timeline chart  
 💰 **Break-Even Point (ROI)** - Highlighted on timeline showing when system pays for itself  
@@ -46,6 +48,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 💰 **Panel Degradation** - 0.5% annual output decline built-in
 
 ### **Technical Calculations**
+
 ⚡ **System Sizing** - Input system size in kW with automatic production estimates  
 ⚡ **Real Efficiency Derating** - 80% derating (weather/shade/inverter loss)  
 ⚡ **Annual Production** - kWh/year based on system size and location factors  
@@ -53,6 +56,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 ⚡ **Environmental Impact** - CO₂ offset and trees planted equivalent calculations
 
 ### **Multi-Language Support**
+
 🌍 **5 Complete Languages** - English, Spanish, Italian, French, German  
 🌍 **Localized PDFs** - Client proposals in customer's native language  
 🌍 **Currency Formatting** - Automatic $/€ based on language  
@@ -61,6 +65,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 🌍 **Instant Switching** - One-click language toggle in top-left corner
 
 ### **User Experience**
+
 🎨 **Glass-Morphism Design** - Modern, professional interface that looks expensive  
 🎨 **Animated Counters** - Smooth number animations for savings displays  
 🎨 **Progress Bars** - Visual indicators for system offset and ROI  
@@ -69,15 +74,17 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 🎨 **Dark Mode Ready** - Beautiful on any device in any lighting
 
 ### **Data Management**
-💾 **Auto-Save** - Every input automatically saved to local storage  
-💾 **JSON Backup/Restore** - Export all leads to universal JSON format  
-💾 **Import Leads** - Restore from backup or migrate devices  
-💾 **Delete Leads** - Individual lead deletion with confirmation  
-💾 **QR Code Handoff** - Generate QR codes for clients to view proposals on their devices  
-💾 **Digital Signatures** - Capture client signatures with touch/mouse (native Canvas, no libraries)  
+
+💾 **Auto-Save** - Every input automatically saved to local storage
+💾 **JSON Backup/Restore** - Export all leads to universal JSON format
+💾 **Import Leads** - Restore from backup or migrate devices
+💾 **Delete Leads** - Individual lead deletion with confirmation
+💾 **QR Code Handoff** - Generate QR codes linking to SolarClose website
+💾 **Digital Signatures** - Capture client signatures with touch/mouse (native Canvas, no libraries)
 💾 **No Cloud Dependency** - All data stays on your device forever
 
 ### **PDF Export**
+
 📄 **Dual PDF Generation** - Client proposal + Technical sales sheet  
 📄 **Branded Design** - Professional layout with your company info  
 📄 **Multi-Language PDFs** - Proposals in customer's language  
@@ -86,6 +93,7 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 📄 **Instant Download** - No server processing, generated in-browser
 
 ### **Progressive Web App (PWA)**
+
 📲 **Install to Home Screen** - Works like a native app  
 📲 **Offline-First Architecture** - Full functionality without internet  
 📲 **Fast Loading** - Instant startup, no server delays  
@@ -123,9 +131,9 @@ Click **"Export PDF"** to generate:
 
 Or click **"📱 QR Code"** to:
 
-- **Instant Handoff:** Generate a QR code the client can scan
-- **Mobile-Friendly:** Client views proposal on their own device
-- **Take Home:** They can review with family without paper
+- **Instant Handoff:** Generate a QR code linking to SolarClose website
+- **Mobile-Friendly:** Client scans to visit the site on their device
+- **Easy Access:** Quick way to share the calculator with prospects
 
 ### **5. Track & Follow Up**
 
