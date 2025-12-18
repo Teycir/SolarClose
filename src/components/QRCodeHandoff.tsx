@@ -17,40 +17,8 @@ export function QRCodeHandoff({ data }: QRCodeHandoffProps) {
 
   const canGenerate = data.clientName.trim() && data.address.trim();
 
-  const generateShareableData = () => {
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://solarclose.pages.dev';
-    const shareData = {
-      clientName: data.clientName,
-      address: data.address,
-      systemSizeKw: data.systemSizeKw,
-      systemCost: data.systemCost,
-      currentMonthlyBill: data.currentMonthlyBill,
-      electricityRate: data.electricityRate,
-      sunHoursPerDay: data.sunHoursPerDay,
-      yearlyInflationRate: data.yearlyInflationRate,
-      federalTaxCredit: data.federalTaxCredit,
-      stateIncentive: data.stateIncentive,
-      twentyFiveYearSavings: data.twentyFiveYearSavings,
-      breakEvenYear: data.breakEvenYear,
-      companyName: data.companyName,
-      companyPhone: data.companyPhone,
-      salesRep: data.salesRep,
-      productDescription: (data.productDescription || '').substring(0, 200),
-      proposalConditions: (data.proposalConditions || '').substring(0, 200),
-      language: data.language,
-      currency: data.currency,
-      date: data.date,
-    };
-    
-    const encoded = btoa(JSON.stringify(shareData));
-    const url = `${baseUrl}?data=${encoded}`;
-    
-    // Warn if URL is too long (most browsers support 2000+ chars)
-    if (url.length > 1800) {
-      console.warn('QR code URL is long:', url.length, 'characters');
-    }
-    
-    return url;
+  const getWebsiteUrl = () => {
+    return typeof window !== 'undefined' ? window.location.origin : 'https://solarclose.pages.dev';
   };
 
   return (
@@ -88,36 +56,46 @@ export function QRCodeHandoff({ data }: QRCodeHandoffProps) {
             
             <div className="bg-white p-4 rounded-lg mb-4 flex justify-center">
               <QRCodeSVG 
-                value={generateShareableData()} 
+                value={getWebsiteUrl()} 
                 size={256}
-                level="H"
+                level="M"
                 includeMargin={true}
               />
             </div>
             
-            <p className="text-sm text-center text-muted-foreground mb-4">
-              {t('qrCodeInstructions')}
+            <p className="text-sm text-center font-semibold mb-3">
+              Scan to visit SolarClose
             </p>
             
-            <div className="text-xs text-center text-muted-foreground">
-              <p className="font-semibold mb-1">{t('qrCodeIncluded')}:</p>
-              <ul className="list-disc list-inside text-left">
-                <li>{t('clientName')}: {data.clientName}</li>
-                <li>{t('systemSize')}: {data.systemSizeKw} kW</li>
-                <li>{t('twentyFiveYearSavings')}</li>
-                <li>{t('companyName')}: {data.companyName}</li>
-              </ul>
-              <button
-                onClick={() => {
-                  const url = generateShareableData();
-                  navigator.clipboard.writeText(url);
-                  alert('URL copied! You can paste it in a browser to test.');
-                }}
-                className="mt-2 text-xs underline hover:opacity-70"
-              >
-                Copy test URL
-              </button>
+            <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-4">
+              <p className="text-xs font-semibold mb-2">Client will enter:</p>
+              <div className="space-y-1 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Name:</span>
+                  <span className="font-medium">{data.clientName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">System Size:</span>
+                  <span className="font-medium">{data.systemSizeKw} kW</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">System Cost:</span>
+                  <span className="font-medium">${data.systemCost.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Monthly Bill:</span>
+                  <span className="font-medium">${data.currentMonthlyBill}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Company:</span>
+                  <span className="font-medium">{data.companyName}</span>
+                </div>
+              </div>
             </div>
+            
+            <p className="text-xs text-center text-muted-foreground">
+              Client scans QR → Opens website → Enters values above
+            </p>
           </div>
         </div>
       )}

@@ -127,16 +127,54 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const lang = urlParams.get('lang') || 'en';
-        const titles = {en: 'How to Use SolarClose', es: 'Cómo Usar SolarClose', it: 'Come Usare SolarClose', fr: 'Comment Utiliser SolarClose', de: 'So Verwenden Sie SolarClose'};
-        const backText = {en: '← Back to Calculator', es: '← Volver a la Calculadora', it: '← Torna al Calcolatore', fr: '← Retour au Calculateur', de: '← Zurück zum Rechner'};
-        document.title = titles[lang] || titles.en;
+        const content = {
+            en: {
+                title: 'How to Use SolarClose',
+                subtitle: 'Your complete guide to closing solar deals faster',
+                gettingStarted: 'Getting Started',
+                intro: 'SolarClose is designed to be intuitive and fast. Here\'s everything you need to know to start closing deals.',
+                qrDesc: 'Click the QR Code button to show a QR code that clients can scan. The QR opens the SolarClose website and displays the key values (name, system size, cost, monthly bill) that the client should manually enter to see their proposal.'
+            },
+            es: {
+                title: 'Cómo Usar SolarClose',
+                subtitle: 'Tu guía completa para cerrar ventas solares más rápido',
+                gettingStarted: 'Comenzando',
+                intro: 'SolarClose está diseñado para ser intuitivo y rápido. Aquí está todo lo que necesitas saber para comenzar a cerrar ventas.',
+                qrDesc: 'Haz clic en el botón de Código QR para mostrar un código QR que los clientes pueden escanear. El QR abre el sitio web de SolarClose y muestra los valores clave (nombre, tamaño del sistema, costo, factura mensual) que el cliente debe ingresar manualmente para ver su propuesta.'
+            },
+            it: {
+                title: 'Come Usare SolarClose',
+                subtitle: 'La tua guida completa per chiudere affari solari più velocemente',
+                gettingStarted: 'Iniziare',
+                intro: 'SolarClose è progettato per essere intuitivo e veloce. Ecco tutto ciò che devi sapere per iniziare a chiudere affari.',
+                qrDesc: 'Fai clic sul pulsante Codice QR per mostrare un codice QR che i clienti possono scansionare. Il QR apre il sito web SolarClose e visualizza i valori chiave (nome, dimensione del sistema, costo, bolletta mensile) che il cliente deve inserire manualmente per vedere la proposta.'
+            },
+            fr: {
+                title: 'Comment Utiliser SolarClose',
+                subtitle: 'Votre guide complet pour conclure des ventes solaires plus rapidement',
+                gettingStarted: 'Commencer',
+                intro: 'SolarClose est conçu pour être intuitif et rapide. Voici tout ce que vous devez savoir pour commencer à conclure des ventes.',
+                qrDesc: 'Cliquez sur le bouton Code QR pour afficher un code QR que les clients peuvent scanner. Le QR ouvre le site Web SolarClose et affiche les valeurs clés (nom, taille du système, coût, facture mensuelle) que le client doit saisir manuellement pour voir sa proposition.'
+            },
+            de: {
+                title: 'So Verwenden Sie SolarClose',
+                subtitle: 'Ihr vollständiger Leitfaden zum schnelleren Abschluss von Solargeschäften',
+                gettingStarted: 'Erste Schritte',
+                intro: 'SolarClose ist intuitiv und schnell konzipiert. Hier ist alles, was Sie wissen müssen, um Geschäfte abzuschließen.',
+                qrDesc: 'Klicken Sie auf die QR-Code-Schaltfläche, um einen QR-Code anzuzeigen, den Kunden scannen können. Der QR öffnet die SolarClose-Website und zeigt die Schlüsselwerte (Name, Systemgröße, Kosten, monatliche Rechnung) an, die der Kunde manuell eingeben sollte, um seinen Vorschlag zu sehen.'
+            }
+        };
+        const t = content[lang] || content.en;
+        document.title = t.title;
     </script>
     <div class="container">
-        <h1>📖 How to Use SolarClose</h1>
-        <p><em>Your complete guide to closing solar deals faster</em></p>
+        <h1 id="mainTitle">📖 How to Use SolarClose</h1>
+        <p><em id="subtitle">Your complete guide to closing solar deals faster</em></p>
+        <script>document.getElementById('mainTitle').textContent = '📖 ' + t.title; document.getElementById('subtitle').textContent = t.subtitle;</script>
 
-        <h2>Getting Started</h2>
-        <p>SolarClose is designed to be intuitive and fast. Here's everything you need to know to start closing deals.</p>
+        <h2 id="gettingStartedTitle">Getting Started</h2>
+        <p id="introText">SolarClose is designed to be intuitive and fast. Here's everything you need to know to start closing deals.</p>
+        <script>document.getElementById('gettingStartedTitle').textContent = t.gettingStarted; document.getElementById('introText').textContent = t.intro;</script>
 
         <div class="step">
             <h3><span class="step-number">1</span>Create a New Lead</h3>
@@ -219,7 +257,8 @@
         <p>Click <span class="button-example">💾 Backup</span> to download all your leads as a JSON file. You can restore this backup later or transfer to another device.</p>
 
         <h3>📱 QR Code Handoff</h3>
-        <p>Click <span class="button-example">📱 QR Code</span> to generate a QR code that clients can scan with their phone. They'll see the proposal on their own device and can review it with family at home.</p>
+        <p id="qrDescription">Click <span class="button-example">📱 QR Code</span> to show a QR code that clients can scan with their phone. The QR opens the SolarClose website and displays the key values (name, system size, cost, monthly bill) that the client should manually enter to see their proposal.</p>
+        <script>document.getElementById('qrDescription').innerHTML = t.qrDesc.replace('QR Code button', '<span class="button-example">📱 QR Code</span>');</script>
 
         <h3>✍️ Digital Signatures</h3>
         <p>Capture client signatures directly in the app using touch or mouse. Signatures are saved with the lead and included in PDF exports.</p>
@@ -278,6 +317,7 @@
 
         <a href="/" class="back-link" id="backLink">← Back to Calculator</a>
         <script>
+            const backText = {en: '← Back to Calculator', es: '← Volver a la Calculadora', it: '← Torna al Calcolatore', fr: '← Retour au Calculateur', de: '← Zurück zum Rechner'};
             document.getElementById('backLink').textContent = backText[lang] || backText.en;
         </script>
     </div>

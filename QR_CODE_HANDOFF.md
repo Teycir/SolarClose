@@ -2,108 +2,85 @@
 
 ## Overview
 
-Generate QR codes that clients can scan to view their solar proposal on their own device. Zero backend, pure client-side data encoding.
-
-## Features
-
-✅ **One Library** - Only `qrcode.react` (~3KB)  
-✅ **No Backend** - Data encoded in URL  
-✅ **Offline-Ready** - Works after initial load  
-✅ **Multi-Language** - Preserves language preference  
-✅ **Privacy-First** - No tracking, no server storage  
+Simple QR code that directs clients to the SolarClose website. The modal displays the website URL and shows clients exactly what values to enter.
 
 ## How It Works
 
-### For Sales Reps
+### For Sales Representatives
 
-1. **Fill Lead Details**: Enter client information
-2. **Click "📱 QR Code"**: Opens QR modal
-3. **Show to Client**: Display QR on screen
-4. **Client Scans**: Opens proposal on their phone
+1. Fill in client details and system information
+2. Click "📱 QR Code" button
+3. Show the modal to client
+4. Client scans QR code
 
-### Technical Implementation
+### For Clients
 
-**Data Encoding**
-```typescript
-const shareData = {
-  clientName, address, systemSizeKw, systemCost,
-  currentMonthlyBill, twentyFiveYearSavings,
-  breakEvenYear, companyName, companyPhone,
-  salesRep, language, currency
-};
-const encoded = btoa(JSON.stringify(shareData));
-const url = `${baseUrl}?data=${encoded}`;
-```
+1. Scan QR code with phone camera
+2. Website opens automatically
+3. Enter the values shown in the modal:
+   - Name
+   - System Size (kW)
+   - System Cost
+   - Monthly Bill
+   - Company Name
+4. View savings calculations
 
-**QR Generation**
-- Library: `qrcode.react`
-- Format: SVG (scalable)
-- Size: 256x256px
-- Error correction: Level H (30% recovery)
+## What's in the Modal
 
-**Data Loading**
-- URL params parsed on page load
-- Data auto-populated into form
-- URL cleared after load for privacy
+- **QR Code**: Scans to https://solarclose.pages.dev
+- **Instructions**: "Client will enter:"
+- **Key Values**:
+  - Client Name
+  - System Size (kW)
+  - System Cost ($)
+  - Monthly Bill ($)
+  - Company Name
+- **Flow**: "Client scans QR → Opens website → Enters values above"
 
-## Code Size
+## Benefits
 
-- `QRCodeHandoff.tsx`: ~100 lines
-- URL handler in `page.tsx`: ~15 lines
-- Translations: 5 keys × 5 languages = 25 lines
-- **Total: ~140 lines + 3KB library**
+✅ **Always Works** - Simple URL, no encoding issues  
+✅ **Clear Instructions** - Client sees exactly what to enter  
+✅ **No Complexity** - Just a website URL  
+✅ **Smaller QR** - Easier to scan  
+✅ **Privacy** - No data in URL  
 
-## URL Length
+## Technical Details
 
-**Typical Lead**: 500-1,000 characters  
-**Browser Limit**: 2,000-8,000 characters  
-**Mitigation**: Only essential fields encoded  
-**Future**: Add lz-string compression if needed (3KB, saves 50-70%)
+**QR Code Contains**: Only the website URL (https://solarclose.pages.dev)  
+**Format**: SVG  
+**Error Correction**: Medium (Level M)  
+**Size**: 256x256 pixels  
+**Library**: qrcode.react  
 
 ## Use Cases
 
-### 1. Door-to-Door Sales
-Show QR on tablet, client scans and reviews at home with family.
+1. **Door-to-Door**: Show QR, client scans and enters values
+2. **Trade Shows**: Quick website access for prospects
+3. **Follow-Ups**: Share updated proposal values
+4. **Website Sharing**: Fastest way to get clients to the site
 
-### 2. Trade Shows
-Quick handoff without paper or email collection.
+## Why This Approach?
 
-### 3. Follow-Ups
-Resend updated proposals instantly via new QR code.
+**Old Way** (Removed):
+- Encoded 20+ fields in URL
+- Complex base64 encoding
+- URL length issues
+- Unreliable
 
-### 4. Multi-Language Markets
-QR preserves language, Spanish clients see Spanish interface.
-
-## Privacy & Security
-
-- **No Server Storage**: Data in URL only
-- **No Tracking**: No analytics on scans
-- **Client-Side Only**: All processing in browser
-- **Temporary**: URL params cleared after load
-
-## Browser Compatibility
-
-- ✅ iOS Safari (native QR scanning)
-- ✅ Android Chrome (native QR scanning)
-- ✅ All modern browsers
+**New Way** (Simple):
+- Just website URL
+- Manual entry
+- Always works
+- Clear and transparent
 
 ## Troubleshooting
 
-**QR Won't Scan**
-- Increase screen brightness
-- Hold phone 6-12 inches away
+**QR Won't Scan**:
 - Ensure good lighting
+- Hold phone 6-12 inches from screen
+- Increase screen brightness
 
-**Data Not Loading**
+**Website Doesn't Open**:
 - Check internet connection
-- Verify all required fields filled
-
-**URL Too Long Error**
-- Reduce notes/description length
-- Contact support for compression option
-
-## Support
-
-For issues or questions:
-- Contact: https://teycirbensoltane.tn
-- See: [README.md](README.md) for general info
+- Type URL manually: https://solarclose.pages.dev

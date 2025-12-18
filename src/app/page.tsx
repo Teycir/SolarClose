@@ -29,20 +29,7 @@ import type { SolarLead } from "@/types/solar";
 const generateLeadId = () => `lead-${Date.now()}`;
 
 export default function Home() {
-  // Check for QR data immediately and set initial lead ID
-  const getInitialLeadId = () => {
-    if (typeof window === 'undefined') return 'default-lead';
-    const urlParams = new URLSearchParams(window.location.search);
-    const encodedData = urlParams.get('data');
-    if (encodedData) {
-      console.log('QR data detected on initial load');
-      sessionStorage.setItem('qr-data', encodedData);
-      return generateLeadId();
-    }
-    return 'default-lead';
-  };
-  
-  const [currentLeadId, setCurrentLeadId] = useState(getInitialLeadId);
+  const [currentLeadId, setCurrentLeadId] = useState("default-lead");
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{
@@ -58,35 +45,7 @@ export default function Home() {
   const t = (key: string) => getTranslation(lang, key as TranslationKey);
   const isDefaultLead = currentLeadId === "default-lead";
 
-  // Clear URL params after QR data is stored
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('data')) {
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, []);
 
-  // Apply QR data once lead is ready
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (currentLeadId === 'default-lead') return;
-    if (!data) return;
-    
-    const encodedData = sessionStorage.getItem('qr-data');
-    
-    if (encodedData) {
-      try {
-        console.log('Applying QR data to new lead...', { leadId: currentLeadId, hasData: !!data });
-        const decoded = JSON.parse(atob(encodedData));
-        setData(decoded as Partial<SolarLead>);
-        sessionStorage.removeItem('qr-data');
-        console.log('QR data applied successfully', decoded);
-      } catch (error) {
-        console.error('Failed to apply QR data:', error);
-      }
-    }
-  }, [data, currentLeadId, setData]);
 
   // Auto-recalculate when inputs change
   const shouldRecalculate = useCallback(() => {
