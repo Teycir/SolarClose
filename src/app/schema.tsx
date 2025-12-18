@@ -27,8 +27,18 @@ export function StructuredData() {
       'PDF proposal generation',
       '25-year savings calculation',
       'ROI calculator',
-      'Multi-language support',
+      'Multi-language support (EN/ES/IT/FR/DE)',
       'No signup required',
+      'Privacy-first local storage',
+      'Works on any device',
+    ],
+    inLanguage: ['en', 'es', 'it', 'fr', 'de'],
+    availableLanguage: [
+      { '@type': 'Language', name: 'English', alternateName: 'en' },
+      { '@type': 'Language', name: 'Spanish', alternateName: 'es' },
+      { '@type': 'Language', name: 'Italian', alternateName: 'it' },
+      { '@type': 'Language', name: 'French', alternateName: 'fr' },
+      { '@type': 'Language', name: 'German', alternateName: 'de' },
     ],
   };
 

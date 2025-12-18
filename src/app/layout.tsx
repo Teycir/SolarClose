@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://solarclose.pages.dev'),
   title: 'SolarClose - Free Solar Proposal Tool for Sales Reps | Works Offline',
   description: 'Free solar proposal calculator for sales reps. Generate professional PDF proposals instantly. Works offline, no signup required. Calculate 25-year savings, ROI, and payback period on any device.',
-  keywords: ['solar calculator', 'solar proposal tool', 'solar sales software', 'solar ROI calculator', 'solar savings calculator', 'offline solar tool', 'solar panel calculator', 'solar proposal generator', 'free solar calculator', 'solar sales tool'],
+  keywords: ['solar calculator', 'solar proposal tool', 'solar sales software', 'solar ROI calculator', 'solar savings calculator', 'offline solar tool', 'solar panel calculator', 'solar proposal generator', 'free solar calculator', 'solar sales tool', 'calculadora solar', 'calculateur solaire', 'calcolatore solare', 'Solarrechner', 'herramienta propuesta solar', 'outil proposition solaire', 'strumento proposta solare', 'Solar-Angebots-Tool'],
   authors: [{ name: 'Teycir Ben Soltane', url: 'https://teycirbensoltane.tn' }],
   creator: 'Teycir Ben Soltane',
   publisher: 'SolarClose',
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
     url: 'https://solarclose.pages.dev',
     siteName: 'SolarClose',
     locale: 'en_US',
+    alternateLocale: ['es_ES', 'it_IT', 'fr_FR', 'de_DE'],
     images: [{
       url: '/og-image.png',
       width: 1200,
@@ -58,6 +59,13 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://solarclose.pages.dev',
+    languages: {
+      'en-US': 'https://solarclose.pages.dev',
+      'es-ES': 'https://solarclose.pages.dev?lang=es',
+      'it-IT': 'https://solarclose.pages.dev?lang=it',
+      'fr-FR': 'https://solarclose.pages.dev?lang=fr',
+      'de-DE': 'https://solarclose.pages.dev?lang=de',
+    },
   },
 }
 
@@ -76,6 +84,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className="dark">
       <head>
         <StructuredData />
+        <link rel="alternate" hrefLang="en" href="https://solarclose.pages.dev" />
+        <link rel="alternate" hrefLang="es" href="https://solarclose.pages.dev?lang=es" />
+        <link rel="alternate" hrefLang="it" href="https://solarclose.pages.dev?lang=it" />
+        <link rel="alternate" hrefLang="fr" href="https://solarclose.pages.dev?lang=fr" />
+        <link rel="alternate" hrefLang="de" href="https://solarclose.pages.dev?lang=de" />
+        <link rel="alternate" hrefLang="x-default" href="https://solarclose.pages.dev" />
       </head>
       <body className={inter.className}>
         <ServiceWorkerManager />
