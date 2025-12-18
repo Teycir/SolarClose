@@ -507,6 +507,14 @@ export default function Home() {
               >
                 📊 {lang === 'en' ? 'Calculations' : lang === 'es' ? 'Cálculos' : lang === 'it' ? 'Calcoli' : lang === 'fr' ? 'Calculs' : 'Berechnungen'}
               </a>
+              <a
+                href={lang === 'fr' ? '/license-fr.html' : lang === 'es' ? '/license-es.html' : lang === 'it' ? '/license-it.html' : lang === 'de' ? '/license-de.html' : '/license-en.html'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                ⚖️ {lang === 'en' ? 'License' : lang === 'es' ? 'Licencia' : lang === 'it' ? 'Licenza' : lang === 'fr' ? 'Licence' : 'Lizenz'}
+              </a>
             </div>
           </div>
         </footer>
