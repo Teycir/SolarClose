@@ -478,7 +478,7 @@ export default function Home() {
           <div className="flex flex-col items-center gap-2">
             <div>
               <a
-                href="https://sendspark.com/share/ralisa93p7hmslj0mux88tborltwxqil"
+                href="https://sendspark.com/share/h9tfbqckmaqq824bnxo80tv6ykv09wjq7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-primary transition-colors"
