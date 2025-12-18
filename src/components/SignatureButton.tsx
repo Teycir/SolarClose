@@ -23,7 +23,7 @@ export function SignatureButton({ data, onUpdate }: SignatureButtonProps) {
 
   return (
     <>
-      <Tooltip text={data.clientSignature ? t('signatureCaptured') : t('captureSignature')}>
+      <Tooltip text={data.clientSignature ? t('signatureCaptured') : t('signatureTitle')}>
         <button
           onClick={() => setShowCapture(true)}
           className={`min-w-[80px] max-w-[100px] ${
