@@ -5,7 +5,7 @@
 ![Solar](https://img.shields.io/badge/Solar-Energy-facc15?style=flat-square)
 ![Privacy](https://img.shields.io/badge/Privacy-100%25_Local-green?style=flat-square)
 ![Offline](https://img.shields.io/badge/Offline-Ready-blue?style=flat-square)
-![License](https://img.shields.io/badge/License-Proprietary-red?style=flat-square)
+![License](https://img.shields.io/badge/License-BSL_1.1-orange?style=flat-square)
 
 🌟 **Start Using Now**: <https://solarclose.pages.dev>
 
@@ -13,12 +13,12 @@
 
 Most solar software runs in the cloud, meaning they own your leads. **SolarClose is different.** It runs entirely on your iPad/Laptop.
 
-**SolarClose is closed-source proprietary software.** All rights reserved.
+**SolarClose is open source software licensed under BSL 1.1.**
 
 - **Privacy First:** All data stays on your device. Zero data leaves your browser.
 - **Free Web Version:** Try it at <https://solarclose.pages.dev>
-- **Commercial Licensing:** Contact us for team deployment and white-label options.
-- **No Source Code Access:** This software is not open source. Unauthorized copying, modification, or reverse engineering is prohibited.
+- **Open Source:** View and modify the code under BSL 1.1 license
+- **Commercial Licensing:** Available for companies with $1M+ revenue
 
 📚 **Documentation**: [Features](FEATURES.md) | [Calculations](CALCULATIONS.md) | [PWA Setup](PWA_SETUP.md) | [QR Handoff](QR_CODE_HANDOFF.md) | [Signatures](SIGNATURE_CAPTURE.md)
 
@@ -210,29 +210,31 @@ _All calculations use industry-standard formulas and conservative assumptions._
 
 ## 📜 License & Pricing
 
-**SolarClose is closed-source proprietary software. All rights reserved.**
+**SolarClose is open source software licensed under the Business Source License 1.1 (BSL).**
 
-⚠️ **This software is NOT open source.** The source code is confidential and proprietary. Unauthorized access, copying, modification, distribution, or reverse engineering is strictly prohibited and may result in legal action.
+### 🆓 Free Use
 
-### 🆓 Free Web Version
-
-Use the hosted version at <https://solarclose.pages.dev>
-
-- **Cost:** Free to use
-- **Usage:** Individual sales reps and homeowners
-- **Limitations:** Web-based only, no white-labeling
+- **Personal Use:** Free forever
+- **Commercial Use:** Free for companies with less than $1M annual revenue
+- **Self-Hosting:** Allowed under BSL terms
+- **Modifications:** Allowed for internal use
 
 ### 🏢 Commercial License
 
-For Solar Companies, Dealers, and Teams:
+For companies with $1M+ annual revenue:
 
-- **Self-Hosted Deployment:** Run on your own infrastructure
 - **White-Label Branding:** Your company logo, colors, and domain
 - **Custom Features:** Pre-loaded incentives, loan products, and integrations
-- **Team Management:** Centralized deployment and updates
 - **Priority Support:** Direct technical assistance
+- **Commercial Rights:** Full commercial usage rights
 
 **[Contact us for Commercial Licensing](https://teycirbensoltane.tn)**
+
+### ⚖️ License Conversion
+
+After 4 years from release, the software automatically converts to the Apache 2.0 license, making it fully open source.
+
+See [LICENSE](LICENSE) for full terms.
 
 ---
 
@@ -244,27 +246,25 @@ For Solar Companies, Dealers, and Teams:
 - Works offline as a Progressive Web App (PWA)
 
 **Self-Hosted Deployment:**
-- Available with Commercial License only
-- Contact us for deployment documentation and support
+```bash
+git clone https://github.com/yourusername/solarclose.git
+cd solarclose
+npm install
+npm run build
+npm start
+```
 
 ---
 
 ## ⚖️ Legal Notice
 
-**SolarClose is closed-source proprietary software.**
+**SolarClose is licensed under the Business Source License 1.1 (BSL).**
 
-© 2025 SolarClose. All rights reserved.
+© 2025 SolarClose. Licensed under BSL 1.1.
 
-This software and its source code are proprietary and confidential. Unauthorized copying, distribution, modification, reverse engineering, decompilation, or disassembly is strictly prohibited and violates intellectual property laws.
+This software is open source under the Business Source License 1.1. You may use, modify, and distribute this software for non-production purposes or for companies with less than $1M annual revenue. After 4 years from release, the license automatically converts to Apache 2.0.
 
-**You may NOT:**
-- Access, view, or copy the source code
-- Modify, adapt, or create derivative works
-- Distribute, sublicense, or resell the software
-- Reverse engineer or decompile the application
-- Remove or alter any proprietary notices
-
-**Violations will be prosecuted to the fullest extent of the law.**
+**Commercial use by companies with $1M+ annual revenue requires a commercial license.**
 
 For licensing inquiries, contact: <https://teycirbensoltane.tn>
 
