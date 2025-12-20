@@ -35,6 +35,7 @@ export default function Home() {
   const [allLeads, setAllLeads] = useState<SolarLead[]>([]);
   const [showLeads, setShowLeads] = useState(false);
   const [showMode, setShowMode] = useState(false);
+  const [showAdministrative, setShowAdministrative] = useState(true);
   const [confirmDialog, setConfirmDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -482,23 +483,35 @@ export default function Home() {
             className={`hover:shadow-2xl transition-all duration-300 ${isDefaultLead ? "opacity-50 pointer-events-none" : ""}`}
           >
             <div className="bg-white/20 dark:bg-black/30 backdrop-blur-xl border border-white/30 rounded-lg p-4 sm:p-6 shadow-2xl">
-              <h2 className="text-lg sm:text-xl font-semibold mb-4">
-                {t("administrative")}
-              </h2>
-              <div className="space-y-4 sm:space-y-6">
-                <ClientInfoSection data={data} onUpdate={setData} />
-                <CompanyInfoSection data={data} onUpdate={setData} />
-                <PropertyFinancialSection data={data} onUpdate={setData} />
-              </div>
-              <div className="mt-6 flex justify-center">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg sm:text-xl font-semibold">
+                  {t("administrative")}
+                </h2>
                 <button
-                  onClick={handleSaveLead}
-                  disabled={isDefaultLead || justSaved}
-                  className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  onClick={() => setShowAdministrative(!showAdministrative)}
+                  className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1"
                 >
-                  {justSaved ? `✓ ${t("saved")}` : `💾 ${t("saveLead")}`}
+                  {showAdministrative ? `▼ ${t('hide')}` : `▶ ${t('show')}`}
                 </button>
               </div>
+              {showAdministrative && (
+                <>
+                  <div className="space-y-4 sm:space-y-6">
+                    <ClientInfoSection data={data} onUpdate={setData} />
+                    <CompanyInfoSection data={data} onUpdate={setData} />
+                    <PropertyFinancialSection data={data} onUpdate={setData} />
+                  </div>
+                  <div className="mt-6 flex justify-center">
+                    <button
+                      onClick={handleSaveLead}
+                      disabled={isDefaultLead || justSaved}
+                      className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-600 text-black font-semibold py-3 px-8 rounded-lg transition-all shadow-md shimmer-button disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                    >
+                      {justSaved ? `✓ ${t("saved")}` : `💾 ${t("saveLead")}`}
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
