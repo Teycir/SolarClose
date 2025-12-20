@@ -34,7 +34,10 @@ Most solar software runs in the cloud, meaning they own your leads. **SolarClose
 ✅ **Professional PDF Proposals** - Generate branded client proposals and technical sales sheets  
 ✅ **Quick Copy Summary** - One-click to copy formatted talking points for texting prospects  
 ✅ **Smart Lead Tracking** - "Last Contacted" timestamps prevent duplicate visits  
-✅ **Lead Search & Filter** - Instantly find customers by name or address
+✅ **Lead Search & Filter** - Instantly find customers by name or address  
+✅ **Show Mode** - Full-screen theatrical presentation for client reveals  
+✅ **Digital Signatures** - Capture client and sales rep signatures  
+✅ **Lead Notes** - Store detailed notes and comments on each lead
 
 ### **Financial Analysis**
 

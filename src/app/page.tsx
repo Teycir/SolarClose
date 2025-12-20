@@ -36,6 +36,7 @@ export default function Home() {
   const [showLeads, setShowLeads] = useState(false);
   const [showMode, setShowMode] = useState(false);
   const [showAdministrative, setShowAdministrative] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
   const [confirmDialog, setConfirmDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -396,8 +397,24 @@ export default function Home() {
                 {t('clearAll')}
               </button>
             </div>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={`${t('clientName')} / ${t('address')}`}
+              className="w-full px-3 py-2 mb-3 bg-white/10 dark:bg-black/20 rounded-lg border border-white/20 text-sm"
+            />
             <div className="space-y-2 max-h-60 overflow-y-auto">
-              {allLeads.map((lead) => (
+              {allLeads
+                .filter(lead => {
+                  if (!searchQuery) return true;
+                  const query = searchQuery.toLowerCase();
+                  return (
+                    (lead.clientName?.toLowerCase().includes(query)) ||
+                    (lead.address?.toLowerCase().includes(query))
+                  );
+                })
+                .map((lead) => (
                 <div key={lead.id} className="flex items-center gap-2">
                   <button
                     onClick={() => handleSelectLead(lead.id)}
