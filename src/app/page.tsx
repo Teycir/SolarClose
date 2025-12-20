@@ -300,14 +300,6 @@ export default function Home() {
             </div>
           </div>
           <a
-            href="https://sendspark.com/share/h9tfbqckmqq824bnxo80tv6ykv09wjq7"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm sm:text-base font-semibold hover:text-primary transition-colors whitespace-nowrap"
-          >
-            🎥 Demo
-          </a>
-          <a
             href="https://github.com/Teycir/SolarClose#readme"
             target="_blank"
             rel="noopener noreferrer"
